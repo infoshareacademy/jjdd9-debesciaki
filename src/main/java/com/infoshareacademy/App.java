@@ -1,10 +1,15 @@
 package com.infoshareacademy;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Hello world!
  */
 public class App {
+    private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+
+        STDOUT.info("Hello World!");
     }
 }
