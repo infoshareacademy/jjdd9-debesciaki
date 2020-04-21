@@ -1,0 +1,790 @@
+[
+  {
+    "id": 1,
+    "name": "kino"
+  },
+  {
+    "id": 101,
+    "name": "dokumentalny",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 102,
+    "name": "animowany",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 103,
+    "name": "familijny",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 104,
+    "name": "fantasy",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 105,
+    "name": "przygodowy",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 106,
+    "name": "akcja",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 107,
+    "name": "horror",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 108,
+    "name": "dramat",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 109,
+    "name": "thriller",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 110,
+    "name": "thriller szpiegowski",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 111,
+    "name": "katastroficzny",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 112,
+    "name": "science-fiction",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 113,
+    "name": "sensacja",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 114,
+    "name": "komedia",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 115,
+    "name": "melodramat",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 116,
+    "name": "western",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 117,
+    "name": "inne",
+    "root_category": {
+      "id": 1,
+      "name": "kino"
+    }
+  },
+  {
+    "id": 2,
+    "name": "teatr"
+  },
+  {
+    "id": 201,
+    "name": "dramatyczny",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 202,
+    "name": "komedia",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 203,
+    "name": "farsa",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 204,
+    "name": "opera",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 205,
+    "name": "operetka",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 206,
+    "name": "balet",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 207,
+    "name": "lalkowy",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 208,
+    "name": "uliczny",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 209,
+    "name": "tańca",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 210,
+    "name": "improwizowany",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 211,
+    "name": "muzyczny",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 212,
+    "name": "pantomima",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 213,
+    "name": "dla najmłodszych",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 214,
+    "name": "dla dzieci",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 215,
+    "name": "inne",
+    "root_category": {
+      "id": 2,
+      "name": "teatr"
+    }
+  },
+  {
+    "id": 3,
+    "name": "muzyka"
+  },
+  {
+    "id": 301,
+    "name": "poważna",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 302,
+    "name": " jazz",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 303,
+    "name": " rock",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 304,
+    "name": "metal",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 305,
+    "name": "alternatywa",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 306,
+    "name": "blues",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 307,
+    "name": "pop",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 308,
+    "name": "hip-hop",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 309,
+    "name": "elektronika",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 310,
+    "name": "techno",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 311,
+    "name": "folk/etno",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 312,
+    "name": "poezja śpiewana",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 313,
+    "name": "funk/soul/r'n'b",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 314,
+    "name": "muzyka dawna",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 315,
+    "name": "inne",
+    "root_category": {
+      "id": 3,
+      "name": "muzyka"
+    }
+  },
+  {
+    "id": 4,
+    "name": "sztuka"
+  },
+  {
+    "id": 401,
+    "name": "fotografia",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 402,
+    "name": "grafika",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 403,
+    "name": "rzeźba",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 404,
+    "name": " malarstwo",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 405,
+    "name": " performance",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 406,
+    "name": "instalacja",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 407,
+    "name": "video-art",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 408,
+    "name": "street art",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 409,
+    "name": "inne",
+    "root_category": {
+      "id": 4,
+      "name": "sztuka"
+    }
+  },
+  {
+    "id": 5,
+    "name": "literatura"
+  },
+  {
+    "id": 501,
+    "name": "komiks",
+    "root_category": {
+      "id": 5,
+      "name": "literatura"
+    }
+  },
+  {
+    "id": 502,
+    "name": "reportaż",
+    "root_category": {
+      "id": 5,
+      "name": "literatura"
+    }
+  },
+  {
+    "id": 503,
+    "name": "podróże",
+    "root_category": {
+      "id": 5,
+      "name": "literatura"
+    }
+  },
+  {
+    "id": 504,
+    "name": "faktu",
+    "root_category": {
+      "id": 5,
+      "name": "literatura"
+    }
+  },
+  {
+    "id": 505,
+    "name": "poezja",
+    "root_category": {
+      "id": 5,
+      "name": "literatura"
+    }
+  },
+  {
+    "id": 506,
+    "name": "fantastyka",
+    "root_category": {
+      "id": 5,
+      "name": "literatura"
+    }
+  },
+  {
+    "id": 507,
+    "name": "piękna",
+    "root_category": {
+      "id": 5,
+      "name": "literatura"
+    }
+  },
+  {
+    "id": 6,
+    "name": "rozrywka"
+  },
+  {
+    "id": 601,
+    "name": "karaoke",
+    "root_category": {
+      "id": 6,
+      "name": "rozrywka"
+    }
+  },
+  {
+    "id": 602,
+    "name": "disco",
+    "root_category": {
+      "id": 6,
+      "name": "rozrywka"
+    }
+  },
+  {
+    "id": 603,
+    "name": "taniec",
+    "root_category": {
+      "id": 6,
+      "name": "rozrywka"
+    }
+  },
+  {
+    "id": 604,
+    "name": "kabaret",
+    "root_category": {
+      "id": 6,
+      "name": "rozrywka"
+    }
+  },
+  {
+    "id": 605,
+    "name": "gra miejska",
+    "root_category": {
+      "id": 6,
+      "name": "rozrywka"
+    }
+  },
+  {
+    "id": 606,
+    "name": "pokaz",
+    "root_category": {
+      "id": 6,
+      "name": "rozrywka"
+    }
+  },
+  {
+    "id": 607,
+    "name": "kabaret",
+    "root_category": {
+      "id": 6,
+      "name": "rozrywka"
+    }
+  },
+  {
+    "id": 7,
+    "name": "rekreacja"
+  },
+  {
+    "id": 701,
+    "name": "turystyka",
+    "root_category": {
+      "id": 7,
+      "name": "rekreacja"
+    }
+  },
+  {
+    "id": 702,
+    "name": "sport",
+    "root_category": {
+      "id": 7,
+      "name": "rekreacja"
+    }
+  },
+  {
+    "id": 703,
+    "name": "spacery i wędrówki",
+    "root_category": {
+      "id": 7,
+      "name": "rekreacja"
+    }
+  },
+  {
+    "id": 704,
+    "name": "inne",
+    "root_category": {
+      "id": 7,
+      "name": "rekreacja"
+    }
+  },
+  {
+    "id": 9,
+    "name": "nauka"
+  },
+  {
+    "id": 901,
+    "name": "nauki ścisłe",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 902,
+    "name": "nauki społeczne",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 903,
+    "name": "nauki przyrodnicze",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 904,
+    "name": "medycyna",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 905,
+    "name": "zdrowie",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 906,
+    "name": "ekonomia",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 907,
+    "name": "zarządzanie",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 908,
+    "name": "marketing",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 909,
+    "name": "technika",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 910,
+    "name": "kultura i sztuka",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 911,
+    "name": "architektura",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 912,
+    "name": "inne",
+    "root_category": {
+      "id": 9,
+      "name": "nauka"
+    }
+  },
+  {
+    "id": 10,
+    "name": "inne"
+  },
+  {
+    "id": 1001,
+    "name": "architektura",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  },
+  {
+    "id": 1002,
+    "name": "design",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  },
+  {
+    "id": 1003,
+    "name": "o kulturze",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  },
+  {
+    "id": 1004,
+    "name": "społeczne",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  },
+  {
+    "id": 1005,
+    "name": "żaglowce",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  },
+  {
+    "id": 1006,
+    "name": "motocykle",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  },
+  {
+    "id": 1007,
+    "name": "lotnicze",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  },
+  {
+    "id": 1008,
+    "name": "zwierzęta",
+    "root_category": {
+      "id": 10,
+      "name": "inne"
+    }
+  }
+]

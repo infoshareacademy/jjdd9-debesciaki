@@ -7,6 +7,7 @@ public class Address {
     private double lat;
     private double lng;
 
+
     Address() {
         this.street = "ex-street";
         this.zipcode = "XX-XXX";
