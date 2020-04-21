@@ -1,9 +1,9 @@
 package com.infoshareacademy;
 
 public enum MenuFavouritesOption {
-    RETURN("Powrót"),
-    ADD("Dodaj"),
-    DELETE("Usuń"),
+    RETURN("Powrót do menu głównego"),
+    ADD("Dodaj ulubione wydarzenie"),
+    DELETE("Usuń z ulubionych wydarzeń"),
     SHOW_EARLIEST("Pokaż najbliższe wydarzenia");
 
     private String description;

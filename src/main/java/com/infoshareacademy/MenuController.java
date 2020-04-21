@@ -7,9 +7,9 @@ public class MenuController {
 
     private void showMainMenu() {
         DisplayMenu<MenuMainOption> m = new DisplayMenu<>();
-        MenuMainOption choice = m.showMenu(MenuMainOption.values());
 
         do {
+            MenuMainOption choice = m.showMenu(MenuMainOption.values());
             switch (choice) {
                 case EXIT: {
                     return;
@@ -33,21 +33,18 @@ public class MenuController {
 
     private void showEventsMenu() {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
-        MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
 
         do {
+            MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
             switch (choice) {
                 case RETURN: {
-                    showMainMenu();
-                    break;
+                    return;
                 }
                 case FILTER: {
-                    showMainMenu();
-                    break;
+                    return;
                 }
                 default: {
-                    showMainMenu();
-                    break;
+                    return;
                 }
             }
         } while (true);
@@ -56,25 +53,21 @@ public class MenuController {
 
     private void showFavouritesMenu() {
         DisplayMenu<MenuFavouritesOption> m = new DisplayMenu<>();
-        MenuFavouritesOption choice = m.showMenu(MenuFavouritesOption.values());
 
         do {
+            MenuFavouritesOption choice = m.showMenu(MenuFavouritesOption.values());
             switch (choice) {
                 case RETURN: {
-                    showMainMenu();
-                    break;
+                    return;
                 }
                 case ADD: {
-                    showMainMenu();
-                    break;
+                    return;
                 }
                 case DELETE: {
-                    showMainMenu();
-                    break;
+                    return;
                 }
                 case SHOW_EARLIEST: {
-                    showMainMenu();
-                    break;
+                    return;
                 }
             }
         } while (true);
@@ -82,23 +75,20 @@ public class MenuController {
 
     private void showSettingsMenu() {
         DisplayMenu<MenuSettingsOption> m = new DisplayMenu<>();
-        MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values());
 
         do {
-           switch (choice) {
-               case RETURN: {
-                   showMainMenu();
-                   break;
-               }
-               case SORT: {
-                   showMainMenu();
-                   break;
-               }
-               case DATE_FORMAT: {
-                   showMainMenu();
-                   break;
-               }
-           }
+            MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values());
+            switch (choice) {
+                case RETURN: {
+                    return;
+                }
+                case SORT: {
+                    return;
+                }
+                case DATE_FORMAT: {
+                    return;
+                }
+            }
         } while (true);
     }
 }

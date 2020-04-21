@@ -1,9 +1,9 @@
 package com.infoshareacademy;
 
 public enum MenuSettingsOption {
-    RETURN("Powrót"),
-    SORT("Sortowanie"),
-    DATE_FORMAT("Format daty");
+    RETURN("Powrót do menu główego"),
+    SORT("Ustawienia sortowania"),
+    DATE_FORMAT("Ustawienia formatu daty");
 
     private String description;
 

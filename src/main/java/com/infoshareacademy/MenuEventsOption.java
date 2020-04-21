@@ -1,9 +1,9 @@
 package com.infoshareacademy;
 
 public enum MenuEventsOption {
-    RETURN("Powrót"),
-    FILTER("Filtruj"),
-    SEARCH("Wyszukaj");
+    RETURN("Powrót do głównego menu"),
+    FILTER("Filtruj wydarzenia"),
+    SEARCH("Wyszukaj wydarzenia");
 
     private String description;
 
