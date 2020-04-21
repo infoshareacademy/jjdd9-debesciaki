@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class ParseToRepos {
+public class ParseService {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
     public void run() throws IOException {
@@ -18,30 +18,30 @@ public class ParseToRepos {
 
         // Below preparing Files from project tree to java object, then using mapper for parsing JSON list based on type
         // reference <List<class>>
-        File json = new File("organizers.json");
-        List<Organizer> organizerList = mapper.readValue(json, new TypeReference<List<Organizer>>() {
+        File organizerJson = new File("organizers.json");
+        List<Organizer> organizerList = mapper.readValue(organizerJson, new TypeReference<List<Organizer>>() {
         });
         //Singleton
         OrganizerRepository.setAllOrganizers(organizerList);
 
 
-        File json2 = new File("places.json");
-        List<Place> placesList = mapper.readValue(json2, new TypeReference<List<Place>>() {
+        File placesJson = new File("places.json");
+        List<Place> placesList = mapper.readValue(placesJson, new TypeReference<List<Place>>() {
         });
         //Singleton
         PlaceRepository.setAllPlaces(placesList);
 
 
         //Preparing events
-        File json3 = new File("events.json");
-        List<Event> eventList = mapper.readValue(json3, new TypeReference<List<Event>>() {
+        File eventsJson = new File("events.json");
+        List<Event> eventList = mapper.readValue(eventsJson, new TypeReference<List<Event>>() {
         });
         //Singleton
         EventRepository.setAllEvents(eventList);
 
         //Preparing files for  parsing categories
-        File json4 = new File("categories.json");
-        List<Category> categoryList = mapper.readValue(json4, new TypeReference<List<Category>>() {
+        File categoriesJson = new File("categories.json");
+        List<Category> categoryList = mapper.readValue(categoriesJson, new TypeReference<List<Category>>() {
         });
         //Singleton
         CategoryRepository.setAllCategorys(categoryList);

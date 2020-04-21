@@ -6,13 +6,6 @@ public class Place {
     private String name;
     private Address address;
 
-    Place() {
-        super();
-        this.id = 0;
-        this.subname = "ex-subname";
-        this.name = "ex-name";
-    }
-
 
     public int getId() {
         return id;

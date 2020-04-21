@@ -5,11 +5,6 @@ public class RootCategory {
     private int id;
     private String name;
 
-    RootCategory() {
-        super();
-        this.id = 0;
-        this.name = "";
-    }
 
     public int getId() {
         return id;

@@ -4,16 +4,6 @@ public class Organizer {
     private int id;
     private String designation;
 
-    Organizer() {
-        this.id = 0;
-        this.designation = "example";
-    }
-
-    Organizer(int id, String designation) {
-        this.id = id;
-        this.designation = designation;
-    }
-
     public int getId() {
         return id;
     }

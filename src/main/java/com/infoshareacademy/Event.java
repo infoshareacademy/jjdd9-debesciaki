@@ -17,8 +17,6 @@ public class Event {
     private String descShort;
     private Ticket tickets;
 
-
-
     public int getId() {
         return id;
     }
@@ -66,7 +64,6 @@ public class Event {
     public String getDescShort() {
         return descShort;
     }
-
 
     public void setId(int id) {
         this.id = id;
@@ -124,22 +121,3 @@ public class Event {
         this.tickets = tickets;
     }
 }
-/*
-* {
-
-    "attachments": [
-      {
-        "fileName": "http://gak.gda.pl/sites/default/files/styles/big_1000w/public/Galeria/PLAKAT ZUMBA.jpg"
-      }
-    ],
-
-    "organizer": {
-      "id": 5,
-      "designation": "Gdański Archipelag Kultury"
-    },
-
-    "tickets": {
-      "type": "unknown"
-    }
-  },
-* */

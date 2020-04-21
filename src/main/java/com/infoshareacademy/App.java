@@ -11,7 +11,7 @@ import java.io.IOException;
 public class App {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     public static void main(String[] args) throws IOException {
-        new ParseToRepos().run();
+        new ParseService().run();
         MenuController main = new MenuController();
         main.run();
     }
