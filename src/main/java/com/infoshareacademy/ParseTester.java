@@ -25,39 +25,60 @@ public class ParseTester {
         // Below preparing Files from project tree to java object, then using mapper for parsing JSON list based on type
         // reference <List<class>>
         File json = new File("organizers.json");
-        List<Organizer> organizerList = mapper.readValue(json, new TypeReference<List<Organizer>>() {});
+        List<Organizer> organizerList = mapper.readValue(json, new TypeReference<List<Organizer>>() {
+        });
         //Singleton
 
 
         File json2 = new File("places.json");
-        List<Place> placesList = mapper.readValue(json2, new TypeReference<List<Place>>() {});
+        List<Place> placesList = mapper.readValue(json2, new TypeReference<List<Place>>() {
+        });
         //Singleton
+        EventRepository.setAllEvents(eventList);
 
         //declare + init hashmap
-        Map<Integer,Place> placesMap = new HashMap<>();
+        Map<Integer, Place> placesMap = new HashMap<>();
 
         //Loop to fill hashmap with list of places
-        for(Place p: placesList){
-            placesMap.put(p.getId(),p);
+        for (Place p : placesList) {
+            placesMap.put(p.getId(), p);
         }
 
         //Preparing events
         File json3 = new File("events.json");
-        List<Event> eventList = mapper.readValue(json3, new TypeReference<List<Event>>() {});
-
+        List<Event> eventList = mapper.readValue(json3, new TypeReference<List<Event>>() {
+        });
+        //Singleton
+        EventRepository.setAllEvents(eventList);
 
         //Preparing files for  parsing categories
         File json4 = new File("categories.json");
-        List<Category> categoryList = mapper.readValue(json4,new TypeReference<List<Category>>() {});
+        List<Category> categoryList = mapper.readValue(json4, new TypeReference<List<Category>>() {
+        });
         //Singleton
 
         //declare + init hashmap
         Map<Integer, Category> rootsMap = new HashMap<>();
 
         //Loop to fill hashmap with list of places
-        for(Category r: categoryList){
-            rootsMap.put(r.getId(),r);
+        for (Category r : categoryList) {
+            rootsMap.put(r.getId(), r);
         }
+
+        //Singletons prints
+
+        //Events
+        /*
+
+        for (Event e : EventRepository.getAllEvents()) {
+            STDOUT.info("ID= {} name= {}  \n  Category ID= {}   \n", e.getId(), e.getName(), e.getCategoryId());
+            Place p = e.getPlace();
+            STDOUT.info("Place ID: {} \n", p.getId());
+        }
+
+        */
+
+        //Place
 
 
         /*
