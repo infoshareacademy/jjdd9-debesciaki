@@ -28,13 +28,14 @@ public class ParseTester {
         List<Organizer> organizerList = mapper.readValue(json, new TypeReference<List<Organizer>>() {
         });
         //Singleton
+        OrganizerRepository.setAllOrganizers(organizerList);
 
 
         File json2 = new File("places.json");
         List<Place> placesList = mapper.readValue(json2, new TypeReference<List<Place>>() {
         });
         //Singleton
-        EventRepository.setAllEvents(eventList);
+        PlaceRepository.setAllPlaces(placesList);
 
         //declare + init hashmap
         Map<Integer, Place> placesMap = new HashMap<>();
@@ -56,6 +57,7 @@ public class ParseTester {
         List<Category> categoryList = mapper.readValue(json4, new TypeReference<List<Category>>() {
         });
         //Singleton
+        CategoryRepository.setAllCategorys(categoryList);
 
         //declare + init hashmap
         Map<Integer, Category> rootsMap = new HashMap<>();
@@ -79,11 +81,37 @@ public class ParseTester {
         */
 
         //Place
+        /*
+        for (Place z: PlaceRepository.getAllPlaces()){
+            STDOUT.info("ID= {}  Name: {}   City: {} \n",z.getId(),z.getName(),z.getAddress().getCity());
+            STDOUT.info("Zipcode= {}   City: {}  SubName: {}  \n",z.getAddress().getZipcode(),z.getAddress().getStreet(),z.getSubname());
+            STDOUT.info("Street= {}   Lat: {}  Lng: {}  \n",z.getAddress().getStreet(),z.getAddress().getLat(),z.getAddress().getLng());
+        }
+        */
 
+        //Categories
+        /*
+        for (Category c: CategoryRepository.getAllCategorys()){
+            RootCategory r=c.getRootCategory();
+            STDOUT.info("Category ID: {} Name: {} \n",c.getId(),c.getName());
+            if (r!=null) {
+                STDOUT.info("Root ID: {} Name: {} \n", r.getId(), r.getName());
+            }
+        }
+
+         */
+
+        //Print organizers
+        /*
+        //Organizer
+        for (Organizer o: OrganizerRepository.getAllOrganizers()){
+            STDOUT.info("ID: {}  Organizator: {}\n",o.getId() ,o.getDesignation());
+        }
+        */
+
+        //Prints on Lists not on singletons
 
         /*
-        //Print organizers
-
         for (Organizer o: organizerList){
             STDOUT.info("ID: {}  Organizator: {}\n",o.getId() ,o.getDesignation());
         }
