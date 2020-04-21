@@ -42,9 +42,11 @@ public class MenuController {
                     break;
                 }
                 case FILTER: {
+                    showMainMenu();
                     break;
                 }
                 default: {
+                    showMainMenu();
                     break;
                 }
             }
@@ -63,12 +65,15 @@ public class MenuController {
                     break;
                 }
                 case ADD: {
+                    showMainMenu();
                     break;
                 }
                 case DELETE: {
+                    showMainMenu();
                     break;
                 }
                 case SHOW_EARLIEST: {
+                    showMainMenu();
                     break;
                 }
             }
@@ -86,9 +91,11 @@ public class MenuController {
                    break;
                }
                case SORT: {
+                   showMainMenu();
                    break;
                }
                case DATE_FORMAT: {
+                   showMainMenu();
                    break;
                }
            }
