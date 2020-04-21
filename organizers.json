@@ -1,1386 +1,1390 @@
 [
-  {
-    "id": 2,
-    "designation": "Miejski Teatr MINIATURA"
-  },
-  {
-    "id": 3,
-    "designation": "Teatr Wybrzeże"
-  },
-  {
-    "id": 5,
-    "designation": "Gdański Archipelag Kultury"
-  },
-  {
-    "id": 6,
-    "designation": "Nadbałtyckie Centrum Kultury"
-  },
-  {
-    "id": 8,
-    "designation": "MUZEUM II WOJNY ŚWIATOWEJ"
-  },
-  {
-    "id": 9,
-    "designation": "Muzeum Gdańska"
-  },
-  {
-    "id": 10,
-    "designation": "Akademickie Centrum Kultury UG"
-  },
-  {
-    "id": 11,
-    "designation": "Opera Bałtycka"
-  },
-  {
-    "id": 12,
-    "designation": "Europejskie Centrum Solidarności"
-  },
-  {
-    "id": 13,
-    "designation": "Instytut Kultury Miejskiej"
-  },
-  {
-    "id": 35,
-    "designation": "Organizator Wydarzeń"
-  },
-  {
-    "id": 36,
-    "designation": "Klub Żak"
-  },
-  {
-    "id": 37,
-    "designation": "Fundacja Generacja"
-  },
-  {
-    "id": 38,
-    "designation": "Polski Chór Kameralny \"Schola Cantorum Gedanensis\""
-  },
-  {
-    "id": 39,
-    "designation": "Kolonia Artystów"
-  },
-  {
-    "id": 40,
-    "designation": "Fundacja \"Wspólnota Gdańska\""
-  },
-  {
-    "id": 44,
-    "designation": "Redaktor Planera"
-  },
-  {
-    "id": 47,
-    "designation": "Gdańskie Stowarzyszenie Alliance Française"
-  },
-  {
-    "id": 49,
-    "designation": "Akademia Muzyczna im. Stanisława Moniuszki"
-  },
-  {
-    "id": 50,
-    "designation": "Wojewódzka i Miejska Biblioteka Publiczna w Gdańsku"
-  },
-  {
-    "id": 51,
-    "designation": "Teatr na Plaży"
-  },
-  {
-    "id": 52,
-    "designation": "SmartMedia Test"
-  },
-  {
-    "id": 53,
-    "designation": "Państwowa Galeria Sztuki w Sopocie"
-  },
-  {
-    "id": 54,
-    "designation": "Centrum Sztuki Współczesnej ŁAŹNIA"
-  },
-  {
-    "id": 55,
-    "designation": "Muzeum Narodowe w Gdańsku"
-  },
-  {
-    "id": 56,
-    "designation": "Gdański Teatr Szekspirowski"
-  },
-  {
-    "id": 57,
-    "designation": "Instytut Sztuki Wyspa"
-  },
-  {
-    "id": 58,
-    "designation": "Gdańska Galeria Miejska"
-  },
-  {
-    "id": 59,
-    "designation": "Muzeum Emigracji w Gdyni"
-  },
-  {
-    "id": 60,
-    "designation": "Fusy i Miętusy"
-  },
-  {
-    "id": 61,
-    "designation": "Towarzystwo Przyjaciół Sopotu"
-  },
-  {
-    "id": 62,
-    "designation": "Klubogaleria Bunkier"
-  },
-  {
-    "id": 63,
-    "designation": "Protokultura - Klub Sztuki Alternatywnej"
-  },
-  {
-    "id": 64,
-    "designation": "Krytyka Polityczna - Świetlica w Trójmieście"
-  },
-  {
-    "id": 65,
-    "designation": "Stacja Kultura - Miejska Biblioteka Publiczna w Rumi"
-  },
-  {
-    "id": 66,
-    "designation": "Powiat Tczewski"
-  },
-  {
-    "id": 67,
-    "designation": "Gdynia Kulturalna"
-  },
-  {
-    "id": 68,
-    "designation": "Gmina Szemud"
-  },
-  {
-    "id": 69,
-    "designation": "Powiat Wejherowski"
-  },
-  {
-    "id": 70,
-    "designation": "Inkubator Kultury Kulmiasto"
-  },
-  {
-    "id": 71,
-    "designation": "Miasto i Gmina Gniew"
-  },
-  {
-    "id": 72,
-    "designation": "Stary Maneż"
-  },
-  {
-    "id": 74,
-    "designation": "Fundacja Alternativa"
-  },
-  {
-    "id": 75,
-    "designation": "Muzeum Archeologiczne w Gdańsku"
-  },
-  {
-    "id": 76,
-    "designation": "Bałtycka Agencja Artystyczna BART"
-  },
-  {
-    "id": 77,
-    "designation": "Centrum Designu Gdynia"
-  },
-  {
-    "id": 78,
-    "designation": "Centrum Hewelianum"
-  },
-  {
-    "id": 79,
-    "designation": "MAMYWENE"
-  },
-  {
-    "id": 80,
-    "designation": "Niezależne Zrzeszenie Studentów Uniwersytetu Gdańskiego"
-  },
-  {
-    "id": 81,
-    "designation": "KIWI - graphics & others"
-  },
-  {
-    "id": 86,
-    "designation": "Polska Filharmonia Kameralna Sopot"
-  },
-  {
-    "id": 87,
-    "designation": "Agencja Artystyczna Perspektywy"
-  },
-  {
-    "id": 88,
-    "designation": "Kino \"KinoPort\""
-  },
-  {
-    "id": 89,
-    "designation": "Klub Filmowy \"Horyzont\""
-  },
-  {
-    "id": 90,
-    "designation": "Gdyńskie Centrum Filmowe"
-  },
-  {
-    "id": 91,
-    "designation": "Muzeum Piśmiennictwa i Muzyki Kaszubsko-Pomorskiej w Wejherowie"
-  },
-  {
-    "id": 92,
-    "designation": "LOFT"
-  },
-  {
-    "id": 93,
-    "designation": "Akademia Sztuk Pięknych w Gdańsku"
-  },
-  {
-    "id": 94,
-    "designation": "Miejska Biblioteka Publiczna im. Aleksandra Majkowskiego w Wejherowie"
-  },
-  {
-    "id": 95,
-    "designation": "Liga Muzułmańska w RP - Oddział Pomorski"
-  },
-  {
-    "id": 96,
-    "designation": "Centrum Kultury, Sportu, Turystyki i Biblioteka w Gniewinie"
-  },
-  {
-    "id": 97,
-    "designation": "Empik Gdańsk Galeria Bałtycka"
-  },
-  {
-    "id": 98,
-    "designation": "Aleksandra Perzyńska"
-  },
-  {
-    "id": 99,
-    "designation": "Grupa GIT"
-  },
-  {
-    "id": 100,
-    "designation": "Ośrodek Kultury, Sportu i Biblioteka Publiczna Gminy Pruszcz Gdański"
-  },
-  {
-    "id": 101,
-    "designation": "Garnizon Gdańsk"
-  },
-  {
-    "id": 102,
-    "designation": "Muzeum Sopotu"
-  },
-  {
-    "id": 103,
-    "designation": "O TU_"
-  },
-  {
-    "id": 104,
-    "designation": "Biblioteka Sopocka im. Józefa Wybickiego"
-  },
-  {
-    "id": 105,
-    "designation": "Alicja Kubicka"
-  },
-  {
-    "id": 106,
-    "designation": "Dream Navigation"
-  },
-  {
-    "id": 107,
-    "designation": "Towarzystwo Dom Uphagena"
-  },
-  {
-    "id": 108,
-    "designation": "Fabryka Sztuk"
-  },
-  {
-    "id": 109,
-    "designation": "Teatr Komedii Valldal"
-  },
-  {
-    "id": 110,
-    "designation": "Strefa Startup Gdynia"
-  },
-  {
-    "id": 111,
-    "designation": "16deko"
-  },
-  {
-    "id": 112,
-    "designation": "Akademia Artystyczna"
-  },
-  {
-    "id": 113,
-    "designation": "Wydawnictwo OSKAR"
-  },
-  {
-    "id": 114,
-    "designation": "Teatr Muzyczny im. Danuty Baduszkowej"
-  },
-  {
-    "id": 115,
-    "designation": "Art Show"
-  },
-  {
-    "id": 116,
-    "designation": "Magdalena Bochan-Jachimek"
-  },
-  {
-    "id": 118,
-    "designation": "Młody Byron"
-  },
-  {
-    "id": 119,
-    "designation": "Dana Chmielewska i Agata Gregorkiewicz"
-  },
-  {
-    "id": 120,
-    "designation": "Centrum Edukacji Nauczycieli"
-  },
-  {
-    "id": 121,
-    "designation": "Miasto Gdańsk"
-  },
-  {
-    "id": 122,
-    "designation": "Animus Saltandi"
-  },
-  {
-    "id": 123,
-    "designation": "Dwie Zmiany"
-  },
-  {
-    "id": 124,
-    "designation": "Jan P. Grabowski"
-  },
-  {
-    "id": 125,
-    "designation": "Momarte"
-  },
-  {
-    "id": 126,
-    "designation": "Fundacja Ruszaj w Drogę!"
-  },
-  {
-    "id": 127,
-    "designation": "Fundacja Ocaleni"
-  },
-  {
-    "id": 128,
-    "designation": "Studio Dokumentacji Podróżniczej EGC"
-  },
-  {
-    "id": 129,
-    "designation": "Pomorskie Centrum Informacji Turystycznej"
-  },
-  {
-    "id": 130,
-    "designation": "KNEB - Koło Naukowe Elektronicznego Biznesu UG"
-  },
-  {
-    "id": 131,
-    "designation": "Instytut Pamięci Narodowej - Oddział w Gdańsku"
-  },
-  {
-    "id": 132,
-    "designation": "Muzeum Miasta Gdyni"
-  },
-  {
-    "id": 133,
-    "designation": "Gdańska Wyższa Szkoła Humanistyczna"
-  },
-  {
-    "id": 134,
-    "designation": "PROM*kultura"
-  },
-  {
-    "id": 135,
-    "designation": "Polska Filharmonia Bałtycka"
-  },
-  {
-    "id": 136,
-    "designation": "Paweł Kasper Wysocki"
-  },
-  {
-    "id": 137,
-    "designation": "Bookafka"
-  },
-  {
-    "id": 138,
-    "designation": "Miejski Dom Kultury Rumia"
-  },
-  {
-    "id": 139,
-    "designation": "Zagroda Śledziowa"
-  },
-  {
-    "id": 140,
-    "designation": "Centrum Informacji i Edukacji Ekologicznej"
-  },
-  {
-    "id": 141,
-    "designation": "Urząd Miasta w Wejherowie"
-  },
-  {
-    "id": 142,
-    "designation": "Urząd Gminy w Suchym Dębie"
-  },
-  {
-    "id": 143,
-    "designation": "Zespół Śpiewaczy Św. Cecylia"
-  },
-  {
-    "id": 144,
-    "designation": "Stowarzyszenie Dobrych Wiadomości"
-  },
-  {
-    "id": 145,
-    "designation": "od rzeczy skład"
-  },
-  {
-    "id": 146,
-    "designation": "Ośrodek Kultury i Sportu w Żukowie"
-  },
-  {
-    "id": 147,
-    "designation": "Filozofuj!"
-  },
-  {
-    "id": 148,
-    "designation": "A KuKu Sztuka"
-  },
-  {
-    "id": 149,
-    "designation": "AmberExpo"
-  },
-  {
-    "id": 150,
-    "designation": "Gdańska Szkoła Disco"
-  },
-  {
-    "id": 151,
-    "designation": "ARTLOOP Festival"
-  },
-  {
-    "id": 152,
-    "designation": "Dział Ogrodnika Miejskiego, Zarząd Dróg i Zieleni w Gdańsku"
-  },
-  {
-    "id": 153,
-    "designation": "O4"
-  },
-  {
-    "id": 154,
-    "designation": "Urząd Miejski w Gdańsku - Wydział Gospodarki Komunalnej"
-  },
-  {
-    "id": 155,
-    "designation": "Fabryka Kultury"
-  },
-  {
-    "id": 156,
-    "designation": "Wejherowskie Centrum Kultury"
-  },
-  {
-    "id": 157,
-    "designation": "Stowarzyszenie \"Nasiono\""
-  },
-  {
-    "id": 158,
-    "designation": "Narodowe Muzeum Morskie w Gdańsku"
-  },
-  {
-    "id": 159,
-    "designation": "Miejski Ośrodek Kultury w Pelplinie"
-  },
-  {
-    "id": 160,
-    "designation": "Urząd Miasta Rumi"
-  },
-  {
-    "id": 161,
-    "designation": "Parkrun Rumia"
-  },
-  {
-    "id": 162,
-    "designation": "ZHR Rumia"
-  },
-  {
-    "id": 163,
-    "designation": "Jedność, Godność, Praca"
-  },
-  {
-    "id": 164,
-    "designation": "Związek Harcerstwa Polskiego - Chorągiew Gdańska - Hufiec Rumia"
-  },
-  {
-    "id": 165,
-    "designation": "Puckie Hospicjum pw. św. Ojca Pio"
-  },
-  {
-    "id": 167,
-    "designation": "Mój Planer"
-  },
-  {
-    "id": 168,
-    "designation": "Biblioteka Gdańska Polskiej Akademii Nauk"
-  },
-  {
-    "id": 169,
-    "designation": "Teatr Miejski im. Witolda Gombrowicza w Gdyni"
-  },
-  {
-    "id": 170,
-    "designation": "Dogoterapia Baltic Wolf"
-  },
-  {
-    "id": 171,
-    "designation": "Centrum Nauki EXPERYMENT"
-  },
-  {
-    "id": 172,
-    "designation": "WL4 - Przestrzeń Sztuki"
-  },
-  {
-    "id": 173,
-    "designation": "Pracownia"
-  },
-  {
-    "id": 174,
-    "designation": "Studenckie Koło Przewodników Turystycznych"
-  },
-  {
-    "id": 175,
-    "designation": "Arkadiusz Kalinowski"
-  },
-  {
-    "id": 176,
-    "designation": "Michał Firkowski"
-  },
-  {
-    "id": 177,
-    "designation": "Bookszpan Gdańsk"
-  },
-  {
-    "id": 178,
-    "designation": "Azyl"
-  },
-  {
-    "id": 179,
-    "designation": "Samorząd Studentów Politechniki Gdańskiej"
-  },
-  {
-    "id": 180,
-    "designation": "PMI Poland Chapter Gdańsk"
-  },
-  {
-    "id": 181,
-    "designation": "Fundacja Pomysłodalnia"
-  },
-  {
-    "id": 182,
-    "designation": "michalinakupper.com"
-  },
-  {
-    "id": 183,
-    "designation": "Fundacja A415"
-  },
-  {
-    "id": 184,
-    "designation": "Nowy Teatr im. Witkacego w Słupsku"
-  },
-  {
-    "id": 185,
-    "designation": "Noc Muzeów 2017"
-  },
-  {
-    "id": 186,
-    "designation": "\"Feeria\" Stowarzyszenie Artystyczno-Społeczne"
-  },
-  {
-    "id": 187,
-    "designation": "Fundacja Rozwoju Polskiej Przedsiębiorczości"
-  },
-  {
-    "id": 188,
-    "designation": "Magdalena Kuśmirek"
-  },
-  {
-    "id": 189,
-    "designation": "Muzeum - Kaszubski Park Etnograficzny im. Teodory i Izydora Gulgowskich we Wdzydzach Kiszewskich"
-  },
-  {
-    "id": 190,
-    "designation": "Miejska Biblioteka Publiczna w Lęborku"
-  },
-  {
-    "id": 192,
-    "designation": "AïOLI inspired by Gdańsk"
-  },
-  {
-    "id": 193,
-    "designation": "Gmina Kolbudy"
-  },
-  {
-    "id": 194,
-    "designation": "Teraz Wyspa Sobieszewska"
-  },
-  {
-    "id": 195,
-    "designation": "Politechnika Otwarta"
-  },
-  {
-    "id": 196,
-    "designation": "Art in House Dom Aukcyjny"
-  },
-  {
-    "id": 197,
-    "designation": "Stowarzyszenie Grupa Fląder"
-  },
-  {
-    "id": 198,
-    "designation": "Gmina Pszczółki"
-  },
-  {
-    "id": 199,
-    "designation": "Teatr Błękitna Sukienka"
-  },
-  {
-    "id": 200,
-    "designation": "Novae Res"
-  },
-  {
-    "id": 201,
-    "designation": "Stowarzyszenie Przystań na Sztukę"
-  },
-  {
-    "id": 202,
-    "designation": "Malborskie Centrum Kultury i Edukacji"
-  },
-  {
-    "id": 203,
-    "designation": "Stowarzyszenie Organizacji Hip-Hop'owej \"NON CREW\""
-  },
-  {
-    "id": 204,
-    "designation": "Kunsztownia"
-  },
-  {
-    "id": 205,
-    "designation": "Fundacja Inicjatyw Twórczych \"Fordewind\""
-  },
-  {
-    "id": 206,
-    "designation": "100cznia"
-  },
-  {
-    "id": 207,
-    "designation": "Gmina Suchy Dąb"
-  },
-  {
-    "id": 208,
-    "designation": "Gmina Luzino"
-  },
-  {
-    "id": 210,
-    "designation": "Miasto Malbork"
-  },
-  {
-    "id": 211,
-    "designation": "Kartuzy"
-  },
-  {
-    "id": 212,
-    "designation": "Miasto Sopot"
-  },
-  {
-    "id": 213,
-    "designation": "Miasto i Gmina Żukowo"
-  },
-  {
-    "id": 214,
-    "designation": "Gmina Sierakowice"
-  },
-  {
-    "id": 215,
-    "designation": "Miasto Hel"
-  },
-  {
-    "id": 216,
-    "designation": "Miasto Jastarnia"
-  },
-  {
-    "id": 217,
-    "designation": "Miasto Krynica Morska"
-  },
-  {
-    "id": 218,
-    "designation": "Miasto Lębork"
-  },
-  {
-    "id": 219,
-    "designation": "Miasto i Gmina Nowy Dwór Gdański"
-  },
-  {
-    "id": 220,
-    "designation": "Miasto i Gmina Nowy Staw"
-  },
-  {
-    "id": 221,
-    "designation": "Miasto i Gmina Pelplin"
-  },
-  {
-    "id": 222,
-    "designation": "Miasto Pruszcz Gdański"
-  },
-  {
-    "id": 223,
-    "designation": "Miasto Puck"
-  },
-  {
-    "id": 224,
-    "designation": "Miasto Reda"
-  },
-  {
-    "id": 225,
-    "designation": "Miasto Rumia"
-  },
-  {
-    "id": 226,
-    "designation": "Miasto Tczew"
-  },
-  {
-    "id": 227,
-    "designation": "Miasto Wejherowo"
-  },
-  {
-    "id": 228,
-    "designation": "Miasto i Gmina Władysławowo"
-  },
-  {
-    "id": 229,
-    "designation": "Gmina Cedry Wielkie"
-  },
-  {
-    "id": 230,
-    "designation": "Gmina Chmielno"
-  },
-  {
-    "id": 231,
-    "designation": "Gmina Gniewino"
-  },
-  {
-    "id": 232,
-    "designation": "Gmina Kolbudy"
-  },
-  {
-    "id": 233,
-    "designation": "Gmina Kosakowo"
-  },
-  {
-    "id": 234,
-    "designation": "Gmina Krokowa"
-  },
-  {
-    "id": 235,
-    "designation": "Gmina Lichnowy"
-  },
-  {
-    "id": 236,
-    "designation": "Gmina Linia"
-  },
-  {
-    "id": 237,
-    "designation": "Gmina Łęczyce"
-  },
-  {
-    "id": 238,
-    "designation": "Gmina Ostaszewo"
-  },
-  {
-    "id": 239,
-    "designation": "Miasto Gdynia"
-  },
-  {
-    "id": 240,
-    "designation": "Przodkowo"
-  },
-  {
-    "id": 241,
-    "designation": "Gmina Przywidz"
-  },
-  {
-    "id": 242,
-    "designation": "Gmina Somonino"
-  },
-  {
-    "id": 243,
-    "designation": "Gmina Stegna"
-  },
-  {
-    "id": 244,
-    "designation": "Gmina Stężyca"
-  },
-  {
-    "id": 245,
-    "designation": "Gmina Subkowy"
-  },
-  {
-    "id": 246,
-    "designation": "Gmina Sulęczyno"
-  },
-  {
-    "id": 247,
-    "designation": "Gmina Sztutowo"
-  },
-  {
-    "id": 248,
-    "designation": "Gmina Trąbki Wielkie"
-  },
-  {
-    "id": 254,
-    "designation": "Fundacja Kultury Zbliżenia"
-  },
-  {
-    "id": 255,
-    "designation": "Sopot"
-  },
-  {
-    "id": 256,
-    "designation": "Prosta Kreska"
-  },
-  {
-    "id": 257,
-    "designation": "Agencja Artystyczna Perspektywy"
-  },
-  {
-    "id": 258,
-    "designation": "Sztuka Trójmiasta"
-  },
-  {
-    "id": 269,
-    "designation": "Żuławski Park Historyczny"
-  },
-  {
-    "id": 270,
-    "designation": "Żuławski Ośrodek Kultury"
-  },
-  {
-    "id": 271,
-    "designation": "Gdynia InfoBox Obserwatorium Zmian"
-  },
-  {
-    "id": 272,
-    "designation": "Pomorski Park Naukowo-Technologiczny"
-  },
-  {
-    "id": 273,
-    "designation": "Centrum Kultury w Gdyni"
-  },
-  {
-    "id": 274,
-    "designation": "Gdyńskie Centrum Sportu - Gdynia Arena"
-  },
-  {
-    "id": 275,
-    "designation": "Teatr Gdynia Główna"
-  },
-  {
-    "id": 276,
-    "designation": "Klub Muzyczny Ucho"
-  },
-  {
-    "id": 277,
-    "designation": "Blues Club"
-  },
-  {
-    "id": 278,
-    "designation": "Lęborskie Centrum Kultury \"Fregata\""
-  },
-  {
-    "id": 279,
-    "designation": "Centrum Kultury i Sportu w Pruszczu Gdańskim"
-  },
-  {
-    "id": 280,
-    "designation": "Gminna Biblioteka Publiczna w Pszczółkach"
-  },
-  {
-    "id": 281,
-    "designation": "Kultura nad Radunią"
-  },
-  {
-    "id": 282,
-    "designation": "Nowostawskie Centrum Kultury i Biblioteki"
-  },
-  {
-    "id": 283,
-    "designation": "Ośrodek Kultury, Sportu i Biblioteka Publiczna Gminy Pruszcz Gdański"
-  },
-  {
-    "id": 284,
-    "designation": "Teatr Muzyczny w Gdyni"
-  },
-  {
-    "id": 286,
-    "designation": "Powiatowa i Miejska Biblioteka Publiczna w Gniewie"
-  },
-  {
-    "id": 288,
-    "designation": "Zarząd Morskiego Portu Gdynia S.A."
-  },
-  {
-    "id": 289,
-    "designation": "Muzeum Stutthof w Sztutowie"
-  },
-  {
-    "id": 290,
-    "designation": "Cerkiew Św. Mikołaja w Cyganku"
-  },
-  {
-    "id": 291,
-    "designation": "Biblioteka Elbląska"
-  },
-  {
-    "id": 292,
-    "designation": "Muzeum Zamkowe w Malborku"
-  },
-  {
-    "id": 293,
-    "designation": "Impresariat 34art.pl"
-  },
-  {
-    "id": 294,
-    "designation": "Dom Sąsiedzki w Pałacu"
-  },
-  {
-    "id": 295,
-    "designation": "Żuławski Ośrodek Kultury i Sportu w Cedrach Wielkich"
-  },
-  {
-    "id": 296,
-    "designation": "Regionalne Centrum Wolontariatu"
-  },
-  {
-    "id": 297,
-    "designation": "Galeria Studencka Start"
-  },
-  {
-    "id": 299,
-    "designation": "Mediateka Malbork"
-  },
-  {
-    "id": 300,
-    "designation": "Centrum Kultury i Sztuki w Tczewie"
-  },
-  {
-    "id": 301,
-    "designation": "Miejska Biblioteka Publiczna w Tczewie"
-  },
-  {
-    "id": 302,
-    "designation": "Centrum Kultury, Promocji i Sportu we Władysławowie"
-  },
-  {
-    "id": 303,
-    "designation": "Malborskie Centrum Kultury i Edukacji"
-  },
-  {
-    "id": 304,
-    "designation": "Kościół Zielonoświątkowy - Zbór \"Radość życia\" w Gdańsku"
-  },
-  {
-    "id": 306,
-    "designation": "Muzem Ceramiki Neclòw"
-  },
-  {
-    "id": 307,
-    "designation": "Zamek w Krokowej"
-  },
-  {
-    "id": 308,
-    "designation": "Biblioteka Publiczna w Pucku"
-  },
-  {
-    "id": 309,
-    "designation": "Krokowskie Centrum Kultury"
-  },
-  {
-    "id": 310,
-    "designation": "Kartuskie Centrum Kultury"
-  },
-  {
-    "id": 311,
-    "designation": "Hotel Zamek Gniew"
-  },
-  {
-    "id": 312,
-    "designation": "Powiatowa i Miejska Biblioteka Publiczna w Pruszczu Gdańskim"
-  },
-  {
-    "id": 313,
-    "designation": "Gminna Instytucja Kultury i Biblioteka w Łęczycach"
-  },
-  {
-    "id": 314,
-    "designation": "Gminna Biblioteka Publiczna w Sulęczynie"
-  },
-  {
-    "id": 315,
-    "designation": "Spółdzielnia Socjalna Fabryka Inicjatyw w Malborku"
-  },
-  {
-    "id": 316,
-    "designation": "Biblioteka Gdynia"
-  },
-  {
-    "id": 317,
-    "designation": "MU­ZEUM W LĘBORKU"
-  },
-  {
-    "id": 318,
-    "designation": "Gminny Ośrodek Kultury w Luzinie"
-  },
-  {
-    "id": 319,
-    "designation": "Biblioteka Publiczna Gminy Przodkowo"
-  },
-  {
-    "id": 320,
-    "designation": "Sztuka Wyboru"
-  },
-  {
-    "id": 321,
-    "designation": "Muzeum Marynarki Wojennej w Gdyni"
-  },
-  {
-    "id": 322,
-    "designation": "Gminna Biblioteka Publiczna w Luzinie im. Leona Roppla"
-  },
-  {
-    "id": 323,
-    "designation": "Cappella Gedanensis"
-  },
-  {
-    "id": 324,
-    "designation": "Gdańskie Targi Książki"
-  },
-  {
-    "id": 325,
-    "designation": "LAS dolnysopotpółnoc"
-  },
-  {
-    "id": 326,
-    "designation": "Fundacja „Kreatywna Edukacja”"
-  },
-  {
-    "id": 327,
-    "designation": "Stowarzyszenie ALTERNATYWNY CYPEL"
-  },
-  {
-    "id": 328,
-    "designation": "Klub Marynarki Wojennej w Gdyni"
-  },
-  {
-    "id": 329,
-    "designation": "Faktoria Pruszcz Gdański"
-  },
-  {
-    "id": 330,
-    "designation": "Biblioteka Publiczna Gminy Szemud im. ks. L. Heyke w Szemudzie"
-  },
-  {
-    "id": 331,
-    "designation": "Miejska Biblioteka Publiczna im. Księdza Bernarda Sychty w Pelplinie"
-  },
-  {
-    "id": 332,
-    "designation": "Miejska Biblioteka Publiczna w Krynicy Morskiej"
-  },
-  {
-    "id": 333,
-    "designation": "Zatoka Sztuki"
-  },
-  {
-    "id": 334,
-    "designation": "\"Fundacja Zostw Swój Ślad\""
-  },
-  {
-    "id": 337,
-    "designation": "Instytut Metropolitalny"
-  },
-  {
-    "id": 339,
-    "designation": "globaltica"
-  },
-  {
-    "id": 340,
-    "designation": "wrzeszczcentralny"
-  },
-  {
-    "id": 342,
-    "designation": "Fundacja Artystów Kolonia Teraz"
-  },
-  {
-    "id": 343,
-    "designation": "FOTeL Juszkowo"
-  },
-  {
-    "id": 345,
-    "designation": "Outdoor Cinema Ent. Sp. z o.o."
-  },
-  {
-    "id": 346,
-    "designation": "Hello Art Agency"
-  },
-  {
-    "id": 347,
-    "designation": "Amberton"
-  },
-  {
-    "id": 348,
-    "designation": "sosimple"
-  },
-  {
-    "id": 349,
-    "designation": "Fundacja FairArt"
-  },
-  {
-    "id": 350,
-    "designation": "Literacki Sopot"
-  },
-  {
-    "id": 351,
-    "designation": "Mecenas Siemienkiewicz"
-  },
-  {
-    "id": 352,
-    "designation": "Ulica Elektryków"
-  },
-  {
-    "id": 353,
-    "designation": "Kaszubski Zespół Pieśni i Tańca \" Chmielanie\""
-  },
-  {
-    "id": 354,
-    "designation": "Gdański Teatr Szekspirowski"
-  },
-  {
-    "id": 355,
-    "designation": "Fundacja Gdańska"
-  },
-  {
-    "id": 356,
-    "designation": "PATIO ASP"
-  },
-  {
-    "id": 357,
-    "designation": "Trójmiasto Restaurant Week"
-  },
-  {
-    "id": 358,
-    "designation": "Traffic Design"
-  },
-  {
-    "id": 363,
-    "designation": "Gdynia Kulturalna"
-  },
-  {
-    "id": 364,
-    "designation": "Oddział Etnografii Muzeum Narodowego w Gdańsku"
-  },
-  {
-    "id": 365,
-    "designation": "Fundacja Kultury Wizualnej Chmura"
-  },
-  {
-    "id": 366,
-    "designation": "Dom Chodowieckiego i Grassa"
-  },
-  {
-    "id": 367,
-    "designation": "FUNDACJA \"ŻYJMY W HARMONII\""
-  },
-  {
-    "id": 368,
-    "designation": "Video Studio Gdańsk"
-  },
-  {
-    "id": 369,
-    "designation": "FUNDACJA PURA"
-  },
-  {
-    "id": 370,
-    "designation": "FUNDACJA KULTURY BEZ BARIER"
-  },
-  {
-    "id": 371,
-    "designation": "Fundacja Młodego Kina"
-  },
-  {
-    "id": 372,
-    "designation": "SzaFoFe"
-  },
-  {
-    "id": 377,
-    "designation": "Centrum Praw Kobiet – Oddział w Gdańsku"
-  },
-  {
-    "id": 378,
-    "designation": "Restauracja LUDOVISKO"
-  },
-  {
-    "id": 379,
-    "designation": "Mediateka w Straszynie"
-  },
-  {
-    "id": 380,
-    "designation": "Stowrzyszenie Aktywny Puck"
-  },
-  {
-    "id": 381,
-    "designation": "Politechnika Otwarta"
-  },
-  {
-    "id": 382,
-    "designation": "Klub Ziemia"
-  },
-  {
-    "id": 383,
-    "designation": "Trójmiejska Kawiarnia Naukowa"
-  },
-  {
-    "id": 385,
-    "designation": "Halo Kultura"
-  },
-  {
-    "id": 386,
-    "designation": "Aya Flow Language Center"
-  },
-  {
-    "id": 387,
-    "designation": "Gdyńskie Centrum Kultury"
-  },
-  {
-    "id": 388,
-    "designation": "Gminny Ośrodek Kultury w Sierakowicach"
-  },
-  {
-    "id": 389,
-    "designation": "Miejsce Sopot"
-  },
-  {
-    "id": 390,
-    "designation": "Laboratorium Innowacji Społecznych"
-  },
-  {
-    "id": 391,
-    "designation": "Klubogaleria Nagu"
-  },
-  {
-    "id": 392,
-    "designation": "Ogniem i Piecem"
-  },
-  {
-    "id": 393,
-    "designation": "Dynamo - Stowarzyszenie Twórczego Rozwoju"
-  },
-  {
-    "id": 394,
-    "designation": "Szary Ganek - Autorska Galeria Sztuki"
-  },
-  {
-    "id": 395,
-    "designation": "Orkiestra Miasta Pruszcz Gdański"
-  },
-  {
-    "id": 396,
-    "designation": "Tutti Entertainment"
-  },
-  {
-    "id": 397,
-    "designation": "Biesiady Literackie - Agencja Artystyczna R&K Nehrebeccy"
-  },
-  {
-    "id": 398,
-    "designation": "Agencja koncertowa Pan Koncert"
-  },
-  {
-    "id": 399,
-    "designation": "Pałac Ciekocinko Hotel Resort & Wellness"
-  },
-  {
-    "id": 400,
-    "designation": "Stowarzyszenie Turystyczne Kaszuby Północne"
-  },
-  {
-    "id": 401,
-    "designation": "Tolerado"
-  },
-  {
-    "id": 402,
-    "designation": "Mana Mana"
-  },
-  {
-    "id": 403,
-    "designation": "tuBaza"
-  },
-  {
-    "id": 404,
-    "designation": "Twoja Stocznia"
-  },
-  {
-    "id": 405,
-    "designation": "Biblioteka Sopocka"
-  },
-  {
-    "id": 406,
-    "designation": "Plama GAK"
-  },
-  {
-    "id": 407,
-    "designation": "Centrum Rozwoju Talentow"
-  },
-  {
-    "id": 408,
-    "designation": "Silva Rerum arte & fund"
-  },
-  {
-    "id": 409,
-    "designation": "Gmina Pruszcz Gdański"
-  },
-  {
-    "id": 410,
-    "designation": "Fundacja RC"
-  },
-  {
-    "id": 411,
-    "designation": "Gdański Inkubator Przedsiębiorczości STARTER"
-  },
-  {
-    "id": 412,
-    "designation": "Teatr Capitol"
-  },
-  {
-    "id": 413,
-    "designation": "PRProject"
-  },
-  {
-    "id": 414,
-    "designation": "Scena Lalkowa Kwidzyn"
-  },
-  {
-    "id": 415,
-    "designation": "Inicjatywa Miasto"
-  },
-  {
-    "id": 416,
-    "designation": "GOK Stegna"
-  },
-  {
-    "id": 417,
-    "designation": "Agnieszk Mroz"
-  },
-  {
-    "id": 418,
-    "designation": "UL"
-  }
+    {
+        "id": 2,
+        "designation": "Miejski Teatr MINIATURA"
+    },
+    {
+        "id": 3,
+        "designation": "Teatr Wybrzeże"
+    },
+    {
+        "id": 5,
+        "designation": "Gdański Archipelag Kultury"
+    },
+    {
+        "id": 6,
+        "designation": "Nadbałtyckie Centrum Kultury"
+    },
+    {
+        "id": 8,
+        "designation": "MUZEUM II WOJNY ŚWIATOWEJ"
+    },
+    {
+        "id": 9,
+        "designation": "Muzeum Gdańska"
+    },
+    {
+        "id": 10,
+        "designation": "Akademickie Centrum Kultury UG"
+    },
+    {
+        "id": 11,
+        "designation": "Opera Bałtycka"
+    },
+    {
+        "id": 12,
+        "designation": "Europejskie Centrum Solidarności"
+    },
+    {
+        "id": 13,
+        "designation": "Instytut Kultury Miejskiej"
+    },
+    {
+        "id": 35,
+        "designation": "Organizator Wydarzeń"
+    },
+    {
+        "id": 36,
+        "designation": "Klub Żak"
+    },
+    {
+        "id": 37,
+        "designation": "Fundacja Generacja"
+    },
+    {
+        "id": 38,
+        "designation": "Polski Chór Kameralny \"Schola Cantorum Gedanensis\""
+    },
+    {
+        "id": 39,
+        "designation": "Kolonia Artystów"
+    },
+    {
+        "id": 40,
+        "designation": "Fundacja \"Wspólnota Gdańska\""
+    },
+    {
+        "id": 44,
+        "designation": "Redaktor Planera"
+    },
+    {
+        "id": 47,
+        "designation": "Gdańskie Stowarzyszenie Alliance Française"
+    },
+    {
+        "id": 49,
+        "designation": "Akademia Muzyczna im. Stanisława Moniuszki"
+    },
+    {
+        "id": 50,
+        "designation": "Wojewódzka i Miejska Biblioteka Publiczna w Gdańsku"
+    },
+    {
+        "id": 51,
+        "designation": "Teatr na Plaży"
+    },
+    {
+        "id": 52,
+        "designation": "SmartMedia Test"
+    },
+    {
+        "id": 53,
+        "designation": "Państwowa Galeria Sztuki w Sopocie"
+    },
+    {
+        "id": 54,
+        "designation": "Centrum Sztuki Współczesnej ŁAŹNIA"
+    },
+    {
+        "id": 55,
+        "designation": "Muzeum Narodowe w Gdańsku"
+    },
+    {
+        "id": 56,
+        "designation": "Gdański Teatr Szekspirowski"
+    },
+    {
+        "id": 57,
+        "designation": "Instytut Sztuki Wyspa"
+    },
+    {
+        "id": 58,
+        "designation": "Gdańska Galeria Miejska"
+    },
+    {
+        "id": 59,
+        "designation": "Muzeum Emigracji w Gdyni"
+    },
+    {
+        "id": 60,
+        "designation": "Fusy i Miętusy"
+    },
+    {
+        "id": 61,
+        "designation": "Towarzystwo Przyjaciół Sopotu"
+    },
+    {
+        "id": 62,
+        "designation": "Klubogaleria Bunkier"
+    },
+    {
+        "id": 63,
+        "designation": "Protokultura - Klub Sztuki Alternatywnej"
+    },
+    {
+        "id": 64,
+        "designation": "Krytyka Polityczna - Świetlica w Trójmieście"
+    },
+    {
+        "id": 65,
+        "designation": "Stacja Kultura - Miejska Biblioteka Publiczna w Rumi"
+    },
+    {
+        "id": 66,
+        "designation": "Powiat Tczewski"
+    },
+    {
+        "id": 67,
+        "designation": "Gdynia Kulturalna"
+    },
+    {
+        "id": 68,
+        "designation": "Gmina Szemud"
+    },
+    {
+        "id": 69,
+        "designation": "Powiat Wejherowski"
+    },
+    {
+        "id": 70,
+        "designation": "Inkubator Kultury Kulmiasto"
+    },
+    {
+        "id": 71,
+        "designation": "Miasto i Gmina Gniew"
+    },
+    {
+        "id": 72,
+        "designation": "Stary Maneż"
+    },
+    {
+        "id": 74,
+        "designation": "Fundacja Alternativa"
+    },
+    {
+        "id": 75,
+        "designation": "Muzeum Archeologiczne w Gdańsku"
+    },
+    {
+        "id": 76,
+        "designation": "Bałtycka Agencja Artystyczna BART"
+    },
+    {
+        "id": 77,
+        "designation": "Centrum Designu Gdynia"
+    },
+    {
+        "id": 78,
+        "designation": "Centrum Hewelianum"
+    },
+    {
+        "id": 79,
+        "designation": "MAMYWENE"
+    },
+    {
+        "id": 80,
+        "designation": "Niezależne Zrzeszenie Studentów Uniwersytetu Gdańskiego"
+    },
+    {
+        "id": 81,
+        "designation": "KIWI - graphics & others"
+    },
+    {
+        "id": 86,
+        "designation": "Polska Filharmonia Kameralna Sopot"
+    },
+    {
+        "id": 87,
+        "designation": "Agencja Artystyczna Perspektywy"
+    },
+    {
+        "id": 88,
+        "designation": "Kino \"KinoPort\""
+    },
+    {
+        "id": 89,
+        "designation": "Klub Filmowy \"Horyzont\""
+    },
+    {
+        "id": 90,
+        "designation": "Gdyńskie Centrum Filmowe"
+    },
+    {
+        "id": 91,
+        "designation": "Muzeum Piśmiennictwa i Muzyki Kaszubsko-Pomorskiej w Wejherowie"
+    },
+    {
+        "id": 92,
+        "designation": "LOFT"
+    },
+    {
+        "id": 93,
+        "designation": "Akademia Sztuk Pięknych w Gdańsku"
+    },
+    {
+        "id": 94,
+        "designation": "Miejska Biblioteka Publiczna im. Aleksandra Majkowskiego w Wejherowie"
+    },
+    {
+        "id": 95,
+        "designation": "Liga Muzułmańska w RP - Oddział Pomorski"
+    },
+    {
+        "id": 96,
+        "designation": "Centrum Kultury, Sportu, Turystyki i Biblioteka w Gniewinie"
+    },
+    {
+        "id": 97,
+        "designation": "Empik Gdańsk Galeria Bałtycka"
+    },
+    {
+        "id": 98,
+        "designation": "Aleksandra Perzyńska"
+    },
+    {
+        "id": 99,
+        "designation": "Grupa GIT"
+    },
+    {
+        "id": 100,
+        "designation": "Ośrodek Kultury, Sportu i Biblioteka Publiczna Gminy Pruszcz Gdański"
+    },
+    {
+        "id": 101,
+        "designation": "Garnizon Gdańsk"
+    },
+    {
+        "id": 102,
+        "designation": "Muzeum Sopotu"
+    },
+    {
+        "id": 103,
+        "designation": "O TU_"
+    },
+    {
+        "id": 104,
+        "designation": "Biblioteka Sopocka im. Józefa Wybickiego"
+    },
+    {
+        "id": 105,
+        "designation": "Alicja Kubicka"
+    },
+    {
+        "id": 106,
+        "designation": "Dream Navigation"
+    },
+    {
+        "id": 107,
+        "designation": "Towarzystwo Dom Uphagena"
+    },
+    {
+        "id": 108,
+        "designation": "Fabryka Sztuk"
+    },
+    {
+        "id": 109,
+        "designation": "Teatr Komedii Valldal"
+    },
+    {
+        "id": 110,
+        "designation": "Strefa Startup Gdynia"
+    },
+    {
+        "id": 111,
+        "designation": "16deko"
+    },
+    {
+        "id": 112,
+        "designation": "Akademia Artystyczna"
+    },
+    {
+        "id": 113,
+        "designation": "Wydawnictwo OSKAR"
+    },
+    {
+        "id": 114,
+        "designation": "Teatr Muzyczny im. Danuty Baduszkowej"
+    },
+    {
+        "id": 115,
+        "designation": "Art Show"
+    },
+    {
+        "id": 116,
+        "designation": "Magdalena Bochan-Jachimek"
+    },
+    {
+        "id": 118,
+        "designation": "Młody Byron"
+    },
+    {
+        "id": 119,
+        "designation": "Dana Chmielewska i Agata Gregorkiewicz"
+    },
+    {
+        "id": 120,
+        "designation": "Centrum Edukacji Nauczycieli"
+    },
+    {
+        "id": 121,
+        "designation": "Miasto Gdańsk"
+    },
+    {
+        "id": 122,
+        "designation": "Animus Saltandi"
+    },
+    {
+        "id": 123,
+        "designation": "Dwie Zmiany"
+    },
+    {
+        "id": 124,
+        "designation": "Jan P. Grabowski"
+    },
+    {
+        "id": 125,
+        "designation": "Momarte"
+    },
+    {
+        "id": 126,
+        "designation": "Fundacja Ruszaj w Drogę!"
+    },
+    {
+        "id": 127,
+        "designation": "Fundacja Ocaleni"
+    },
+    {
+        "id": 128,
+        "designation": "Studio Dokumentacji Podróżniczej EGC"
+    },
+    {
+        "id": 129,
+        "designation": "Pomorskie Centrum Informacji Turystycznej"
+    },
+    {
+        "id": 130,
+        "designation": "KNEB - Koło Naukowe Elektronicznego Biznesu UG"
+    },
+    {
+        "id": 131,
+        "designation": "Instytut Pamięci Narodowej - Oddział w Gdańsku"
+    },
+    {
+        "id": 132,
+        "designation": "Muzeum Miasta Gdyni"
+    },
+    {
+        "id": 133,
+        "designation": "Gdańska Wyższa Szkoła Humanistyczna"
+    },
+    {
+        "id": 134,
+        "designation": "PROM*kultura"
+    },
+    {
+        "id": 135,
+        "designation": "Polska Filharmonia Bałtycka"
+    },
+    {
+        "id": 136,
+        "designation": "Paweł Kasper Wysocki"
+    },
+    {
+        "id": 137,
+        "designation": "Bookafka"
+    },
+    {
+        "id": 138,
+        "designation": "Miejski Dom Kultury Rumia"
+    },
+    {
+        "id": 139,
+        "designation": "Zagroda Śledziowa"
+    },
+    {
+        "id": 140,
+        "designation": "Centrum Informacji i Edukacji Ekologicznej"
+    },
+    {
+        "id": 141,
+        "designation": "Urząd Miasta w Wejherowie"
+    },
+    {
+        "id": 142,
+        "designation": "Urząd Gminy w Suchym Dębie"
+    },
+    {
+        "id": 143,
+        "designation": "Zespół Śpiewaczy Św. Cecylia"
+    },
+    {
+        "id": 144,
+        "designation": "Stowarzyszenie Dobrych Wiadomości"
+    },
+    {
+        "id": 145,
+        "designation": "od rzeczy skład"
+    },
+    {
+        "id": 146,
+        "designation": "Ośrodek Kultury i Sportu w Żukowie"
+    },
+    {
+        "id": 147,
+        "designation": "Filozofuj!"
+    },
+    {
+        "id": 148,
+        "designation": "A KuKu Sztuka"
+    },
+    {
+        "id": 149,
+        "designation": "AmberExpo"
+    },
+    {
+        "id": 150,
+        "designation": "Gdańska Szkoła Disco"
+    },
+    {
+        "id": 151,
+        "designation": "ARTLOOP Festival"
+    },
+    {
+        "id": 152,
+        "designation": "Dział Ogrodnika Miejskiego, Zarząd Dróg i Zieleni w Gdańsku"
+    },
+    {
+        "id": 153,
+        "designation": "O4"
+    },
+    {
+        "id": 154,
+        "designation": "Urząd Miejski w Gdańsku - Wydział Gospodarki Komunalnej"
+    },
+    {
+        "id": 155,
+        "designation": "Fabryka Kultury"
+    },
+    {
+        "id": 156,
+        "designation": "Wejherowskie Centrum Kultury"
+    },
+    {
+        "id": 157,
+        "designation": "Stowarzyszenie \"Nasiono\""
+    },
+    {
+        "id": 158,
+        "designation": "Narodowe Muzeum Morskie w Gdańsku"
+    },
+    {
+        "id": 159,
+        "designation": "Miejski Ośrodek Kultury w Pelplinie"
+    },
+    {
+        "id": 160,
+        "designation": "Urząd Miasta Rumi"
+    },
+    {
+        "id": 161,
+        "designation": "Parkrun Rumia"
+    },
+    {
+        "id": 162,
+        "designation": "ZHR Rumia"
+    },
+    {
+        "id": 163,
+        "designation": "Jedność, Godność, Praca"
+    },
+    {
+        "id": 164,
+        "designation": "Związek Harcerstwa Polskiego - Chorągiew Gdańska - Hufiec Rumia"
+    },
+    {
+        "id": 165,
+        "designation": "Puckie Hospicjum pw. św. Ojca Pio"
+    },
+    {
+        "id": 167,
+        "designation": "Mój Planer"
+    },
+    {
+        "id": 168,
+        "designation": "Biblioteka Gdańska Polskiej Akademii Nauk"
+    },
+    {
+        "id": 169,
+        "designation": "Teatr Miejski im. Witolda Gombrowicza w Gdyni"
+    },
+    {
+        "id": 170,
+        "designation": "Dogoterapia Baltic Wolf"
+    },
+    {
+        "id": 171,
+        "designation": "Centrum Nauki EXPERYMENT"
+    },
+    {
+        "id": 172,
+        "designation": "WL4 - Przestrzeń Sztuki"
+    },
+    {
+        "id": 173,
+        "designation": "Pracownia"
+    },
+    {
+        "id": 174,
+        "designation": "Studenckie Koło Przewodników Turystycznych"
+    },
+    {
+        "id": 175,
+        "designation": "Arkadiusz Kalinowski"
+    },
+    {
+        "id": 176,
+        "designation": "Michał Firkowski"
+    },
+    {
+        "id": 177,
+        "designation": "Bookszpan Gdańsk"
+    },
+    {
+        "id": 178,
+        "designation": "Azyl"
+    },
+    {
+        "id": 179,
+        "designation": "Samorząd Studentów Politechniki Gdańskiej"
+    },
+    {
+        "id": 180,
+        "designation": "PMI Poland Chapter Gdańsk"
+    },
+    {
+        "id": 181,
+        "designation": "Fundacja Pomysłodalnia"
+    },
+    {
+        "id": 182,
+        "designation": "michalinakupper.com"
+    },
+    {
+        "id": 183,
+        "designation": "Fundacja A415"
+    },
+    {
+        "id": 184,
+        "designation": "Nowy Teatr im. Witkacego w Słupsku"
+    },
+    {
+        "id": 185,
+        "designation": "Noc Muzeów 2017"
+    },
+    {
+        "id": 186,
+        "designation": "\"Feeria\" Stowarzyszenie Artystyczno-Społeczne"
+    },
+    {
+        "id": 187,
+        "designation": "Fundacja Rozwoju Polskiej Przedsiębiorczości"
+    },
+    {
+        "id": 188,
+        "designation": "Magdalena Kuśmirek"
+    },
+    {
+        "id": 189,
+        "designation": "Muzeum - Kaszubski Park Etnograficzny im. Teodory i Izydora Gulgowskich we Wdzydzach Kiszewskich"
+    },
+    {
+        "id": 190,
+        "designation": "Miejska Biblioteka Publiczna w Lęborku"
+    },
+    {
+        "id": 192,
+        "designation": "AïOLI inspired by Gdańsk"
+    },
+    {
+        "id": 193,
+        "designation": "Gmina Kolbudy"
+    },
+    {
+        "id": 194,
+        "designation": "Teraz Wyspa Sobieszewska"
+    },
+    {
+        "id": 195,
+        "designation": "Politechnika Otwarta"
+    },
+    {
+        "id": 196,
+        "designation": "Art in House Dom Aukcyjny"
+    },
+    {
+        "id": 197,
+        "designation": "Stowarzyszenie Grupa Fląder"
+    },
+    {
+        "id": 198,
+        "designation": "Gmina Pszczółki"
+    },
+    {
+        "id": 199,
+        "designation": "Teatr Błękitna Sukienka"
+    },
+    {
+        "id": 200,
+        "designation": "Novae Res"
+    },
+    {
+        "id": 201,
+        "designation": "Stowarzyszenie Przystań na Sztukę"
+    },
+    {
+        "id": 202,
+        "designation": "Malborskie Centrum Kultury i Edukacji"
+    },
+    {
+        "id": 203,
+        "designation": "Stowarzyszenie Organizacji Hip-Hop'owej \"NON CREW\""
+    },
+    {
+        "id": 204,
+        "designation": "Kunsztownia"
+    },
+    {
+        "id": 205,
+        "designation": "Fundacja Inicjatyw Twórczych \"Fordewind\""
+    },
+    {
+        "id": 206,
+        "designation": "100cznia"
+    },
+    {
+        "id": 207,
+        "designation": "Gmina Suchy Dąb"
+    },
+    {
+        "id": 208,
+        "designation": "Gmina Luzino"
+    },
+    {
+        "id": 210,
+        "designation": "Miasto Malbork"
+    },
+    {
+        "id": 211,
+        "designation": "Kartuzy"
+    },
+    {
+        "id": 212,
+        "designation": "Miasto Sopot"
+    },
+    {
+        "id": 213,
+        "designation": "Miasto i Gmina Żukowo"
+    },
+    {
+        "id": 214,
+        "designation": "Gmina Sierakowice"
+    },
+    {
+        "id": 215,
+        "designation": "Miasto Hel"
+    },
+    {
+        "id": 216,
+        "designation": "Miasto Jastarnia"
+    },
+    {
+        "id": 217,
+        "designation": "Miasto Krynica Morska"
+    },
+    {
+        "id": 218,
+        "designation": "Miasto Lębork"
+    },
+    {
+        "id": 219,
+        "designation": "Miasto i Gmina Nowy Dwór Gdański"
+    },
+    {
+        "id": 220,
+        "designation": "Miasto i Gmina Nowy Staw"
+    },
+    {
+        "id": 221,
+        "designation": "Miasto i Gmina Pelplin"
+    },
+    {
+        "id": 222,
+        "designation": "Miasto Pruszcz Gdański"
+    },
+    {
+        "id": 223,
+        "designation": "Miasto Puck"
+    },
+    {
+        "id": 224,
+        "designation": "Miasto Reda"
+    },
+    {
+        "id": 225,
+        "designation": "Miasto Rumia"
+    },
+    {
+        "id": 226,
+        "designation": "Miasto Tczew"
+    },
+    {
+        "id": 227,
+        "designation": "Miasto Wejherowo"
+    },
+    {
+        "id": 228,
+        "designation": "Miasto i Gmina Władysławowo"
+    },
+    {
+        "id": 229,
+        "designation": "Gmina Cedry Wielkie"
+    },
+    {
+        "id": 230,
+        "designation": "Gmina Chmielno"
+    },
+    {
+        "id": 231,
+        "designation": "Gmina Gniewino"
+    },
+    {
+        "id": 232,
+        "designation": "Gmina Kolbudy"
+    },
+    {
+        "id": 233,
+        "designation": "Gmina Kosakowo"
+    },
+    {
+        "id": 234,
+        "designation": "Gmina Krokowa"
+    },
+    {
+        "id": 235,
+        "designation": "Gmina Lichnowy"
+    },
+    {
+        "id": 236,
+        "designation": "Gmina Linia"
+    },
+    {
+        "id": 237,
+        "designation": "Gmina Łęczyce"
+    },
+    {
+        "id": 238,
+        "designation": "Gmina Ostaszewo"
+    },
+    {
+        "id": 239,
+        "designation": "Miasto Gdynia"
+    },
+    {
+        "id": 240,
+        "designation": "Przodkowo"
+    },
+    {
+        "id": 241,
+        "designation": "Gmina Przywidz"
+    },
+    {
+        "id": 242,
+        "designation": "Gmina Somonino"
+    },
+    {
+        "id": 243,
+        "designation": "Gmina Stegna"
+    },
+    {
+        "id": 244,
+        "designation": "Gmina Stężyca"
+    },
+    {
+        "id": 245,
+        "designation": "Gmina Subkowy"
+    },
+    {
+        "id": 246,
+        "designation": "Gmina Sulęczyno"
+    },
+    {
+        "id": 247,
+        "designation": "Gmina Sztutowo"
+    },
+    {
+        "id": 248,
+        "designation": "Gmina Trąbki Wielkie"
+    },
+    {
+        "id": 254,
+        "designation": "Fundacja Kultury Zbliżenia"
+    },
+    {
+        "id": 255,
+        "designation": "Sopot"
+    },
+    {
+        "id": 256,
+        "designation": "Prosta Kreska"
+    },
+    {
+        "id": 257,
+        "designation": "Agencja Artystyczna Perspektywy"
+    },
+    {
+        "id": 258,
+        "designation": "Sztuka Trójmiasta"
+    },
+    {
+        "id": 269,
+        "designation": "Żuławski Park Historyczny"
+    },
+    {
+        "id": 270,
+        "designation": "Żuławski Ośrodek Kultury"
+    },
+    {
+        "id": 271,
+        "designation": "Gdynia InfoBox Obserwatorium Zmian"
+    },
+    {
+        "id": 272,
+        "designation": "Pomorski Park Naukowo-Technologiczny"
+    },
+    {
+        "id": 273,
+        "designation": "Centrum Kultury w Gdyni"
+    },
+    {
+        "id": 274,
+        "designation": "Gdyńskie Centrum Sportu - Gdynia Arena"
+    },
+    {
+        "id": 275,
+        "designation": "Teatr Gdynia Główna"
+    },
+    {
+        "id": 276,
+        "designation": "Klub Muzyczny Ucho"
+    },
+    {
+        "id": 277,
+        "designation": "Blues Club"
+    },
+    {
+        "id": 278,
+        "designation": "Lęborskie Centrum Kultury \"Fregata\""
+    },
+    {
+        "id": 279,
+        "designation": "Centrum Kultury i Sportu w Pruszczu Gdańskim"
+    },
+    {
+        "id": 280,
+        "designation": "Gminna Biblioteka Publiczna w Pszczółkach"
+    },
+    {
+        "id": 281,
+        "designation": "Kultura nad Radunią"
+    },
+    {
+        "id": 282,
+        "designation": "Nowostawskie Centrum Kultury i Biblioteki"
+    },
+    {
+        "id": 283,
+        "designation": "Ośrodek Kultury, Sportu i Biblioteka Publiczna Gminy Pruszcz Gdański"
+    },
+    {
+        "id": 284,
+        "designation": "Teatr Muzyczny w Gdyni"
+    },
+    {
+        "id": 286,
+        "designation": "Powiatowa i Miejska Biblioteka Publiczna w Gniewie"
+    },
+    {
+        "id": 288,
+        "designation": "Zarząd Morskiego Portu Gdynia S.A."
+    },
+    {
+        "id": 289,
+        "designation": "Muzeum Stutthof w Sztutowie"
+    },
+    {
+        "id": 290,
+        "designation": "Cerkiew Św. Mikołaja w Cyganku"
+    },
+    {
+        "id": 291,
+        "designation": "Biblioteka Elbląska"
+    },
+    {
+        "id": 292,
+        "designation": "Muzeum Zamkowe w Malborku"
+    },
+    {
+        "id": 293,
+        "designation": "Impresariat 34art.pl"
+    },
+    {
+        "id": 294,
+        "designation": "Dom Sąsiedzki w Pałacu"
+    },
+    {
+        "id": 295,
+        "designation": "Żuławski Ośrodek Kultury i Sportu w Cedrach Wielkich"
+    },
+    {
+        "id": 296,
+        "designation": "Regionalne Centrum Wolontariatu"
+    },
+    {
+        "id": 297,
+        "designation": "Galeria Studencka Start"
+    },
+    {
+        "id": 299,
+        "designation": "Mediateka Malbork"
+    },
+    {
+        "id": 300,
+        "designation": "Centrum Kultury i Sztuki w Tczewie"
+    },
+    {
+        "id": 301,
+        "designation": "Miejska Biblioteka Publiczna w Tczewie"
+    },
+    {
+        "id": 302,
+        "designation": "Centrum Kultury, Promocji i Sportu we Władysławowie"
+    },
+    {
+        "id": 303,
+        "designation": "Malborskie Centrum Kultury i Edukacji"
+    },
+    {
+        "id": 304,
+        "designation": "Kościół Zielonoświątkowy - Zbór \"Radość życia\" w Gdańsku"
+    },
+    {
+        "id": 306,
+        "designation": "Muzem Ceramiki Neclòw"
+    },
+    {
+        "id": 307,
+        "designation": "Zamek w Krokowej"
+    },
+    {
+        "id": 308,
+        "designation": "Biblioteka Publiczna w Pucku"
+    },
+    {
+        "id": 309,
+        "designation": "Krokowskie Centrum Kultury"
+    },
+    {
+        "id": 310,
+        "designation": "Kartuskie Centrum Kultury"
+    },
+    {
+        "id": 311,
+        "designation": "Hotel Zamek Gniew"
+    },
+    {
+        "id": 312,
+        "designation": "Powiatowa i Miejska Biblioteka Publiczna w Pruszczu Gdańskim"
+    },
+    {
+        "id": 313,
+        "designation": "Gminna Instytucja Kultury i Biblioteka w Łęczycach"
+    },
+    {
+        "id": 314,
+        "designation": "Gminna Biblioteka Publiczna w Sulęczynie"
+    },
+    {
+        "id": 315,
+        "designation": "Spółdzielnia Socjalna Fabryka Inicjatyw w Malborku"
+    },
+    {
+        "id": 316,
+        "designation": "Biblioteka Gdynia"
+    },
+    {
+        "id": 317,
+        "designation": "MU­ZEUM W LĘBORKU"
+    },
+    {
+        "id": 318,
+        "designation": "Gminny Ośrodek Kultury w Luzinie"
+    },
+    {
+        "id": 319,
+        "designation": "Biblioteka Publiczna Gminy Przodkowo"
+    },
+    {
+        "id": 320,
+        "designation": "Sztuka Wyboru"
+    },
+    {
+        "id": 321,
+        "designation": "Muzeum Marynarki Wojennej w Gdyni"
+    },
+    {
+        "id": 322,
+        "designation": "Gminna Biblioteka Publiczna w Luzinie im. Leona Roppla"
+    },
+    {
+        "id": 323,
+        "designation": "Cappella Gedanensis"
+    },
+    {
+        "id": 324,
+        "designation": "Gdańskie Targi Książki"
+    },
+    {
+        "id": 325,
+        "designation": "LAS dolnysopotpółnoc"
+    },
+    {
+        "id": 326,
+        "designation": "Fundacja „Kreatywna Edukacja”"
+    },
+    {
+        "id": 327,
+        "designation": "Stowarzyszenie ALTERNATYWNY CYPEL"
+    },
+    {
+        "id": 328,
+        "designation": "Klub Marynarki Wojennej w Gdyni"
+    },
+    {
+        "id": 329,
+        "designation": "Faktoria Pruszcz Gdański"
+    },
+    {
+        "id": 330,
+        "designation": "Biblioteka Publiczna Gminy Szemud im. ks. L. Heyke w Szemudzie"
+    },
+    {
+        "id": 331,
+        "designation": "Miejska Biblioteka Publiczna im. Księdza Bernarda Sychty w Pelplinie"
+    },
+    {
+        "id": 332,
+        "designation": "Miejska Biblioteka Publiczna w Krynicy Morskiej"
+    },
+    {
+        "id": 333,
+        "designation": "Zatoka Sztuki"
+    },
+    {
+        "id": 334,
+        "designation": "\"Fundacja Zostw Swój Ślad\""
+    },
+    {
+        "id": 337,
+        "designation": "Instytut Metropolitalny"
+    },
+    {
+        "id": 339,
+        "designation": "globaltica"
+    },
+    {
+        "id": 340,
+        "designation": "wrzeszczcentralny"
+    },
+    {
+        "id": 342,
+        "designation": "Fundacja Artystów Kolonia Teraz"
+    },
+    {
+        "id": 343,
+        "designation": "FOTeL Juszkowo"
+    },
+    {
+        "id": 345,
+        "designation": "Outdoor Cinema Ent. Sp. z o.o."
+    },
+    {
+        "id": 346,
+        "designation": "Hello Art Agency"
+    },
+    {
+        "id": 347,
+        "designation": "Amberton"
+    },
+    {
+        "id": 348,
+        "designation": "sosimple"
+    },
+    {
+        "id": 349,
+        "designation": "Fundacja FairArt"
+    },
+    {
+        "id": 350,
+        "designation": "Literacki Sopot"
+    },
+    {
+        "id": 351,
+        "designation": "Mecenas Siemienkiewicz"
+    },
+    {
+        "id": 352,
+        "designation": "Ulica Elektryków"
+    },
+    {
+        "id": 353,
+        "designation": "Kaszubski Zespół Pieśni i Tańca \" Chmielanie\""
+    },
+    {
+        "id": 354,
+        "designation": "Gdański Teatr Szekspirowski"
+    },
+    {
+        "id": 355,
+        "designation": "Fundacja Gdańska"
+    },
+    {
+        "id": 356,
+        "designation": "PATIO ASP"
+    },
+    {
+        "id": 357,
+        "designation": "Trójmiasto Restaurant Week"
+    },
+    {
+        "id": 358,
+        "designation": "Traffic Design"
+    },
+    {
+        "id": 363,
+        "designation": "Gdynia Kulturalna"
+    },
+    {
+        "id": 364,
+        "designation": "Oddział Etnografii Muzeum Narodowego w Gdańsku"
+    },
+    {
+        "id": 365,
+        "designation": "Fundacja Kultury Wizualnej Chmura"
+    },
+    {
+        "id": 366,
+        "designation": "Dom Chodowieckiego i Grassa"
+    },
+    {
+        "id": 367,
+        "designation": "FUNDACJA \"ŻYJMY W HARMONII\""
+    },
+    {
+        "id": 368,
+        "designation": "Video Studio Gdańsk"
+    },
+    {
+        "id": 369,
+        "designation": "FUNDACJA PURA"
+    },
+    {
+        "id": 370,
+        "designation": "FUNDACJA KULTURY BEZ BARIER"
+    },
+    {
+        "id": 371,
+        "designation": "Fundacja Młodego Kina"
+    },
+    {
+        "id": 372,
+        "designation": "SzaFoFe"
+    },
+    {
+        "id": 377,
+        "designation": "Centrum Praw Kobiet – Oddział w Gdańsku"
+    },
+    {
+        "id": 378,
+        "designation": "Restauracja LUDOVISKO"
+    },
+    {
+        "id": 379,
+        "designation": "Mediateka w Straszynie"
+    },
+    {
+        "id": 380,
+        "designation": "Stowrzyszenie Aktywny Puck"
+    },
+    {
+        "id": 381,
+        "designation": "Politechnika Otwarta"
+    },
+    {
+        "id": 382,
+        "designation": "Klub Ziemia"
+    },
+    {
+        "id": 383,
+        "designation": "Trójmiejska Kawiarnia Naukowa"
+    },
+    {
+        "id": 385,
+        "designation": "Halo Kultura"
+    },
+    {
+        "id": 386,
+        "designation": "Aya Flow Language Center"
+    },
+    {
+        "id": 387,
+        "designation": "Gdyńskie Centrum Kultury"
+    },
+    {
+        "id": 388,
+        "designation": "Gminny Ośrodek Kultury w Sierakowicach"
+    },
+    {
+        "id": 389,
+        "designation": "Miejsce Sopot"
+    },
+    {
+        "id": 390,
+        "designation": "Laboratorium Innowacji Społecznych"
+    },
+    {
+        "id": 391,
+        "designation": "Klubogaleria Nagu"
+    },
+    {
+        "id": 392,
+        "designation": "Ogniem i Piecem"
+    },
+    {
+        "id": 393,
+        "designation": "Dynamo - Stowarzyszenie Twórczego Rozwoju"
+    },
+    {
+        "id": 394,
+        "designation": "Szary Ganek - Autorska Galeria Sztuki"
+    },
+    {
+        "id": 395,
+        "designation": "Orkiestra Miasta Pruszcz Gdański"
+    },
+    {
+        "id": 396,
+        "designation": "Tutti Entertainment"
+    },
+    {
+        "id": 397,
+        "designation": "Biesiady Literackie - Agencja Artystyczna R&K Nehrebeccy"
+    },
+    {
+        "id": 398,
+        "designation": "Agencja koncertowa Pan Koncert"
+    },
+    {
+        "id": 399,
+        "designation": "Pałac Ciekocinko Hotel Resort & Wellness"
+    },
+    {
+        "id": 400,
+        "designation": "Stowarzyszenie Turystyczne Kaszuby Północne"
+    },
+    {
+        "id": 401,
+        "designation": "Tolerado"
+    },
+    {
+        "id": 402,
+        "designation": "Mana Mana"
+    },
+    {
+        "id": 403,
+        "designation": "tuBaza"
+    },
+    {
+        "id": 404,
+        "designation": "Twoja Stocznia"
+    },
+    {
+        "id": 405,
+        "designation": "Biblioteka Sopocka"
+    },
+    {
+        "id": 406,
+        "designation": "Plama GAK"
+    },
+    {
+        "id": 407,
+        "designation": "Centrum Rozwoju Talentow"
+    },
+    {
+        "id": 408,
+        "designation": "Silva Rerum arte & fund"
+    },
+    {
+        "id": 409,
+        "designation": "Gmina Pruszcz Gdański"
+    },
+    {
+        "id": 410,
+        "designation": "Fundacja RC"
+    },
+    {
+        "id": 411,
+        "designation": "Gdański Inkubator Przedsiębiorczości STARTER"
+    },
+    {
+        "id": 412,
+        "designation": "Teatr Capitol"
+    },
+    {
+        "id": 413,
+        "designation": "PRProject"
+    },
+    {
+        "id": 414,
+        "designation": "Scena Lalkowa Kwidzyn"
+    },
+    {
+        "id": 415,
+        "designation": "Inicjatywa Miasto"
+    },
+    {
+        "id": 416,
+        "designation": "GOK Stegna"
+    },
+    {
+        "id": 417,
+        "designation": "Agnieszk Mroz"
+    },
+    {
+        "id": 418,
+        "designation": "UL"
+    },
+    {
+        "id": 419,
+        "designation": "Goyki3"
+    }
 ]
