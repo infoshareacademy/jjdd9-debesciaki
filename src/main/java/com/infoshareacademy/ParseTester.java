@@ -26,9 +26,13 @@ public class ParseTester {
         // reference <List<class>>
         File json = new File("organizers.json");
         List<Organizer> organizerList = mapper.readValue(json, new TypeReference<List<Organizer>>() {});
+        //Singleton
+
 
         File json2 = new File("places.json");
         List<Place> placesList = mapper.readValue(json2, new TypeReference<List<Place>>() {});
+        //Singleton
+
         //declare + init hashmap
         Map<Integer,Place> placesMap = new HashMap<>();
 
@@ -36,9 +40,27 @@ public class ParseTester {
         for(Place p: placesList){
             placesMap.put(p.getId(),p);
         }
+
+        //Preparing events
         File json3 = new File("events.json");
         List<Event> eventList = mapper.readValue(json3, new TypeReference<List<Event>>() {});
 
+
+        //Preparing files for  parsing categories
+        File json4 = new File("categories.json");
+        List<Category> categoryList = mapper.readValue(json4,new TypeReference<List<Category>>() {});
+        //Singleton
+
+        //declare + init hashmap
+        Map<Integer, Category> rootsMap = new HashMap<>();
+
+        //Loop to fill hashmap with list of places
+        for(Category r: categoryList){
+            rootsMap.put(r.getId(),r);
+        }
+
+
+        /*
         //Print organizers
 
         for (Organizer o: organizerList){
@@ -61,6 +83,18 @@ public class ParseTester {
             Place p=e.getPlace();
             STDOUT.info("Place ID: {} \n",p.getId());
         }
+
+
+
+        //Print categories
+        for (Category c: categoryList){
+            RootCategory r=c.getRootCategory();
+            STDOUT.info("Category ID: {} Name: {} \n",c.getId(),c.getName());
+            if (r!=null) {
+                STDOUT.info("Root ID: {} Name: {} \n", r.getId(), r.getName());
+            }
+        }
+        */
 
 
     }

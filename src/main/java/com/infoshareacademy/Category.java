@@ -1,11 +1,11 @@
 package com.infoshareacademy;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Categories {
+public class Category {
     private int id;
     private String name;
-    private Root_category root_category;
+    @JsonProperty("root_category") private RootCategory rootCategory ;//= new RootCategory();
 
     public int getId() {
         return id;
@@ -23,11 +23,8 @@ public class Categories {
         this.name = name;
     }
 
-    public Root_category getRoot_category() {
-        return root_category;
+    public RootCategory getRootCategory() {
+        return rootCategory;
     }
 
-    public void setRoot_category(Root_category root_category) {
-        this.root_category = root_category;
-    }
 }
