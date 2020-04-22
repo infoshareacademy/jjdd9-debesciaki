@@ -1,4 +1,6 @@
-package com.infoshareacademy;
+package com.infoshareacademy.repositoriesJson;
+
+import com.infoshareacademy.parseJson.Place;
 
 import java.util.ArrayList;
 import java.util.List;

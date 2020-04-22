@@ -1,13 +1,13 @@
-package com.infoshareacademy;
+package com.infoshareacademy.menu;
 
-public enum MenuEventsOption {
-    RETURN("Powrót do głównego menu"),
-    FILTER("Filtruj wydarzenia"),
-    SEARCH("Wyszukaj wydarzenia");
+public enum MenuSettingsOption {
+    RETURN("Powrót do menu główego"),
+    SORT("Ustawienia sortowania"),
+    DATE_FORMAT("Ustawienia formatu daty");
 
     private String description;
 
-    MenuEventsOption(String description) {
+    MenuSettingsOption(String description) {
         this.description = description;
     }
 
@@ -20,4 +20,3 @@ public enum MenuEventsOption {
         return getDescription();
     }
 }
-

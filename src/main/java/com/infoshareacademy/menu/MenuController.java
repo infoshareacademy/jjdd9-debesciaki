@@ -1,4 +1,4 @@
-package com.infoshareacademy;
+package com.infoshareacademy.menu;
 
 public class MenuController {
     public void run() {
