@@ -1,4 +1,4 @@
-package com.infoshareacademy.parseJson;
+package com.infoshareacademy.parser;
 
 import java.util.List;
 

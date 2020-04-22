@@ -1,15 +1,11 @@
-package com.infoshareacademy.parseJson;
+package com.infoshareacademy.parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.parseJson.Category;
-import com.infoshareacademy.parseJson.Event;
-import com.infoshareacademy.parseJson.Organizer;
-import com.infoshareacademy.parseJson.Place;
-import com.infoshareacademy.repositoriesJson.CategoryRepository;
-import com.infoshareacademy.repositoriesJson.EventRepository;
-import com.infoshareacademy.repositoriesJson.OrganizerRepository;
-import com.infoshareacademy.repositoriesJson.PlaceRepository;
+import com.infoshareacademy.repository.CategoryRepository;
+import com.infoshareacademy.repository.EventRepository;
+import com.infoshareacademy.repository.OrganizerRepository;
+import com.infoshareacademy.repository.PlaceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

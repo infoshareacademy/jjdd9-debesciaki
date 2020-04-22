@@ -1,10 +1,11 @@
-package com.infoshareacademy.parseJson;
+package com.infoshareacademy.parser;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RootCategory {
+public class Category {
     private int id;
     private String name;
-
+    @JsonProperty("root_category") private RootCategory rootCategory ;//= new RootCategory();
 
     public int getId() {
         return id;
@@ -21,4 +22,9 @@ public class RootCategory {
     public void setName(String name) {
         this.name = name;
     }
+
+    public RootCategory getRootCategory() {
+        return rootCategory;
+    }
+
 }
