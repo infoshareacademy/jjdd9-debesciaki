@@ -16,8 +16,8 @@ public class App {
     public static void main(String[] args) throws IOException {
         new ParseService().run();
         Display display = new Display();
-        display.run();
-        MenuController main = new MenuController();
-        main.run();
+        display.events();
+        //MenuController main = new MenuController();
+        //main.run();
     }
 }
