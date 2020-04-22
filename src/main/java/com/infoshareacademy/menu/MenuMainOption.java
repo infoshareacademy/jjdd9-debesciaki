@@ -1,4 +1,4 @@
-package com.infoshareacademy;
+package com.infoshareacademy.menu;
 
 public enum MenuMainOption {
     EXIT("Zakończ program"),

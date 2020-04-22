@@ -1,4 +1,4 @@
-package com.infoshareacademy;
+package com.infoshareacademy.parseJson;
 
 
 public class Url {
