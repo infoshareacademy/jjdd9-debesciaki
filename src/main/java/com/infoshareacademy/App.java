@@ -1,7 +1,7 @@
 package com.infoshareacademy;
 
 import com.infoshareacademy.menu.MenuController;
-import com.infoshareacademy.parseJson.ParseService;
+import com.infoshareacademy.parser.ParseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
