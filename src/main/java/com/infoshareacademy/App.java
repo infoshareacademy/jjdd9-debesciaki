@@ -1,5 +1,6 @@
 package com.infoshareacademy;
 
+import com.infoshareacademy.display.Display;
 import com.infoshareacademy.menu.MenuController;
 import com.infoshareacademy.parser.ParseService;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ public class App {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     public static void main(String[] args) throws IOException {
         new ParseService().run();
+        Display display = new Display();
+        display.run();
         MenuController main = new MenuController();
         main.run();
     }
