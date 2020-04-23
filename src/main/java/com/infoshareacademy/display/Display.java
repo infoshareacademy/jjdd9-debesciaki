@@ -26,32 +26,33 @@ public class Display {
         //ZonedDateTime.parse("2020-04-21T17:00:00+0200",formatter);// 0 19
         String actT = LocalDateTime.now().format(formatter);
         //sprawdź czy null
-        Optional<Integer> compQty = inputElementQuantity("łącznie");
-        Optional<Integer> pageMaxElements = inputElementQuantity("na jednej stronie");
+        Optional<Integer> compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? --> ");
+        Optional<Integer> pageMaxElements = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć na jednej stronie? --> ");
         Integer qty = compQty.get();
-        Integer pMel = pageMaxElements.get();
+        Integer elemPerPage = pageMaxElements.get();
         STDOUT.info("Number is: {} \n", qty);
 
 
         Map<Integer, Event> eventMap = selectedMap(qty);
+        List<Event> eventList =selectedList(qty);
+        displayPages(qty,elemPerPage,eventList);
 
-
-        for (Event e : eventMap.values()) {
-            Place p = e.getPlace();
-            STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n", ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
-                    ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
-                    ConsoleColor.CYAN_BACKGROUND, e.getEndDate(), ConsoleColor.RESET);
+        /*for (Event e : eventMap.values()) {
+            consoleEventScheme(e);
         }
+
+         */
+
         STDOUT.info("size of map {}\nsize of a repository  {}\n", eventMap.size(), EventRepository.getAllEvents().size());
 
 
     }
 
-    public Optional<Integer> inputElementQuantity(String subject) {
+    public Optional<Integer> inputInteger(String subject) {
         Integer qty = null;
         Optional<Integer> opt = Optional.ofNullable(qty);
         do {
-            STDOUT.info("Ile nadchodzących wydarzeń chcesz zobaczyć {}? --> ",subject);
+            STDOUT.info("{}",subject);
             try {
                 Scanner scanner = new Scanner(System.in);
                 opt = Optional.ofNullable(qty = scanner.nextInt());
@@ -71,6 +72,16 @@ public class Display {
             }
         }
         return eventMap;
+    }
+    public List<Event> selectedList(int qty) {
+        //Selective filling
+        List< Event> eventList = new ArrayList<>();
+        for (Event e : EventRepository.getAllEvents()) {
+            if (eventList.size() < qty) {
+                if (compareDateStrings(e.getEndDate())) eventList.add(e);
+            }
+        }
+        return eventList;
     }
 
     public boolean compareDateStrings(String eventT) {
@@ -99,8 +110,39 @@ public class Display {
         } else return false;
     }
 
-    public void displayer(Integer qty, Integer elemPerPage,Map<Integer, Event> eventMap ){
+    public void displayPages(Integer qty, Integer elemPerPage,List< Event> eventList ){
+        Optional<Integer> decision =null;
+        double pageCountd = Math.ceil((double)qty/elemPerPage);
+        Integer pageCount = (int)pageCountd;
+        int limU=0, limD=elemPerPage,actual=1;
+        do {
+           for (int i=limU;i<limD;i++){
+               if (i<eventList.size()){
+               Event e=eventList.get(i);
+               consoleEventScheme(e);}
+           }
+            decision =inputInteger("0-wyjdź\n1-poprzednia\n2-następna ");
+           int dec = decision.get();
+           if (actual>1&&dec==1){
+               actual--;
+               limU-=elemPerPage;
+               limD-=elemPerPage;
+           }else if (actual<pageCount&&dec==2){
+               actual++;
+               limU+=elemPerPage;
+               limD+=elemPerPage;
+           }else if (dec!=1&&dec!=2){
+               break;
+           }
+        }while (decision.get()==1 || decision.get()==2);
+    }
 
+    //Configuration for displaying event in console
+    public void consoleEventScheme(Event e){
+        Place p = e.getPlace();
+        STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n", ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
+                ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
+                ConsoleColor.CYAN_BACKGROUND, e.getEndDate(), ConsoleColor.RESET);
     }
 
     //this.year =Integer.parseInt(Date.substring(0,4));
