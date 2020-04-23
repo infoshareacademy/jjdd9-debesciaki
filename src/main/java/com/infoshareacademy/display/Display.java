@@ -121,7 +121,7 @@ public class Display {
                Event e=eventList.get(i);
                consoleEventScheme(e);}
            }
-            decision =inputInteger("0-wyjdź\n1-poprzednia\n2-następna ");
+            decision =inputInteger("0-wyjdź\n1-poprzednia\n2-następna\nStrona nr "+actual+"  Twój wybór to:");
            int dec = decision.get();
            if (actual>1&&dec==1){
                actual--;
