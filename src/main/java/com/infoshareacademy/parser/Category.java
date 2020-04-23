@@ -1,4 +1,4 @@
-package com.infoshareacademy;
+package com.infoshareacademy.parser;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

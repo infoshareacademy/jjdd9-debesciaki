@@ -1,7 +1,11 @@
-package com.infoshareacademy;
+package com.infoshareacademy.parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.infoshareacademy.repository.CategoryRepository;
+import com.infoshareacademy.repository.EventRepository;
+import com.infoshareacademy.repository.OrganizerRepository;
+import com.infoshareacademy.repository.PlaceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

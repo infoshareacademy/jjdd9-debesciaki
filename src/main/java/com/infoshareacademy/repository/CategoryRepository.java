@@ -1,4 +1,6 @@
-package com.infoshareacademy;
+package com.infoshareacademy.repository;
+
+import com.infoshareacademy.parser.Category;
 
 import java.util.ArrayList;
 import java.util.List;
