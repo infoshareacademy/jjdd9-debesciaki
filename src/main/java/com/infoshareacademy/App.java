@@ -13,7 +13,7 @@ import java.io.IOException;
 public class App {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     public static void main(String[] args) throws IOException {
-        new ParseService().run();
+        new ParseService().parseFiles();
         Display display = new Display();
         display.displayCurrentEvents();
         //MenuController main = new MenuController();
