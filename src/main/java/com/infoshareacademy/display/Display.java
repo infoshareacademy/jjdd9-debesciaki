@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
+
 public class Display {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     String pattern;
@@ -70,7 +72,7 @@ public class Display {
         Integer pageCount = (int) pageCountd;
         int limU = 0, limD = elemPerPage, actual = 1;
         do {
-            cleanTerminal();
+            cleanConsole();
             for (int i = limU; i < limD; i++) {
                 if (i < eventList.size()) {
                     Event e = eventList.get(i);
@@ -110,9 +112,5 @@ public class Display {
         String subEventTime = eventTime.substring(0, 19);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
         return LocalDateTime.parse(subEventTime,formatter);
-    }
-
-    public void cleanTerminal() {
-        STDOUT.info("\033\143");
     }
 }
