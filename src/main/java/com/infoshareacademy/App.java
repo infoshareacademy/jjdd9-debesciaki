@@ -15,11 +15,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         new ParseService().run();
         Display display = new Display();
-        try {
-            display.currentEvents();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        display.displayCurrentEvents();
         //MenuController main = new MenuController();
         //main.run();
     }
