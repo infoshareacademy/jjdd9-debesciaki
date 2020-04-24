@@ -15,10 +15,6 @@ import java.util.*;
 public class Display {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
-    public void run() {
-        STDOUT.info("{}Czerwony{}Zielony{}Niebieski{}Żółty{}\n", ConsoleColor.RED, ConsoleColor.GREEN, ConsoleColor.BLUE, ConsoleColor.YELLOW, ConsoleColor.RESET);
-    }
-
     public void currentEvents() throws IOException, InterruptedException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");     //("yyyy-MM-dd'T'HH:mm:ssZ");
         //STDOUT.info("{}\n", LocalDateTime.now().format(formatter));
@@ -37,11 +33,6 @@ public class Display {
         List<Event> eventList =selectedList(qty);
         displayPages(qty,elemPerPage,eventList);
 
-        /*for (Event e : eventMap.values()) {
-            consoleEventScheme(e);
-        }
-
-         */
 
         STDOUT.info("size of map {}\nsize of a repository  {}\n", eventMap.size(), EventRepository.getAllEvents().size());
 
@@ -68,22 +59,32 @@ public class Display {
         Map<Integer, Event> eventMap = new HashMap<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventMap.size() < qty) {
-                if (compareDateStrings(e.getEndDate())) eventMap.put(e.getId(), e);
+                if (isAfterNow(e.getEndDate())) eventMap.put(e.getId(), e);
             }
         }
         return eventMap;
     }
+
     public List<Event> selectedList(int qty) {
         //Selective filling
         List< Event> eventList = new ArrayList<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventList.size() < qty) {
-                if (compareDateStrings(e.getEndDate())) eventList.add(e);
+                if (isAfterNow(e.getEndDate())) eventList.add(e);
             }
         }
         return eventList;
     }
 
+    public boolean isAfterNow(String eventTime) {
+        String subEventTime = eventTime.substring(0,19);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");     //("yyyy-MM-dd'T'HH:mm:ssZ");
+        LocalDateTime convEventLTD = LocalDateTime.parse(subEventTime, formatter);
+        return convEventLTD.isAfter(LocalDateTime.now());
+    }
+
+    //old if monster
+    /*
     public boolean compareDateStrings(String eventTime) {
         if (Integer.parseInt(eventTime.substring(0, 4)) == LocalDateTime.now().getYear()) {
             if (Integer.parseInt(eventTime.substring(5, 7)) == (LocalDateTime.now().getMonthValue())) {
@@ -109,6 +110,8 @@ public class Display {
             return true;
         } else return false;
     }
+
+     */
 
     public void displayPages(Integer qty, Integer elemPerPage,List< Event> eventList ){
         Optional<Integer> decision =null;
@@ -143,18 +146,10 @@ public class Display {
         Place p = e.getPlace();
         STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n", ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
-                ConsoleColor.CYAN_BACKGROUND, e.getEndDate(), ConsoleColor.RESET);
+                ConsoleColor.BLUE_BACKGROUND, e.getEndDate(), ConsoleColor.RESET);
     }
 
     public void cleanTerminal() {
         STDOUT.info("\033\143");
     }
-    //this.year =Integer.parseInt(Date.substring(0,4));
-    //  this.month=Integer.parseInt(Date.substring(5,7));
-    // this.day =Integer.parseInt(Date.substring(8,10));
-    // this.hour =Integer.parseInt(Date.substring(11,13));
-    // this.minute =Integer.parseInt(Date.substring(14,16));
-    //this.seconds=Integer.parseInt(Date.substring(17,19));
-
-
 }
