@@ -21,7 +21,7 @@ public class Display {
 
     public void currentEvents() throws IOException, InterruptedException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");     //("yyyy-MM-dd'T'HH:mm:ssZ");
-        STDOUT.info("{}\n", LocalDateTime.now().format(formatter));
+        //STDOUT.info("{}\n", LocalDateTime.now().format(formatter));
         DateTimeFormatter eventFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
         //ZonedDateTime.parse("2020-04-21T17:00:00+0200",formatter);// 0 19
         String actT = LocalDateTime.now().format(formatter);
@@ -84,28 +84,28 @@ public class Display {
         return eventList;
     }
 
-    public boolean compareDateStrings(String eventT) {
-        if (Integer.parseInt(eventT.substring(0, 4)) == LocalDateTime.now().getYear()) {
-            if (Integer.parseInt(eventT.substring(5, 7)) == (LocalDateTime.now().getMonthValue())) {
-                if (Integer.parseInt(eventT.substring(8, 10)) == LocalDateTime.now().getDayOfMonth()) {
-                    if (Integer.parseInt(eventT.substring(11, 13)) == LocalDateTime.now().getHour()) {
-                        if (Integer.parseInt(eventT.substring(14, 16)) == LocalDateTime.now().getMinute()) {
-                            if (Integer.parseInt(eventT.substring(17, 19)) > LocalDateTime.now().getSecond()) {
+    public boolean compareDateStrings(String eventTime) {
+        if (Integer.parseInt(eventTime.substring(0, 4)) == LocalDateTime.now().getYear()) {
+            if (Integer.parseInt(eventTime.substring(5, 7)) == (LocalDateTime.now().getMonthValue())) {
+                if (Integer.parseInt(eventTime.substring(8, 10)) == LocalDateTime.now().getDayOfMonth()) {
+                    if (Integer.parseInt(eventTime.substring(11, 13)) == LocalDateTime.now().getHour()) {
+                        if (Integer.parseInt(eventTime.substring(14, 16)) == LocalDateTime.now().getMinute()) {
+                            if (Integer.parseInt(eventTime.substring(17, 19)) > LocalDateTime.now().getSecond()) {
                                 return true;
                             } else return false;
-                        } else if (Integer.parseInt(eventT.substring(14, 16)) > LocalDateTime.now().getMinute()) {
+                        } else if (Integer.parseInt(eventTime.substring(14, 16)) > LocalDateTime.now().getMinute()) {
                             return true;
                         } else return false;
-                    } else if (Integer.parseInt(eventT.substring(11, 13)) > LocalDateTime.now().getHour()) {
+                    } else if (Integer.parseInt(eventTime.substring(11, 13)) > LocalDateTime.now().getHour()) {
                         return true;
                     } else return false;
-                } else if (Integer.parseInt(eventT.substring(8, 10)) > LocalDateTime.now().getDayOfMonth()) {
+                } else if (Integer.parseInt(eventTime.substring(8, 10)) > LocalDateTime.now().getDayOfMonth()) {
                     return true;
                 } else return false;
-            } else if (Integer.parseInt(eventT.substring(5, 7)) > LocalDateTime.now().getMonthValue()) {
+            } else if (Integer.parseInt(eventTime.substring(5, 7)) > LocalDateTime.now().getMonthValue()) {
                 return true;
             } else return false;
-        } else if (Integer.parseInt(eventT.substring(0, 4)) > LocalDateTime.now().getYear()) {
+        } else if (Integer.parseInt(eventTime.substring(0, 4)) > LocalDateTime.now().getYear()) {
             return true;
         } else return false;
     }
@@ -116,6 +116,7 @@ public class Display {
         Integer pageCount = (int)pageCountd;
         int limU=0, limD=elemPerPage,actual=1;
         do {
+            cleanTerminal();
            for (int i=limU;i<limD;i++){
                if (i<eventList.size()){
                Event e=eventList.get(i);
@@ -145,6 +146,9 @@ public class Display {
                 ConsoleColor.CYAN_BACKGROUND, e.getEndDate(), ConsoleColor.RESET);
     }
 
+    public void cleanTerminal() {
+        STDOUT.info("\033\143");
+    }
     //this.year =Integer.parseInt(Date.substring(0,4));
     //  this.month=Integer.parseInt(Date.substring(5,7));
     // this.day =Integer.parseInt(Date.substring(8,10));
