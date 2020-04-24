@@ -11,13 +11,14 @@ import java.util.*;
 
 public class Display {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    String pattern;
 
-    public void displayCurrentEvents() {
+    public void displayCurrentEvents(String pattern) {
+        this.pattern=pattern;
         Optional<Integer> compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
         Optional<Integer> pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
         Integer qty = compQty.get();
         Integer elemPerPage = pageMaxElements.get();
-        STDOUT.info("Number is: {} \n", qty);
         List<Event> eventList = selectedList(qty);
         displayPages(qty, elemPerPage, eventList);
     }
@@ -60,10 +61,7 @@ public class Display {
     }
 
     public boolean isAfterNow(String eventTime) {
-        String subEventTime = eventTime.substring(0, 19);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");     //("yyyy-MM-dd'T'HH:mm:ssZ");
-        LocalDateTime convEventLTD = LocalDateTime.parse(subEventTime, formatter);
-        return convEventLTD.isAfter(LocalDateTime.now());
+        return eventLDT(eventTime).isAfter(LocalDateTime.now());
     }
 
     public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
@@ -79,7 +77,7 @@ public class Display {
                     consoleEventScheme(e);
                 }
             }
-            decision = inputInteger("0-wyjdź\n1-poprzednia\n2-następna\nStrona nr " + actual + "\nTwój wybór to:");
+            decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
             int dec = decision.get();
             if (actual > 1 && dec == 1) {
                 actual--;
@@ -97,9 +95,21 @@ public class Display {
 
     public void consoleEventScheme(Event e) {
         Place p = e.getPlace();
-        STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n", ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
+        STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n",
+                ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
-                ConsoleColor.BLUE_BACKGROUND, e.getEndDate(), ConsoleColor.RESET);
+                ConsoleColor.BLUE, configureDate(e.getEndDate(),this.pattern), ConsoleColor.RESET);
+    }
+
+    public String configureDate(String eventTime, String pattern){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return eventLDT(eventTime).format(formatter);
+    }
+
+    public LocalDateTime eventLDT(String eventTime){
+        String subEventTime = eventTime.substring(0, 19);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        return LocalDateTime.parse(subEventTime,formatter);
     }
 
     public void cleanTerminal() {
