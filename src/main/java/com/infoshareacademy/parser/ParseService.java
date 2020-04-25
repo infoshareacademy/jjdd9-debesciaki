@@ -16,7 +16,7 @@ import java.util.List;
 public class ParseService {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
-    public void run() throws IOException {
+    public void parseFiles() throws IOException {
         // Jackson's object mapper, instance for parsing purposes
         ObjectMapper mapper = new ObjectMapper();
 
