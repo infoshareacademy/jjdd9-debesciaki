@@ -56,7 +56,7 @@ public class Display {
         //Selective filling
         List<Event> eventList = new ArrayList<>();
         for (Event e : EventRepository.getAllEvents()) {
-            if (eventList.size() < qty) {
+            if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size()) {
                 if (isAfterNow(e.getEndDate())) eventList.add(e);
             }
         }
@@ -109,12 +109,24 @@ public class Display {
         Place p = e.getPlace();
         String eventTimeFormatted = null;
         Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
-        if (this.pattern.isBlank() || this.pattern.isEmpty()) this.pattern = "yyyy-MM-dd HH:mm:ss";
+
+        if (this.pattern.isBlank() || this.pattern.isEmpty()) {
+            this.pattern = "yyyy-MM-dd HH:mm:ss";
+        }
+
         do {
             try {
                 eventTimeFormatted = configureDate(e.getEndDate(), this.pattern);
                 opt = Optional.ofNullable(eventTimeFormatted);
-            } catch (Exception exception) {
+            } catch (IllegalMonitorStateException exception) {
+                Timer timer = new Timer();
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji.\n");
+                try {
+                    timer.wait(6000);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+            } catch (UnsupportedOperationException exception) {
                 Timer timer = new Timer();
                 STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji.\n");
                 try {
@@ -123,6 +135,7 @@ public class Display {
                     interruptedException.printStackTrace();
                 }
             }
+
         } while (opt.isEmpty());
 
         STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n",

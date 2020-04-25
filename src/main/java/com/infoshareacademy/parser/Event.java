@@ -11,18 +11,12 @@ import java.util.List;
 public class Event {
     private int id;
     private Place place;
-    //@JsonFormat(locale =  "yyyy-MM-dd HH:mm:ss")
-    //@JsonSerialize(using = DateSerializer.class)
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private String endDate;
     private String name;
     private Url urls;
     private List<Attachment> attachments;
     private String descLong;
     private int categoryId;
-    //@JsonFormat(locale =  "yyyy-MM-dd HH:mm:ss")
-    //@JsonSerialize(using = DateSerializer.class)
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private String startDate;
     private Organizer organizer;
     private int active;
