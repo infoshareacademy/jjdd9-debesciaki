@@ -1,5 +1,7 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.display.Display;
+
 public class MenuController {
     public void run() {
         showMainMenu();
@@ -15,7 +17,8 @@ public class MenuController {
                     return;
                 }
                 case SHOW_EVENTS: {
-                    showEventsMenu();
+                    Display display = new Display();
+                    display.displayCurrentEvents("");
                     break;
                 }
                 case SHOW_FAVOURITES: {
