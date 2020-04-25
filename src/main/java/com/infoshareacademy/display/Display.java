@@ -5,6 +5,7 @@ import com.infoshareacademy.parser.Place;
 import com.infoshareacademy.repository.EventRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -16,7 +17,7 @@ public class Display {
     String pattern;
 
     public void displayCurrentEvents(String pattern) {
-        this.pattern=pattern;
+        this.pattern = pattern;
         Optional<Integer> compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
         Optional<Integer> pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
         Integer qty = compQty.get();
@@ -66,7 +67,7 @@ public class Display {
         return eventLDT(eventTime).isAfter(LocalDateTime.now());
     }
 
-    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList){
+    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -79,7 +80,16 @@ public class Display {
                     consoleEventScheme(e);
                 }
             }
-            decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
+            if (actual == 1) {
+                decision = inputInteger("0 - Wyjdź\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
+            }
+            if (actual == pageCount) {
+                decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\nStrona nr " + actual + "\nTwój wybór to: ");
+            }
+            if (actual > 1 && actual < pageCount) {
+                decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
+            }
+
             int dec = decision.get();
             if (actual > 1 && dec == 1) {
                 actual--;
@@ -89,31 +99,31 @@ public class Display {
                 actual++;
                 limU += elemPerPage;
                 limD += elemPerPage;
-            } else if (dec != 1 && dec != 2) {
+            } else if (dec == 0) {
                 break;
             }
-        } while (decision.get() == 1 || decision.get() == 2);
+        } while (decision.get() != 0);
     }
 
-    public void consoleEventScheme(Event e){
+    public void consoleEventScheme(Event e) {
         Place p = e.getPlace();
         String eventTimeFormatted = null;
         Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
-        if(this.pattern.isBlank()||this.pattern.isEmpty()) this.pattern="yyyy-MM-dd HH:mm:ss";
+        if (this.pattern.isBlank() || this.pattern.isEmpty()) this.pattern = "yyyy-MM-dd HH:mm:ss";
         do {
-        try {
-            eventTimeFormatted =configureDate(e.getEndDate(),this.pattern);
-            opt=Optional.ofNullable(eventTimeFormatted);
-        }catch (Exception exception){
-            Timer timer =new Timer();
-            STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji.\n");
             try {
-                timer.wait(6000);
-            } catch (InterruptedException interruptedException) {
-                interruptedException.printStackTrace();
+                eventTimeFormatted = configureDate(e.getEndDate(), this.pattern);
+                opt = Optional.ofNullable(eventTimeFormatted);
+            } catch (Exception exception) {
+                Timer timer = new Timer();
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji.\n");
+                try {
+                    timer.wait(6000);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
             }
-        }
-        }while (opt.isEmpty());
+        } while (opt.isEmpty());
 
         STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n",
                 ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
@@ -121,14 +131,14 @@ public class Display {
                 ConsoleColor.BLUE, eventTimeFormatted, ConsoleColor.RESET);
     }
 
-    public String configureDate(String eventTime, String pattern){
+    public String configureDate(String eventTime, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return eventLDT(eventTime).format(formatter);
     }
 
-    public LocalDateTime eventLDT(String eventTime){
+    public LocalDateTime eventLDT(String eventTime) {
         String subEventTime = eventTime.substring(0, 19);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        return LocalDateTime.parse(subEventTime,formatter);
+        return LocalDateTime.parse(subEventTime, formatter);
     }
 }
