@@ -66,7 +66,7 @@ public class Display {
         return eventLDT(eventTime).isAfter(LocalDateTime.now());
     }
 
-    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
+    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList){
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -95,12 +95,30 @@ public class Display {
         } while (decision.get() == 1 || decision.get() == 2);
     }
 
-    public void consoleEventScheme(Event e) {
+    public void consoleEventScheme(Event e){
         Place p = e.getPlace();
+        String eventTimeFormatted = null;
+        Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
+        if(this.pattern.isBlank()||this.pattern.isEmpty()) this.pattern="yyyy-MM-dd HH:mm:ss";
+        do {
+        try {
+            eventTimeFormatted =configureDate(e.getEndDate(),this.pattern);
+            opt=Optional.ofNullable(eventTimeFormatted);
+        }catch (Exception exception){
+            Timer timer =new Timer();
+            STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji.\n");
+            try {
+                timer.wait(6000);
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
+        }
+        }while (opt.isEmpty());
+
         STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n",
                 ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
-                ConsoleColor.BLUE, configureDate(e.getEndDate(),this.pattern), ConsoleColor.RESET);
+                ConsoleColor.BLUE, eventTimeFormatted, ConsoleColor.RESET);
     }
 
     public String configureDate(String eventTime, String pattern){

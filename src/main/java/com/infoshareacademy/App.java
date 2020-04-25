@@ -15,7 +15,7 @@ public class App {
     public static void main(String[] args) throws IOException {
         new ParseService().parseFiles();
         Display display = new Display();
-        display.displayCurrentEvents("yyyy-dd-MM HH:mm:ss");
+        display.displayCurrentEvents("");
         //MenuController main = new MenuController();
         //main.run();
     }
