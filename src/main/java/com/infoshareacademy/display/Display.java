@@ -7,6 +7,7 @@ import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -26,7 +27,7 @@ public class Display {
         Integer qty = compQty.get();
         Integer elemPerPage = pageMaxElements.get();
         List<Event> eventList = selectedList(qty);
-        displayPages(qty, elemPerPage, eventList);
+        displayPages(qty, elemPerPage, eventList, this.pattern);
     }
 
     public Optional<Integer> inputInteger(String subject) {
@@ -73,7 +74,7 @@ public class Display {
         return eventLDT(eventTime).isAfter(LocalDateTime.now());
     }
 
-    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
+    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList, String pattern) {
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -83,7 +84,7 @@ public class Display {
             for (int i = limU; i < limD; i++) {
                 if (i < eventList.size()) {
                     Event e = eventList.get(i);
-                    consolePrintEventScheme(e);
+                    consolePrintEventScheme(e, pattern);
                 }
             }
 
@@ -115,18 +116,19 @@ public class Display {
         } while (decision.get() != 0);
     }
 
-    public void consolePrintEventScheme(Event e) {
+    public void consolePrintEventScheme(Event e, String pattern) {
         Place p = e.getPlace();
         String eventTimeFormatted = null;
         Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
 
-        if (this.pattern.isBlank() || this.pattern.isEmpty()) {
-            this.pattern = "yyyy-MM-dd HH:mm:ss";
+        if (pattern.isBlank() || pattern.isEmpty()) {
+            pattern = "yyyy-MM-dd HH:mm:ss";
+            this.pattern = pattern;
         }
 
         do {
             try {
-                eventTimeFormatted = configureDate(e.getEndDate(), this.pattern);
+                eventTimeFormatted = configureDate(e.getEndDate(), pattern);
                 opt = Optional.ofNullable(eventTimeFormatted);
             } catch (IllegalMonitorStateException exception) {
                 cleanConsole();

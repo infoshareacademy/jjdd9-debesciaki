@@ -2,6 +2,8 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.display.Display;
 
+import java.time.format.DateTimeFormatter;
+
 public class MenuController {
     public void run() {
         showMainMenu();
@@ -18,7 +20,7 @@ public class MenuController {
                 }
                 case SHOW_EVENTS: {
                     Display display = new Display();
-                    display.displayCurrentEvents("pp");
+                    display.displayCurrentEvents("yyyy-MM-dd HH:mm:ss");
                     break;
                 }
                 case SHOW_FAVOURITES: {
