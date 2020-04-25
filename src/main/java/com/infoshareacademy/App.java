@@ -12,11 +12,16 @@ import java.io.IOException;
  */
 public class App {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+
     public static void main(String[] args) throws IOException {
         new ParseService().run();
-        PropertiesLoad propertiesLoad = new PropertiesLoad();
-        new Thread(propertiesLoad.r).start();
+
+        PropertiesRefresher propertiesRefresher = new PropertiesRefresher();
+        Thread thread = new Thread(propertiesRefresher);
+        thread.start();
+
         MenuController main = new MenuController();
         main.run();
+        propertiesRefresher.stopItNow();
     }
 }
