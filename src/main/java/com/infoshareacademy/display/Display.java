@@ -3,12 +3,15 @@ package com.infoshareacademy.display;
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Place;
 import com.infoshareacademy.repository.EventRepository;
+import org.apache.commons.lang3.RegExUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -29,13 +32,16 @@ public class Display {
     public Optional<Integer> inputInteger(String subject) {
         Integer qty = null;
         Optional<Integer> opt = Optional.ofNullable(qty);
+        String in;
         do {
             STDOUT.info("{}", subject);
-            try {
-                Scanner scanner = new Scanner(System.in);
-                opt = Optional.ofNullable(qty = scanner.nextInt());
-            } catch (InputMismatchException e) {
-                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie! msg: {}\n", e.getMessage());
+            Scanner scanner = new Scanner(System.in);
+            if (NumberUtils.isDigits(in = scanner.nextLine())) {
+                qty = Integer.parseInt(in);
+            }
+            opt = Optional.ofNullable(qty);
+            if (!NumberUtils.isDigits(in)) {
+                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
             }
         } while (opt.isEmpty());
         return opt;
@@ -77,17 +83,21 @@ public class Display {
             for (int i = limU; i < limD; i++) {
                 if (i < eventList.size()) {
                     Event e = eventList.get(i);
-                    consoleEventScheme(e);
+                    consolePrintEventScheme(e);
                 }
             }
-            if (actual == 1) {
+
+            if (actual == 1 && pageCount > 1) {
                 decision = inputInteger("0 - Wyjdź\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
             }
-            if (actual == pageCount) {
+            if (actual == pageCount && actual != 1) {
                 decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\nStrona nr " + actual + "\nTwój wybór to: ");
             }
             if (actual > 1 && actual < pageCount) {
                 decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
+            }
+            if (actual == 1 && pageCount == 1) {
+                decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
             }
 
             int dec = decision.get();
@@ -105,7 +115,7 @@ public class Display {
         } while (decision.get() != 0);
     }
 
-    public void consoleEventScheme(Event e) {
+    public void consolePrintEventScheme(Event e) {
         Place p = e.getPlace();
         String eventTimeFormatted = null;
         Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
@@ -119,23 +129,15 @@ public class Display {
                 eventTimeFormatted = configureDate(e.getEndDate(), this.pattern);
                 opt = Optional.ofNullable(eventTimeFormatted);
             } catch (IllegalMonitorStateException exception) {
-                Timer timer = new Timer();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji.\n");
-                try {
-                    timer.wait(6000);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
+                cleanConsole();
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
             } catch (UnsupportedOperationException exception) {
-                Timer timer = new Timer();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji.\n");
-                try {
-                    timer.wait(6000);
-                } catch (InterruptedException interruptedException) {
-                    interruptedException.printStackTrace();
-                }
+                cleanConsole();
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+            } catch (IllegalArgumentException exception) {
+                cleanConsole();
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
             }
-
         } while (opt.isEmpty());
 
         STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n",

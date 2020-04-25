@@ -18,7 +18,7 @@ public class MenuController {
                 }
                 case SHOW_EVENTS: {
                     Display display = new Display();
-                    display.displayCurrentEvents("");
+                    display.displayCurrentEvents("pp");
                     break;
                 }
                 case SHOW_FAVOURITES: {
