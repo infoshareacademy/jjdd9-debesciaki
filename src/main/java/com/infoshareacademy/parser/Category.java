@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Category {
     private int id;
     private String name;
-    @JsonProperty("root_category") private RootCategory rootCategory ;//= new RootCategory();
-
+    @JsonProperty("root_category") private RootCategory rootCategory ;
     public int getId() {
         return id;
     }

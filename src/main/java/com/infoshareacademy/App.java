@@ -14,7 +14,7 @@ public class App {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
     public static void main(String[] args) throws IOException {
-        new ParseService().run();
+        new ParseService().parseFiles();
 
         PropertiesRefresher propertiesRefresher = new PropertiesRefresher();
         Thread thread = new Thread(propertiesRefresher);
