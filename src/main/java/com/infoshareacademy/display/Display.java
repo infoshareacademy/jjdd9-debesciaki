@@ -154,16 +154,24 @@ public class Display {
                 opt = Optional.ofNullable(eventTimeFormatted);
             } catch (IllegalMonitorStateException exception) {
                 cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
             } catch (UnsupportedOperationException exception) {
                 cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
             } catch (IllegalArgumentException exception) {
                 cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
             } catch (DateTimeException exception) {
                 cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
             }
         } while (opt.isEmpty());
         STDOUT.info("Nazwa: {}{}{}\nLokalizacja: {}{}{}\nData zakończenia: {}{}{}\n \n",
