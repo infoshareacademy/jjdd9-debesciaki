@@ -34,7 +34,7 @@ public class DisplayMenu<T extends Enum> {
     private Integer getIntFromKeyboard() {
         String in = scanner.nextLine();
         while (!NumberUtils.isDigits(in)) {
-            STDOUT.info("Błędne dane, wybierz ponownie.\n");
+            STDOUT.info("Błędne dane, wybierz ponownie.\nWybierz ponownie: ");
             in = scanner.nextLine();
         }
         return Integer.parseInt(in);
