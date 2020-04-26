@@ -127,7 +127,6 @@ public class Display {
                 limU += elemPerPage;
                 limD += elemPerPage;
             } else if (dec == 0) {
-                cleanConsole();
                 break;
             }
         } while (decision.get() != 0);
