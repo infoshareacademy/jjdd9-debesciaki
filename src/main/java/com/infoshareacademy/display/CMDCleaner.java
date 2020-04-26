@@ -14,6 +14,7 @@ public class CMDCleaner {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
             } else {
                 STDOUT.info("\033\143");
+                STDOUT.info("{}WYDARZENIA KULTURALNE W GDAŃSKU{}\n",ConsoleColor.GREEN_BOLD_BRIGHT,ConsoleColor.RESET);
             }
         } catch (IOException | InterruptedException e) {
             STDOUT.info("{}\n", e.getMessage());

@@ -13,10 +13,13 @@ public class DisplayMenu<T extends Enum> {
 
     public T showMenu(T[] enums) {
         Integer choice;
+
         do {
-            for (T m : enums) {
-                STDOUT.info(m.ordinal() + " - " + m + "\n");
+            for(int i = 1; i < enums.length; i++) {
+                STDOUT.info(i + " - " + enums[i] + "\n");
             }
+            STDOUT.info(0 + " - " + enums[0] + "\n");
+            STDOUT.info("Twój wybór to: ");
             choice = getIntFromKeyboard();
             if (choice >= enums.length) {
                 CMDCleaner.cleanConsole();
@@ -31,7 +34,7 @@ public class DisplayMenu<T extends Enum> {
     private Integer getIntFromKeyboard() {
         String in = scanner.nextLine();
         while (!NumberUtils.isDigits(in)) {
-            STDOUT.info("Błędne dane, wybierz ponownie.\n");
+            STDOUT.info("Błędne dane, wybierz ponownie.\nWybierz ponownie: ");
             in = scanner.nextLine();
         }
         return Integer.parseInt(in);
