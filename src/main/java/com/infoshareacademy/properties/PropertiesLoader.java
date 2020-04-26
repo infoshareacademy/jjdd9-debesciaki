@@ -10,6 +10,7 @@ import java.util.Properties;
 
 public class PropertiesLoader {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+
     private PropertiesLoader() {
     }
 
@@ -20,6 +21,6 @@ public class PropertiesLoader {
         } catch (IOException e) {
             STDOUT.error("Błąd odczytu pliku.");
         }
-        SingletonWithProperties.getInstance().setProperties(newProperties);
+        PropertiesRepository.getInstance().setProperties(newProperties);
     }
 }

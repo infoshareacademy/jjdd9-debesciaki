@@ -1,6 +1,6 @@
 package com.infoshareacademy.menu;
 
-import com.infoshareacademy.properties.SingletonWithProperties;
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.display.Display;
 
 public class MenuController {
@@ -18,7 +18,7 @@ public class MenuController {
                     return;
                 case SHOW_EVENTS:
                     Display display = new Display();
-                    display.displayCurrentEvents(SingletonWithProperties.getInstance().getProperty("date-format")); //"yyyy-MM-dd HH:mm:ss"
+                    display.displayCurrentEvents();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();

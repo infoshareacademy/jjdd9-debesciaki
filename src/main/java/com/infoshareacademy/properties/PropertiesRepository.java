@@ -2,14 +2,14 @@ package com.infoshareacademy.properties;
 
 import java.util.Properties;
 
-public class SingletonWithProperties {
-    private static final SingletonWithProperties INSTANCE = new SingletonWithProperties();
+public class PropertiesRepository {
+    private static final PropertiesRepository INSTANCE = new PropertiesRepository();
     private Properties properties;
 
-    private SingletonWithProperties() {
+    private PropertiesRepository() {
     }
 
-    public static SingletonWithProperties getInstance() {
+    public static PropertiesRepository getInstance() {
         return INSTANCE;
     }
 

@@ -2,6 +2,7 @@ package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Place;
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -15,13 +16,11 @@ import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class Display {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    String pattern;
     Integer qty;
     Integer elemPerPage;
     boolean firstStart;
 
-    public void displayCurrentEvents(String pattern) {
-        this.pattern = pattern;
+    public void displayCurrentEvents() {
         cleanConsole();
         Optional<Integer> compQty;
         Optional<Integer> pageMaxElements;
@@ -42,7 +41,7 @@ public class Display {
             }
         } while (qty <= 0 || elemPerPage <= 0);
         List<Event> eventList = selectedList(qty);
-        displayPages(qty, elemPerPage, eventList, this.pattern);
+        displayPages(qty, elemPerPage, eventList);
     }
 
     public Optional<Integer> inputInteger(String subject) {
@@ -90,7 +89,7 @@ public class Display {
         return eventLDT(eventTime).isAfter(LocalDateTime.now());
     }
 
-    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList, String pattern) {
+    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -100,10 +99,9 @@ public class Display {
             for (int i = limU; i < limD; i++) {
                 if (i < eventList.size()) {
                     Event e = eventList.get(i);
-                    consolePrintEventScheme(e, pattern);
+                    consolePrintEventScheme(e, PropertiesRepository.getInstance().getProperty("date-format"));
                 }
             }
-
             if (actual == 1 && pageCount > 1) {
                 decision = inputInteger("0 - Wyjdź\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
             }
@@ -116,8 +114,8 @@ public class Display {
             if (actual == 1 && pageCount == 1) {
                 decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
             }
-            int dec=0;
-            if (decision.isPresent()){
+            int dec = 0;
+            if (decision.isPresent()) {
                 dec = decision.get();
             }
             if (actual > 1 && dec == 1) {
@@ -139,12 +137,9 @@ public class Display {
         Place p = e.getPlace();
         String eventTimeFormatted = null;
         Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
-
         if (pattern.isBlank() || pattern.isEmpty()) {
             pattern = "yyyy-MM-dd HH:mm:ss";
-            this.pattern = pattern;
         }
-
         do {
             try {
                 eventTimeFormatted = configureDate(e.getEndDate(), pattern);
@@ -160,7 +155,6 @@ public class Display {
                 STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
             }
         } while (opt.isEmpty());
-
         STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n",
                 ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
