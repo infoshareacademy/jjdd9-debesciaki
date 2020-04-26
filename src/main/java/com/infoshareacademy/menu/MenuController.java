@@ -1,5 +1,6 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.SingletonWithProperties;
 import com.infoshareacademy.display.Display;
 
 import java.time.format.DateTimeFormatter;
@@ -20,7 +21,7 @@ public class MenuController {
                 }
                 case SHOW_EVENTS: {
                     Display display = new Display();
-                    display.displayCurrentEvents("yyyy-MM-dd HH:mm:ss");
+                    display.displayCurrentEvents(SingletonWithProperties.getInstance().getProperty("date-format")); //"yyyy-MM-dd HH:mm:ss"
                     break;
                 }
                 case SHOW_FAVOURITES: {

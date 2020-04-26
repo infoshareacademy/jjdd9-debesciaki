@@ -116,8 +116,10 @@ public class Display {
             if (actual == 1 && pageCount == 1) {
                 decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
             }
-
-            int dec = decision.get();
+            int dec=0;
+            if (decision.isPresent()){
+                dec = decision.get();
+            }
             if (actual > 1 && dec == 1) {
                 actual--;
                 limU -= elemPerPage;

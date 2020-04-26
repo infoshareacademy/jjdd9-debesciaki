@@ -1,7 +1,7 @@
 package com.infoshareacademy.display;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 
 public class CMDCleaner {
@@ -16,7 +16,7 @@ public class CMDCleaner {
                 STDOUT.info("\033\143");
             }
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            STDOUT.info("{}\n", e.getMessage());
         }
     }
 
