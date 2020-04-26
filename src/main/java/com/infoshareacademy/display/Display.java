@@ -5,12 +5,15 @@ import com.infoshareacademy.parser.Place;
 import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.validator.GenericValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+//walidacja
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -103,13 +106,13 @@ public class Display {
                 }
             }
             if (actual == 1 && pageCount > 1) {
-                decision = inputInteger("0 - Wyjdź\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
+                decision = inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
             }
             if (actual == pageCount && actual != 1) {
-                decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\nStrona nr " + actual + "\nTwój wybór to: ");
+                decision = inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
             }
             if (actual > 1 && actual < pageCount) {
-                decision = inputInteger("0 - Wyjdź\n1 - Poprzednia\n2 - Następna\nStrona nr " + actual + "\nTwój wybór to: ");
+                decision = inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
             }
             if (actual == 1 && pageCount == 1) {
                 decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
@@ -133,28 +136,44 @@ public class Display {
     }
 
     public void consolePrintEventScheme(Event e, String pattern) {
+        boolean firstTime = true;
         Place p = e.getPlace();
         String eventTimeFormatted = null;
         Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
-        if (pattern.isBlank() || pattern.isEmpty()) {
-            pattern = "yyyy-MM-dd HH:mm:ss";
-        }
         do {
+            if (!firstTime) {
+                pattern = PropertiesRepository.getInstance().getProperty("date-format");
+            }
+            if (pattern.isBlank() || pattern.isEmpty()) {
+                pattern = "yyyy-MM-dd HH:mm:ss";
+            }
             try {
+                firstTime = false;
                 eventTimeFormatted = configureDate(e.getEndDate(), pattern);
                 opt = Optional.ofNullable(eventTimeFormatted);
             } catch (IllegalMonitorStateException exception) {
                 cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
             } catch (UnsupportedOperationException exception) {
                 cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
             } catch (IllegalArgumentException exception) {
                 cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\n", exception.getMessage());
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
+            } catch (DateTimeException exception) {
+                cleanConsole();
+                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. msg: {}\nZmianę potwierdź klawiszem enter\n", exception.getMessage());
+                Scanner scanner =new Scanner(System.in);
+                scanner.nextLine();
             }
         } while (opt.isEmpty());
-        STDOUT.info("Name: {}{}{}\nPlace: {}{}{} \nEnd date: {}{}{}\n",
+        STDOUT.info("Nazwa: {}{}{}\nLokalizacja: {}{}{}\nData zakończenia: {}{}{}\n \n",
                 ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, eventTimeFormatted, ConsoleColor.RESET);
