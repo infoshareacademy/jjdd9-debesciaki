@@ -1,8 +1,7 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.display.Display;
-
-import java.time.format.DateTimeFormatter;
 
 public class MenuController {
     public void run() {
@@ -15,22 +14,18 @@ public class MenuController {
         do {
             MenuMainOption choice = m.showMenu(MenuMainOption.values());
             switch (choice) {
-                case EXIT: {
+                case EXIT:
                     return;
-                }
-                case SHOW_EVENTS: {
+                case SHOW_EVENTS:
                     Display display = new Display();
-                    display.displayCurrentEvents("yyyy-MM-dd HH:mm:ss");
+                    display.displayCurrentEvents();
                     break;
-                }
-                case SHOW_FAVOURITES: {
+                case SHOW_FAVOURITES:
                     showFavouritesMenu();
                     break;
-                }
-                case SETTINGS: {
+                case SETTINGS:
                     showSettingsMenu();
                     break;
-                }
             }
         } while (true);
 
@@ -42,15 +37,12 @@ public class MenuController {
         do {
             MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
             switch (choice) {
-                case RETURN: {
+                case RETURN:
                     return;
-                }
-                case FILTER: {
-                    return;
-                }
-                default: {
-                    return;
-                }
+
+                default:
+                    showEventsMenu();
+                    break;
             }
         } while (true);
 
@@ -62,18 +54,11 @@ public class MenuController {
         do {
             MenuFavouritesOption choice = m.showMenu(MenuFavouritesOption.values());
             switch (choice) {
-                case RETURN: {
+                case RETURN:
                     return;
-                }
-                case ADD: {
+                default:
+                    showFavouritesMenu();
                     return;
-                }
-                case DELETE: {
-                    return;
-                }
-                case SHOW_EARLIEST: {
-                    return;
-                }
             }
         } while (true);
     }
@@ -84,15 +69,12 @@ public class MenuController {
         do {
             MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values());
             switch (choice) {
-                case RETURN: {
+                case RETURN:
                     return;
-                }
-                case SORT: {
-                    return;
-                }
-                case DATE_FORMAT: {
-                    return;
-                }
+
+                default:
+                    showSettingsMenu();
+                    break;
             }
         } while (true);
     }
