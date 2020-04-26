@@ -1,4 +1,4 @@
-package com.infoshareacademy;
+package com.infoshareacademy.properties;
 
 import java.util.Properties;
 
