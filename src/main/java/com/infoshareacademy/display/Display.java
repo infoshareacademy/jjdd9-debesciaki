@@ -3,7 +3,6 @@ package com.infoshareacademy.display;
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Place;
 import com.infoshareacademy.repository.EventRepository;
-import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,21 +10,33 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class Display {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     String pattern;
+    Integer qty;
+    Integer elemPerPage;
+    boolean firstStart;
 
     public void displayCurrentEvents(String pattern) {
         this.pattern = pattern;
-        Optional<Integer> compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
-        Optional<Integer> pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-        Integer qty = compQty.get();
-        Integer elemPerPage = pageMaxElements.get();
+        cleanConsole();
+        Optional<Integer> compQty;
+        Optional<Integer> pageMaxElements;
+        firstStart = true;
+        do {
+            if (!firstStart) {
+                cleanConsole();
+                STDOUT.info("Podano zerowe lub ujemne wartości parametrów, proszę wprowadzić je ponownie.\n");
+            }
+            firstStart = false;
+            compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
+            pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+            qty = compQty.get();
+            elemPerPage = pageMaxElements.get();
+        } while (qty <= 0 || elemPerPage <= 0);
         List<Event> eventList = selectedList(qty);
         displayPages(qty, elemPerPage, eventList, this.pattern);
     }
@@ -42,6 +53,7 @@ public class Display {
             }
             opt = Optional.ofNullable(qty);
             if (!NumberUtils.isDigits(in)) {
+                cleanConsole();
                 STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
             }
         } while (opt.isEmpty());
@@ -111,6 +123,7 @@ public class Display {
                 limU += elemPerPage;
                 limD += elemPerPage;
             } else if (dec == 0) {
+                cleanConsole();
                 break;
             }
         } while (decision.get() != 0);

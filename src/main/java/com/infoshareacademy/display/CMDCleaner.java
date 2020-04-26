@@ -1,4 +1,4 @@
-package com.infoshareacademy.display;// CMDCleaner.cleanConsole(); - wywolanie
+package com.infoshareacademy.display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
