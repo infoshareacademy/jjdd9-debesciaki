@@ -34,8 +34,12 @@ public class Display {
             firstStart = false;
             compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
             pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-            qty = compQty.get();
-            elemPerPage = pageMaxElements.get();
+            if (compQty.isPresent()) {
+                qty = compQty.get();
+            }
+            if (pageMaxElements.isPresent()) {
+                elemPerPage = pageMaxElements.get();
+            }
         } while (qty <= 0 || elemPerPage <= 0);
         List<Event> eventList = selectedList(qty);
         displayPages(qty, elemPerPage, eventList, this.pattern);
