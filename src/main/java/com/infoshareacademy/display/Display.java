@@ -106,16 +106,16 @@ public class Display {
                 }
             }
             if (actual == 1 && pageCount > 1) {
-                decision = inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
+                decision = inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
             }
             if (actual == pageCount && actual != 1) {
-                decision = inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
+                decision = inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
             }
             if (actual > 1 && actual < pageCount) {
-                decision = inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
+                decision = inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
             }
             if (actual == 1 && pageCount == 1) {
-                decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + "\nTwój wybór to: ");
+                decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
             }
             int dec = 0;
             if (decision.isPresent()) {
@@ -154,22 +154,22 @@ public class Display {
             } catch (IllegalMonitorStateException exception) {
                 STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
                 cleanConsole();
-                Scanner scanner =new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
                 scanner.nextLine();
             } catch (UnsupportedOperationException exception) {
                 STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
                 cleanConsole();
-                Scanner scanner =new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
                 scanner.nextLine();
             } catch (IllegalArgumentException exception) {
                 STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
                 cleanConsole();
-                Scanner scanner =new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
                 scanner.nextLine();
             } catch (DateTimeException exception) {
                 cleanConsole();
                 STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
-                Scanner scanner =new Scanner(System.in);
+                Scanner scanner = new Scanner(System.in);
                 scanner.nextLine();
             }
 
