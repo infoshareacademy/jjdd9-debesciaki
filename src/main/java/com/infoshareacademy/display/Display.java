@@ -5,7 +5,6 @@ import com.infoshareacademy.parser.Place;
 import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.validator.GenericValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,8 @@ import java.util.*;
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class Display {
-    private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
+    private static final String DECISION_REQUEST = "\nTwój wybór to: ";
     Integer qty;
     Integer elemPerPage;
     boolean firstStart;
@@ -47,16 +47,17 @@ public class Display {
     }
 
     public Optional<Integer> inputInteger(String subject) {
-        Integer qty = null;
-        Optional<Integer> opt = Optional.ofNullable(qty);
+        Integer quantity = null;
+        Optional<Integer> opt = null;
         String in;
         do {
             STDOUT.info("{}", subject);
             Scanner scanner = new Scanner(System.in);
-            if (NumberUtils.isDigits(in = scanner.nextLine())) {
-                qty = Integer.parseInt(in);
+            in = scanner.nextLine();
+            if (NumberUtils.isDigits(in)) {
+                quantity = Integer.parseInt(in);
             }
-            opt = Optional.ofNullable(qty);
+            opt = Optional.ofNullable(quantity);
             if (!NumberUtils.isDigits(in)) {
                 cleanConsole();
                 STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
@@ -65,22 +66,12 @@ public class Display {
         return opt;
     }
 
-    public Map<Integer, Event> selectedMap(int qty) {
-        //Selective filling
-        Map<Integer, Event> eventMap = new HashMap<>();
-        for (Event e : EventRepository.getAllEvents()) {
-            if (eventMap.size() < qty) {
-                if (isAfterNow(e.getEndDate())) eventMap.put(e.getId(), e);
-            }
-        }
-        return eventMap;
-    }
 
     public List<Event> selectedList(int qty) {
         List<Event> eventList = new ArrayList<>();
         for (Event e : EventRepository.getAllEvents()) {
-            if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size()) {
-               if (isAfterNow(e.getEndDate())) eventList.add(e);
+            if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size() && isAfterNow(e.getEndDate())) {
+                eventList.add(e);
             }
         }
         return eventList;
@@ -94,7 +85,9 @@ public class Display {
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
-        int limU = 0, limD = elemPerPage, actual = 1;
+        int limU = 0;
+        int limD = elemPerPage;
+        int actual = 1;
         do {
             cleanConsole();
             for (int i = limU; i < limD; i++) {
@@ -103,18 +96,7 @@ public class Display {
                     consolePrintEventScheme(e, PropertiesRepository.getInstance().getProperty("date-format"));
                 }
             }
-            if (actual == 1 && pageCount > 1) {
-                decision = inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
-            }
-            if (actual == pageCount && actual != 1) {
-                decision = inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
-            }
-            if (actual > 1 && actual < pageCount) {
-                decision = inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
-            }
-            if (actual == 1 && pageCount == 1) {
-                decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + "\nTwój wybór to: ");
-            }
+            decision = pageNavigatorDisplay(pageCount, actual, decision);
             int dec = 0;
             if (decision.isPresent()) {
                 dec = decision.get();
@@ -149,16 +131,9 @@ public class Display {
                 firstTime = false;
                 eventTimeFormatted = configureDate(e.getEndDate(), pattern);
                 opt = Optional.ofNullable(eventTimeFormatted);
-            } catch (IllegalMonitorStateException exception) {
-                promptError();
-            } catch (UnsupportedOperationException exception) {
-                promptError();
-            } catch (IllegalArgumentException exception) {
-                promptError();
-            } catch (DateTimeException exception) {
+            } catch (UnsupportedOperationException | IllegalArgumentException | DateTimeException exception) {
                 promptError();
             }
-
         } while (opt.isEmpty());
 
         STDOUT.info("Nazwa: {}{}{}\nLokalizacja: {}{}{}\nData zakończenia: {}{}{}\n \n",
@@ -178,4 +153,21 @@ public class Display {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return eventTime.format(formatter);
     }
+
+    public Optional<Integer> pageNavigatorDisplay(int pageCount, int actual, Optional<Integer> decision) {
+        if (actual == 1 && pageCount > 1) {
+            decision = inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+        }
+        if (actual == pageCount && actual != 1) {
+            decision = inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+        }
+        if (actual > 1 && actual < pageCount) {
+            decision = inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+        }
+        if (actual == 1 && pageCount == 1) {
+            decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+        }
+        return decision;
+    }
+
 }
