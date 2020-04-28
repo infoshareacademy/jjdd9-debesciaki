@@ -12,14 +12,14 @@ import java.util.List;
 public class Event {
     private int id;
     private Place place;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     private LocalDateTime endDate;
     private String name;
     private Url urls;
     private List<Attachment> attachments;
     private String descLong;
     private int categoryId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
     private LocalDateTime startDate;
     private Organizer organizer;
     private int active;
