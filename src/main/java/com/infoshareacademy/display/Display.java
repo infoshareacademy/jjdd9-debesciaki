@@ -13,7 +13,6 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-//walidacja
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -71,25 +70,24 @@ public class Display {
         Map<Integer, Event> eventMap = new HashMap<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventMap.size() < qty) {
-               // if (isAfterNow(e.getEndDate())) eventMap.put(e.getId(), e);
+                if (isAfterNow(e.getEndDate())) eventMap.put(e.getId(), e);
             }
         }
         return eventMap;
     }
 
     public List<Event> selectedList(int qty) {
-        //Selective filling
         List<Event> eventList = new ArrayList<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size()) {
-              //  if (isAfterNow(e.getEndDate())) eventList.add(e);
+               if (isAfterNow(e.getEndDate())) eventList.add(e);
             }
         }
         return eventList;
     }
 
-    public boolean isAfterNow(String eventTime) {
-        return eventLDT(eventTime).isAfter(LocalDateTime.now());
+    public boolean isAfterNow(LocalDateTime eventTime) {
+        return eventTime.isAfter(LocalDateTime.now());
     }
 
     public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
@@ -149,7 +147,7 @@ public class Display {
             }
             try {
                 firstTime = false;
-                //eventTimeFormatted = configureDate(e.getEndDate(), pattern);
+                eventTimeFormatted = configureDate(e.getEndDate(), pattern);
                 opt = Optional.ofNullable(eventTimeFormatted);
             } catch (IllegalMonitorStateException exception) {
                 promptError();
@@ -176,14 +174,8 @@ public class Display {
         scanner.nextLine();
     }
 
-    public String configureDate(String eventTime, String pattern) {
+    public String configureDate(LocalDateTime eventTime, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return eventLDT(eventTime).format(formatter);
-    }
-
-    public LocalDateTime eventLDT(String eventTime) {
-        String subEventTime = eventTime.substring(0, 19);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        return LocalDateTime.parse(subEventTime, formatter);
+        return eventTime.format(formatter);
     }
 }
