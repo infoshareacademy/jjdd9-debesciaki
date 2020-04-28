@@ -71,7 +71,7 @@ public class Display {
         Map<Integer, Event> eventMap = new HashMap<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventMap.size() < qty) {
-                if (isAfterNow(e.getEndDate())) eventMap.put(e.getId(), e);
+               // if (isAfterNow(e.getEndDate())) eventMap.put(e.getId(), e);
             }
         }
         return eventMap;
@@ -82,7 +82,7 @@ public class Display {
         List<Event> eventList = new ArrayList<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size()) {
-                if (isAfterNow(e.getEndDate())) eventList.add(e);
+              //  if (isAfterNow(e.getEndDate())) eventList.add(e);
             }
         }
         return eventList;
@@ -149,28 +149,16 @@ public class Display {
             }
             try {
                 firstTime = false;
-                eventTimeFormatted = configureDate(e.getEndDate(), pattern);
+                //eventTimeFormatted = configureDate(e.getEndDate(), pattern);
                 opt = Optional.ofNullable(eventTimeFormatted);
             } catch (IllegalMonitorStateException exception) {
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
-                cleanConsole();
-                Scanner scanner = new Scanner(System.in);
-                scanner.nextLine();
+                promptError();
             } catch (UnsupportedOperationException exception) {
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
-                cleanConsole();
-                Scanner scanner = new Scanner(System.in);
-                scanner.nextLine();
+                promptError();
             } catch (IllegalArgumentException exception) {
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
-                cleanConsole();
-                Scanner scanner = new Scanner(System.in);
-                scanner.nextLine();
+                promptError();
             } catch (DateTimeException exception) {
-                cleanConsole();
-                STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację i poczekaj na odświeżenie aplikacji. \nZmianę potwierdź klawiszem enter\n");
-                Scanner scanner = new Scanner(System.in);
-                scanner.nextLine();
+                promptError();
             }
 
         } while (opt.isEmpty());
@@ -179,6 +167,13 @@ public class Display {
                 ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
                 ConsoleColor.BLUE, eventTimeFormatted, ConsoleColor.RESET);
+    }
+
+    private void promptError() {
+        cleanConsole();
+        STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację. \nZmianę potwierdź klawiszem enter\n");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 
     public String configureDate(String eventTime, String pattern) {
