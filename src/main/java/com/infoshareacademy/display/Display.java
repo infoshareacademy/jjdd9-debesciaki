@@ -7,7 +7,6 @@ import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -147,6 +146,7 @@ public class Display {
         STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację. \nZmianę potwierdź klawiszem enter\n");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
+        cleanConsole();
     }
 
     public String configureDate(LocalDateTime eventTime, String pattern) {
