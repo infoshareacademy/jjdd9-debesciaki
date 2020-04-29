@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -216,7 +218,7 @@ public class Display {
                 out.add(e);
             }
         }
-        this.eventList =out;
+        this.eventList = out;
         return this.eventList;
     }
 
@@ -237,14 +239,28 @@ public class Display {
 
     private LocalDateTime localDateTimeRequest(String subject) {
         LocalDateTime out = null;
-        Optional<LocalDateTime> optionalLocalDateTime = null;
-        String in;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        boolean matches = false;
+        Optional<LocalDateTime> optionalLocalDateTime;
+        String in = null;
+        String patternStr = "yyyy-MM-dd HH:mm";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(patternStr);
         do {
-            Scanner scanner = new Scanner(System.in);
-            STDOUT.info("Wprowadź datę yyyy-MM-dd HH:mm {}: ", subject);
-            in = scanner.nextLine();
-            optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf)); //DateTimeFormatter.ISO_LOCAL_DATE_TIME
+            while (!matches) {
+                Scanner scanner = new Scanner(System.in);
+                STDOUT.info("Wprowadź datę yyyy-MM-dd HH:mm {}: ", subject);
+                in = scanner.nextLine();
+                Pattern pattern = Pattern.compile(patternStr);
+                Matcher matcher = pattern.matcher(in);
+                matches = matcher.matches();
+                if (!matches) {
+                    cleanConsole();
+                    Scanner confScanner =new Scanner(System.in);
+                    STDOUT.info("Źle wpisana data, spróbuj ponownie!\n");
+                    confScanner.nextLine();
+                }
+            }
+            optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
+
         } while (optionalLocalDateTime.isEmpty());
         return out;
     }

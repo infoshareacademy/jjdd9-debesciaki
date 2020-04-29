@@ -2,21 +2,16 @@ package com.infoshareacademy.parser;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
 import com.infoshareacademy.repository.OrganizerRepository;
 import com.infoshareacademy.repository.PlaceRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 public class ParseService {
-    private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
     public void parseFiles() throws IOException {
         ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
