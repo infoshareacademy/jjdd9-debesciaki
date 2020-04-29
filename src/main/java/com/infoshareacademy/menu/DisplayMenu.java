@@ -21,9 +21,9 @@ public class DisplayMenu<T extends Enum> {
             STDOUT.info(0 + " - " + enums[0] + "\n");
             STDOUT.info("Twój wybór to: ");
             choice = getIntFromKeyboard();
-            if (choice >= enums.length) {
+            if (choice == null || choice >= enums.length) {
                 CMDCleaner.cleanConsole();
-                STDOUT.info("Wybierz ponownie: \n");
+                STDOUT.info("Błędne dane, wybierz ponownie.\nWybierz ponownie:\n ");
                 choice = null;
             }
         } while (choice == null);
@@ -34,8 +34,7 @@ public class DisplayMenu<T extends Enum> {
     private Integer getIntFromKeyboard() {
         String in = scanner.nextLine();
         while (!NumberUtils.isDigits(in)) {
-            STDOUT.info("Błędne dane, wybierz ponownie.\nWybierz ponownie: ");
-            in = scanner.nextLine();
+            return null;
         }
         return Integer.parseInt(in);
     }
