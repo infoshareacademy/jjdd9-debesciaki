@@ -25,7 +25,8 @@ public class MenuController {
                 case SHOW_EVENTS:
                     Display display = new Display();
                     //display.displayComingEvents();
-                    display.displayAllEvents();
+                    //display.displayAllEvents();
+                    display.displaySearch();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();

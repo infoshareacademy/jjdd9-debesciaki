@@ -5,6 +5,7 @@ import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class Display {
         List<Event> eventList = selectedListOfComingEvents(qty);
         displayPages(qty, elemPerPage, eventList);
     }
+
     public void displayAllEvents() {
         cleanConsole();
         Optional<Integer> pageMaxElements;
@@ -60,6 +62,38 @@ public class Display {
         } while (elemPerPage <= 0);
         List<Event> eventList = listOfAllEvents();
         displayPages(eventList.size(), elemPerPage, eventList);
+    }
+
+    public void displaySearch() {
+        cleanConsole();
+        Optional<Integer> pageMaxElements;
+        Optional<String> optQuery;
+        String query, decision;
+        List<Event> eventList;
+        firstStart = true;
+        do {
+            optQuery = inputString("Wpisz wyszukiwaną frazę: ");
+            if (optQuery.isPresent()) {
+                query = optQuery.get();
+                eventList = searchedByNameList(query);
+                if (eventList.size() > 1) {
+                    STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", eventList.size());
+                    if (eventList.size() > 5) {
+                        pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+                    } else {
+                        pageMaxElements = Optional.ofNullable(eventList.size());
+                    }
+                    if (pageMaxElements.isPresent()) {
+                        elemPerPage = pageMaxElements.get();
+                        displayPages(eventList.size(), elemPerPage, eventList);
+                    }
+                } else {
+                    STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
+                }
+            }
+            decision = inputString("Chcesz kontynuować wyszukiwanie?[T/n]").get();
+        } while (!(decision.equals("N")||decision.equals("n")));
+
     }
 
     private Optional<Integer> inputInteger(String subject) {
@@ -82,6 +116,18 @@ public class Display {
         return opt;
     }
 
+    private Optional<String> inputString(String subject) {
+        String in;
+        Optional<String> opt = null;
+        do {
+            STDOUT.info("{}", subject);
+            Scanner scanner = new Scanner(System.in);
+            in = scanner.nextLine();
+            opt = Optional.ofNullable(in);
+        } while (opt.isEmpty());
+        return opt;
+    }
+
     private List<Event> listOfAllEvents() {
         return EventRepository.getAllEvents();
     }
@@ -90,6 +136,16 @@ public class Display {
         List<Event> eventList = new ArrayList<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size() && isAfterNow(e.getEndDate())) {
+                eventList.add(e);
+            }
+        }
+        return eventList;
+    }
+
+    private List<Event> searchedByNameList(String query) {
+        List<Event> eventList = new ArrayList<>();
+        for (Event e : EventRepository.getAllEvents()) {
+            if (e.getName().contains(query)) {
                 eventList.add(e);
             }
         }
@@ -135,7 +191,7 @@ public class Display {
     }
 
     private void consolePrintSingleEventScheme(Event e) {
-        EventPrinter eventPrinter = new EventPrinter();
+        EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
 
         eventPrinter.printID(e);
         eventPrinter.printName(e);

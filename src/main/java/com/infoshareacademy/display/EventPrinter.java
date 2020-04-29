@@ -5,29 +5,29 @@ import com.infoshareacademy.parser.Ticket;
 import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
-
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class EventPrinter {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private static final String IN_THE_PAST = ConsoleColor.RED_BACKGROUND;
-    private static final String IN_THE_FUTURE = ConsoleColor.BLUE_BACKGROUND;
+    private String colorPast;
+    private String colorFuture;
 
-    public EventPrinter() {
+    public EventPrinter(String colorFuture, String colorPast) {
+        this.colorPast = colorPast;
+        this.colorFuture = colorFuture;
     }
 
     public void printName(Event e) {
         String statusIndicator;
-        if (e.getEndDate().minusHours(1).isAfter(LocalDateTime.now())){
-            statusIndicator = IN_THE_FUTURE;
-        }else{
-            statusIndicator = IN_THE_PAST;
+        if (e.getEndDate().minusHours(1).isAfter(LocalDateTime.now())) {
+            statusIndicator = colorFuture;
+        } else {
+            statusIndicator = colorPast;
         }
         STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, e.getName(), ConsoleColor.RESET);
     }
