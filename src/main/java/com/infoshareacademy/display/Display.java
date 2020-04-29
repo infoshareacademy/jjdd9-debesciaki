@@ -7,11 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
+import java.util.*;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -101,14 +99,36 @@ public class Display {
 
     }
 
-    public void displayBefore() {
-    }
-
     public void displayAfter() {
         cleanConsole();
-        LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się odbywać wydarzenia?\n");
-        System.out.println(minStartDate.toString());
+        LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się odbywać wydarzenia?");
         this.eventList = filterAfter(minStartDate);
+        Optional<Integer> pageMaxElements;
+        String decision;
+        do {
+            if (this.eventList.size() > 1) {
+                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+                if (this.eventList.size() > 5) {
+                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+                } else {
+                    pageMaxElements = Optional.ofNullable(eventList.size());
+                }
+                if (pageMaxElements.isPresent()) {
+                    elemPerPage = pageMaxElements.get();
+                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
+                }
+            } else {
+                STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
+            }
+            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
+        } while (!(decision.equals("N") || decision.equals("n")));
+
+    }
+
+    public void displayBefore() {
+        cleanConsole();
+        LocalDateTime maxStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się odbywać wydarzenia?");
+        this.eventList = filterBefore(maxStartDate);
         Optional<Integer> pageMaxElements;
         String decision;
         do {
@@ -168,38 +188,46 @@ public class Display {
     }
 
     private List<Event> selectedListOfComingEvents(int qty) {
+        List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
             if (this.eventList.size() < qty && this.eventList.size() < EventRepository.getAllEvents().size() && isAfterNow(e.getEndDate())) {
-                this.eventList.add(e);
+                out.add(e);
             }
         }
+        this.eventList = out;
         return this.eventList;
     }
 
     private List<Event> searchListByName(String query) {
+        List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
             if (e.getName().contains(query)) {
-                this.eventList.add(e);
+                out.add(e);
             }
         }
+        this.eventList = out;
         return this.eventList;
     }
 
     private List<Event> filterBefore(LocalDateTime beforeTimePoint) {
+        List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
             if (e.getEndDate().isBefore(beforeTimePoint)) {
-                this.eventList.add(e);
+                out.add(e);
             }
         }
+        this.eventList =out;
         return this.eventList;
     }
 
     private List<Event> filterAfter(LocalDateTime afterTimePoint) {
+        List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
             if (e.getStartDate().isAfter(afterTimePoint)) {
-                this.eventList.add(e);
+                out.add(e);
             }
         }
+        this.eventList = out;
         return this.eventList;
     }
 
@@ -210,9 +238,17 @@ public class Display {
     private LocalDateTime localDateTimeRequest(String subject) {
         LocalDateTime out = null;
         Optional<LocalDateTime> optionalLocalDateTime = null;
-
+        String in;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        do {
+            Scanner scanner = new Scanner(System.in);
+            STDOUT.info("Wprowadź datę yyyy-MM-dd HH:mm {}: ", subject);
+            in = scanner.nextLine();
+            optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf)); //DateTimeFormatter.ISO_LOCAL_DATE_TIME
+        } while (optionalLocalDateTime.isEmpty());
         return out;
     }
+
 
     private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         Optional<Integer> decision = null;
@@ -251,14 +287,14 @@ public class Display {
     private void consolePrintSingleEventScheme(Event e) {
         EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
 
-        eventPrinter.printID(e);
+        //eventPrinter.printID(e);
         eventPrinter.printName(e);
         eventPrinter.printStartDate(e);
         eventPrinter.printEndDate(e);
         eventPrinter.printShortDesc(e);
-        eventPrinter.printLongDesc(e);
-        eventPrinter.printActive(e);
-        eventPrinter.printTickets(e);
+        //eventPrinter.printLongDesc(e);
+        //eventPrinter.printActive(e);
+        //eventPrinter.printTickets(e);
         STDOUT.info("\n");
     }
 
