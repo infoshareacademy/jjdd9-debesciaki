@@ -7,7 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -20,6 +21,11 @@ public class Display {
     Integer qty;
     Integer elemPerPage;
     boolean firstStart;
+    List<Event> eventList;
+
+    public Display() {
+        this.eventList = listOfAllEvents();
+    }
 
     public void displayComingEvents() {
         cleanConsole();
@@ -41,12 +47,13 @@ public class Display {
                 elemPerPage = pageMaxElements.get();
             }
         } while (qty <= 0 || elemPerPage <= 0);
-        List<Event> eventList = selectedListOfComingEvents(qty);
+        this.eventList = selectedListOfComingEvents(qty);
         displayPages(qty, elemPerPage, eventList);
     }
 
     public void displayAllEvents() {
         cleanConsole();
+        this.eventList = listOfAllEvents();
         Optional<Integer> pageMaxElements;
         firstStart = true;
         do {
@@ -60,8 +67,7 @@ public class Display {
                 elemPerPage = pageMaxElements.get();
             }
         } while (elemPerPage <= 0);
-        List<Event> eventList = listOfAllEvents();
-        displayPages(eventList.size(), elemPerPage, eventList);
+        displayPages(this.eventList.size(), elemPerPage, this.eventList);
     }
 
     public void displaySearch() {
@@ -69,30 +75,59 @@ public class Display {
         Optional<Integer> pageMaxElements;
         Optional<String> optQuery;
         String query, decision;
-        List<Event> eventList;
         firstStart = true;
         do {
             optQuery = inputString("Wpisz wyszukiwaną frazę: ");
             if (optQuery.isPresent()) {
                 query = optQuery.get();
-                eventList = searchedByNameList(query);
-                if (eventList.size() > 1) {
-                    STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", eventList.size());
-                    if (eventList.size() > 5) {
+                this.eventList = searchListByName(query);
+                if (this.eventList.size() > 1) {
+                    STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+                    if (this.eventList.size() > 5) {
                         pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
                     } else {
                         pageMaxElements = Optional.ofNullable(eventList.size());
                     }
                     if (pageMaxElements.isPresent()) {
                         elemPerPage = pageMaxElements.get();
-                        displayPages(eventList.size(), elemPerPage, eventList);
+                        displayPages(this.eventList.size(), elemPerPage, this.eventList);
                     }
                 } else {
                     STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
                 }
             }
-            decision = inputString("Chcesz kontynuować wyszukiwanie?[T/n]").get();
-        } while (!(decision.equals("N")||decision.equals("n")));
+            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
+        } while (!(decision.equals("N") || decision.equals("n")));
+
+    }
+
+    public void displayBefore() {
+    }
+
+    public void displayAfter() {
+        cleanConsole();
+        LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się odbywać wydarzenia?\n");
+        System.out.println(minStartDate.toString());
+        this.eventList = filterAfter(minStartDate);
+        Optional<Integer> pageMaxElements;
+        String decision;
+        do {
+            if (this.eventList.size() > 1) {
+                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+                if (this.eventList.size() > 5) {
+                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+                } else {
+                    pageMaxElements = Optional.ofNullable(eventList.size());
+                }
+                if (pageMaxElements.isPresent()) {
+                    elemPerPage = pageMaxElements.get();
+                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
+                }
+            } else {
+                STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
+            }
+            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
+        } while (!(decision.equals("N") || decision.equals("n")));
 
     }
 
@@ -133,27 +168,50 @@ public class Display {
     }
 
     private List<Event> selectedListOfComingEvents(int qty) {
-        List<Event> eventList = new ArrayList<>();
-        for (Event e : EventRepository.getAllEvents()) {
-            if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size() && isAfterNow(e.getEndDate())) {
-                eventList.add(e);
+        for (Event e : this.eventList) {
+            if (this.eventList.size() < qty && this.eventList.size() < EventRepository.getAllEvents().size() && isAfterNow(e.getEndDate())) {
+                this.eventList.add(e);
             }
         }
-        return eventList;
+        return this.eventList;
     }
 
-    private List<Event> searchedByNameList(String query) {
-        List<Event> eventList = new ArrayList<>();
-        for (Event e : EventRepository.getAllEvents()) {
+    private List<Event> searchListByName(String query) {
+        for (Event e : this.eventList) {
             if (e.getName().contains(query)) {
-                eventList.add(e);
+                this.eventList.add(e);
             }
         }
-        return eventList;
+        return this.eventList;
+    }
+
+    private List<Event> filterBefore(LocalDateTime beforeTimePoint) {
+        for (Event e : this.eventList) {
+            if (e.getEndDate().isBefore(beforeTimePoint)) {
+                this.eventList.add(e);
+            }
+        }
+        return this.eventList;
+    }
+
+    private List<Event> filterAfter(LocalDateTime afterTimePoint) {
+        for (Event e : this.eventList) {
+            if (e.getStartDate().isAfter(afterTimePoint)) {
+                this.eventList.add(e);
+            }
+        }
+        return this.eventList;
     }
 
     private boolean isAfterNow(LocalDateTime eventTime) {
         return eventTime.isAfter(LocalDateTime.now());
+    }
+
+    private LocalDateTime localDateTimeRequest(String subject) {
+        LocalDateTime out = null;
+        Optional<LocalDateTime> optionalLocalDateTime = null;
+
+        return out;
     }
 
     private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {

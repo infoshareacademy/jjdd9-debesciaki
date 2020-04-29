@@ -26,7 +26,8 @@ public class MenuController {
                     Display display = new Display();
                     //display.displayComingEvents();
                     //display.displayAllEvents();
-                    display.displaySearch();
+                    //display.displaySearch();
+                    display.displayAfter();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();
@@ -41,7 +42,6 @@ public class MenuController {
 
     private void showEventsMenu() {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
-
         do {
             cleanConsole();
             MenuEventsOption choice = m.showMenu(MenuEventsOption.values());

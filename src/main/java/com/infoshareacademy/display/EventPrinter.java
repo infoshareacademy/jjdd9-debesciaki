@@ -17,6 +17,9 @@ public class EventPrinter {
     private String colorPast;
     private String colorFuture;
 
+    public EventPrinter() {
+    }
+
     public EventPrinter(String colorFuture, String colorPast) {
         this.colorPast = colorPast;
         this.colorFuture = colorFuture;
