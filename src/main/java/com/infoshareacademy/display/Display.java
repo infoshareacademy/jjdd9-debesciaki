@@ -1,16 +1,15 @@
 package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.parser.Place;
-import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -21,7 +20,7 @@ public class Display {
     Integer elemPerPage;
     boolean firstStart;
 
-    public void displayCurrentEvents() {
+    public void displayComingEvents() {
         cleanConsole();
         Optional<Integer> compQty;
         Optional<Integer> pageMaxElements;
@@ -41,11 +40,29 @@ public class Display {
                 elemPerPage = pageMaxElements.get();
             }
         } while (qty <= 0 || elemPerPage <= 0);
-        List<Event> eventList = selectedList(qty);
+        List<Event> eventList = selectedListOfComingEvents(qty);
         displayPages(qty, elemPerPage, eventList);
     }
+    public void displayAllEvents() {
+        cleanConsole();
+        Optional<Integer> pageMaxElements;
+        firstStart = true;
+        do {
+            if (!firstStart) {
+                cleanConsole();
+                STDOUT.info("Podano zerowe lub ujemne wartości parametrów, proszę wprowadzić je ponownie.\n");
+            }
+            firstStart = false;
+            pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+            if (pageMaxElements.isPresent()) {
+                elemPerPage = pageMaxElements.get();
+            }
+        } while (elemPerPage <= 0);
+        List<Event> eventList = listOfAllEvents();
+        displayPages(eventList.size(), elemPerPage, eventList);
+    }
 
-    public Optional<Integer> inputInteger(String subject) {
+    private Optional<Integer> inputInteger(String subject) {
         Integer quantity = null;
         Optional<Integer> opt = null;
         String in;
@@ -65,8 +82,11 @@ public class Display {
         return opt;
     }
 
+    private List<Event> listOfAllEvents() {
+        return EventRepository.getAllEvents();
+    }
 
-    public List<Event> selectedList(int qty) {
+    private List<Event> selectedListOfComingEvents(int qty) {
         List<Event> eventList = new ArrayList<>();
         for (Event e : EventRepository.getAllEvents()) {
             if (eventList.size() < qty && eventList.size() < EventRepository.getAllEvents().size() && isAfterNow(e.getEndDate())) {
@@ -76,11 +96,11 @@ public class Display {
         return eventList;
     }
 
-    public boolean isAfterNow(LocalDateTime eventTime) {
+    private boolean isAfterNow(LocalDateTime eventTime) {
         return eventTime.isAfter(LocalDateTime.now());
     }
 
-    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
+    private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -92,7 +112,7 @@ public class Display {
             for (int i = limU; i < limD; i++) {
                 if (i < eventList.size()) {
                     Event e = eventList.get(i);
-                    consolePrintEventScheme(e, PropertiesRepository.getInstance().getProperty("date-format"));
+                    consolePrintSingleEventScheme(e);
                 }
             }
             decision = pageNavigatorDisplay(pageCount, actual, decision);
@@ -114,47 +134,21 @@ public class Display {
         } while (decision.get() != 0);
     }
 
-    public void consolePrintEventScheme(Event e, String pattern) {
-        boolean firstTime = true;
-        Place p = e.getPlace();
-        String eventTimeFormatted = null;
-        Optional<String> opt = Optional.ofNullable(eventTimeFormatted);
-        do {
-            if (!firstTime) {
-                pattern = PropertiesRepository.getInstance().getProperty("date-format");
-            }
-            if (pattern.isBlank() || pattern.isEmpty()) {
-                pattern = "yyyy-MM-dd HH:mm:ss";
-            }
-            try {
-                firstTime = false;
-                eventTimeFormatted = configureDate(e.getEndDate(), pattern);
-                opt = Optional.ofNullable(eventTimeFormatted);
-            } catch (UnsupportedOperationException | IllegalArgumentException | DateTimeException exception) {
-                promptError();
-            }
-        } while (opt.isEmpty());
+    private void consolePrintSingleEventScheme(Event e) {
+        EventPrinter eventPrinter = new EventPrinter();
 
-        STDOUT.info("Nazwa: {}{}{}\nLokalizacja: {}{}{}\nData zakończenia: {}{}{}\n \n",
-                ConsoleColor.RED_UNDERLINED, e.getName(), ConsoleColor.RESET,
-                ConsoleColor.BLUE, p.getName(), ConsoleColor.RESET,
-                ConsoleColor.BLUE, eventTimeFormatted, ConsoleColor.RESET);
+        eventPrinter.printID(e);
+        eventPrinter.printName(e);
+        eventPrinter.printStartDate(e);
+        eventPrinter.printEndDate(e);
+        eventPrinter.printShortDesc(e);
+        eventPrinter.printLongDesc(e);
+        eventPrinter.printActive(e);
+        eventPrinter.printTickets(e);
+        STDOUT.info("\n");
     }
 
-    private void promptError() {
-        cleanConsole();
-        STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację. \nZmianę potwierdź klawiszem enter\n");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        cleanConsole();
-    }
-
-    public String configureDate(LocalDateTime eventTime, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return eventTime.format(formatter);
-    }
-
-    public Optional<Integer> pageNavigatorDisplay(int pageCount, int actual, Optional<Integer> decision) {
+    private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual, Optional<Integer> decision) {
         if (actual == 1 && pageCount > 1) {
             decision = inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
@@ -169,5 +163,4 @@ public class Display {
         }
         return decision;
     }
-
 }
