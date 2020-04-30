@@ -1,6 +1,7 @@
 package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -9,13 +10,14 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
-public class Display {
+public class DisplayEvents {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String DECISION_REQUEST = "\nTwój wybór to: ";
     Integer qty;
@@ -23,7 +25,7 @@ public class Display {
     boolean firstStart;
     List<Event> eventList;
 
-    public Display() {
+    public DisplayEvents() {
         this.eventList = listOfAllEvents();
     }
 
@@ -103,54 +105,25 @@ public class Display {
 
     public void displayAfter() {
         cleanConsole();
-        LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się odbywać wydarzenia?");
+        LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
         this.eventList = filterAfter(minStartDate);
-        Optional<Integer> pageMaxElements;
-        String decision;
-        do {
-            if (this.eventList.size() > 1) {
-                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
-                if (this.eventList.size() > 5) {
-                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-                } else {
-                    pageMaxElements = Optional.ofNullable(eventList.size());
-                }
-                if (pageMaxElements.isPresent()) {
-                    elemPerPage = pageMaxElements.get();
-                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
-                }
-            } else {
-                STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
-            }
-            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
-        } while (!(decision.equals("N") || decision.equals("n")));
-
+        searchingResultDisplay();
     }
 
     public void displayBefore() {
         cleanConsole();
-        LocalDateTime maxStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się odbywać wydarzenia?");
-        this.eventList = filterBefore(maxStartDate);
-        Optional<Integer> pageMaxElements;
-        String decision;
-        do {
-            if (this.eventList.size() > 1) {
-                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
-                if (this.eventList.size() > 5) {
-                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-                } else {
-                    pageMaxElements = Optional.ofNullable(eventList.size());
-                }
-                if (pageMaxElements.isPresent()) {
-                    elemPerPage = pageMaxElements.get();
-                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
-                }
-            } else {
-                STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
-            }
-            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
-        } while (!(decision.equals("N") || decision.equals("n")));
+        LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
+        this.eventList = filterBefore(maxEndDate);
+        searchingResultDisplay();
+    }
 
+    public void displayPeriodically() {
+        do {
+            cleanConsole();
+            LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
+            LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
+            this.eventList = filterPeriodically(minStartDate, maxEndDate);
+        }while(!searchingResultDisplay());
     }
 
     private Optional<Integer> inputInteger(String subject) {
@@ -233,6 +206,20 @@ public class Display {
         return this.eventList;
     }
 
+    private List<Event> filterPeriodically(LocalDateTime afterTimePoint, LocalDateTime beforeTimePoint) {
+        List<Event> out = new ArrayList<>();
+        for (Event e : this.eventList) {
+            LocalDateTime d=e.getStartDate();
+            LocalDateTime b=e.getEndDate();
+
+            if (d.isAfter(afterTimePoint)&&b.isBefore(beforeTimePoint)) {
+                out.add(e);
+            }
+        }
+        this.eventList = out;
+        return this.eventList;
+    }
+
     private boolean isAfterNow(LocalDateTime eventTime) {
         return eventTime.isAfter(LocalDateTime.now());
     }
@@ -240,31 +227,29 @@ public class Display {
     private LocalDateTime localDateTimeRequest(String subject) {
         LocalDateTime out = null;
         boolean matches = false;
-        Optional<LocalDateTime> optionalLocalDateTime;
+        Optional<LocalDateTime> optionalLocalDateTime = Optional.ofNullable(null);
         String in = null;
+        Pattern p = Pattern.compile("^[1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-5][0-9]$");
         String patternStr = "yyyy-MM-dd HH:mm";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(patternStr);
         do {
-            while (!matches) {
-                Scanner scanner = new Scanner(System.in);
-                STDOUT.info("Wprowadź datę yyyy-MM-dd HH:mm {}: ", subject);
-                in = scanner.nextLine();
-                Pattern pattern = Pattern.compile(patternStr);
-                Matcher matcher = pattern.matcher(in);
-                matches = matcher.matches();
-                if (!matches) {
-                    cleanConsole();
-                    Scanner confScanner =new Scanner(System.in);
-                    STDOUT.info("Źle wpisana data, spróbuj ponownie!\n");
-                    confScanner.nextLine();
-                }
+            Scanner scanner = new Scanner(System.in);
+            STDOUT.info("Wprowadź datę {} {}: ", patternStr, subject);
+            in = scanner.nextLine();
+            Pattern pattern = Pattern.compile(patternStr);
+            Matcher matcher = p.matcher(in);
+            matches = matcher.matches();
+            if (!matches || in.isEmpty() || in.isBlank() || Integer.parseInt(in.substring(5, 7)) > 12) {
+                promptError("Źle wprowadzona data!");
             }
-            optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
-
-        } while (optionalLocalDateTime.isEmpty());
+            try {
+                optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
+            } catch (DateTimeParseException e) {
+                promptError("Rok przestępny/źle wprowadzony miesiąc/dzień");
+            }
+        } while (!matches || optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank() || Integer.parseInt(in.substring(5, 7)) > 12);
         return out;
     }
-
 
     private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         Optional<Integer> decision = null;
@@ -307,11 +292,39 @@ public class Display {
         eventPrinter.printName(e);
         eventPrinter.printStartDate(e);
         eventPrinter.printEndDate(e);
-        eventPrinter.printShortDesc(e);
+        //eventPrinter.printShortDesc(e);
         //eventPrinter.printLongDesc(e);
         //eventPrinter.printActive(e);
         //eventPrinter.printTickets(e);
         STDOUT.info("\n");
+    }
+
+    private boolean searchingResultDisplay(){
+        Optional<Integer> pageMaxElements;
+        String decision;
+        do {
+            if (this.eventList.size() > 1) {
+                cleanConsole();
+                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+                if (this.eventList.size() > 5) {
+                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+                } else {
+                    pageMaxElements = Optional.ofNullable(eventList.size());
+                }
+                if (pageMaxElements.isPresent()) {
+                    elemPerPage = pageMaxElements.get();
+                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
+                }
+            } else {
+                STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
+            }
+            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
+        } while (!(decision.equals("N") || decision.equals("n")));
+        if (this.eventList.size()>0){
+            return true;
+        }else{
+         return false;
+        }
     }
 
     private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual, Optional<Integer> decision) {
@@ -328,5 +341,13 @@ public class Display {
             decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         return decision;
+    }
+
+    private void promptError(String msg) {
+        cleanConsole();
+        STDOUT.info("{}\n", msg);
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        cleanConsole();
     }
 }
