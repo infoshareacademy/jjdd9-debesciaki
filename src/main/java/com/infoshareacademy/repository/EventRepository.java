@@ -3,12 +3,13 @@ package com.infoshareacademy.repository;
 import com.infoshareacademy.parser.Event;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class EventRepository {
     private static List<Event> allEventsList = new ArrayList<>();
-    private static Map<Integer, Event> allEventsMap;
+    private static Map<Integer, Event> allEventsMap = new HashMap<>();;
 
     private EventRepository() {
     }
@@ -27,7 +28,7 @@ public class EventRepository {
 
     public static void setAllEventsMap() {
         for (Event e: allEventsList){
-            allEventsMap.put(e.getId(),e);
+            EventRepository.allEventsMap.put(e.getId(),e);
         }
     }
 }

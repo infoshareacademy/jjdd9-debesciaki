@@ -3,12 +3,13 @@ package com.infoshareacademy.repository;
 import com.infoshareacademy.parser.Place;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PlaceRepository {
     private static List<Place> allPlaces = new ArrayList<>();
-    private static Map<Integer, Place> allPlacesMap;
+    private static Map<Integer, Place> allPlacesMap = new HashMap<>();;
 
     private PlaceRepository() {
     }
@@ -27,7 +28,7 @@ public class PlaceRepository {
 
     public static void setAllPlacesMap() {
         for (Place p : allPlaces) {
-            allPlacesMap.put(p.getId(), p);
+            PlaceRepository.allPlacesMap.put(p.getId(), p);
         }
     }
 }

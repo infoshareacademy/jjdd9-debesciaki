@@ -3,12 +3,13 @@ package com.infoshareacademy.repository;
 import com.infoshareacademy.parser.Category;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CategoryRepository {
     private static List<Category> allCategories = new ArrayList<>();
-    private static Map<Integer, Category> allCategoriesMap;
+    private static Map<Integer, Category> allCategoriesMap = new HashMap<>();;
 
     private CategoryRepository() {
     }
@@ -27,7 +28,7 @@ public class CategoryRepository {
 
     public static void setAllCategoriesMap() {
         for (int i = 0; i < allCategories.size(); i++) {
-            allCategoriesMap.put(i+1, allCategories.get(i));
+            CategoryRepository.allCategoriesMap.put(i+1, allCategories.get(i));
         }
     }
 }
