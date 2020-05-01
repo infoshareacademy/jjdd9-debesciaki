@@ -4,9 +4,21 @@ import com.infoshareacademy.parser.Organizer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class OrganizerRepository {
     private static List<Organizer> allOrganizers = new ArrayList<>();
+    private static Map<Integer, Organizer> allOrganizersMap;
+
+    public static Map<Integer, Organizer> getAllOrganizersMap() {
+        return allOrganizersMap;
+    }
+
+    public static void setAllOrganizersMap() {
+        for (Organizer o : allOrganizers) {
+            allOrganizersMap.put(o.getId(), o);
+        }
+    }
 
     private OrganizerRepository() {
     }

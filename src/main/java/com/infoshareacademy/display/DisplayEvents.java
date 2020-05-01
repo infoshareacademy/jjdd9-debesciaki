@@ -1,10 +1,8 @@
 package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +11,8 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -166,13 +161,13 @@ public class DisplayEvents {
     }
 
     private List<Event> listOfAllEvents() {
-        return EventRepository.getAllEvents();
+        return EventRepository.getAllEventsList();
     }
 
     private List<Event> selectedListOfComingEvents(int qty) {
         List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
-            if (this.eventList.size() < qty && this.eventList.size() < EventRepository.getAllEvents().size() && isAfterNow(e.getEndDate())) {
+            if (this.eventList.size() < qty && this.eventList.size() < EventRepository.getAllEventsList().size() && isAfterNow(e.getEndDate())) {
                 out.add(e);
             }
         }

@@ -20,21 +20,25 @@ public class ParseService {
         List<Organizer> organizerList = mapper.readValue(organizerJson, new TypeReference<List<Organizer>>() {
         });
         OrganizerRepository.setAllOrganizers(organizerList);
+        OrganizerRepository.setAllOrganizersMap();
 
         File placesJson = new File("places.json");
         List<Place> placesList = mapper.readValue(placesJson, new TypeReference<List<Place>>() {
         });
         PlaceRepository.setAllPlaces(placesList);
+        PlaceRepository.setAllPlacesMap();
 
         File eventsJson = new File("events.json");
         List<Event> eventList = mapper.readValue(eventsJson, new TypeReference<List<Event>>() {
         });
-        EventRepository.setAllEvents(eventList);
+        EventRepository.setAllEventsList(eventList);
+        EventRepository.setAllEventsMap();
 
         File categoriesJson = new File("categories.json");
         List<Category> categoryList = mapper.readValue(categoriesJson, new TypeReference<List<Category>>() {
         });
-        CategoryRepository.setAllCategorys(categoryList);
+        CategoryRepository.setAllCategories(categoryList);
+        CategoryRepository.setAllCategoriesMap();
     }
 
 }
