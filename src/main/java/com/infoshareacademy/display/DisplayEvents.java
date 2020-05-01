@@ -5,13 +5,16 @@ import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -104,6 +107,7 @@ public class DisplayEvents {
 
     }
 
+    //do poprawy
     public void displayAfter() {
         cleanConsole();
         LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
@@ -111,6 +115,7 @@ public class DisplayEvents {
         searchingResultDisplay();
     }
 
+    //do poprawy
     public void displayBefore() {
         cleanConsole();
         LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
@@ -118,13 +123,14 @@ public class DisplayEvents {
         searchingResultDisplay();
     }
 
+    //testowy
     public void displayPeriodically() {
         do {
             cleanConsole();
             LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
             LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
             this.eventList = filterPeriodically(minStartDate, maxEndDate);
-        }while(!searchingResultDisplay());
+        } while (!searchingResultDisplay());
     }
 
     private Optional<Integer> inputInteger(String subject) {
@@ -210,10 +216,10 @@ public class DisplayEvents {
     private List<Event> filterPeriodically(LocalDateTime afterTimePoint, LocalDateTime beforeTimePoint) {
         List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
-            LocalDateTime d=e.getStartDate();
-            LocalDateTime b=e.getEndDate();
+            LocalDateTime d = e.getStartDate();
+            LocalDateTime b = e.getEndDate();
 
-            if (d.isAfter(afterTimePoint)&&b.isBefore(beforeTimePoint)) {
+            if (d.isAfter(afterTimePoint) && b.isBefore(beforeTimePoint)) {
                 out.add(e);
             }
         }
@@ -227,28 +233,22 @@ public class DisplayEvents {
 
     private LocalDateTime localDateTimeRequest(String subject) {
         LocalDateTime out = null;
-        boolean matches = false;
+        String in;
         Optional<LocalDateTime> optionalLocalDateTime = Optional.ofNullable(null);
-        String in = null;
-        Pattern p = Pattern.compile("^[1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9] [0-2][0-9]:[0-5][0-9]$");
-        String patternStr = "yyyy-MM-dd HH:mm";
+        String patternStr = "yyyy/MM/dd HH:mm";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(patternStr);
         do {
             Scanner scanner = new Scanner(System.in);
             STDOUT.info("Wprowadź datę {} {}: ", patternStr, subject);
             in = scanner.nextLine();
-            Pattern pattern = Pattern.compile(patternStr);
-            Matcher matcher = p.matcher(in);
-            matches = matcher.matches();
-            if (!matches || in.isEmpty() || in.isBlank() || Integer.parseInt(in.substring(5, 7)) > 12) {
-                promptError("Źle wprowadzona data!");
-            }
             try {
-                optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
-            } catch (DateTimeParseException e) {
-                promptError("Rok przestępny/źle wprowadzony miesiąc/dzień");
+                DateUtils.parseDate(in, patternStr);
+            } catch (ParseException e) {
+                promptError("Źle wprowadzona data!");
+                continue;
             }
-        } while (!matches || optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank() || Integer.parseInt(in.substring(5, 7)) > 12);
+            optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
+        } while (optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank());
         return out;
     }
 
@@ -300,31 +300,31 @@ public class DisplayEvents {
         STDOUT.info("\n");
     }
 
-    private boolean searchingResultDisplay(){
+    private boolean searchingResultDisplay() {
         Optional<Integer> pageMaxElements;
-       // String decision;
+        // String decision;
         //do {
-            if (this.eventList.size() > 1) {
-                cleanConsole();
-                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
-                if (this.eventList.size() > 5) {
-                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-                } else {
-                    pageMaxElements = Optional.ofNullable(eventList.size());
-                }
-                if (pageMaxElements.isPresent()) {
-                    elemPerPage = pageMaxElements.get();
-                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
-                }
+        if (this.eventList.size() > 1) {
+            cleanConsole();
+            STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+            if (this.eventList.size() > 5) {
+                pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
             } else {
-                promptError("Nie znaleziono wydarzeń spełniających kryteria.");
+                pageMaxElements = Optional.ofNullable(eventList.size());
             }
-         //   decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
-       // } while (!(decision.equals("N") || decision.equals("n")));
-        if (this.eventList.size()>0){
+            if (pageMaxElements.isPresent()) {
+                elemPerPage = pageMaxElements.get();
+                displayPages(this.eventList.size(), elemPerPage, this.eventList);
+            }
+        } else {
+            promptError("Nie znaleziono wydarzeń spełniających kryteria.");
+        }
+        //   decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
+        // } while (!(decision.equals("N") || decision.equals("n")));
+        if (this.eventList.size() > 0) {
             return true;
-        }else{
-         return false;
+        } else {
+            return false;
         }
     }
 
