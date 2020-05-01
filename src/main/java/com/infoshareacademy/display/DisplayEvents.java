@@ -4,6 +4,7 @@ import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -301,8 +302,8 @@ public class DisplayEvents {
 
     private boolean searchingResultDisplay(){
         Optional<Integer> pageMaxElements;
-        String decision;
-        do {
+       // String decision;
+        //do {
             if (this.eventList.size() > 1) {
                 cleanConsole();
                 STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
@@ -316,10 +317,10 @@ public class DisplayEvents {
                     displayPages(this.eventList.size(), elemPerPage, this.eventList);
                 }
             } else {
-                STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
+                promptError("Nie znaleziono wydarzeń spełniających kryteria.");
             }
-            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
-        } while (!(decision.equals("N") || decision.equals("n")));
+         //   decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
+       // } while (!(decision.equals("N") || decision.equals("n")));
         if (this.eventList.size()>0){
             return true;
         }else{
