@@ -92,7 +92,8 @@ public class EventPrinter {
 
     private void promptError() {
         cleanConsole();
-        STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację. \nZmianę potwierdź klawiszem enter\n");
+        STDOUT.info("Niepoprawny format daty w pliku konfiguracyjnym, proszę popraw konfigurację. \n\n");
+        STDOUT.info("Potwierdź poprawienie pliku konfiguracyjnego wciskając klawisz [Enter]\n");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         cleanConsole();

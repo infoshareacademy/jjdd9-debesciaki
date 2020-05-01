@@ -302,29 +302,32 @@ public class DisplayEvents {
 
     private boolean searchingResultDisplay() {
         Optional<Integer> pageMaxElements;
-        // String decision;
-        //do {
-        if (this.eventList.size() > 1) {
-            cleanConsole();
-            STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
-            if (this.eventList.size() > 5) {
-                pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+        String decision="x";
+        do {
+            if (this.eventList.size() > 1) {
+                cleanConsole();
+                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+                if (this.eventList.size() > 5) {
+                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+                } else {
+                    pageMaxElements = Optional.ofNullable(eventList.size());
+                }
+                if (pageMaxElements.isPresent()) {
+                    elemPerPage = pageMaxElements.get();
+                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
+                }
             } else {
-                pageMaxElements = Optional.ofNullable(eventList.size());
+                promptError("Nie znaleziono wydarzeń spełniających kryteria.");
+                decision = inputString("Chcesz spróbować ponownie, wpisz [tak]?").get();
+                if (decision.equals("Tak") || decision.equals("tak")){
+                    this.eventList=listOfAllEvents();
+                }
             }
-            if (pageMaxElements.isPresent()) {
-                elemPerPage = pageMaxElements.get();
-                displayPages(this.eventList.size(), elemPerPage, this.eventList);
-            }
-        } else {
-            promptError("Nie znaleziono wydarzeń spełniających kryteria.");
-        }
-        //   decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
-        // } while (!(decision.equals("N") || decision.equals("n")));
-        if (this.eventList.size() > 0) {
-            return true;
-        } else {
+        } while (decision.equals("Tak") || decision.equals("tak"));
+        if ((decision.equals("Tak") || decision.equals("tak"))) {
             return false;
+        } else {
+            return true;
         }
     }
 
@@ -346,7 +349,8 @@ public class DisplayEvents {
 
     private void promptError(String msg) {
         cleanConsole();
-        STDOUT.info("{}\n", msg);
+        STDOUT.info("{}\n\n", msg);
+        STDOUT.info("Potwierdź błąd wciskając klawisz [Enter]\n");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         cleanConsole();
