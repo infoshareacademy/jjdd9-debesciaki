@@ -9,7 +9,8 @@ import java.util.Map;
 
 public class CategoryRepository {
     private static List<Category> allCategories = new ArrayList<>();
-    private static Map<Integer, Category> allCategoriesMap = new HashMap<>();;
+    private static Map<Integer, Category> allCategoriesMap = new HashMap<>();
+    private static Map<Integer, Integer> CategoriesRelationalMap = new HashMap<>();
 
     private CategoryRepository() {
     }
@@ -29,6 +30,11 @@ public class CategoryRepository {
     public static void setAllCategoriesMap() {
         for (int i = 0; i < allCategories.size(); i++) {
             CategoryRepository.allCategoriesMap.put(i+1, allCategories.get(i));
+        }
+    }
+    public static void setRelationForCategories(){
+        for (int i = 0; i < allCategories.size(); i++) {
+            CategoryRepository.CategoriesRelationalMap.put(i+1,allCategories.get(i).getId());
         }
     }
 }

@@ -1,6 +1,8 @@
 package com.infoshareacademy.display;
 
+import com.infoshareacademy.parser.Category;
 import com.infoshareacademy.parser.Event;
+import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -23,9 +25,11 @@ public class DisplayEvents {
     Integer elemPerPage;
     boolean firstStart;
     List<Event> eventList;
+    Map<Integer, Category> categoryMap;
 
     public DisplayEvents() {
-        this.eventList = listOfAllEvents();
+        this.eventList = EventRepository.getAllEventsList();
+        this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
     public void displayComingEvents() {
@@ -54,7 +58,7 @@ public class DisplayEvents {
 
     public void displayAllEvents() {
         cleanConsole();
-        this.eventList = listOfAllEvents();
+        this.eventList = EventRepository.getAllEventsList();
         Optional<Integer> pageMaxElements;
         firstStart = true;
         do {
@@ -102,23 +106,22 @@ public class DisplayEvents {
 
     }
 
-    //do poprawy
     public void displayAfter() {
-        cleanConsole();
-        LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
-        this.eventList = filterAfter(minStartDate);
-        searchingResultDisplay();
+        do {
+            cleanConsole();
+            LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
+            this.eventList = filterAfter(minStartDate);
+        } while (!searchingResultDisplay());
     }
 
-    //do poprawy
     public void displayBefore() {
-        cleanConsole();
-        LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
-        this.eventList = filterBefore(maxEndDate);
-        searchingResultDisplay();
+        do {
+            cleanConsole();
+            LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
+            this.eventList = filterBefore(maxEndDate);
+        } while (!searchingResultDisplay());
     }
 
-    //testowy
     public void displayPeriodically() {
         do {
             cleanConsole();
@@ -158,10 +161,6 @@ public class DisplayEvents {
             opt = Optional.ofNullable(in);
         } while (opt.isEmpty());
         return opt;
-    }
-
-    private List<Event> listOfAllEvents() {
-        return EventRepository.getAllEventsList();
     }
 
     private List<Event> selectedListOfComingEvents(int qty) {
@@ -215,6 +214,17 @@ public class DisplayEvents {
             LocalDateTime b = e.getEndDate();
 
             if (d.isAfter(afterTimePoint) && b.isBefore(beforeTimePoint)) {
+                out.add(e);
+            }
+        }
+        this.eventList = out;
+        return this.eventList;
+    }
+
+    private List<Event> filterCategory(Integer id){
+        List<Event> out = new ArrayList<>();
+        for (Event e:this.eventList){
+            if (e.getId()==id){
                 out.add(e);
             }
         }
@@ -297,7 +307,7 @@ public class DisplayEvents {
 
     private boolean searchingResultDisplay() {
         Optional<Integer> pageMaxElements;
-        String decision="x";
+        String decision = "x";
         do {
             if (this.eventList.size() > 1) {
                 cleanConsole();
@@ -314,8 +324,8 @@ public class DisplayEvents {
             } else {
                 promptError("Nie znaleziono wydarzeń spełniających kryteria.");
                 decision = inputString("Chcesz spróbować ponownie, wpisz [tak]?").get();
-                if (decision.equals("Tak") || decision.equals("tak")){
-                    this.eventList=listOfAllEvents();
+                if (decision.equals("Tak") || decision.equals("tak")) {
+                    this.eventList = EventRepository.getAllEventsList();
                 }
             }
         } while (decision.equals("Tak") || decision.equals("tak"));

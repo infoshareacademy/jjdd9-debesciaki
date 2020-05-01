@@ -39,6 +39,7 @@ public class ParseService {
         });
         CategoryRepository.setAllCategories(categoryList);
         CategoryRepository.setAllCategoriesMap();
+        CategoryRepository.setRelationForCategories();
     }
 
 }
