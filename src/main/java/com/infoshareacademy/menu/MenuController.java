@@ -1,6 +1,5 @@
 package com.infoshareacademy.menu;
 
-import com.infoshareacademy.display.DisplayCategories;
 import com.infoshareacademy.display.DisplayEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +30,7 @@ public class MenuController {
                     //display.displayAfter();
                     //display.displayBefore();
                     //displayEvents.displayPeriodically();
-                    DisplayCategories displayCategories = new DisplayCategories();
-                    displayCategories.displyGenres();
+                    displayEvents.displayCategorized();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();

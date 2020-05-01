@@ -111,7 +111,7 @@ public class DisplayEvents {
             cleanConsole();
             LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
             this.eventList = filterAfter(minStartDate);
-        } while (!searchingResultDisplay());
+        } while (!searchingResultDisplay(true));
     }
 
     public void displayBefore() {
@@ -119,7 +119,7 @@ public class DisplayEvents {
             cleanConsole();
             LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
             this.eventList = filterBefore(maxEndDate);
-        } while (!searchingResultDisplay());
+        } while (!searchingResultDisplay(true));
     }
 
     public void displayPeriodically() {
@@ -128,7 +128,17 @@ public class DisplayEvents {
             LocalDateTime minStartDate = localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
             LocalDateTime maxEndDate = localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
             this.eventList = filterPeriodically(minStartDate, maxEndDate);
-        } while (!searchingResultDisplay());
+        } while (!searchingResultDisplay(true));
+    }
+
+    public void displayCategorized() {
+        do {
+            ChooseCategory chooseCategory = new ChooseCategory();
+            int choice = chooseCategory.displayGenres();
+            if (choice != 0) {
+                this.eventList = filterCategory(choice);
+            }
+        } while (!searchingResultDisplay(false));
     }
 
     private Optional<Integer> inputInteger(String subject) {
@@ -221,10 +231,12 @@ public class DisplayEvents {
         return this.eventList;
     }
 
-    private List<Event> filterCategory(Integer id){
+    private List<Event> filterCategory(Integer key) {
         List<Event> out = new ArrayList<>();
-        for (Event e:this.eventList){
-            if (e.getId()==id){
+        Map<Integer, Integer> relationalMap = CategoryRepository.getCategoriesRelationalMap();
+        int id = relationalMap.get(key);
+        for (Event e : this.eventList) {
+            if (e.getCategoryId() == id) {
                 out.add(e);
             }
         }
@@ -305,30 +317,32 @@ public class DisplayEvents {
         STDOUT.info("\n");
     }
 
-    private boolean searchingResultDisplay() {
+    private boolean searchingResultDisplay(boolean repeatOption) {
         Optional<Integer> pageMaxElements;
         String decision = "x";
-        do {
-            if (this.eventList.size() > 1) {
-                cleanConsole();
-                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
-                if (this.eventList.size() > 5) {
-                    pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-                } else {
-                    pageMaxElements = Optional.ofNullable(eventList.size());
-                }
-                if (pageMaxElements.isPresent()) {
-                    elemPerPage = pageMaxElements.get();
-                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
-                }
+        // do {
+        if (this.eventList.size() > 1) {
+            cleanConsole();
+            STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+            if (this.eventList.size() > 5) {
+                pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
             } else {
-                promptError("Nie znaleziono wydarzeń spełniających kryteria.");
+                pageMaxElements = Optional.ofNullable(eventList.size());
+            }
+            if (pageMaxElements.isPresent()) {
+                elemPerPage = pageMaxElements.get();
+                displayPages(this.eventList.size(), elemPerPage, this.eventList);
+            }
+        } else {
+            promptError("Nie znaleziono wydarzeń spełniających kryteria.");
+            if (repeatOption) {
                 decision = inputString("Chcesz spróbować ponownie, wpisz [tak]?").get();
                 if (decision.equals("Tak") || decision.equals("tak")) {
                     this.eventList = EventRepository.getAllEventsList();
                 }
             }
-        } while (decision.equals("Tak") || decision.equals("tak"));
+        }
+        // } while (decision.equals("Tak") || decision.equals("tak"));
         if ((decision.equals("Tak") || decision.equals("tak"))) {
             return false;
         } else {

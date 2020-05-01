@@ -34,7 +34,11 @@ public class CategoryRepository {
     }
     public static void setRelationForCategories(){
         for (int i = 0; i < allCategories.size(); i++) {
-            CategoryRepository.CategoriesRelationalMap.put(i+1,allCategories.get(i).getId());
+            CategoryRepository.CategoriesRelationalMap.put(allCategories.get(i).getId(),i);
         }
+    }
+
+    public static Map<Integer, Integer> getCategoriesRelationalMap() {
+        return CategoriesRelationalMap;
     }
 }
