@@ -16,6 +16,8 @@ import java.time.format.DateTimeFormatter;
 
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
@@ -44,6 +46,7 @@ public class DisplayEvents {
 
     public void displayComingEvents() {
         cleanConsole();
+        resetList();
         Optional<Integer> compQty;
         Optional<Integer> pageMaxElements;
         firstStart = true;
@@ -63,12 +66,12 @@ public class DisplayEvents {
             }
         } while (qty <= 0 || elemPerPage <= 0);
         this.eventList = selectedListOfComingEvents(qty);
-        displayPages(qty, elemPerPage, eventList);
+        displayPages(qty, elemPerPage, this.eventList);
     }
 
     public void displayAllEvents() {
         cleanConsole();
-        this.eventList = EventRepository.getAllEventsList();
+        resetList();
         Optional<Integer> pageMaxElements;
         firstStart = true;
         do {
@@ -198,7 +201,7 @@ public class DisplayEvents {
     private List<Event> selectedListOfComingEvents(int qty) {
         List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
-            if (this.eventList.size() < qty && this.eventList.size() < EventRepository.getAllEventsList().size() && isAfterNow(e.getEndDate())) {
+            if (out.size() < qty && out.size() < EventRepository.getAllEventsList().size() && isAfterNow(e.getEndDate())) {
                 out.add(e);
             }
         }
@@ -282,6 +285,7 @@ public class DisplayEvents {
         String patternStr = "yyyy/MM/dd HH:mm";
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern(patternStr);
         do {
+            cleanConsole();
             Scanner scanner = new Scanner(System.in);
             STDOUT.info("Wprowadź datę {} {}: ", patternStr, subject);
             in = scanner.nextLine();
@@ -291,7 +295,16 @@ public class DisplayEvents {
                 promptError("Źle wprowadzona data!");
                 continue;
             }
+            Pattern pattern = Pattern.compile(patternStr);
+
+            Matcher matcher = pattern.matcher(in);
+            boolean matches = matcher.matches();
+            if (matches){
             optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
+            }else{
+                promptError("Źle wprowadzona data!");
+                continue;
+            }
         } while (optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank());
         return out;
     }
