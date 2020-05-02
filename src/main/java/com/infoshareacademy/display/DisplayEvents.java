@@ -25,10 +25,11 @@ import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 public class DisplayEvents {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String DECISION_REQUEST = "\nTwój wybór to: ";
+    private static final String ASK_FOR_PAGE_COUNT = "Ile wydarzeń chcesz zobaczyć na jednej stronie? ";
     private Integer qty;
     private Integer elemPerPage;
     private boolean firstStart;
-    private  List<Event> eventList;
+    private List<Event> eventList;
     private Map<Integer, Category> categoryMap;
 
     public DisplayEvents() {
@@ -36,11 +37,11 @@ public class DisplayEvents {
         this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
-    public void resetList(){
+    public void resetList() {
         this.eventList = EventRepository.getAllEventsList();
     }
 
-    public void resetMap(){
+    public void resetMap() {
         this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
@@ -57,13 +58,9 @@ public class DisplayEvents {
             }
             firstStart = false;
             compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
-            pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-            if (compQty.isPresent()) {
-                qty = compQty.get();
-            }
-            if (pageMaxElements.isPresent()) {
-                elemPerPage = pageMaxElements.get();
-            }
+            pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+            qty = compQty.get();
+            elemPerPage = pageMaxElements.get();
         } while (qty <= 0 || elemPerPage <= 0);
         this.eventList = selectedListOfComingEvents(qty);
         displayPages(qty, elemPerPage, this.eventList);
@@ -80,10 +77,8 @@ public class DisplayEvents {
                 STDOUT.info("Podano zerowe lub ujemne wartości parametrów, proszę wprowadzić je ponownie.\n");
             }
             firstStart = false;
-            pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-            if (pageMaxElements.isPresent()) {
-                elemPerPage = pageMaxElements.get();
-            }
+            pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+            elemPerPage = pageMaxElements.get();
         } while (elemPerPage <= 0);
         displayPages(this.eventList.size(), elemPerPage, this.eventList);
     }
@@ -100,32 +95,31 @@ public class DisplayEvents {
         cleanConsole();
         Optional<Integer> pageMaxElements;
         Optional<String> optQuery;
-        String query, decision;
+        String query;
+        String decision;
         firstStart = true;
         do {
             optQuery = inputString("Wpisz wyszukiwaną frazę: ");
-            if (optQuery.isPresent()) {
-                query = optQuery.get();
+            query = optQuery.get();
 
-                if (byNameOrOrganizer) {
-                    this.eventList = searchListByName(query);
+            if (byNameOrOrganizer) {
+                this.eventList = searchListByName(query);
+            } else {
+                this.eventList = filterOrganizer(query);
+            }
+            if (this.eventList.size() > 1) {
+                STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
+                if (this.eventList.size() > 5) {
+                    pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
                 } else {
-                    this.eventList = filterOrganizer(query);
+                    pageMaxElements = Optional.ofNullable(eventList.size());
                 }
-                if (this.eventList.size() > 1) {
-                    STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
-                    if (this.eventList.size() > 5) {
-                        pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
-                    } else {
-                        pageMaxElements = Optional.ofNullable(eventList.size());
-                    }
-                    if (pageMaxElements.isPresent()) {
-                        elemPerPage = pageMaxElements.get();
-                        displayPages(this.eventList.size(), elemPerPage, this.eventList);
-                    }
-                } else {
-                    STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
+                if (pageMaxElements.isPresent()) {
+                    elemPerPage = pageMaxElements.get();
+                    displayPages(this.eventList.size(), elemPerPage, this.eventList);
                 }
+            } else {
+                STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
             }
             decision = inputString("Chcesz spróbować ponownie?[tak]").get().toLowerCase();
         } while (decision.equals("tak"));
@@ -298,11 +292,11 @@ public class DisplayEvents {
             Pattern p = Pattern.compile("^[1-2][0-9]{3}/[0-1][0-9]/[0-3][0-9] [0-2][0-9]:[0-5][0-9]$");
             Matcher matcher = p.matcher(in);
             boolean matches = matcher.matches();
-            if (matches){
-            optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
-            }else{
+            if (matches) {
+                out = LocalDateTime.parse(in, dtf);
+                optionalLocalDateTime = Optional.ofNullable(out);
+            } else {
                 promptError("Źle wprowadzona data!");
-                continue;
             }
         } while (optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank());
         return out;
@@ -323,7 +317,7 @@ public class DisplayEvents {
                     consolePrintSingleEventScheme(e);
                 }
             }
-            decision = pageNavigatorDisplay(pageCount, actual, decision);
+            decision = pageNavigatorDisplay(pageCount, actual);
             int dec = 0;
             if (decision.isPresent()) {
                 dec = decision.get();
@@ -354,12 +348,11 @@ public class DisplayEvents {
     private boolean searchingResultDisplay(boolean repeatOption) {
         Optional<Integer> pageMaxElements;
         String decision = "x";
-        // do {
         if (this.eventList.size() > 1) {
             cleanConsole();
             STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
             if (this.eventList.size() > 5) {
-                pageMaxElements = inputInteger("Ile wydarzeń chcesz zobaczyć na jednej stronie? ");
+                pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
             } else {
                 pageMaxElements = Optional.ofNullable(eventList.size());
             }
@@ -376,28 +369,24 @@ public class DisplayEvents {
                 }
             }
         }
-        // } while (decision.equals("Tak") || decision.equals("tak"));
-        if (decision.equals("tak")) {
-            return false;
-        } else {
-            return true;
-        }
+        return (!decision.equals("tak"));
     }
 
-    private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual, Optional<Integer> decision) {
+    private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
         if (actual == 1 && pageCount > 1) {
-            decision = inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == pageCount && actual != 1) {
-            decision = inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual > 1 && actual < pageCount) {
-            decision = inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == 1 && pageCount == 1) {
-            decision = inputInteger("0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
-        return decision;
+        STDOUT.info("ERROR ERROR\n");
+        return Optional.ofNullable(0);
     }
 
     private void promptError(String msg) {
