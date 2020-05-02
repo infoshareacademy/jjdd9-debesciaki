@@ -23,15 +23,7 @@ public class MenuController {
                 case EXIT:
                     return;
                 case SHOW_EVENTS:
-                    DisplayEvents displayEvents = new DisplayEvents();
-                    //display.displayComingEvents();
-                    //display.displayAllEvents();
-                    //display.displaySearch();
-                    //display.displayAfter();
-                    //displayEvents.displayBefore();
-                    //displayEvents.displayPeriodically();
-                    //displayEvents.displayCategorized();
-                    displayEvents.displaySearchOrganizer();
+                    showEventsMenu();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();
@@ -48,13 +40,16 @@ public class MenuController {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
         do {
             cleanConsole();
+            DisplayEvents displayEvents = new DisplayEvents();
             MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
             switch (choice) {
                 case RETURN:
                     return;
+                case SEARCH:
+                    displayEvents.displaySearchName();
+                    break;
 
                 default:
-                    showEventsMenu();
                     break;
             }
         } while (true);
