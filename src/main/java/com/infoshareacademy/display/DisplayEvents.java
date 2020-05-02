@@ -295,9 +295,8 @@ public class DisplayEvents {
                 promptError("Źle wprowadzona data!");
                 continue;
             }
-            Pattern pattern = Pattern.compile(patternStr);
-
-            Matcher matcher = pattern.matcher(in);
+            Pattern p = Pattern.compile("^[1-2][0-9]{3}/[0-1][0-9]/[0-3][0-9] [0-2][0-9]:[0-5][0-9]$");
+            Matcher matcher = p.matcher(in);
             boolean matches = matcher.matches();
             if (matches){
             optionalLocalDateTime = Optional.ofNullable(out = LocalDateTime.parse(in, dtf));
