@@ -65,6 +65,9 @@ public class EventPrinter {
         String date = dateAccordingToSetup(e.getStartDate());
         STDOUT.info("Data rozpoczęcia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, date, ConsoleColor.RESET);
     }
+    public void printOrganizer(Event e) {
+        STDOUT.info("Organizator: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getOrganizer().getDesignation(), ConsoleColor.RESET);
+    }
 
     public String dateAccordingToSetup(LocalDateTime evenTime) {
         String dateReformatted = null;

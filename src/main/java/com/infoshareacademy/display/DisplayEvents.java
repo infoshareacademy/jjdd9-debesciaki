@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
@@ -75,7 +77,15 @@ public class DisplayEvents {
         displayPages(this.eventList.size(), elemPerPage, this.eventList);
     }
 
-    public void displaySearch() {
+    public void displaySearchName() {
+        displayQuery(true);
+    }
+
+    public void displaySearchOrganizer() {
+        displayQuery(false);
+    }
+
+    private void displayQuery(boolean byNameOrOrganizer) {
         cleanConsole();
         Optional<Integer> pageMaxElements;
         Optional<String> optQuery;
@@ -85,7 +95,12 @@ public class DisplayEvents {
             optQuery = inputString("Wpisz wyszukiwaną frazę: ");
             if (optQuery.isPresent()) {
                 query = optQuery.get();
-                this.eventList = searchListByName(query);
+
+                if (byNameOrOrganizer) {
+                    this.eventList = searchListByName(query);
+                } else {
+                    this.eventList = filterOrganizer(query);
+                }
                 if (this.eventList.size() > 1) {
                     STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
                     if (this.eventList.size() > 5) {
@@ -101,9 +116,8 @@ public class DisplayEvents {
                     STDOUT.info("Nie znaleziono wydarzeń odpowiadających kryteriom.");
                 }
             }
-            decision = inputString("Chcesz kontynuować wyszukiwanie?[!n/n]").get();
-        } while (!(decision.equals("N") || decision.equals("n")));
-
+            decision = inputString("Chcesz spróbować ponownie?[tak]").get().toLowerCase();
+        } while (decision.equals("tak"));
     }
 
     public void displayAfter() {
@@ -244,6 +258,11 @@ public class DisplayEvents {
         return this.eventList;
     }
 
+    private List<Event> filterOrganizer(String query) {
+        Predicate<Event> byOrganizer = event -> event.getOrganizer().getDesignation().toLowerCase().contains(query.toLowerCase());
+        return this.eventList.stream().parallel().filter(byOrganizer).collect(Collectors.toList());
+    }
+
     private boolean isAfterNow(LocalDateTime eventTime) {
         return eventTime.isAfter(LocalDateTime.now());
     }
@@ -305,15 +324,10 @@ public class DisplayEvents {
 
     private void consolePrintSingleEventScheme(Event e) {
         EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
-
-        //eventPrinter.printID(e);
         eventPrinter.printName(e);
+        eventPrinter.printOrganizer(e);
         eventPrinter.printStartDate(e);
         eventPrinter.printEndDate(e);
-        //eventPrinter.printShortDesc(e);
-        //eventPrinter.printLongDesc(e);
-        //eventPrinter.printActive(e);
-        //eventPrinter.printTickets(e);
         STDOUT.info("\n");
     }
 
@@ -336,14 +350,14 @@ public class DisplayEvents {
         } else {
             promptError("Nie znaleziono wydarzeń spełniających kryteria.");
             if (repeatOption) {
-                decision = inputString("Chcesz spróbować ponownie, wpisz [tak]?").get();
-                if (decision.equals("Tak") || decision.equals("tak")) {
+                decision = inputString("Chcesz spróbować ponownie, wpisz [tak]?").get().toLowerCase();
+                if (decision.equals("tak")) {
                     this.eventList = EventRepository.getAllEventsList();
                 }
             }
         }
         // } while (decision.equals("Tak") || decision.equals("tak"));
-        if ((decision.equals("Tak") || decision.equals("tak"))) {
+        if (decision.equals("tak")) {
             return false;
         } else {
             return true;

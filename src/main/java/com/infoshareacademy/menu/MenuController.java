@@ -28,9 +28,10 @@ public class MenuController {
                     //display.displayAllEvents();
                     //display.displaySearch();
                     //display.displayAfter();
-                    //display.displayBefore();
+                    //displayEvents.displayBefore();
                     //displayEvents.displayPeriodically();
-                    displayEvents.displayCategorized();
+                    //displayEvents.displayCategorized();
+                    displayEvents.displaySearchOrganizer();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();
