@@ -1,7 +1,6 @@
 package com.infoshareacademy.menu;
 
-import com.infoshareacademy.properties.PropertiesRepository;
-import com.infoshareacademy.display.Display;
+import com.infoshareacademy.display.DisplayEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +23,7 @@ public class MenuController {
                 case EXIT:
                     return;
                 case SHOW_EVENTS:
-                    Display display = new Display();
-                    display.displayCurrentEvents();
+                    showEventsMenu();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();
@@ -40,16 +38,26 @@ public class MenuController {
 
     private void showEventsMenu() {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
-
         do {
             cleanConsole();
+            DisplayEvents displayEvents = new DisplayEvents();
             MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
             switch (choice) {
                 case RETURN:
                     return;
-
+                case ALL:
+                    displayEvents.displayAllEvents();
+                     break;
+                case COMING:
+                    displayEvents.displayComingEvents();
+                    break;
+                case SEARCH:
+                    showEventsSearch();
+                    break;
+                case FILTER:
+                    showEventsFilter();
+                    break;
                 default:
-                    showEventsMenu();
                     break;
             }
         } while (true);
@@ -82,6 +90,61 @@ public class MenuController {
                 case RETURN:
                     return;
 
+                default:
+                    showSettingsMenu();
+                    break;
+            }
+        } while (true);
+    }
+
+    private void showEventsSearch(){
+        DisplayMenu<MenuEventsOptionSearch> m = new DisplayMenu<>();
+
+        do {
+            cleanConsole();
+            DisplayEvents displayEvents = new DisplayEvents();
+            MenuEventsOptionSearch choice = m.showMenu(MenuEventsOptionSearch.values());
+            switch (choice) {
+                case RETURN:
+                    return;
+                case SEARCH_BY_ORGANIZER:
+                    displayEvents.displaySearchOrganizer();
+                    break;
+                case SEARCH_BY_NAME:
+                    displayEvents.displaySearchName();
+                    break;
+                case RESET:
+                    displayEvents.resetList();
+                    break;
+                default:
+                    showSettingsMenu();
+                    break;
+            }
+        } while (true);
+    }
+
+    private void showEventsFilter(){
+        DisplayMenu<MenuEventsOptionFilter> m = new DisplayMenu<>();
+
+        do {
+            cleanConsole();
+            DisplayEvents displayEvents = new DisplayEvents();
+            MenuEventsOptionFilter choice = m.showMenu(MenuEventsOptionFilter.values());
+            switch (choice) {
+                case RETURN:
+                    return;
+                case FILTER_AFTER:
+                    displayEvents.displayAfter();
+                    break;
+                case FILTER_BEFORE:
+                    displayEvents.displayBefore();
+                    break;
+                case FILTER_BETWEEN:
+                    displayEvents.displayPeriodically();
+                    break;
+                case RESET:
+                    displayEvents.resetList();
+                    break;
                 default:
                     showSettingsMenu();
                     break;
