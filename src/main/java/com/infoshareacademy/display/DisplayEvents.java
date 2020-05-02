@@ -23,14 +23,22 @@ import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 public class DisplayEvents {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String DECISION_REQUEST = "\nTwój wybór to: ";
-    Integer qty;
-    Integer elemPerPage;
-    boolean firstStart;
-    List<Event> eventList;
-    Map<Integer, Category> categoryMap;
+    private Integer qty;
+    private Integer elemPerPage;
+    private boolean firstStart;
+    private  List<Event> eventList;
+    private Map<Integer, Category> categoryMap;
 
     public DisplayEvents() {
         this.eventList = EventRepository.getAllEventsList();
+        this.categoryMap = CategoryRepository.getAllCategoriesMap();
+    }
+
+    public void resetList(){
+        this.eventList = EventRepository.getAllEventsList();
+    }
+
+    public void resetMap(){
         this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
@@ -201,7 +209,7 @@ public class DisplayEvents {
     private List<Event> searchListByName(String query) {
         List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
-            if (e.getName().contains(query)) {
+            if (e.getName().toLowerCase().contains(query.toLowerCase())) {
                 out.add(e);
             }
         }
