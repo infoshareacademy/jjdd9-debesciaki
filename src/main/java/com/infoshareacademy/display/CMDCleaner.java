@@ -1,5 +1,6 @@
 package com.infoshareacademy.display;
 
+import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class CMDCleaner {
             } else {
                 STDOUT.info("\033\143");
                 STDOUT.info("{}WYDARZENIA KULTURALNE W GDAŃSKU{}\n",ConsoleColor.GREEN_BOLD_BRIGHT,ConsoleColor.RESET);
+                STDOUT.info(PropertiesRepository.getInstance().getBreadcrumb());
             }
         } catch (IOException | InterruptedException e) {
             STDOUT.info("{}\n", e.getMessage());
