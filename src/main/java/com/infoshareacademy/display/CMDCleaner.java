@@ -12,6 +12,7 @@ public class CMDCleaner {
         try {
             if (os.contains("win")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                STDOUT.info("{}WYDARZENIA KULTURALNE W GDAŃSKU{}\n",ConsoleColor.GREEN_BOLD_BRIGHT,ConsoleColor.RESET);
             } else {
                 STDOUT.info("\033\143");
                 STDOUT.info("{}WYDARZENIA KULTURALNE W GDAŃSKU{}\n",ConsoleColor.GREEN_BOLD_BRIGHT,ConsoleColor.RESET);
