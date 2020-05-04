@@ -1,15 +1,14 @@
 package com.infoshareacademy.menu;
 
-public enum MenuEventsOption {
+public enum MenuEventsOptionSearch {
     RETURN("Powrót do głównego menu"),
-    ALL("Pokaż wszystkie wydarzenia"),
-    COMING("Pokaż nadchodzące wydarzenia"),
-    FILTER("Filtruj wydarzenia"),
-    SEARCH("Wyszukaj wydarzenia");
+    SEARCH_BY_NAME("Wyszukuj po nazwie"),
+    SEARCH_BY_ORGANIZER("Wyszukuj po organizatorze"),
+    RESET("Zresetuj listę");
 
     private String description;
 
-    MenuEventsOption(String description) {
+    MenuEventsOptionSearch(String description) {
         this.description = description;
     }
 
@@ -22,4 +21,3 @@ public enum MenuEventsOption {
         return getDescription();
     }
 }
-

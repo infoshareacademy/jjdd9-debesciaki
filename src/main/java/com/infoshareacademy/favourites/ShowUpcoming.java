@@ -1,8 +1,7 @@
 package com.infoshareacademy.favourites;
 
-import com.infoshareacademy.display.Display;
+import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,7 @@ public class ShowUpcoming {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     ShowFavourites showFavourites = new ShowFavourites();
     List<Event> listFavourites = showFavourites.getEvents();
-    Display display = new Display();
+    DisplayEvents display = new DisplayEvents();
 
     public ShowUpcoming() throws IOException {
         run();
@@ -21,7 +20,7 @@ public class ShowUpcoming {
 
     public void run() {
         if (listFavourites.isEmpty()) {
-            STDOUT.info("BRAK INFOMRACJI O NAJBLIŻSZYM ULUBIONYM WYDARZENIU");
+            STDOUT.info("BRAK INFOMRACJI O NAJBLIŻSZYM ULUBIONYM WYDARZENIU\n");
         } else {
             Event upcomingEvent = listFavourites.get(0);
             for (int i = 0; i < listFavourites.size(); i++) {
@@ -29,7 +28,7 @@ public class ShowUpcoming {
                     upcomingEvent = listFavourites.get(i);
                 }
             }
-            display.consolePrintEventScheme(upcomingEvent, PropertiesRepository.getInstance().getProperty("date-format"));
+            display.consolePrintSingleEventScheme(upcomingEvent);
         }
     }
 }

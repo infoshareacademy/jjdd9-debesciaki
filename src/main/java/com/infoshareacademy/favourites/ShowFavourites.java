@@ -5,9 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.infoshareacademy.display.CMDCleaner;
-import com.infoshareacademy.display.Display;
+import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +19,7 @@ public class ShowFavourites {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
     File favouritesJson = new File("favourites.json");
-    Display display = new Display();
+    DisplayEvents display = new DisplayEvents();
 
     public void run() throws IOException {
         List<Event> favouritesList = getEvents();
@@ -31,7 +30,7 @@ public class ShowFavourites {
             CMDCleaner.cleanConsole();
             STDOUT.info("TWOJE ULUBIONE WYDARZENIA\n");
             for (Event el : favouritesList) {
-                display.consolePrintEventScheme(el, PropertiesRepository.getInstance().getProperty("date-format"));
+                display.consolePrintSingleEventScheme(el);
             }
         }
 

@@ -1,10 +1,10 @@
 package com.infoshareacademy.menu;
 
+import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.favourites.AddFavourites;
 import com.infoshareacademy.favourites.ShowFavourites;
 import com.infoshareacademy.favourites.ShowUpcoming;
 import com.infoshareacademy.properties.PropertiesRepository;
-import com.infoshareacademy.display.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +37,7 @@ public class MenuController {
                 case EXIT:
                     return;
                 case SHOW_EVENTS:
-                    Display display = new Display();
-                    display.displayCurrentEvents();
+                    showEventsMenu();
                     break;
                 case SHOW_FAVOURITES:
                     cleanConsole();
@@ -55,13 +54,26 @@ public class MenuController {
 
     private void showEventsMenu() throws IOException {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
+
         do {
             cleanConsole();
+            DisplayEvents displayEvents = new DisplayEvents();
             MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
             switch (choice) {
                 case RETURN:
                     return;
-
+                case ALL:
+                    displayEvents.displayAllEvents();
+                     break;
+                case COMING:
+                    displayEvents.displayComingEvents();
+                    break;
+                case SEARCH:
+                    showEventsSearch();
+                    break;
+                case FILTER:
+                    showEventsFilter();
+                    break;
                 default:
                     showEventsMenu();
                     break;
@@ -96,6 +108,61 @@ public class MenuController {
                 case RETURN:
                     return;
 
+                default:
+                    showSettingsMenu();
+                    break;
+            }
+        } while (true);
+    }
+
+    private void showEventsSearch() throws IOException {
+        DisplayMenu<MenuEventsOptionSearch> m = new DisplayMenu<>();
+
+        do {
+            cleanConsole();
+            DisplayEvents displayEvents = new DisplayEvents();
+            MenuEventsOptionSearch choice = m.showMenu(MenuEventsOptionSearch.values());
+            switch (choice) {
+                case RETURN:
+                    return;
+                case SEARCH_BY_ORGANIZER:
+                    displayEvents.displaySearchOrganizer();
+                    break;
+                case SEARCH_BY_NAME:
+                    displayEvents.displaySearchName();
+                    break;
+                case RESET:
+                    displayEvents.resetList();
+                    break;
+                default:
+                    showSettingsMenu();
+                    break;
+            }
+        } while (true);
+    }
+
+    private void showEventsFilter() throws IOException {
+        DisplayMenu<MenuEventsOptionFilter> m = new DisplayMenu<>();
+
+        do {
+            cleanConsole();
+            DisplayEvents displayEvents = new DisplayEvents();
+            MenuEventsOptionFilter choice = m.showMenu(MenuEventsOptionFilter.values());
+            switch (choice) {
+                case RETURN:
+                    return;
+                case FILTER_AFTER:
+                    displayEvents.displayAfter();
+                    break;
+                case FILTER_BEFORE:
+                    displayEvents.displayBefore();
+                    break;
+                case FILTER_BETWEEN:
+                    displayEvents.displayPeriodically();
+                    break;
+                case RESET:
+                    displayEvents.resetList();
+                    break;
                 default:
                     showSettingsMenu();
                     break;

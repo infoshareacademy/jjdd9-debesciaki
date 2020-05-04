@@ -1,12 +1,7 @@
 package com.infoshareacademy.parser;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public class Event {
@@ -131,4 +126,15 @@ public class Event {
         this.tickets = tickets;
     }
 
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", place=" + place +
+                ", endDate=" + endDate +
+                ", name='" + name + '\'' +
+                ", startDate=" + startDate +
+                ", organizer=" + organizer +
+                '}';
+    }
 }

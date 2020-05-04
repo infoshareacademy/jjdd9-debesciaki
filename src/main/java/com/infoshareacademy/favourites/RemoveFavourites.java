@@ -4,12 +4,12 @@ import com.infoshareacademy.menu.DisplayMenu;
 import com.infoshareacademy.parser.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 public class RemoveFavourites {
+
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     ShowFavourites showFavourites = new ShowFavourites();
     List<Event> listFavourites = showFavourites.getEvents();
@@ -30,6 +30,6 @@ public class RemoveFavourites {
             listFavourites.remove(choiceFromKeyboard - 1);
             save.run(listFavourites);
         }
-        showFavourites.run();
+       // showFavourites.run();
     }
 }
