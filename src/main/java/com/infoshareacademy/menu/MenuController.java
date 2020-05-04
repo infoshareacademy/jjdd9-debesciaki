@@ -46,7 +46,7 @@ public class MenuController {
                 case RETURN:
                     return;
                 case ALL:
-                    displayEvents.displayOrganizers();
+                    displayEvents.displayAllEvents();
                      break;
                 case COMING:
                     displayEvents.displayComingEvents();
@@ -57,6 +57,8 @@ public class MenuController {
                 case SEARCH_BY_NAME:
                     displayEvents.displaySearchName();
                     break;
+                case FILTER_BY_ORGANIZER:
+                    displayEvents.displayOrganizers();
                 case FILTER_AFTER:
                     displayEvents.displayAfter();
                     break;
