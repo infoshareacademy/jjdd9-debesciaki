@@ -1,6 +1,7 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.display.DisplayEvents;
+import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,7 @@ public class MenuController {
     }
 
     private void showMainMenu() {
+        PropertiesRepository.getInstance().putBreadcrumb("Menu główne");
         DisplayMenu<MenuMainOption> m = new DisplayMenu<>();
 
         do {
@@ -21,9 +23,12 @@ public class MenuController {
             MenuMainOption choice = m.showMenu(MenuMainOption.values());
             switch (choice) {
                 case EXIT:
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     return;
                 case SHOW_EVENTS:
+                    PropertiesRepository.getInstance().putBreadcrumb("Pokaż wydarzenia");
                     showEventsMenu();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     break;
                 case SHOW_FAVOURITES:
                     showFavouritesMenu();
@@ -81,6 +86,7 @@ public class MenuController {
     }
 
     private void showSettingsMenu() {
+        PropertiesRepository.getInstance().putBreadcrumb("Ustawienia");
         DisplayMenu<MenuSettingsOption> m = new DisplayMenu<>();
 
         do {
@@ -88,6 +94,7 @@ public class MenuController {
             MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values());
             switch (choice) {
                 case RETURN:
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     return;
 
                 default:
