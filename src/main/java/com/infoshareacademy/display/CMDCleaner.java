@@ -17,7 +17,8 @@ public class CMDCleaner {
             } else {
                 STDOUT.info("\033\143");
                 STDOUT.info("{}WYDARZENIA KULTURALNE W GDAŃSKU{}\n",ConsoleColor.GREEN_BOLD_BRIGHT,ConsoleColor.RESET);
-                STDOUT.info(PropertiesRepository.getInstance().getBreadcrumb());
+                STDOUT.info("{}>>>{}{}",ConsoleColor.BLACK_BACKGROUND_BRIGHT,PropertiesRepository.getInstance().getBreadcrumb(),ConsoleColor.RESET);
+                STDOUT.info("\n");
             }
         } catch (IOException | InterruptedException e) {
             STDOUT.info("{}\n", e.getMessage());
