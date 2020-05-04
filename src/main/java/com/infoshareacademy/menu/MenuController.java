@@ -51,11 +51,23 @@ public class MenuController {
                 case COMING:
                     displayEvents.displayComingEvents();
                     break;
-                case SEARCH:
-                    showEventsSearch();
+                case SEARCH_BY_ORGANIZER:
+                    displayEvents.displaySearchOrganizer();
                     break;
-                case FILTER:
-                    showEventsFilter();
+                case SEARCH_BY_NAME:
+                    displayEvents.displaySearchName();
+                    break;
+                case FILTER_AFTER:
+                    displayEvents.displayAfter();
+                    break;
+                case FILTER_BEFORE:
+                    displayEvents.displayBefore();
+                    break;
+                case FILTER_BETWEEN:
+                    displayEvents.displayPeriodically();
+                    break;
+                case RESET:
+                    displayEvents.resetList();
                     break;
                 default:
                     break;
@@ -90,61 +102,6 @@ public class MenuController {
                 case RETURN:
                     return;
 
-                default:
-                    showSettingsMenu();
-                    break;
-            }
-        } while (true);
-    }
-
-    private void showEventsSearch(){
-        DisplayMenu<MenuEventsOptionSearch> m = new DisplayMenu<>();
-
-        do {
-            cleanConsole();
-            DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOptionSearch choice = m.showMenu(MenuEventsOptionSearch.values());
-            switch (choice) {
-                case RETURN:
-                    return;
-                case SEARCH_BY_ORGANIZER:
-                    displayEvents.displaySearchOrganizer();
-                    break;
-                case SEARCH_BY_NAME:
-                    displayEvents.displaySearchName();
-                    break;
-                case RESET:
-                    displayEvents.resetList();
-                    break;
-                default:
-                    showSettingsMenu();
-                    break;
-            }
-        } while (true);
-    }
-
-    private void showEventsFilter(){
-        DisplayMenu<MenuEventsOptionFilter> m = new DisplayMenu<>();
-
-        do {
-            cleanConsole();
-            DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOptionFilter choice = m.showMenu(MenuEventsOptionFilter.values());
-            switch (choice) {
-                case RETURN:
-                    return;
-                case FILTER_AFTER:
-                    displayEvents.displayAfter();
-                    break;
-                case FILTER_BEFORE:
-                    displayEvents.displayBefore();
-                    break;
-                case FILTER_BETWEEN:
-                    displayEvents.displayPeriodically();
-                    break;
-                case RESET:
-                    displayEvents.resetList();
-                    break;
                 default:
                     showSettingsMenu();
                     break;
