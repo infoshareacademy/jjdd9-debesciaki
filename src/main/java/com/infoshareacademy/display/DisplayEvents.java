@@ -2,8 +2,10 @@ package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Category;
 import com.infoshareacademy.parser.Event;
+import com.infoshareacademy.parser.Organizer;
 import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
+import com.infoshareacademy.repository.OrganizerRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -158,6 +161,47 @@ public class DisplayEvents {
                 this.eventList = filterCategory(choice);
             }
         } while (!searchingResultDisplay(false));
+    }
+
+    public void displayOrganizers() {
+        cleanConsole();
+        AtomicInteger lp = new AtomicInteger(1);
+        Map<Integer, Integer> organizersCoord = eventCountByOrganizer();
+        Map<Integer, Integer> organizersDisplayTable = organizersCoord
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(k -> lp.getAndIncrement(),
+                        Map.Entry::getKey));
+        Map<Integer, Organizer> organizerMap = OrganizerRepository.getAllOrganizersMap();
+        for (Map.Entry<Integer, Integer> entry : organizersCoord.entrySet()) {
+            STDOUT.info("{} - {} ({})\n", entry.getKey(), organizerMap.get(entry.getKey()).getDesignation(), entry.getValue());
+        }
+        Optional<String> orgs = inputString("Wprowadź interesujących Cię organizatorów(np.1,3,4 -> organizatorzy nr 1, 3 i 4): ");
+        List<Integer> list =Arrays.asList(orgs.get()).stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+    }
+
+    public void filterByOrganizer(int id) {
+        this.eventList = this.eventList.stream()
+                .filter(e -> e.getOrganizer().getId() == id)
+                .collect(Collectors.toList());
+    }
+
+    public Map<Integer, Integer> eventCountByOrganizer() {
+        Map<Integer, Integer> out = OrganizerRepository.getAllOrganizers()
+                .stream()
+                .collect(Collectors.toMap(Organizer::getId,
+                        v -> 0));
+        resetList();
+        this.eventList
+                .forEach(e -> {
+                    int p = e.getOrganizer().getId();
+                    out.put(p, out.get(p) + 1);
+                });
+        return out.entrySet().stream()
+                .filter(m -> m.getValue() > 0)
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        Map.Entry::getValue));
+
     }
 
     private Optional<Integer> inputInteger(String subject) {
