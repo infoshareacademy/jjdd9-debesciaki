@@ -1,6 +1,5 @@
 package com.infoshareacademy.display;
 
-import com.infoshareacademy.parser.Category;
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Organizer;
 import com.infoshareacademy.repository.CategoryRepository;
@@ -31,19 +30,13 @@ public class DisplayEvents {
     private Integer elemPerPage;
     private boolean firstStart;
     private List<Event> eventList;
-    private Map<Integer, Category> categoryMap;
 
     public DisplayEvents() {
         this.eventList = EventRepository.getAllEventsList();
-        this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
     public void resetList() {
         this.eventList = EventRepository.getAllEventsList();
-    }
-
-    public void resetMap() {
-        this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
     public void displayComingEvents() {
@@ -165,7 +158,6 @@ public class DisplayEvents {
         cleanConsole();
         Optional<Integer> pageMaxElements;
         AtomicInteger lp = new AtomicInteger(1);
-        String decision;
 
         Map<Integer, Integer> organizersCoord = eventCountByOrganizer();
 
@@ -176,26 +168,27 @@ public class DisplayEvents {
                         Map.Entry::getKey));
 
         Map<Integer, Organizer> organizerMap = OrganizerRepository.getAllOrganizersMap();
-        int x=1;
+        int x = 1;
         for (Map.Entry<Integer, Integer> entry : organizersCoord.entrySet()) {
             STDOUT.info("{} - {} ({})\n", x, organizerMap.get(entry.getKey()).getDesignation(), entry.getValue());
             x++;
         }
         STDOUT.info("0 - Wyjdź\n");
-        List<Integer> toDisplayList = new ArrayList<>();
-        Optional<Integer> in;
-        do {
-            in = inputInteger("Wprowadź interesujacego Cię organizatora, jeśli chcesz zakończyć wprowadzanie organizatorów wprowadź 0: ", 0,organizersCoord.size(),false);
-            if (in.get()!=0) toDisplayList.add(organizersDisplayTable.get(in.get()));
-        }while(in.get()!=0);
 
-        List<Event> temporaryList =  new ArrayList<>();;
-        for (Integer i:toDisplayList){
-            for (Event e: filterByOrganizer(i, this.eventList)){
+        Optional<Integer> in;
+        Set<Integer> toDisplaySet = new HashSet<>();
+        do {
+            in = inputInteger("Wprowadź interesujacego Cię organizatora, jeśli chcesz zakończyć wprowadzanie organizatorów wprowadź 0: ", 0, organizersCoord.size(), false);
+            if (in.isPresent() && in.get() != 0) toDisplaySet.add(organizersDisplayTable.get(in.get()));
+        } while (!in.isPresent() || in.get() != 0);
+
+        List<Event> temporaryList = new ArrayList<>();
+        for (Integer i : toDisplaySet) {
+            for (Event e : filterByOrganizer(i, this.eventList)) {
                 temporaryList.add(e);
             }
         }
-        this.eventList=temporaryList;
+        this.eventList = temporaryList;
 
         if (this.eventList.size() > 1) {
             if (this.eventList.size() > 5) {
@@ -211,7 +204,7 @@ public class DisplayEvents {
     }
 
     public List<Event> filterByOrganizer(int id, List<Event> source) {
-        return  source.stream()
+        return source.stream()
                 .filter(e -> e.getOrganizer().getId() == id)
                 .collect(Collectors.toList());
     }
@@ -253,7 +246,8 @@ public class DisplayEvents {
         } while (opt.isEmpty());
         return opt;
     }
-    private Optional<Integer> inputInteger(String subject,int limitU, int limitD, boolean cleanWhenError) {
+
+    private Optional<Integer> inputInteger(String subject, int limitU, int limitD, boolean cleanWhenError) {
         Integer quantity = null;
         Optional<Integer> opt = null;
         String in;
@@ -265,13 +259,13 @@ public class DisplayEvents {
                 quantity = Integer.parseInt(in);
             }
             opt = Optional.ofNullable(quantity);
-            if (!NumberUtils.isDigits(in)||(opt.get()>limitD || opt.get()<limitU)) {
-             if (cleanWhenError)  {
-                 cleanConsole();
-             }
+            if (!NumberUtils.isDigits(in) || (opt.isPresent() && (opt.get() > limitD || opt.get() < limitU))) {
+                if (cleanWhenError) {
+                    cleanConsole();
+                }
                 STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
             }
-        } while (opt.isEmpty()||(opt.get()>limitD || opt.get()<limitU));
+        } while (opt.isEmpty() || (opt.get() > limitD || opt.get() < limitU));
         return opt;
     }
 
