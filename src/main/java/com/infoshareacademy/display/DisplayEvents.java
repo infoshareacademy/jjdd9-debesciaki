@@ -163,23 +163,55 @@ public class DisplayEvents {
 
     public void displayOrganizers() {
         cleanConsole();
+        Optional<Integer> pageMaxElements;
         AtomicInteger lp = new AtomicInteger(1);
+        String decision;
+
         Map<Integer, Integer> organizersCoord = eventCountByOrganizer();
+
         Map<Integer, Integer> organizersDisplayTable = organizersCoord
                 .entrySet()
                 .stream()
                 .collect(Collectors.toMap(k -> lp.getAndIncrement(),
                         Map.Entry::getKey));
+
         Map<Integer, Organizer> organizerMap = OrganizerRepository.getAllOrganizersMap();
+        int x=1;
         for (Map.Entry<Integer, Integer> entry : organizersCoord.entrySet()) {
-            STDOUT.info("{} - {} ({})\n", entry.getKey(), organizerMap.get(entry.getKey()).getDesignation(), entry.getValue());
+            STDOUT.info("{} - {} ({})\n", x, organizerMap.get(entry.getKey()).getDesignation(), entry.getValue());
+            x++;
         }
-        Optional<String> orgs = inputString("Wprowadź interesujących Cię organizatorów(np.1,3,4 -> organizatorzy nr 1, 3 i 4): ");
-        List<Integer> list =Arrays.asList(orgs.get()).stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
+        STDOUT.info("0 - Wyjdź\n");
+        List<Integer> toDisplayList = new ArrayList<>();
+        Optional<Integer> in;
+        do {
+            in = inputInteger("Wprowadź interesujacego Cię organizatora, jeśli chcesz zakończyć wprowadzanie organizatorów wprowadź 0: ", 0,organizersCoord.size(),false);
+            if (in.get()!=0) toDisplayList.add(organizersDisplayTable.get(in.get()));
+        }while(in.get()!=0);
+
+        List<Event> temporaryList =  new ArrayList<>();;
+        for (Integer i:toDisplayList){
+            for (Event e: filterByOrganizer(i, this.eventList)){
+                temporaryList.add(e);
+            }
+        }
+        this.eventList=temporaryList;
+
+        if (this.eventList.size() > 1) {
+            if (this.eventList.size() > 5) {
+                pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+            } else {
+                pageMaxElements = Optional.ofNullable(eventList.size());
+            }
+            if (pageMaxElements.isPresent()) {
+                elemPerPage = pageMaxElements.get();
+                displayPages(this.eventList.size(), elemPerPage, this.eventList);
+            }
+        }
     }
 
-    public void filterByOrganizer(int id) {
-        this.eventList = this.eventList.stream()
+    public List<Event> filterByOrganizer(int id, List<Event> source) {
+        return  source.stream()
                 .filter(e -> e.getOrganizer().getId() == id)
                 .collect(Collectors.toList());
     }
@@ -219,6 +251,27 @@ public class DisplayEvents {
                 STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
             }
         } while (opt.isEmpty());
+        return opt;
+    }
+    private Optional<Integer> inputInteger(String subject,int limitU, int limitD, boolean cleanWhenError) {
+        Integer quantity = null;
+        Optional<Integer> opt = null;
+        String in;
+        do {
+            STDOUT.info("{}", subject);
+            Scanner scanner = new Scanner(System.in);
+            in = scanner.nextLine();
+            if (NumberUtils.isDigits(in)) {
+                quantity = Integer.parseInt(in);
+            }
+            opt = Optional.ofNullable(quantity);
+            if (!NumberUtils.isDigits(in)||(opt.get()>limitD || opt.get()<limitU)) {
+             if (cleanWhenError)  {
+                 cleanConsole();
+             }
+                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
+            }
+        } while (opt.isEmpty()||(opt.get()>limitD || opt.get()<limitU));
         return opt;
     }
 
