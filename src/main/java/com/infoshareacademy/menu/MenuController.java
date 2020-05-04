@@ -51,7 +51,7 @@ public class MenuController {
                 case RETURN:
                     return;
                 case ALL:
-                    displayEvents.displayAllEvents();
+                    displayEvents.displayOrganizers();
                      break;
                 case COMING:
                     displayEvents.displayComingEvents();
