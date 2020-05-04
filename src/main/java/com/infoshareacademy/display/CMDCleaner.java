@@ -3,6 +3,7 @@ package com.infoshareacademy.display;
 import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 public class CMDCleaner {
@@ -24,6 +25,4 @@ public class CMDCleaner {
             STDOUT.info("{}\n", e.getMessage());
         }
     }
-
 }
-
