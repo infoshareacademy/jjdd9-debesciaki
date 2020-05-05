@@ -2,23 +2,17 @@ package com.infoshareacademy.menu;
 
 import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.favourites.AddFavourites;
+import com.infoshareacademy.favourites.RemoveFavourites;
 import com.infoshareacademy.favourites.ShowFavourites;
 import com.infoshareacademy.favourites.ShowUpcoming;
 import com.infoshareacademy.properties.PropertiesRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class MenuController {
-    private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     ShowFavourites showFavourites = new ShowFavourites();
-    AddFavourites addFavourites = new AddFavourites();
-
-    public MenuController() throws IOException {
-    }
 
     public void run() throws IOException {
         showMainMenu();
@@ -28,11 +22,12 @@ public class MenuController {
         DisplayMenu<MenuMainOption> m = new DisplayMenu<>();
 
         do {
+
             cleanConsole();
             if (PropertiesRepository.getInstance().getProperty("homeOnly").equals("true")) {
                 new ShowUpcoming();
             }
-            MenuMainOption choice = m.showMenu(MenuMainOption.values());
+            MenuMainOption choice = m.showMenu(MenuMainOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case EXIT:
                     return;
@@ -58,7 +53,7 @@ public class MenuController {
         do {
             cleanConsole();
             DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
+            MenuEventsOption choice = m.showMenu(MenuEventsOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:
                     return;
@@ -66,6 +61,7 @@ public class MenuController {
                     displayEvents.displayAllEvents();
                      break;
                 case COMING:
+                    cleanConsole();
                     displayEvents.displayComingEvents();
                     break;
                 case SEARCH:
@@ -82,28 +78,32 @@ public class MenuController {
 
     }
 
-    private void showFavouritesMenu() throws IOException {
+    private void showFavouritesMenu() {
         DisplayMenu<MenuFavouritesOption> m = new DisplayMenu<>();
 
         do {
-            MenuFavouritesOption choice = m.showMenu(MenuFavouritesOption.values());
+            showFavourites.run();
+            MenuFavouritesOption choice = m.showMenu(MenuFavouritesOption.values(), "true");
             switch (choice) {
                 case RETURN:
                     return;
                 case ADD:
                     showFavourites.run();
-                    addFavourites.run();
+                    new AddFavourites().run();
+                    break;
+                case DELETE:
+                    RemoveFavourites removeFavourites = new RemoveFavourites();
+                    removeFavourites.run(false);
                     break;
             }
         } while (true);
     }
 
-    private void showSettingsMenu() throws IOException {
+    private void showSettingsMenu() {
         DisplayMenu<MenuSettingsOption> m = new DisplayMenu<>();
-
         do {
             cleanConsole();
-            MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values());
+            MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:
                     return;
@@ -115,13 +115,13 @@ public class MenuController {
         } while (true);
     }
 
-    private void showEventsSearch() throws IOException {
+    private void showEventsSearch() {
         DisplayMenu<MenuEventsOptionSearch> m = new DisplayMenu<>();
 
         do {
             cleanConsole();
             DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOptionSearch choice = m.showMenu(MenuEventsOptionSearch.values());
+            MenuEventsOptionSearch choice = m.showMenu(MenuEventsOptionSearch.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:
                     return;
@@ -141,13 +141,13 @@ public class MenuController {
         } while (true);
     }
 
-    private void showEventsFilter() throws IOException {
+    private void showEventsFilter() {
         DisplayMenu<MenuEventsOptionFilter> m = new DisplayMenu<>();
 
         do {
             cleanConsole();
             DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOptionFilter choice = m.showMenu(MenuEventsOptionFilter.values());
+            MenuEventsOptionFilter choice = m.showMenu(MenuEventsOptionFilter.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:
                     return;

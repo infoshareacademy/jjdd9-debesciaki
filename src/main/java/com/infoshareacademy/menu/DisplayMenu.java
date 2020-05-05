@@ -3,12 +3,9 @@ package com.infoshareacademy.menu;
 import com.infoshareacademy.display.CMDCleaner;
 import com.infoshareacademy.display.ConsoleColor;
 import com.infoshareacademy.favourites.ShowUpcoming;
-import com.infoshareacademy.properties.PropertiesRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-
-import java.io.IOException;
 import java.util.Scanner;
 
 public class DisplayMenu<T extends Enum> {
@@ -16,16 +13,16 @@ public class DisplayMenu<T extends Enum> {
     Scanner scanner = new Scanner(System.in);
     Integer choice = null;
 
-    public T showMenu(T[] enums) throws IOException {
+    public T showMenu(T[] enums, String ifShowUpcoming) {
         do {
-            if (PropertiesRepository.getInstance().getProperty("homeOnly").equals("false")) {
+            if (ifShowUpcoming.equals("false")) {
                 new ShowUpcoming();
             }
             for (int i = 1; i < enums.length; i++) {
-                STDOUT.info(i + " - " + enums[i] + "\n");
+                STDOUT.info("{} - {}\n", i, enums[i]);
             }
-            STDOUT.info(0 + " - " + enums[0] + "\n");
-            STDOUT.info("Twój wybór to: ");
+            STDOUT.info("0 - {}\n", enums[0]);
+            STDOUT.info("\nTwój wybór to: ");
             choice = tryGetChoiceFromKeyboard(enums.length);
         } while (choice == null);
 

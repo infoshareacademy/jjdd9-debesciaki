@@ -1,35 +1,60 @@
 package com.infoshareacademy.favourites;
 
-import com.infoshareacademy.menu.DisplayMenu;
-import com.infoshareacademy.parser.Event;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.io.IOException;
-import java.util.List;
+
 import java.util.Scanner;
 
 public class RemoveFavourites {
 
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    ShowFavourites showFavourites = new ShowFavourites();
-    List<Event> listFavourites = showFavourites.getEvents();
-    DisplayMenu displayMenu = new DisplayMenu();
-    Scanner scanner = new Scanner(System.in);
-    SaveToFileWithFavourites save = new SaveToFileWithFavourites();
+    private ShowFavourites showFavourites = new ShowFavourites();
+    private SaveToFileWithFavourites save = new SaveToFileWithFavourites();
 
-    public RemoveFavourites() throws IOException {
-    }
-
-    void run() throws IOException {
+    public void run(boolean tooMany) {
         showFavourites.run();
-        STDOUT.info("Maksymalna liczba ulubionych wydarzeń - 3\n");
-        STDOUT.info("Wybierz wydarzenie, które chciałbyś usunąć (wpisz 0 aby cofnąć): ");
-        Integer choiceFromKeyboard = displayMenu.tryGetChoiceFromKeyboard(3);
+        Integer choiceFromKeyboard = null;
+        Scanner scanner = new Scanner(System.in);
+        if (tooMany) {
+            STDOUT.info("Maksymalna liczba ulubionych wydarzeń - 3\n");
+            STDOUT.info("Wybierz wydarzenie, które chciałbyś usunąć (wpisz 0 aby cofnąć): ");
+        } else {
+            STDOUT.info("Wybierz numer wydarzenia, które chciałbyś usunąć: ");
+        }
+
+        while (choiceFromKeyboard == null) {
+            String in = scanner.nextLine();
+            if (!NumberUtils.isDigits(in)) {
+                choiceFromKeyboard = null;
+            } else {
+                choiceFromKeyboard = Integer.parseInt(in);
+                for (int i = 0; i < FavouritesRepository.getAllFavouritesList().size(); i++) {
+                    if (choiceFromKeyboard != FavouritesRepository.getAllFavouritesList().get(i).getId()) {
+                        if (i == FavouritesRepository.getAllFavouritesList().size() - 1) {
+                            choiceFromKeyboard = null;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            if (choiceFromKeyboard == null) {
+                STDOUT.info("Zły wybór - wybierz ponownie: ");
+            }
+        }
 
         if (choiceFromKeyboard != 0) {
-            listFavourites.remove(choiceFromKeyboard - 1);
-            save.run(listFavourites);
+            int index = 0;
+            for (int i = 0; i < FavouritesRepository.getAllFavouritesList().size(); i++) {
+                if (FavouritesRepository.getAllFavouritesList().get(i).getId() == choiceFromKeyboard) {
+                    index = i;
+                }
+            }
+            FavouritesRepository.getAllFavouritesList().remove(index);
+            save.run(FavouritesRepository.getAllFavouritesList());
+            showFavourites.run();
         }
-       // showFavourites.run();
     }
 }

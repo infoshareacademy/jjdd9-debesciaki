@@ -1,31 +1,28 @@
 package com.infoshareacademy.favourites;
 
+import com.infoshareacademy.display.ConsoleColor;
 import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.parser.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.List;
-
 public class ShowUpcoming {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    ShowFavourites showFavourites = new ShowFavourites();
-    List<Event> listFavourites = showFavourites.getEvents();
     DisplayEvents display = new DisplayEvents();
 
-    public ShowUpcoming() throws IOException {
+    public ShowUpcoming() {
         run();
     }
 
     public void run() {
-        if (listFavourites.isEmpty()) {
-            STDOUT.info("BRAK INFOMRACJI O NAJBLIŻSZYM ULUBIONYM WYDARZENIU\n");
+        if (FavouritesRepository.getAllFavouritesList().isEmpty()) {
+            STDOUT.info("{}BRAK ULUBIONYCH WYDARZEŃ\n{}", ConsoleColor.RED_BOLD, ConsoleColor.RESET);
         } else {
-            Event upcomingEvent = listFavourites.get(0);
-            for (int i = 0; i < listFavourites.size(); i++) {
-                if (listFavourites.get(i).getStartDate().isBefore(upcomingEvent.getStartDate())) {
-                    upcomingEvent = listFavourites.get(i);
+            STDOUT.info("{}NAJBLIŻSZE ULUBIONE WYDARZENIE:{}\n", ConsoleColor.YELLOW, ConsoleColor.RESET);
+            Event upcomingEvent = FavouritesRepository.getAllFavouritesList().get(0);
+            for (int i = 0; i < FavouritesRepository.getAllFavouritesList().size(); i++) {
+                if (FavouritesRepository.getAllFavouritesList().get(i).getStartDate().isBefore(upcomingEvent.getStartDate())) {
+                    upcomingEvent = FavouritesRepository.getAllFavouritesList().get(i);
                 }
             }
             display.consolePrintSingleEventScheme(upcomingEvent);
