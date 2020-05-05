@@ -41,5 +41,10 @@ public class ParseService {
         CategoryRepository.setAllCategoriesMap();
         CategoryRepository.setRelationForCategories();
     }
+    public void writeEventList() throws IOException {
+        ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
+        File eventsJson = new File("events.json");
+        mapper.writeValue(eventsJson,EventRepository.getAllEventsMap());
+    }
 
 }
