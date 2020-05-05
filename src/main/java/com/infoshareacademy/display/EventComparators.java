@@ -18,8 +18,8 @@ public class EventComparators {
     public static Comparator<Event> EventNameComparatorDesc = new Comparator<Event>() {
 
         public int compare(Event event1, Event event2) {
-            String eventName1 = event1.getName().toUpperCase();
-            String eventName2 = event2.getName().toUpperCase();
+            String eventName1 = event1.getName().toUpperCase().replaceAll("[^a-zA-Z0-9]", "");;
+            String eventName2 = event2.getName().toUpperCase().replaceAll("[^a-zA-Z0-9]", "");;
             return eventName2.compareTo(eventName1);
         }
 
@@ -27,8 +27,8 @@ public class EventComparators {
     public static Comparator<Event> EventOrganizerComparatorAsc = new Comparator<Event>() {
 
         public int compare(Event event1, Event event2) {
-            String eventOrganizer1 = event1.getOrganizer().getDesignation();
-            String eventOrganizer2 = event2.getOrganizer().getDesignation();
+            String eventOrganizer1 = event1.getOrganizer().getDesignation().replaceAll("[^a-zA-Z0-9]", "");;
+            String eventOrganizer2 = event2.getOrganizer().getDesignation().replaceAll("[^a-zA-Z0-9]", "");;
             return eventOrganizer1.compareTo(eventOrganizer2);
         }
 
