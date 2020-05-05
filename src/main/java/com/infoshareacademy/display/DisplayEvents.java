@@ -27,6 +27,7 @@ public class DisplayEvents {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String DECISION_REQUEST = "\nTwój wybór to: ";
     private static final String ASK_FOR_PAGE_COUNT = "Ile wydarzeń chcesz zobaczyć na jednej stronie? ";
+    private static final String SPACING_MOD_SUBMENU ="                                 ";
     private Integer qty;
     private Integer elemPerPage;
     private boolean firstStart;
@@ -446,6 +447,31 @@ public class DisplayEvents {
         } while (decision.get() != 0);
     }
 
+    public void ModificationMenu(){
+        Optional<Integer> decision = null;
+        do {
+            STDOUT.info("{}1 - Usuń wydarzenie: ", SPACING_MOD_SUBMENU);
+            STDOUT.info("{}2 - Modyfikuj wydarzenie: ", SPACING_MOD_SUBMENU);
+            STDOUT.info("{}3 - Dodaj wydarzenie: ", SPACING_MOD_SUBMENU);
+            STDOUT.info("{}0 - Wyjdź: ", SPACING_MOD_SUBMENU);
+            decision = inputInteger(DECISION_REQUEST,3,0,false);
+            switch (decision.get()){
+                case 1:{
+                    break;
+                }
+                case 2:{
+                    break;
+                }
+                case 3:{
+                    break;
+                }
+                case 0:{break;}
+            }
+
+        }while (decision.get()!=0);
+
+    }
+
     private void consolePrintSingleEventScheme(Event e) {
         EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
         eventPrinter.printName(e);
@@ -484,16 +510,16 @@ public class DisplayEvents {
 
     private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
         if (actual == 1 && pageCount > 1) {
-            return inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == pageCount && actual != 1) {
-            return inputInteger("1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("1 - Poprzednia\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual > 1 && actual < pageCount) {
-            return inputInteger("2 - Następna\n1 - Poprzednia\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("1 - Poprzednia\n2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == 1 && pageCount == 1) {
-            return inputInteger("0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return inputInteger("4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         STDOUT.info("ERROR ERROR\n");
         return Optional.ofNullable(0);
