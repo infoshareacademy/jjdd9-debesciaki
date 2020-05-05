@@ -51,16 +51,45 @@ public class MenuController {
                 case RETURN:
                     return;
                 case ALL:
+                    PropertiesRepository.getInstance().putBreadcrumb("Wszystkie");
                     displayEvents.displayAllEvents();
-                     break;
+                    PropertiesRepository.getInstance().removeBreadcrumb();
+                    break;
                 case COMING:
+                    PropertiesRepository.getInstance().putBreadcrumb("Nadchodzące");
                     displayEvents.displayComingEvents();
                     break;
-                case SEARCH:
-                    showEventsSearch();
+                case SEARCH_BY_ORGANIZER:
+                    PropertiesRepository.getInstance().putBreadcrumb("Wyszukuj frazą organizatora");
+                    displayEvents.displaySearchOrganizer();
                     break;
-                case FILTER:
-                    showEventsFilter();
+                case SEARCH_BY_NAME:
+                    PropertiesRepository.getInstance().putBreadcrumb("Wyszukuj frazą w nazwie");
+                    displayEvents.displaySearchName();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
+                    break;
+                case FILTER_BY_ORGANIZER:
+                    PropertiesRepository.getInstance().putBreadcrumb("Wybrani organizatorzy z listy");
+                    displayEvents.displayOrganizers();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
+                    break;
+                case FILTER_AFTER:
+                    PropertiesRepository.getInstance().putBreadcrumb("Wydarzenia OD");
+                    displayEvents.displayAfter();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
+                    break;
+                case FILTER_BEFORE:
+                    PropertiesRepository.getInstance().putBreadcrumb("Wydarzenia DO");
+                    displayEvents.displayBefore();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
+                    break;
+                case FILTER_BETWEEN:
+                    PropertiesRepository.getInstance().putBreadcrumb("Wydarzenia OD DO");
+                    displayEvents.displayPeriodically();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
+                    break;
+                case RESET:
+                    displayEvents.resetList();
                     break;
                 default:
                     break;
@@ -97,61 +126,6 @@ public class MenuController {
                     PropertiesRepository.getInstance().removeBreadcrumb();
                     return;
 
-                default:
-                    showSettingsMenu();
-                    break;
-            }
-        } while (true);
-    }
-
-    private void showEventsSearch(){
-        DisplayMenu<MenuEventsOptionSearch> m = new DisplayMenu<>();
-
-        do {
-            cleanConsole();
-            DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOptionSearch choice = m.showMenu(MenuEventsOptionSearch.values());
-            switch (choice) {
-                case RETURN:
-                    return;
-                case SEARCH_BY_ORGANIZER:
-                    displayEvents.displaySearchOrganizer();
-                    break;
-                case SEARCH_BY_NAME:
-                    displayEvents.displaySearchName();
-                    break;
-                case RESET:
-                    displayEvents.resetList();
-                    break;
-                default:
-                    showSettingsMenu();
-                    break;
-            }
-        } while (true);
-    }
-
-    private void showEventsFilter(){
-        DisplayMenu<MenuEventsOptionFilter> m = new DisplayMenu<>();
-
-        do {
-            cleanConsole();
-            DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOptionFilter choice = m.showMenu(MenuEventsOptionFilter.values());
-            switch (choice) {
-                case RETURN:
-                    return;
-                case FILTER_AFTER:
-                    displayEvents.displayAfter();
-                    break;
-                case FILTER_BEFORE:
-                    displayEvents.displayBefore();
-                    break;
-                case FILTER_BETWEEN:
-                    displayEvents.displayPeriodically();
-                    break;
-                case RESET:
-                    displayEvents.resetList();
-                    break;
                 default:
                     showSettingsMenu();
                     break;
