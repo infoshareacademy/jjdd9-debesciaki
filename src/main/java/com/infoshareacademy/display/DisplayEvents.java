@@ -2,6 +2,7 @@ package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Organizer;
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
 import com.infoshareacademy.repository.OrganizerRepository;
@@ -392,6 +393,14 @@ public class DisplayEvents {
     }
 
     private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
+        if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("name")){
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc"))
+            Collections.sort(eventList,EventNameComparator);
+        }else if(PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("organizer")){
+
+        }
+
+
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -433,6 +442,34 @@ public class DisplayEvents {
         eventPrinter.printEndDate(e);
         STDOUT.info("\n");
     }
+
+    public static Comparator<Event> EventNameComparator = new Comparator<Event>() {
+
+        public int compare(Event event1, Event event2) {
+            String eventName1 = event1.getName().toUpperCase();
+            String eventName2 = event2.getName().toUpperCase();
+            return eventName1.compareTo(eventName2);
+        }
+
+    };
+    public static Comparator<Event> EventOrganizerComparator = new Comparator<Event>() {
+
+        public int compare(Event event1, Event event2) {
+            String eventOrganizer1 = event1.getOrganizer().getDesignation();
+            String eventOrganizer2 = event2.getOrganizer().getDesignation();
+            return eventOrganizer1.compareTo(eventOrganizer2);
+        }
+
+    };
+    public static Comparator<Event> EventEndDateComparator = new Comparator<Event>() {
+
+        public int compare(Event event1, Event event2) {
+            LocalDateTime eventLDT1 = event1.getEndDate();
+            LocalDateTime eventLDT2 = event2.getEndDate();
+            return eventLDT1.compareTo(eventLDT2);
+        }
+
+    };
 
     private boolean searchingResultDisplay(boolean repeatOption) {
         Optional<Integer> pageMaxElements;
