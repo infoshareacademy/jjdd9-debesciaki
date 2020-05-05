@@ -393,13 +393,25 @@ public class DisplayEvents {
     }
 
     private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
-        if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("name")){
-            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc"))
-            Collections.sort(eventList,EventNameComparator);
-        }else if(PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("organizer")){
-
+        if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("name")) {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventNameComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventNameComparatorAsc);
+            }
+        } else if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("organizer")) {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventOrganizerComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventOrganizerComparatorAsc);
+            }
+        } else {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventEndDateComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventEndDateComparatorAsc);
+            }
         }
-
 
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
@@ -443,7 +455,7 @@ public class DisplayEvents {
         STDOUT.info("\n");
     }
 
-    public static Comparator<Event> EventNameComparator = new Comparator<Event>() {
+    public static Comparator<Event> EventNameComparatorAsc = new Comparator<Event>() {
 
         public int compare(Event event1, Event event2) {
             String eventName1 = event1.getName().toUpperCase();
@@ -452,7 +464,16 @@ public class DisplayEvents {
         }
 
     };
-    public static Comparator<Event> EventOrganizerComparator = new Comparator<Event>() {
+    public static Comparator<Event> EventNameComparatorDesc = new Comparator<Event>() {
+
+        public int compare(Event event1, Event event2) {
+            String eventName1 = event1.getName().toUpperCase();
+            String eventName2 = event2.getName().toUpperCase();
+            return eventName2.compareTo(eventName1);
+        }
+
+    };
+    public static Comparator<Event> EventOrganizerComparatorAsc = new Comparator<Event>() {
 
         public int compare(Event event1, Event event2) {
             String eventOrganizer1 = event1.getOrganizer().getDesignation();
@@ -461,12 +482,30 @@ public class DisplayEvents {
         }
 
     };
-    public static Comparator<Event> EventEndDateComparator = new Comparator<Event>() {
+    public static Comparator<Event> EventOrganizerComparatorDesc = new Comparator<Event>() {
+
+        public int compare(Event event1, Event event2) {
+            String eventOrganizer1 = event1.getOrganizer().getDesignation();
+            String eventOrganizer2 = event2.getOrganizer().getDesignation();
+            return eventOrganizer2.compareTo(eventOrganizer1);
+        }
+
+    };
+    public static Comparator<Event> EventEndDateComparatorAsc = new Comparator<Event>() {
 
         public int compare(Event event1, Event event2) {
             LocalDateTime eventLDT1 = event1.getEndDate();
             LocalDateTime eventLDT2 = event2.getEndDate();
             return eventLDT1.compareTo(eventLDT2);
+        }
+
+    };
+    public static Comparator<Event> EventEndDateComparatorDesc = new Comparator<Event>() {
+
+        public int compare(Event event1, Event event2) {
+            LocalDateTime eventLDT1 = event1.getEndDate();
+            LocalDateTime eventLDT2 = event2.getEndDate();
+            return eventLDT2.compareTo(eventLDT1);
         }
 
     };
