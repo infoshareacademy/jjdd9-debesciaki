@@ -1,36 +1,45 @@
 package com.infoshareacademy.menu;
 
 import com.infoshareacademy.display.DisplayEvents;
+import com.infoshareacademy.favourites.*;
 import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class MenuController {
+    ShowFavourites showFavourites = new ShowFavourites();
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
-    public void run() {
+
+    public void run() throws IOException {
         showMainMenu();
     }
 
-    private void showMainMenu() {
-        PropertiesRepository.getInstance().putBreadcrumb("Menu główne");
+    private void showMainMenu() throws IOException {
+        PropertiesRepository.getInstance().putBreadcrumb("Menu główne ");
         DisplayMenu<MenuMainOption> m = new DisplayMenu<>();
 
         do {
             cleanConsole();
-            MenuMainOption choice = m.showMenu(MenuMainOption.values());
+            if (PropertiesRepository.getInstance().getProperty("homeOnly").equals("true")) {
+                new ShowUpcoming();
+            }
+            MenuMainOption choice = m.showMenu(MenuMainOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case EXIT:
                     PropertiesRepository.getInstance().removeBreadcrumb();
                     return;
                 case SHOW_EVENTS:
-                    PropertiesRepository.getInstance().putBreadcrumb("Pokaż wydarzenia");
+                    PropertiesRepository.getInstance().putBreadcrumb(" Pokaż wydarzenia ");
                     showEventsMenu();
                     PropertiesRepository.getInstance().removeBreadcrumb();
                     break;
                 case SHOW_FAVOURITES:
+                    PropertiesRepository.getInstance().putBreadcrumb(" Pokaż ulubione wydarzenia ");
                     showFavouritesMenu();
                     break;
                 case SETTINGS:
@@ -41,14 +50,16 @@ public class MenuController {
 
     }
 
-    private void showEventsMenu() {
+    private void showEventsMenu() throws IOException {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
+
         do {
             cleanConsole();
             DisplayEvents displayEvents = new DisplayEvents();
-            MenuEventsOption choice = m.showMenu(MenuEventsOption.values());
+            MenuEventsOption choice = m.showMenu(MenuEventsOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     return;
                 case ALL:
                     PropertiesRepository.getInstance().putBreadcrumb("Wszystkie");
@@ -56,6 +67,7 @@ public class MenuController {
                     PropertiesRepository.getInstance().removeBreadcrumb();
                     break;
                 case COMING:
+                    cleanConsole();
                     PropertiesRepository.getInstance().putBreadcrumb("Nadchodzące");
                     displayEvents.displayComingEvents();
                     break;
@@ -92,6 +104,7 @@ public class MenuController {
                     displayEvents.resetList();
                     break;
                 default:
+                    showEventsMenu();
                     break;
             }
         } while (true);
@@ -102,14 +115,26 @@ public class MenuController {
         DisplayMenu<MenuFavouritesOption> m = new DisplayMenu<>();
 
         do {
-            cleanConsole();
-            MenuFavouritesOption choice = m.showMenu(MenuFavouritesOption.values());
+            showFavourites.run();
+            MenuFavouritesOption choice = m.showMenu(MenuFavouritesOption.values(), "true");
             switch (choice) {
                 case RETURN:
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     return;
-                default:
-                    showFavouritesMenu();
-                    return;
+                case ADD:
+                    PropertiesRepository.getInstance().putBreadcrumb(" Dodaj do ulubionych ");
+                    showFavourites.run();
+                    new AddFavourites().run();
+                    break;
+                case DELETE:
+                    if (FavouritesRepository.getAllFavouritesList().isEmpty()) {
+                        STDOUT.info("Brak wydarzeń do usunięcia.");
+                    } else {
+                        PropertiesRepository.getInstance().putBreadcrumb(" Usuń z ulubionych ");
+                        RemoveFavourites removeFavourites = new RemoveFavourites();
+                        removeFavourites.run(false);
+                    }
+                    break;
             }
         } while (true);
     }
@@ -120,7 +145,7 @@ public class MenuController {
 
         do {
             cleanConsole();
-            MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values());
+            MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:
                     PropertiesRepository.getInstance().removeBreadcrumb();

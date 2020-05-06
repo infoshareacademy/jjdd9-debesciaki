@@ -1,5 +1,6 @@
 package com.infoshareacademy;
 
+import com.infoshareacademy.favourites.ParseFavourites;
 import com.infoshareacademy.menu.MenuController;
 import com.infoshareacademy.parser.ParseService;
 import com.infoshareacademy.properties.PropertiesRefresher;
@@ -8,6 +9,7 @@ import java.io.IOException;
 public class App {
     public static void main(String[] args) throws IOException {
         new ParseService().parseFiles();
+        new ParseFavourites().run();
 
         PropertiesRefresher propertiesRefresher = new PropertiesRefresher();
         Thread thread = new Thread(propertiesRefresher);

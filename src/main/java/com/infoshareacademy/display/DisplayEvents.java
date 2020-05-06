@@ -1,5 +1,6 @@
 package com.infoshareacademy.display;
 
+import com.infoshareacademy.parser.Category;
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Organizer;
 import com.infoshareacademy.properties.PropertiesRepository;
@@ -228,7 +229,7 @@ public class DisplayEvents {
 
     }
 
-    private Optional<Integer> inputInteger(String subject) {
+    public Optional<Integer> inputInteger(String subject) {
         Integer quantity = null;
         Optional<Integer> opt = null;
         String in;
@@ -282,7 +283,7 @@ public class DisplayEvents {
         return opt;
     }
 
-    private List<Event> selectedListOfComingEvents(int qty) {
+    public List<Event> selectedListOfComingEvents(int qty) {
         List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
             if (out.size() < qty && out.size() < EventRepository.getAllEventsList().size() && isAfterNow(e.getEndDate())) {
@@ -392,7 +393,7 @@ public class DisplayEvents {
         return out;
     }
 
-    private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
+    public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("name")) {
             if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
                 Collections.sort(eventList, EventComparators.EventNameComparatorDesc);
@@ -446,8 +447,10 @@ public class DisplayEvents {
         } while (decision.get() != 0);
     }
 
-    private void consolePrintSingleEventScheme(Event e) {
-        EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
+    public void consolePrintSingleEventScheme(Event e) {
+        int eventNumber = e.getId();
+        STDOUT.info("Numer wydarzenia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, eventNumber, ConsoleColor.RESET);
+        EventPrinter eventPrinter = new EventPrinter(ConsoleColor.GREEN_BOLD, ConsoleColor.RED_BOLD);
         eventPrinter.printName(e);
         eventPrinter.printOrganizer(e);
         eventPrinter.printStartDate(e);
@@ -482,7 +485,7 @@ public class DisplayEvents {
         return (!decision.equals("tak"));
     }
 
-    private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
+    public Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
         if (actual == 1 && pageCount > 1) {
             return inputInteger("2 - Następna\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
