@@ -1,5 +1,6 @@
 package com.infoshareacademy.validator;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +61,48 @@ public class Validator {
             }
         } while (optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank());
         return out;
+    }
+
+    public Optional<Integer> inputInteger(String subject) {
+        Integer quantity = null;
+        Optional<Integer> opt = null;
+        String in;
+        do {
+            STDOUT.info("{}", subject);
+            Scanner scanner = new Scanner(System.in);
+            in = scanner.nextLine();
+            if (NumberUtils.isDigits(in)) {
+                quantity = Integer.parseInt(in);
+            }
+            opt = Optional.ofNullable(quantity);
+            if (!NumberUtils.isDigits(in)) {
+                cleanConsole();
+                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
+            }
+        } while (opt.isEmpty());
+        return opt;
+    }
+
+    public Optional<Integer> inputInteger(String subject, int limitU, int limitD, boolean cleanWhenError) {
+        Integer quantity = null;
+        Optional<Integer> opt = null;
+        String in;
+        do {
+            STDOUT.info("{}", subject);
+            Scanner scanner = new Scanner(System.in);
+            in = scanner.nextLine();
+            if (NumberUtils.isDigits(in)) {
+                quantity = Integer.parseInt(in);
+            }
+            opt = Optional.ofNullable(quantity);
+            if (!NumberUtils.isDigits(in) || (opt.isPresent() && (opt.get() > limitD || opt.get() < limitU))) {
+                if (cleanWhenError) {
+                    cleanConsole();
+                }
+                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
+            }
+        } while (opt.isEmpty() || (opt.get() > limitD || opt.get() < limitU));
+        return opt;
     }
 
     private void promptError(String msg) {

@@ -7,18 +7,13 @@ import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
 import com.infoshareacademy.repository.OrganizerRepository;
 import com.infoshareacademy.validator.Validator;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.text.ParseException;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
@@ -42,6 +37,7 @@ public class DisplayEvents {
     }
 
     public void displayComingEvents() {
+        Validator v = new Validator();
         cleanConsole();
         resetList();
         Optional<Integer> compQty;
@@ -53,8 +49,8 @@ public class DisplayEvents {
                 STDOUT.info("Podano zerowe lub ujemne wartości parametrów, proszę wprowadzić je ponownie.\n");
             }
             firstStart = false;
-            compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
-            pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+            compQty = v.inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
+            pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
             qty = compQty.get();
             elemPerPage = pageMaxElements.get();
         } while (qty <= 0 || elemPerPage <= 0);
@@ -63,6 +59,7 @@ public class DisplayEvents {
     }
 
     public void displayAllEvents() {
+        Validator v = new Validator();
         cleanConsole();
         resetList();
         Optional<Integer> pageMaxElements;
@@ -73,7 +70,7 @@ public class DisplayEvents {
                 STDOUT.info("Podano zerowe lub ujemne wartości parametrów, proszę wprowadzić je ponownie.\n");
             }
             firstStart = false;
-            pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+            pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
             elemPerPage = pageMaxElements.get();
         } while (elemPerPage <= 0);
         displayPages(this.eventList.size(), elemPerPage, this.eventList);
@@ -88,8 +85,8 @@ public class DisplayEvents {
     }
 
     private void displayQuery(boolean byNameOrOrganizer) {
+        Validator v = new Validator();
         cleanConsole();
-        Validator v =new Validator();
         Optional<Integer> pageMaxElements;
         Optional<String> optQuery;
         String query;
@@ -107,7 +104,7 @@ public class DisplayEvents {
             if (this.eventList.size() > 1) {
                 STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
                 if (this.eventList.size() > 5) {
-                    pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+                    pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
                 } else {
                     pageMaxElements = Optional.ofNullable(eventList.size());
                 }
@@ -123,7 +120,7 @@ public class DisplayEvents {
     }
 
     public void displayAfter() {
-        Validator v =new Validator();
+        Validator v = new Validator();
         do {
             cleanConsole();
             LocalDateTime minStartDate = v.localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
@@ -132,7 +129,7 @@ public class DisplayEvents {
     }
 
     public void displayBefore() {
-        Validator v =new Validator();
+        Validator v = new Validator();
         do {
             cleanConsole();
             LocalDateTime maxEndDate = v.localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
@@ -141,7 +138,7 @@ public class DisplayEvents {
     }
 
     public void displayPeriodically() {
-        Validator v =new Validator();
+        Validator v = new Validator();
         do {
             cleanConsole();
             LocalDateTime minStartDate = v.localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
@@ -161,6 +158,7 @@ public class DisplayEvents {
     }
 
     public void displayOrganizers() {
+        Validator v = new Validator();
         cleanConsole();
         Optional<Integer> pageMaxElements;
         AtomicInteger lp = new AtomicInteger(1);
@@ -184,7 +182,7 @@ public class DisplayEvents {
         Optional<Integer> in;
         Set<Integer> toDisplaySet = new HashSet<>();
         do {
-            in = inputInteger("Wprowadź interesujacego Cię organizatora, jeśli chcesz zakończyć wprowadzanie organizatorów wprowadź 0: ", 0, organizersCoord.size(), false);
+            in = v.inputInteger("Wprowadź interesujacego Cię organizatora, jeśli chcesz zakończyć wprowadzanie organizatorów wprowadź 0: ", 0, organizersCoord.size(), false);
             if (in.isPresent() && in.get() != 0) toDisplaySet.add(organizersDisplayTable.get(in.get()));
         } while (!in.isPresent() || in.get() != 0);
 
@@ -198,7 +196,7 @@ public class DisplayEvents {
 
         if (this.eventList.size() > 1) {
             if (this.eventList.size() > 5) {
-                pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
             } else {
                 pageMaxElements = Optional.ofNullable(eventList.size());
             }
@@ -232,49 +230,6 @@ public class DisplayEvents {
                         Map.Entry::getValue));
 
     }
-
-    private Optional<Integer> inputInteger(String subject) {
-        Integer quantity = null;
-        Optional<Integer> opt = null;
-        String in;
-        do {
-            STDOUT.info("{}", subject);
-            Scanner scanner = new Scanner(System.in);
-            in = scanner.nextLine();
-            if (NumberUtils.isDigits(in)) {
-                quantity = Integer.parseInt(in);
-            }
-            opt = Optional.ofNullable(quantity);
-            if (!NumberUtils.isDigits(in)) {
-                cleanConsole();
-                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
-            }
-        } while (opt.isEmpty());
-        return opt;
-    }
-
-    private Optional<Integer> inputInteger(String subject, int limitU, int limitD, boolean cleanWhenError) {
-        Integer quantity = null;
-        Optional<Integer> opt = null;
-        String in;
-        do {
-            STDOUT.info("{}", subject);
-            Scanner scanner = new Scanner(System.in);
-            in = scanner.nextLine();
-            if (NumberUtils.isDigits(in)) {
-                quantity = Integer.parseInt(in);
-            }
-            opt = Optional.ofNullable(quantity);
-            if (!NumberUtils.isDigits(in) || (opt.isPresent() && (opt.get() > limitD || opt.get() < limitU))) {
-                if (cleanWhenError) {
-                    cleanConsole();
-                }
-                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
-            }
-        } while (opt.isEmpty() || (opt.get() > limitD || opt.get() < limitU));
-        return opt;
-    }
-
 
     private List<Event> selectedListOfComingEvents(int qty) {
         List<Event> out = new ArrayList<>();
@@ -415,26 +370,33 @@ public class DisplayEvents {
     }
 
     public void ModificationMenu(Map<Integer, Integer> eventsDisplayTable, int limU, int limD) {
+        Validator v = new Validator();
         Optional<Integer> decision = null;
         do {
             STDOUT.info("{}1 - Usuń wydarzenie\n", SPACING_MOD_SUBMENU);
             STDOUT.info("{}2 - Modyfikuj wydarzenie\n", SPACING_MOD_SUBMENU);
             STDOUT.info("{}3 - Dodaj wydarzenie\n", SPACING_MOD_SUBMENU);
             STDOUT.info("{}0 - Wyjdź\n", SPACING_MOD_SUBMENU);
-            decision = inputInteger(DECISION_REQUEST, 0, 3, false);
+            decision = v.inputInteger(DECISION_REQUEST, 0, 3, false);
             switch (decision.get()) {
                 case 1: {
-                    int removalID = inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz usunąć: ", limU + 1, limD + 1, false).get();
+                    int removalID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz usunąć: ", limU + 1, limD + 1, false).get();
                     removeByIDinRep(eventsDisplayTable.get(removalID));
-                    EventRepository.writeEventList();
+                    resetList();
+                    STDOUT.info("{}Usunięto wydarzenie!{}\n",ConsoleColor.YELLOW_BACKGROUND, ConsoleColor.RESET);
                     break;
                 }
                 case 2: {
-                    int editID = inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz edytować: ", limU + 1, limD + 1, false).get();
-                    editbyIDinRep(eventsDisplayTable.get(editID));
+                    int editID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz edytować: ", limU + 1, limD + 1, false).get();
+                    editByIDinRep(eventsDisplayTable.get(editID));
+                    resetList();
+                    STDOUT.info("{}Zmodyfikowano wydarzenie!{}\n",ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RESET);
                     break;
                 }
                 case 3: {
+                    new AddEvent();
+                    resetList();
+                    STDOUT.info("{}Dodano wydarzenie!{}\n",ConsoleColor.GREEN_BACKGROUND, ConsoleColor.RESET);
                     break;
                 }
                 case 0: {
@@ -449,65 +411,65 @@ public class DisplayEvents {
         EventRepository.removeEvent(id);
     }
 
-    public void editbyIDinRep(int id){
-        EventPrinter eventPrinter=new EventPrinter();
-        Optional<Integer> dec=null;
+    public void editByIDinRep(int id) {
+        Validator v = new Validator();
+        EventPrinter eventPrinter = new EventPrinter();
+        Optional<Integer> dec = null;
         Event editedEvent = EventRepository.getAllEventsMap().get(id);
         removeByIDinRep(id);
-        EditEvent editEntity =new EditEvent();
+        EditEvent editEntity = new EditEvent();
         do {
             cleanConsole();
             editEntity.consolePrintEditOptions();
-            dec=inputInteger(DECISION_REQUEST,0,8,false);
-            switch (dec.get()){
-                case 1:{
+            dec = v.inputInteger(DECISION_REQUEST, 0, 8, false);
+            switch (dec.get()) {
+                case 1: {
                     eventPrinter.printName(editedEvent);
                     editEntity.editName(editedEvent);
                     break;
                 }
-                case 2:{
+                case 2: {
                     eventPrinter.printStartDate(editedEvent);
                     editEntity.editStartDate(editedEvent);
                     break;
                 }
-                case 3:{
+                case 3: {
                     eventPrinter.printEndDate(editedEvent);
                     editEntity.editEndDate(editedEvent);
                     break;
                 }
-                case 4:{
+                case 4: {
                     eventPrinter.printPlace(editedEvent);
                     editEntity.editPlace(editedEvent);
                     break;
                 }
-                case 5:{
+                case 5: {
                     eventPrinter.printOrganizer(editedEvent);
                     editEntity.editOrganizer(editedEvent);
                     break;
                 }
-                case 6:{
+                case 6: {
                     eventPrinter.printShortDesc(editedEvent);
                     editEntity.editShortDesc(editedEvent);
                     break;
                 }
-                case 7:{
+                case 7: {
                     eventPrinter.printLongDesc(editedEvent);
                     editEntity.editLongDesc(editedEvent);
                     break;
                 }
-                case 8:{
+                case 8: {
                     editEntity.editUrl(editedEvent);
                     break;
                 }
-                case 0:{
+                case 0: {
                     EventRepository.addEvent(editedEvent);
                     break;
                 }
             }
-        }while(dec.get()!=0);
+        } while (dec.get() != 0);
 
     }
-
 
 
     private Map<Integer, Integer> coordinatingEventResToRealID(List<Event> eventList) {
@@ -527,16 +489,15 @@ public class DisplayEvents {
     }
 
 
-
     private boolean searchingResultDisplay(boolean repeatOption) {
-        Validator v =new Validator();
+        Validator v = new Validator();
         Optional<Integer> pageMaxElements;
         String decision = "x";
         if (this.eventList.size() > 1) {
             cleanConsole();
             STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
             if (this.eventList.size() > 5) {
-                pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
             } else {
                 pageMaxElements = Optional.ofNullable(eventList.size());
             }
@@ -557,17 +518,18 @@ public class DisplayEvents {
     }
 
     private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
+        Validator v = new Validator();
         if (actual == 1 && pageCount > 1) {
-            return inputInteger("2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == pageCount && actual != 1) {
-            return inputInteger("1 - Poprzednia\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("1 - Poprzednia\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual > 1 && actual < pageCount) {
-            return inputInteger("1 - Poprzednia\n2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("1 - Poprzednia\n2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == 1 && pageCount == 1) {
-            return inputInteger("4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         STDOUT.info("ERROR ERROR\n");
         return Optional.ofNullable(0);
