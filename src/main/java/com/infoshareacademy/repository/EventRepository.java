@@ -51,10 +51,12 @@ public class EventRepository {
                 break;
             }
         }
+        writeEventList();
     }
 
     public static void addEvent(Event e) {
         allEventsList.add(e);
+        writeEventList();
     }
 
     public static void writeEventList() {
@@ -63,7 +65,6 @@ public class EventRepository {
         LocalDateTimeDeserializer deserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         module.addDeserializer(LocalDateTime.class, deserializer);
         mapper.registerModule(module);
-        //mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         try {
             File eventsJson = new File("events.json");
             mapper.writeValue(eventsJson, EventRepository.getAllEventsList());

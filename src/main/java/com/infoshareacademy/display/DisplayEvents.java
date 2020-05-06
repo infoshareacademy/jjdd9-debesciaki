@@ -431,8 +431,7 @@ public class DisplayEvents {
                 }
                 case 2: {
                     int editID = inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz edytować: ", limU + 1, limD + 1, false).get();
-                    editbyIDinRep(editID);
-                    EventRepository.writeEventList();
+                    editbyIDinRep(eventsDisplayTable.get(editID));
                     break;
                 }
                 case 3: {
@@ -451,42 +450,57 @@ public class DisplayEvents {
     }
 
     public void editbyIDinRep(int id){
-        cleanConsole();
+        EventPrinter eventPrinter=new EventPrinter();
         Optional<Integer> dec=null;
         Event editedEvent = EventRepository.getAllEventsMap().get(id);
         removeByIDinRep(id);
-        STDOUT.info("Wybrane wydarzenie i jego wszelkie dane poniżej. \n\n");
-        EditEvent editPrint =new EditEvent();
-        editPrint.consolePrintForEditing(editedEvent);
-        editPrint.consolePrintEditOptions();
+        EditEvent editEntity =new EditEvent();
         do {
+            cleanConsole();
+            editEntity.consolePrintEditOptions();
             dec=inputInteger(DECISION_REQUEST,0,8,false);
             switch (dec.get()){
                 case 1:{
+                    eventPrinter.printName(editedEvent);
+                    editEntity.editName(editedEvent);
                     break;
                 }
                 case 2:{
+                    eventPrinter.printStartDate(editedEvent);
+                    editEntity.editStartDate(editedEvent);
                     break;
                 }
                 case 3:{
+                    eventPrinter.printEndDate(editedEvent);
+                    editEntity.editEndDate(editedEvent);
                     break;
                 }
                 case 4:{
+                    eventPrinter.printPlace(editedEvent);
+                    editEntity.editPlace(editedEvent);
                     break;
                 }
                 case 5:{
+                    eventPrinter.printOrganizer(editedEvent);
+                    editEntity.editOrganizer(editedEvent);
                     break;
                 }
                 case 6:{
+                    eventPrinter.printShortDesc(editedEvent);
+                    editEntity.editShortDesc(editedEvent);
                     break;
                 }
                 case 7:{
+                    eventPrinter.printLongDesc(editedEvent);
+                    editEntity.editLongDesc(editedEvent);
                     break;
                 }
                 case 8:{
+                    editEntity.editUrl(editedEvent);
                     break;
                 }
                 case 0:{
+                    EventRepository.addEvent(editedEvent);
                     break;
                 }
             }
