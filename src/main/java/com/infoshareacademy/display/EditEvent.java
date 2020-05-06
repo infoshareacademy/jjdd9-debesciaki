@@ -33,9 +33,12 @@ public class EditEvent {
         e.setName(v.inputString("Wprowadź nazwę wydarzenia: ").get());
     }
     void editOrganizer(Event e){
+        UniqueIDprovider uniqueIDprovider = new UniqueIDprovider();
         Validator v =new Validator();
         Organizer o = new Organizer();
         o.setDesignation(v.inputString("Wprowadź nazwę organizatora: ").get());
+        o.setId(uniqueIDprovider.getOrganizerID());
+        e.setOrganizer(o);
     }
     void editShortDesc(Event e){
         Validator v =new Validator();

@@ -11,5 +11,12 @@ public class UniqueIDprovider {
                 .max()
                 .orElseThrow(NoSuchElementException::new)+1;
     }
-
+    public int getOrganizerID(){
+        return OrganizerRepository.getAllOrganizersMap()
+                .keySet()
+                .stream()
+                .mapToInt(v->v)
+                .max()
+                .orElseThrow(NoSuchElementException::new)+1;
+    }
 }
