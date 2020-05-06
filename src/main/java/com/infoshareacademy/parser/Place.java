@@ -15,6 +15,10 @@ public class Place {
         return subname;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public String getName() {
         return name;
     }

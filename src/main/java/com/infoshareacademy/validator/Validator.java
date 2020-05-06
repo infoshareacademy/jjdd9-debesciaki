@@ -63,6 +63,39 @@ public class Validator {
         return out;
     }
 
+    public LocalDateTime localDateTimeRequest(String subject, boolean cleanBeforeAsking) {
+        LocalDateTime out = null;
+        String in;
+        Optional<LocalDateTime> optionalLocalDateTime = Optional.ofNullable(null);
+        String patternStr = "yyyy/MM/dd HH:mm";
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(patternStr);
+        do {
+            if (cleanBeforeAsking) {
+                cleanConsole();
+            }
+            Scanner scanner = new Scanner(System.in);
+            STDOUT.info("Wprowadź datę {} {}: ", patternStr, subject);
+            in = scanner.nextLine();
+            try {
+                DateUtils.parseDate(in, patternStr);
+            } catch (ParseException e) {
+                promptError("Źle wprowadzona data!");
+                continue;
+            }
+            Pattern p = Pattern.compile("^[1-2][0-9]{3}/[0-1][0-9]/[0-3][0-9] [0-2][0-9]:[0-5][0-9]$");
+            Matcher matcher = p.matcher(in);
+            boolean matches = matcher.matches();
+            if (matches) {
+                out = LocalDateTime.parse(in, dtf);
+                optionalLocalDateTime = Optional.ofNullable(out);
+            } else {
+                promptError("Źle wprowadzona data!");
+            }
+        } while (optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank());
+        return out;
+    }
+
+
     public Optional<Integer> inputInteger(String subject) {
         Integer quantity = null;
         Optional<Integer> opt = null;

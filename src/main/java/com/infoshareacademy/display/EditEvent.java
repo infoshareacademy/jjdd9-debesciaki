@@ -1,9 +1,6 @@
 package com.infoshareacademy.display;
 
-import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.parser.Organizer;
-import com.infoshareacademy.parser.Place;
-import com.infoshareacademy.parser.Url;
+import com.infoshareacademy.parser.*;
 import com.infoshareacademy.repository.UniqueIDprovider;
 import com.infoshareacademy.validator.Validator;
 import org.slf4j.Logger;
@@ -50,20 +47,22 @@ public class EditEvent {
     }
     void editStartDate(Event e){
         Validator v = new Validator();
-       e.setStartDate(v.localDateTimeRequest("Data rozpoczęcia wydarzenia."));
+       e.setStartDate(v.localDateTimeRequest("Data rozpoczęcia wydarzenia.",false));
     }
     void editEndDate(Event e){
         Validator v = new Validator();
-        e.setEndDate(v.localDateTimeRequest("Data zakończenia wydarzenia."));
+        e.setEndDate(v.localDateTimeRequest("Data zakończenia wydarzenia.",false));
     }
     void editPlace(Event e){
         Validator v = new Validator();
         Place p =new Place();
+        Address a = new Address();
         p.setName(v.inputString("Wprowadź nazwę miejsca: ").get());
         p.setSubname(v.inputString("Wprowadź nazwę dodatkową miejsca: ").get());
-        p.getAddress().setCity(v.inputString("Wprowadź miasto: ").get());
-        p.getAddress().setZipcode(v.inputString("Wprowadź kod pocztowy: ").get());
-        p.getAddress().setStreet(v.inputString("Wprowadź ulicę: ").get());
+        a.setCity(v.inputString("Wprowadź miasto: ").get());
+        a.setZipcode(v.inputString("Wprowadź kod pocztowy: ").get());
+        a.setStreet(v.inputString("Wprowadź ulicę: ").get());
+        p.setAddress(a);
         e.setPlace(p);
     }
     void editUrl(Event e){
