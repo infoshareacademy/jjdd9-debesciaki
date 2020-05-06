@@ -104,4 +104,12 @@ public class EventPrinter {
         scanner.nextLine();
         cleanConsole();
     }
+
+    public void printPlace(Event e) {
+        STDOUT.info("Miasto: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getCity(), ConsoleColor.RESET);
+        STDOUT.info("Kod pocztowy: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getZipcode(), ConsoleColor.RESET);
+        STDOUT.info("Ulica: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getStreet(), ConsoleColor.RESET);
+        STDOUT.info("Długość geograficzna: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getLng(), ConsoleColor.RESET);
+        STDOUT.info("Szerokość geograficzna: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getLng(), ConsoleColor.RESET);
+    }
 }
