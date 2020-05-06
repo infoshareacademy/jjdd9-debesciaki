@@ -18,7 +18,7 @@ public class ShowUpcoming {
         if (FavouritesRepository.getAllFavouritesList().isEmpty()) {
             STDOUT.info("{}BRAK ULUBIONYCH WYDARZEŃ\n{}", ConsoleColor.RED_BOLD, ConsoleColor.RESET);
         } else {
-            STDOUT.info("{}NAJBLIŻSZE ULUBIONE WYDARZENIE:{}\n", ConsoleColor.YELLOW, ConsoleColor.RESET);
+            STDOUT.info("{}\nNAJBLIŻSZE ULUBIONE WYDARZENIE:{}\n", ConsoleColor.YELLOW, ConsoleColor.RESET);
             Event upcomingEvent = FavouritesRepository.getAllFavouritesList().get(0);
             for (int i = 0; i < FavouritesRepository.getAllFavouritesList().size(); i++) {
                 if (FavouritesRepository.getAllFavouritesList().get(i).getStartDate().isBefore(upcomingEvent.getStartDate())) {

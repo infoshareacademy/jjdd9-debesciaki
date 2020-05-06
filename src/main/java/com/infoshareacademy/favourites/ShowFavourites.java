@@ -17,7 +17,7 @@ public class ShowFavourites {
             STDOUT.info("{}BRAK ULUBIONYCH WYDARZEŃ{}\n", ConsoleColor.RED_BOLD, ConsoleColor.RESET);
         } else {
             CMDCleaner.cleanConsole();
-            STDOUT.info("{}TWOJE WSZYSTKIE ULUBIONE WYDARZENIA{}\n", ConsoleColor.YELLOW, ConsoleColor.RESET);
+            STDOUT.info("{}\nWSZYSTKIE ULUBIONE WYDARZENIA{}\n", ConsoleColor.YELLOW, ConsoleColor.RESET);
             for (Event el : FavouritesRepository.getAllFavouritesList()) {
                 display.consolePrintSingleEventScheme(el);
             }

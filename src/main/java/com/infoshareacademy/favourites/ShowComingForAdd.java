@@ -1,9 +1,9 @@
 package com.infoshareacademy.favourites;
 
-
 import com.infoshareacademy.display.ConsoleColor;
 import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.parser.Event;
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -16,15 +16,10 @@ import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 public class ShowComingForAdd extends DisplayEvents {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String DECISION_REQUEST = "\nWpisz numer wydarzenia, które chcesz dodać do ulubionych lub jedną z opcji menu: ";
-    private static final String ASK_FOR_PAGE_COUNT = "Ile wydarzeń chcesz zobaczyć na jednej stronie? ";
-    private List<Event> eventList;
-    private boolean firstStart;
-    private Integer elemPerPage;
-    private Integer qty;
 
     @Override
     public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
-        Optional<Integer> decision = null;
+        Optional<Integer> decision;
 
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -54,7 +49,7 @@ public class ShowComingForAdd extends DisplayEvents {
                 actual++;
                 limU += elemPerPage;
                 limD += elemPerPage;
-            } else if (dec == 0) {
+            } else if (dec == 0 || dec > 2) {
                 break;
             }
         } while (decision.get() != 0);

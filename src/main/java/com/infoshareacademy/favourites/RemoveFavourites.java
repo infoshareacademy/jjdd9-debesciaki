@@ -1,5 +1,6 @@
 package com.infoshareacademy.favourites;
 
+import com.infoshareacademy.properties.PropertiesRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ public class RemoveFavourites {
             STDOUT.info("Maksymalna liczba ulubionych wydarzeń - 3\n");
             STDOUT.info("Wybierz wydarzenie, które chciałbyś usunąć (wpisz 0 aby cofnąć): ");
         } else {
-            STDOUT.info("Wybierz numer wydarzenia, które chciałbyś usunąć: ");
+            STDOUT.info("Wybierz numer wydarzenia, które chciałbyś usunąć (wpisz 0 aby cofnąć): ");
         }
 
         while (choiceFromKeyboard == null) {
@@ -30,7 +31,7 @@ public class RemoveFavourites {
             } else {
                 choiceFromKeyboard = Integer.parseInt(in);
                 for (int i = 0; i < FavouritesRepository.getAllFavouritesList().size(); i++) {
-                    if (choiceFromKeyboard != FavouritesRepository.getAllFavouritesList().get(i).getId()) {
+                    if (choiceFromKeyboard != FavouritesRepository.getAllFavouritesList().get(i).getId() && choiceFromKeyboard != 0) {
                         if (i == FavouritesRepository.getAllFavouritesList().size() - 1) {
                             choiceFromKeyboard = null;
                         }
@@ -41,7 +42,7 @@ public class RemoveFavourites {
             }
 
             if (choiceFromKeyboard == null) {
-                STDOUT.info("Zły wybór - wybierz ponownie: ");
+                STDOUT.info("Nie ma takiego numeru wydarzenia wśród ulubionych - wybierz ponownie: ");
             }
         }
 
@@ -52,9 +53,15 @@ public class RemoveFavourites {
                     index = i;
                 }
             }
+
             FavouritesRepository.getAllFavouritesList().remove(index);
-            save.run(FavouritesRepository.getAllFavouritesList());
-            showFavourites.run();
+            STDOUT.info("Wydarzenie numer {} zostało usunięte z ulubionych.\n", choiceFromKeyboard);
+            PropertiesRepository.getInstance().removeBreadcrumb();
+            return;
+        }
+        else {
+            PropertiesRepository.getInstance().removeBreadcrumb();
+            return;
         }
     }
 }

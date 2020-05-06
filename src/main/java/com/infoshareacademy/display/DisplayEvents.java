@@ -2,8 +2,11 @@ package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Category;
 import com.infoshareacademy.parser.Event;
+import com.infoshareacademy.parser.Organizer;
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
+import com.infoshareacademy.repository.OrganizerRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
@@ -11,10 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-
 import java.time.format.DateTimeFormatter;
-
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,19 +32,13 @@ public class DisplayEvents {
     private Integer elemPerPage;
     private boolean firstStart;
     private List<Event> eventList;
-    private Map<Integer, Category> categoryMap;
 
     public DisplayEvents() {
         this.eventList = EventRepository.getAllEventsList();
-        this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
     public void resetList() {
         this.eventList = EventRepository.getAllEventsList();
-    }
-
-    public void resetMap() {
-        this.categoryMap = CategoryRepository.getAllCategoriesMap();
     }
 
     public void displayComingEvents() {
@@ -159,6 +155,79 @@ public class DisplayEvents {
         } while (!searchingResultDisplay(false));
     }
 
+    public void displayOrganizers() {
+        cleanConsole();
+        Optional<Integer> pageMaxElements;
+        AtomicInteger lp = new AtomicInteger(1);
+
+        Map<Integer, Integer> organizersCoord = eventCountByOrganizer();
+
+        Map<Integer, Integer> organizersDisplayTable = organizersCoord
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(k -> lp.getAndIncrement(),
+                        Map.Entry::getKey));
+
+        Map<Integer, Organizer> organizerMap = OrganizerRepository.getAllOrganizersMap();
+        int x = 1;
+        for (Map.Entry<Integer, Integer> entry : organizersCoord.entrySet()) {
+            STDOUT.info("{} - {} ({})\n", x, organizerMap.get(entry.getKey()).getDesignation(), entry.getValue());
+            x++;
+        }
+        STDOUT.info("0 - Wyjdź\n");
+
+        Optional<Integer> in;
+        Set<Integer> toDisplaySet = new HashSet<>();
+        do {
+            in = inputInteger("Wprowadź interesujacego Cię organizatora, jeśli chcesz zakończyć wprowadzanie organizatorów wprowadź 0: ", 0, organizersCoord.size(), false);
+            if (in.isPresent() && in.get() != 0) toDisplaySet.add(organizersDisplayTable.get(in.get()));
+        } while (!in.isPresent() || in.get() != 0);
+
+        List<Event> temporaryList = new ArrayList<>();
+        for (Integer i : toDisplaySet) {
+            for (Event e : filterByOrganizer(i, this.eventList)) {
+                temporaryList.add(e);
+            }
+        }
+        this.eventList = temporaryList;
+
+        if (this.eventList.size() > 1) {
+            if (this.eventList.size() > 5) {
+                pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+            } else {
+                pageMaxElements = Optional.ofNullable(eventList.size());
+            }
+            if (pageMaxElements.isPresent()) {
+                elemPerPage = pageMaxElements.get();
+                displayPages(this.eventList.size(), elemPerPage, this.eventList);
+            }
+        }
+    }
+
+    public List<Event> filterByOrganizer(int id, List<Event> source) {
+        return source.stream()
+                .filter(e -> e.getOrganizer().getId() == id)
+                .collect(Collectors.toList());
+    }
+
+    public Map<Integer, Integer> eventCountByOrganizer() {
+        Map<Integer, Integer> out = OrganizerRepository.getAllOrganizers()
+                .stream()
+                .collect(Collectors.toMap(Organizer::getId,
+                        v -> 0));
+        resetList();
+        this.eventList
+                .forEach(e -> {
+                    int p = e.getOrganizer().getId();
+                    out.put(p, out.get(p) + 1);
+                });
+        return out.entrySet().stream()
+                .filter(m -> m.getValue() > 0)
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        Map.Entry::getValue));
+
+    }
+
     public Optional<Integer> inputInteger(String subject) {
         Integer quantity = null;
         Optional<Integer> opt = null;
@@ -176,6 +245,28 @@ public class DisplayEvents {
                 STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
             }
         } while (opt.isEmpty());
+        return opt;
+    }
+
+    private Optional<Integer> inputInteger(String subject, int limitU, int limitD, boolean cleanWhenError) {
+        Integer quantity = null;
+        Optional<Integer> opt = null;
+        String in;
+        do {
+            STDOUT.info("{}", subject);
+            Scanner scanner = new Scanner(System.in);
+            in = scanner.nextLine();
+            if (NumberUtils.isDigits(in)) {
+                quantity = Integer.parseInt(in);
+            }
+            opt = Optional.ofNullable(quantity);
+            if (!NumberUtils.isDigits(in) || (opt.isPresent() && (opt.get() > limitD || opt.get() < limitU))) {
+                if (cleanWhenError) {
+                    cleanConsole();
+                }
+                STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
+            }
+        } while (opt.isEmpty() || (opt.get() > limitD || opt.get() < limitU));
         return opt;
     }
 
@@ -302,13 +393,32 @@ public class DisplayEvents {
     }
 
     public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
+        if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("name")) {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventComparators.EventNameComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventComparators.EventNameComparatorAsc);
+            }
+        } else if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("organizer")) {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventComparators.EventOrganizerComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventComparators.EventOrganizerComparatorAsc);
+            }
+        } else {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventComparators.EventEndDateComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventComparators.EventEndDateComparatorAsc);
+            }
+        }
+
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
         int limU = 0;
         int limD = elemPerPage;
         int actual = 1;
-
         do {
             cleanConsole();
             for (int i = limU; i < limD; i++) {
@@ -317,7 +427,6 @@ public class DisplayEvents {
                     consolePrintSingleEventScheme(e);
                 }
             }
-
             decision = pageNavigatorDisplay(pageCount, actual);
             int dec = 0;
             if (decision.isPresent()) {
