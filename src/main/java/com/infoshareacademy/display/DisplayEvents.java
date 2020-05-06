@@ -42,6 +42,7 @@ public class DisplayEvents {
     }
 
     public void displayComingEvents() {
+        cleanConsole();
         resetList();
         Optional<Integer> compQty;
         Optional<Integer> pageMaxElements;

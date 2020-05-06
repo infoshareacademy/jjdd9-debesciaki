@@ -15,6 +15,32 @@ import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 public class ShowComingForAdd extends DisplayEvents {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String DECISION_REQUEST = "\nWpisz numer wydarzenia, które chcesz dodać do ulubionych lub jedną z opcji menu: ";
+    private static final String ASK_FOR_PAGE_COUNT = "Ile wydarzeń chcesz zobaczyć na jednej stronie? ";
+    private Integer qty;
+    private Integer elemPerPage;
+    private boolean firstStart;
+    private List<Event> eventList;
+
+    @Override
+    public void displayComingEvents() {
+        resetList();
+        Optional<Integer> compQty;
+        Optional<Integer> pageMaxElements;
+        firstStart = true;
+        do {
+            if (!firstStart) {
+                cleanConsole();
+                STDOUT.info("Podano zerowe lub ujemne wartości parametrów, proszę wprowadzić je ponownie.\n");
+            }
+            firstStart = false;
+            compQty = inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
+            pageMaxElements = inputInteger(ASK_FOR_PAGE_COUNT);
+            qty = compQty.get();
+            elemPerPage = pageMaxElements.get();
+        } while (qty <= 0 || elemPerPage <= 0);
+        this.eventList = selectedListOfComingEvents(qty);
+        displayPages(qty, elemPerPage, this.eventList);
+    }
 
     @Override
     public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {

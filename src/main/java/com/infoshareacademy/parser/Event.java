@@ -126,15 +126,4 @@ public class Event {
         this.tickets = tickets;
     }
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                "id=" + id +
-                ", place=" + place +
-                ", endDate=" + endDate +
-                ", name='" + name + '\'' +
-                ", startDate=" + startDate +
-                ", organizer=" + organizer +
-                '}';
-    }
 }
