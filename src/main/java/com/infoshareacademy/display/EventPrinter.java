@@ -29,16 +29,12 @@ public class EventPrinter {
 
     public void printName(Event e) {
         String statusIndicator;
-        if (e.getEndDate().minusHours(1).isAfter(LocalDateTime.now())) {
-            if (e.getStartDate().minusDays(2).isBefore(LocalDateTime.now())) {
-                statusIndicator = ConsoleColor.RED;
-            } else if (e.getStartDate().minusDays(7).isBefore(LocalDateTime.now())) {
-                statusIndicator = ConsoleColor.YELLOW;
-            } else {
-                statusIndicator = colorFuture;
-            }
+        if (e.getStartDate().minusDays(2).isBefore(LocalDateTime.now())) {
+            statusIndicator = ConsoleColor.RED;
+        } else if (e.getStartDate().minusDays(7).isBefore(LocalDateTime.now())) {
+            statusIndicator = ConsoleColor.YELLOW;
         } else {
-            statusIndicator = colorPast;
+            statusIndicator = colorFuture;
         }
         STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, e.getName(), ConsoleColor.RESET);
     }
