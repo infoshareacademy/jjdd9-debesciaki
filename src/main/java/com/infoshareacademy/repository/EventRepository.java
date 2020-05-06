@@ -1,7 +1,18 @@
 package com.infoshareacademy.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.infoshareacademy.parser.Event;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,11 +48,27 @@ public class EventRepository {
         for (Event e : allEventsList) {
             if (e.getId() == id) {
                 allEventsList.remove(e);
+                break;
             }
         }
     }
 
-    public static void addEvent(Event e){
+    public static void addEvent(Event e) {
         allEventsList.add(e);
+    }
+
+    public static void writeEventList() {
+        ObjectMapper mapper = new ObjectMapper();
+        JavaTimeModule module = new JavaTimeModule();
+        LocalDateTimeDeserializer deserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        module.addDeserializer(LocalDateTime.class, deserializer);
+        mapper.registerModule(module);
+        //mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        try {
+            File eventsJson = new File("events.json");
+            mapper.writeValue(eventsJson, EventRepository.getAllEventsList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

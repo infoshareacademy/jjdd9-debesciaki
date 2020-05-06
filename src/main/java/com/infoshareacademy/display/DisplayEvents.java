@@ -2,6 +2,7 @@ package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Organizer;
+import com.infoshareacademy.parser.ParseService;
 import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
@@ -11,6 +12,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +29,7 @@ public class DisplayEvents {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String DECISION_REQUEST = "\nTwój wybór to: ";
     private static final String ASK_FOR_PAGE_COUNT = "Ile wydarzeń chcesz zobaczyć na jednej stronie? ";
-    private static final String SPACING_MOD_SUBMENU ="                                 ";
+    private static final String SPACING_MOD_SUBMENU = "                                 ";
     private Integer qty;
     private Integer elemPerPage;
     private boolean firstStart;
@@ -414,6 +416,8 @@ public class DisplayEvents {
             }
         }
 
+        Map<Integer, Integer> eventsDisplayTable = coordinatingEventResToRealID(eventList);
+
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
@@ -425,7 +429,7 @@ public class DisplayEvents {
             for (int i = limU; i < limD; i++) {
                 if (i < eventList.size()) {
                     Event e = eventList.get(i);
-                    consolePrintSingleEventScheme(e);
+                    consolePrintSingleEventScheme(e, i + 1);
                 }
             }
             decision = pageNavigatorDisplay(pageCount, actual);
@@ -441,39 +445,56 @@ public class DisplayEvents {
                 actual++;
                 limU += elemPerPage;
                 limD += elemPerPage;
+            } else if (dec == 4) {
+                ModificationMenu(eventsDisplayTable, limU, limD);
             } else if (dec == 0) {
                 break;
             }
         } while (decision.get() != 0);
     }
 
-    public void ModificationMenu(){
+    public void ModificationMenu(Map<Integer, Integer> eventsDisplayTable, int limU, int limD) {
         Optional<Integer> decision = null;
         do {
-            STDOUT.info("{}1 - Usuń wydarzenie: ", SPACING_MOD_SUBMENU);
-            STDOUT.info("{}2 - Modyfikuj wydarzenie: ", SPACING_MOD_SUBMENU);
-            STDOUT.info("{}3 - Dodaj wydarzenie: ", SPACING_MOD_SUBMENU);
-            STDOUT.info("{}0 - Wyjdź: ", SPACING_MOD_SUBMENU);
-            decision = inputInteger(DECISION_REQUEST,3,0,false);
-            switch (decision.get()){
-                case 1:{
+            STDOUT.info("{}1 - Usuń wydarzenie\n", SPACING_MOD_SUBMENU);
+            STDOUT.info("{}2 - Modyfikuj wydarzenie\n", SPACING_MOD_SUBMENU);
+            STDOUT.info("{}3 - Dodaj wydarzenie\n", SPACING_MOD_SUBMENU);
+            STDOUT.info("{}0 - Wyjdź\n", SPACING_MOD_SUBMENU);
+            decision = inputInteger(DECISION_REQUEST, 0, 3, false);
+            switch (decision.get()) {
+                case 1: {
+                    int removalID = inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz usunąć: ", limU + 1, limD + 1, false).get();
+                    removeByID(eventsDisplayTable.get(removalID));
+                    EventRepository.writeEventList();
                     break;
                 }
-                case 2:{
+                case 2: {
                     break;
                 }
-                case 3:{
+                case 3: {
                     break;
                 }
-                case 0:{break;}
+                case 0: {
+                    break;
+                }
             }
 
-        }while (decision.get()!=0);
-
+        } while (decision.get() != 0);
     }
 
-    private void consolePrintSingleEventScheme(Event e) {
+    public void removeByID(int id) {
+        EventRepository.removeEvent(id);
+    }
+
+    private Map<Integer, Integer> coordinatingEventResToRealID(List<Event> eventList) {
+        AtomicInteger lp = new AtomicInteger(1);
+        return eventList.stream().collect(Collectors.toMap(k -> lp.getAndIncrement(),
+                v -> v.getId()));
+    }
+
+    private void consolePrintSingleEventScheme(Event e, int tempID) {
         EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
+        STDOUT.info("Lp. : {}\n", tempID);
         eventPrinter.printName(e);
         eventPrinter.printOrganizer(e);
         eventPrinter.printStartDate(e);

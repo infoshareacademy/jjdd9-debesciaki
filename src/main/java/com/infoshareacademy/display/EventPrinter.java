@@ -5,11 +5,13 @@ import com.infoshareacademy.parser.Ticket;
 import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
+
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class EventPrinter {
@@ -32,7 +34,7 @@ public class EventPrinter {
         } else {
             statusIndicator = colorPast;
         }
-        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, e.getName(), ConsoleColor.RESET);
+        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator,  e.getName(), ConsoleColor.RESET);
     }
 
     public void printID(Event e) {
@@ -65,6 +67,7 @@ public class EventPrinter {
         String date = dateAccordingToSetup(e.getStartDate());
         STDOUT.info("Data rozpoczęcia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, date, ConsoleColor.RESET);
     }
+
     public void printOrganizer(Event e) {
         STDOUT.info("Organizator: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getOrganizer().getDesignation(), ConsoleColor.RESET);
     }
