@@ -3,7 +3,6 @@ package com.infoshareacademy.favourites;
 import com.infoshareacademy.display.ConsoleColor;
 import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;

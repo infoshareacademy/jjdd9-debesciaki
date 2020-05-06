@@ -11,7 +11,6 @@ public class RemoveFavourites {
 
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private ShowFavourites showFavourites = new ShowFavourites();
-    private SaveToFileWithFavourites save = new SaveToFileWithFavourites();
 
     public void run(boolean tooMany) {
         showFavourites.run();
@@ -57,11 +56,8 @@ public class RemoveFavourites {
             FavouritesRepository.getAllFavouritesList().remove(index);
             STDOUT.info("Wydarzenie numer {} zostało usunięte z ulubionych.\n", choiceFromKeyboard);
             PropertiesRepository.getInstance().removeBreadcrumb();
-            return;
-        }
-        else {
+        } else {
             PropertiesRepository.getInstance().removeBreadcrumb();
-            return;
         }
     }
 }

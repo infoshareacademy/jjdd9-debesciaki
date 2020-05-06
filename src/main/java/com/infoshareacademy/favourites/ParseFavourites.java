@@ -10,25 +10,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ParseFavourites {
     private ObjectMapper mapper = new ObjectMapper();
     private File favouritesJson = new File("favourites.json");
 
     public void run() {
-            List<Integer> listOfFavouritesId = mapperFromFile();
-            List<Event> favouritesList = new ArrayList<>();
+        List<Integer> listOfFavouritesId = mapperFromFile();
+        List<Event> favouritesList = new ArrayList<>();
 
-            for (Integer el : listOfFavouritesId) {
-                for (Event event : EventRepository.getAllEventsList()) {
-                    if (event.getId() == el) {
-                        favouritesList.add(event);
-                    }
+        for (Integer el : listOfFavouritesId) {
+            for (Event event : EventRepository.getAllEventsList()) {
+                if (event.getId() == el) {
+                    favouritesList.add(event);
                 }
             }
+        }
 
-            FavouritesRepository.setAllFavouritesList(favouritesList);
+        FavouritesRepository.setAllFavouritesList(favouritesList);
     }
 
     public List<Integer> mapperFromFile() {
