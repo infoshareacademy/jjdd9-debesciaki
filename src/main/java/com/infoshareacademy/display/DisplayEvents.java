@@ -235,7 +235,7 @@ public class DisplayEvents {
 
     }
 
-    private List<Event> selectedListOfComingEvents(int qty) {
+    protected List<Event> selectedListOfComingEvents(int qty) {
         List<Event> out = new ArrayList<>();
         for (Event e : this.eventList) {
             if (out.size() < qty && out.size() < EventRepository.getAllEventsList().size() && isAfterNow(e.getEndDate())) {
@@ -335,8 +335,8 @@ public class DisplayEvents {
                 Collections.sort(eventList, EventComparators.EventEndDateComparatorAsc);
             }
         }
-
-        Map<Integer, Integer> eventsDisplayTable = coordinatingEventResToRealID(eventList);
+        IdCoordinator coordinator = new IdCoordinator();
+        Map<Integer, Integer> eventsDisplayTable = coordinator.coordinatingEventResToRealID(eventList);
 
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
@@ -478,14 +478,17 @@ public class DisplayEvents {
 
     }
 
-
-    private Map<Integer, Integer> coordinatingEventResToRealID(List<Event> eventList) {
-        AtomicInteger lp = new AtomicInteger(1);
-        return eventList.stream().collect(Collectors.toMap(k -> lp.getAndIncrement(),
-                v -> v.getId()));
+    public void consolePrintSingleEventScheme(Event e) {
+        EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
+        eventPrinter.printName(e);
+        eventPrinter.printOrganizer(e);
+        eventPrinter.printStartDate(e);
+        eventPrinter.printEndDate(e);
+        eventPrinter.printTicket(e);
+        STDOUT.info("\n");
     }
 
-    private void consolePrintSingleEventScheme(Event e, int tempID) {
+    public void consolePrintSingleEventScheme(Event e, int tempID) {
         EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
         STDOUT.info("Lp. : {}\n", tempID);
         eventPrinter.printName(e);
@@ -495,7 +498,6 @@ public class DisplayEvents {
         eventPrinter.printTicket(e);
         STDOUT.info("\n");
     }
-
 
     private boolean searchingResultDisplay(boolean repeatOption) {
         Validator v = new Validator();
@@ -525,7 +527,7 @@ public class DisplayEvents {
         return (!decision.equals("tak"));
     }
 
-    private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
+    public Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
         Validator v = new Validator();
         if (actual == 1 && pageCount > 1) {
             return v.inputInteger("2 - Następna\n3 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
