@@ -67,7 +67,7 @@ public class JSONFileChanger {
             File eventsJson = new File("events.json");
             mapper.writeValue(eventsJson, EventRepository.getAllEventsList());
         } catch (IOException e) {
-            STDOUT.info("Błąd zapisu pliku do JSON!\n");
+            STDOUT.info("Błąd zapisu pliku do JSON!\n{}\n", e.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ public class JSONFileChanger {
             File placesJson = new File("places.json");
             mapper.writeValue(placesJson, PlaceRepository.getAllPlaces());
         } catch (IOException e) {
-            STDOUT.info("Błąd zapisu pliku do JSON!\n");
+            STDOUT.info("Błąd zapisu pliku do JSON!\n{}\n", e.getMessage());
         }
     }
 
@@ -87,7 +87,7 @@ public class JSONFileChanger {
             File organizersJson = new File("organizers.json");
             mapper.writeValue(organizersJson, OrganizerRepository.getAllOrganizers());
         } catch (IOException e) {
-            STDOUT.info("Błąd zapisu pliku do JSON!\n");
+            STDOUT.info("Błąd zapisu pliku do JSON!\n{}\n", e.getMessage());
         }
     }
 
