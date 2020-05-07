@@ -3,29 +3,31 @@ package com.infoshareacademy.repository;
 import java.util.NoSuchElementException;
 
 public class UniqueIDprovider {
-    public int getEventID(){
+    public int getEventID() {
         return EventRepository.getAllEventsMap()
                 .keySet()
                 .stream()
-                .mapToInt(v->v)
+                .mapToInt(v -> v)
                 .max()
-                .orElseThrow(NoSuchElementException::new)+1;
+                .orElseThrow(NoSuchElementException::new) + 1;
     }
-    public int getOrganizerID(){
+
+    public int getOrganizerID() {
         return OrganizerRepository.getAllOrganizersMap()
                 .keySet()
                 .stream()
-                .mapToInt(v->v)
+                .mapToInt(v -> v)
                 .max()
-                .orElseThrow(NoSuchElementException::new)+1;
+                .orElseThrow(NoSuchElementException::new) + 1;
     }
-    public int getPlaceID(){
+
+    public int getPlaceID() {
         return PlaceRepository.getAllPlacesMap()
                 .keySet()
                 .stream()
-                .mapToInt(v->v)
+                .mapToInt(v -> v)
                 .max()
-                .orElseThrow(NoSuchElementException::new)+1;
+                .orElseThrow(NoSuchElementException::new) + 1;
     }
 
 }

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Organizer;
 import com.infoshareacademy.parser.Place;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONFileChanger {
+    private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private List<Event> allEventsList = new ArrayList<>();
     private List<Place> allPlaces = new ArrayList<>();
     private List<Organizer> allOrganizers = new ArrayList<>();
@@ -64,7 +67,7 @@ public class JSONFileChanger {
             File eventsJson = new File("events.json");
             mapper.writeValue(eventsJson, EventRepository.getAllEventsList());
         } catch (IOException e) {
-            e.printStackTrace();
+            STDOUT.info("Błąd zapisu pliku do JSON!\n");
         }
     }
 
@@ -74,7 +77,7 @@ public class JSONFileChanger {
             File placesJson = new File("places.json");
             mapper.writeValue(placesJson, PlaceRepository.getAllPlaces());
         } catch (IOException e) {
-            e.printStackTrace();
+            STDOUT.info("Błąd zapisu pliku do JSON!\n");
         }
     }
 
@@ -84,7 +87,7 @@ public class JSONFileChanger {
             File organizersJson = new File("organizers.json");
             mapper.writeValue(organizersJson, OrganizerRepository.getAllOrganizers());
         } catch (IOException e) {
-            e.printStackTrace();
+            STDOUT.info("Błąd zapisu pliku do JSON!\n");
         }
     }
 
