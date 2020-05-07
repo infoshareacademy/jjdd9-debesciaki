@@ -142,8 +142,11 @@ public class DisplayEvents {
         Validator v = new Validator();
         do {
             cleanConsole();
+            LocalDateTime maxEndDate;
             LocalDateTime minStartDate = v.localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
-            LocalDateTime maxEndDate = v.localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
+            do {
+                maxEndDate = v.localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
+            } while (maxEndDate.isBefore(minStartDate));
             this.eventList = filterPeriodically(minStartDate, maxEndDate);
         } while (!searchingResultDisplay(true));
     }
@@ -362,7 +365,7 @@ public class DisplayEvents {
                 actual++;
                 limU += elemPerPage;
                 limD += elemPerPage;
-            } else if (dec == 4) {
+            } else if (dec == 3) {
                 ModificationMenu(eventsDisplayTable, limU, limD);
                 resetList();
                 break;
@@ -421,7 +424,7 @@ public class DisplayEvents {
         do {
             cleanConsole();
             editEntity.consolePrintEditOptions();
-            dec = v.inputInteger(DECISION_REQUEST, 0, 8, false);
+            dec = v.inputInteger(DECISION_REQUEST, 0, 9, false);
             switch (dec.get()) {
                 case 1: {
                     eventPrinter.printName(editedEvent);
@@ -525,16 +528,16 @@ public class DisplayEvents {
     private Optional<Integer> pageNavigatorDisplay(int pageCount, int actual) {
         Validator v = new Validator();
         if (actual == 1 && pageCount > 1) {
-            return v.inputInteger("2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("2 - Następna\n3 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == pageCount && actual != 1) {
-            return v.inputInteger("1 - Poprzednia\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("1 - Poprzednia\n3 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual > 1 && actual < pageCount) {
-            return v.inputInteger("1 - Poprzednia\n2 - Następna\n4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("1 - Poprzednia\n2 - Następna\n3 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         if (actual == 1 && pageCount == 1) {
-            return v.inputInteger("4 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
+            return v.inputInteger("3 - Modyfikuj listę\n0 - Wyjdź\nStrona nr " + actual + " z " + pageCount + DECISION_REQUEST);
         }
         STDOUT.info("ERROR ERROR\n");
         return Optional.ofNullable(0);

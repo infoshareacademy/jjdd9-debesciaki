@@ -7,6 +7,9 @@ import com.infoshareacademy.validator.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
+import java.util.regex.Pattern;
+
 public class EditEvent {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
     private static final String COLOR = ConsoleColor.RED_UNDERLINED;
@@ -66,7 +69,11 @@ public class EditEvent {
 
     void editEndDate(Event e) {
         Validator v = new Validator();
-        e.setEndDate(v.localDateTimeRequest("Data zakończenia wydarzenia.", false));
+        LocalDateTime temp;
+        do {
+            temp = v.localDateTimeRequest("Data zakończenia wydarzenia.", false);
+        } while (temp.isBefore(e.getStartDate()));
+        e.setEndDate(temp);
     }
 
     void editPlace(Event e) {
@@ -79,7 +86,7 @@ public class EditEvent {
         p.setName(v.inputString("Wprowadź nazwę miejsca: ").get());
         p.setSubname(v.inputString("Wprowadź nazwę dodatkową miejsca: ").get());
         a.setCity(v.inputString("Wprowadź miasto: ").get());
-        a.setZipcode(v.inputString("Wprowadź kod pocztowy: ").get());
+        a.setZipcode(v.inputString("Wprowadź kod pocztowy: ", Pattern.compile("^[0-9]{2}-[0-9]{3}$")).get());
         a.setStreet(v.inputString("Wprowadź ulicę: ").get());
         p.setAddress(a);
         writer.addPlace(p);
@@ -99,8 +106,8 @@ public class EditEvent {
         Validator v = new Validator();
         Ticket t = new Ticket();
         t.setType(v.inputString("Wprowadź typ biletów: ").get());
-        t.setEndTicket(v.inputInteger("Wprowadź maksymalną cenę biletu", 0, Integer.MAX_VALUE, true).get());
-        t.setStartTicket(v.inputInteger("Wprowadź minimalną cenę biletu", 0, t.getEndTicket(), true).get());
+        t.setEndTicket(v.inputInteger("Wprowadź maksymalną cenę biletu: ", 0, Integer.MAX_VALUE, true).get());
+        t.setStartTicket(v.inputInteger("Wprowadź minimalną cenę biletu: ", 0, t.getEndTicket(), true).get());
         e.setTickets(t);
     }
 

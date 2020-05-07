@@ -33,6 +33,21 @@ public class Validator {
         return opt;
     }
 
+    public Optional<String> inputString(String subject, Pattern p) {
+        String in;
+        boolean matches = false;
+        Optional<String> opt = null;
+        do {
+            STDOUT.info("{}", subject);
+            Scanner scanner = new Scanner(System.in);
+            in = scanner.nextLine();
+            Matcher matcher = p.matcher(in);
+            matches = matcher.matches();
+            opt = Optional.ofNullable(in);
+        } while (opt.isEmpty() || !matches);
+        return opt;
+    }
+
     public LocalDateTime localDateTimeRequest(String subject) {
         LocalDateTime out = null;
         String in;
@@ -94,7 +109,6 @@ public class Validator {
         } while (optionalLocalDateTime.isEmpty() || in.isEmpty() || in.isBlank());
         return out;
     }
-
 
     public Optional<Integer> inputInteger(String subject) {
         Integer quantity = null;
