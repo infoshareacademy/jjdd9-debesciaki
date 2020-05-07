@@ -28,6 +28,11 @@ public class EventPrinter {
     }
 
     public void printName(Event e) {
+        Optional<String> name = Optional.ofNullable(e.getName());
+        String out = "Brak informacji";
+        if (!name.isEmpty() && name.isPresent()) {
+            out = name.get();
+        }
         String statusIndicator;
         if (e.getStartDate().minusDays(2).isBefore(LocalDateTime.now())) {
             statusIndicator = ConsoleColor.RED;
@@ -36,7 +41,7 @@ public class EventPrinter {
         } else {
             statusIndicator = colorFuture;
         }
-        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, e.getName(), ConsoleColor.RESET);
+        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, out, ConsoleColor.RESET);
     }
 
     public void printID(Event e) {
