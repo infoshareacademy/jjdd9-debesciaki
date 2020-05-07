@@ -6,7 +6,6 @@ public class Place {
     private String name;
     private Address address;
 
-
     public int getId() {
         return id;
     }

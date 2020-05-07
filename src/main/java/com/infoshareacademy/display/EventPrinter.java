@@ -114,7 +114,13 @@ public class EventPrinter {
     }
 
     public void printTicket(Event e) {
-        STDOUT.info("Typ biletu: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getType(), ConsoleColor.RESET);
-        STDOUT.info("Cena: {}{} - {}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getStartTicket(), e.getTickets().getEndTicket(), ConsoleColor.RESET);
+        if (e.getTickets() != null) {
+            if (e.getTickets().getType() != null && !e.getTickets().getType().equals("unknown")) {
+                STDOUT.info("Typ biletu: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getType(), ConsoleColor.RESET);
+            }
+            if (e.getTickets().getStartTicket() != null && e.getTickets().getEndTicket() != null) {
+                STDOUT.info("Cena: {}{} - {}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getStartTicket(), e.getTickets().getEndTicket(), ConsoleColor.RESET);
+            }
+        }
     }
 }
