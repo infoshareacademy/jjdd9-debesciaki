@@ -2,6 +2,7 @@ package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Organizer;
+import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
 import com.infoshareacademy.repository.OrganizerRepository;
@@ -392,6 +393,26 @@ public class DisplayEvents {
     }
 
     private void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
+        if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("name")) {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventComparators.EventNameComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventComparators.EventNameComparatorAsc);
+            }
+        } else if (PropertiesRepository.getInstance().getProperty("sort-by").equalsIgnoreCase("organizer")) {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventComparators.EventOrganizerComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventComparators.EventOrganizerComparatorAsc);
+            }
+        } else {
+            if (PropertiesRepository.getInstance().getProperty("sort-order").equalsIgnoreCase("desc")) {
+                Collections.sort(eventList, EventComparators.EventEndDateComparatorDesc);
+            } else {
+                Collections.sort(eventList, EventComparators.EventEndDateComparatorAsc);
+            }
+        }
+
         Optional<Integer> decision = null;
         double pageCountd = Math.ceil((double) qty / elemPerPage);
         Integer pageCount = (int) pageCountd;
