@@ -339,7 +339,13 @@ public class DisplayEvents {
         Map<Integer, Integer> eventsDisplayTable = coordinator.coordinatingEventResToRealID(eventList);
 
         Optional<Integer> decision = null;
-        double pageCountd = Math.ceil((double) qty / elemPerPage);
+        double pageCountd;
+        if (qty <= eventList.size()) {
+            pageCountd = Math.ceil((double) qty / elemPerPage);
+        } else {
+            pageCountd = Math.ceil((double) eventList.size() / elemPerPage);
+        }
+
         Integer pageCount = (int) pageCountd;
         int limU = 0;
         int limD = elemPerPage;
@@ -378,36 +384,33 @@ public class DisplayEvents {
     public void ModificationMenu(Map<Integer, Integer> eventsDisplayTable, int limU, int limD) {
         Validator v = new Validator();
         Optional<Integer> decision = null;
-        do {
-            STDOUT.info("{}1 - Usuń wydarzenie\n", SPACING_MOD_SUBMENU);
-            STDOUT.info("{}2 - Modyfikuj wydarzenie\n", SPACING_MOD_SUBMENU);
-            STDOUT.info("{}3 - Dodaj wydarzenie\n", SPACING_MOD_SUBMENU);
-            STDOUT.info("{}0 - Wyjdź\n", SPACING_MOD_SUBMENU);
-            decision = v.inputInteger(DECISION_REQUEST, 0, 3, false);
-            switch (decision.get()) {
-                case 1: {
-                    int removalID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz usunąć: ", limU + 1, limD + 1, false).get();
-                    removeByIDinRep(eventsDisplayTable.get(removalID));
-                    STDOUT.info("{}Usunięto wydarzenie!{}\n", ConsoleColor.YELLOW_BACKGROUND, ConsoleColor.RESET);
-                    break;
-                }
-                case 2: {
-                    int editID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz edytować: ", limU + 1, limD + 1, false).get();
-                    editByIDinRep(eventsDisplayTable.get(editID));
-                    STDOUT.info("{}Zmodyfikowano wydarzenie!{}\n", ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RESET);
-                    break;
-                }
-                case 3: {
-                    new AddEvent();
-                    STDOUT.info("{}Dodano wydarzenie!{}\n", ConsoleColor.GREEN_BACKGROUND, ConsoleColor.RESET);
-                    break;
-                }
-                case 0: {
-                    break;
-                }
+        STDOUT.info("{}1 - Usuń wydarzenie\n", SPACING_MOD_SUBMENU);
+        STDOUT.info("{}2 - Modyfikuj wydarzenie\n", SPACING_MOD_SUBMENU);
+        STDOUT.info("{}3 - Dodaj wydarzenie\n", SPACING_MOD_SUBMENU);
+        STDOUT.info("{}0 - Wyjdź\n", SPACING_MOD_SUBMENU);
+        decision = v.inputInteger(DECISION_REQUEST, 0, 3, false);
+        switch (decision.get()) {
+            case 1: {
+                int removalID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz usunąć: ", limU + 1, limD + 1, false).get();
+                removeByIDinRep(eventsDisplayTable.get(removalID));
+                STDOUT.info("{}Usunięto wydarzenie!{}\n", ConsoleColor.YELLOW_BACKGROUND, ConsoleColor.RESET);
+                break;
             }
-
-        } while (decision.get() != 0);
+            case 2: {
+                int editID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz edytować: ", limU + 1, limD + 1, false).get();
+                editByIDinRep(eventsDisplayTable.get(editID));
+                STDOUT.info("{}Zmodyfikowano wydarzenie!{}\n", ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RESET);
+                break;
+            }
+            case 3: {
+                new AddEvent();
+                STDOUT.info("{}Dodano wydarzenie!{}\n", ConsoleColor.GREEN_BACKGROUND, ConsoleColor.RESET);
+                break;
+            }
+            case 0: {
+                break;
+            }
+        }
     }
 
     public void removeByIDinRep(int id) {
@@ -471,6 +474,7 @@ public class DisplayEvents {
                 }
                 case 0: {
                     new JSONFileChanger().addEvent(editedEvent);
+                    cleanConsole();
                     break;
                 }
             }
@@ -489,7 +493,7 @@ public class DisplayEvents {
     }
 
     public void consolePrintSingleEventScheme(Event e, int tempID) {
-        EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
+        EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE, ConsoleColor.RED);
         STDOUT.info("Lp. : {}\n", tempID);
         eventPrinter.printName(e);
         eventPrinter.printOrganizer(e);
