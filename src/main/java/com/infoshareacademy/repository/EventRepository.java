@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class EventRepository {
     private static List<Event> allEventsList = new ArrayList<>();
-    private static Map<Integer, Event> allEventsMap = new HashMap<>();;
+    private static Map<Integer, Event> allEventsMap = new HashMap<>();
 
     private EventRepository() {
     }
@@ -27,8 +27,8 @@ public class EventRepository {
     }
 
     public static void setAllEventsMap() {
-        for (Event e: allEventsList){
-            EventRepository.allEventsMap.put(e.getId(),e);
+        for (Event e : allEventsList) {
+            EventRepository.allEventsMap.put(e.getId(), e);
         }
     }
 }

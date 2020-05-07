@@ -62,16 +62,16 @@ public class EventPrinter {
 
     public void printEndDate(Event e) {
         String date = dateAccordingToSetup(e.getEndDate());
-        STDOUT.info("Data zakończenia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, date, ConsoleColor.RESET);
+        STDOUT.info("Data zakończenia: {}{}{}\n", ConsoleColor.BLUE, date, ConsoleColor.RESET);
     }
 
     public void printStartDate(Event e) {
         String date = dateAccordingToSetup(e.getStartDate());
-        STDOUT.info("Data rozpoczęcia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, date, ConsoleColor.RESET);
+        STDOUT.info("Data rozpoczęcia: {}{}{}\n", ConsoleColor.BLUE, date, ConsoleColor.RESET);
     }
 
     public void printOrganizer(Event e) {
-        STDOUT.info("Organizator: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getOrganizer().getDesignation(), ConsoleColor.RESET);
+        STDOUT.info("Organizator: {}{}{}\n", ConsoleColor.GREEN, e.getOrganizer().getDesignation(), ConsoleColor.RESET);
     }
 
     public String dateAccordingToSetup(LocalDateTime evenTime) {

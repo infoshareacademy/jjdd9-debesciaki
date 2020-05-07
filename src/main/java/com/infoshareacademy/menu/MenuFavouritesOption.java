@@ -3,8 +3,7 @@ package com.infoshareacademy.menu;
 public enum MenuFavouritesOption {
     RETURN("Powrót do menu głównego"),
     ADD("Dodaj ulubione wydarzenie"),
-    DELETE("Usuń z ulubionych wydarzeń"),
-    SHOW_EARLIEST("Pokaż najbliższe wydarzenia");
+    DELETE("Usuń z ulubionych wydarzeń");
 
     private String description;
 
@@ -20,4 +19,5 @@ public enum MenuFavouritesOption {
     public String toString() {
         return getDescription();
     }
+
 }
