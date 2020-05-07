@@ -1,20 +1,22 @@
 package com.infoshareacademy.parser;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Event {
     private int id;
     private Place place;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[Z]")
     private LocalDateTime endDate;
     private String name;
     private Url urls;
     private List<Attachment> attachments;
     private String descLong;
     private int categoryId;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ")
+   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[Z]")
     private LocalDateTime startDate;
     private Organizer organizer;
     private int active;

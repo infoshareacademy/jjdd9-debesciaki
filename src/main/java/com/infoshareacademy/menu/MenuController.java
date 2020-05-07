@@ -59,7 +59,6 @@ public class MenuController {
             MenuEventsOption choice = m.showMenu(MenuEventsOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:
-                    PropertiesRepository.getInstance().removeBreadcrumb();
                     return;
                 case ALL:
                     PropertiesRepository.getInstance().putBreadcrumb("Wszystkie");
@@ -70,10 +69,12 @@ public class MenuController {
                     cleanConsole();
                     PropertiesRepository.getInstance().putBreadcrumb("Nadchodzące");
                     displayEvents.displayComingEvents();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     break;
                 case SEARCH_BY_ORGANIZER:
                     PropertiesRepository.getInstance().putBreadcrumb("Wyszukuj frazą organizatora");
                     displayEvents.displaySearchOrganizer();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     break;
                 case SEARCH_BY_NAME:
                     PropertiesRepository.getInstance().putBreadcrumb("Wyszukuj frazą w nazwie");

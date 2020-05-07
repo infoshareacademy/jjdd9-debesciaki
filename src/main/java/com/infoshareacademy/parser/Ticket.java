@@ -5,7 +5,6 @@ public class Ticket {
     Integer startTicket;
     Integer endTicket;
 
-
     public String getType() {
         return type;
     }

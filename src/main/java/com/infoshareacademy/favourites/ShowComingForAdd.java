@@ -42,7 +42,7 @@ public class ShowComingForAdd extends DisplayEvents {
         displayPages(qty, elemPerPage, this.eventList);
     }
 
-    @Override
+
     public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         Optional<Integer> decision;
 
@@ -98,7 +98,7 @@ public class ShowComingForAdd extends DisplayEvents {
         return Optional.ofNullable(0);
     }
 
-    @Override
+
     public Optional<Integer> inputInteger(String subject) {
         Integer quantity = null;
         Optional<Integer> opt;
