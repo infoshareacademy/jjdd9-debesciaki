@@ -43,33 +43,4 @@ public class EventRepository {
             EventRepository.allEventsMap.put(e.getId(), e);
         }
     }
-
-    public static void removeEvent(int id) {
-        for (Event e : allEventsList) {
-            if (e.getId() == id) {
-                allEventsList.remove(e);
-                break;
-            }
-        }
-        writeEventList();
-    }
-
-    public static void addEvent(Event e) {
-        allEventsList.add(e);
-        writeEventList();
-    }
-
-    public static void writeEventList() {
-        ObjectMapper mapper = new ObjectMapper();
-        JavaTimeModule module = new JavaTimeModule();
-        LocalDateTimeDeserializer deserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-        module.addDeserializer(LocalDateTime.class, deserializer);
-        mapper.registerModule(module);
-        try {
-            File eventsJson = new File("events.json");
-            mapper.writeValue(eventsJson, EventRepository.getAllEventsList());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

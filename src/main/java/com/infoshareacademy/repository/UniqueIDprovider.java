@@ -19,4 +19,13 @@ public class UniqueIDprovider {
                 .max()
                 .orElseThrow(NoSuchElementException::new)+1;
     }
+    public int getPlaceID(){
+        return PlaceRepository.getAllPlacesMap()
+                .keySet()
+                .stream()
+                .mapToInt(v->v)
+                .max()
+                .orElseThrow(NoSuchElementException::new)+1;
+    }
+
 }

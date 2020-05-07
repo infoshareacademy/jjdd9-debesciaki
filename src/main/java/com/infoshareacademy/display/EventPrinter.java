@@ -34,7 +34,7 @@ public class EventPrinter {
         } else {
             statusIndicator = colorPast;
         }
-        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator,  e.getName(), ConsoleColor.RESET);
+        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, e.getName(), ConsoleColor.RESET);
     }
 
     public void printID(Event e) {
@@ -111,5 +111,10 @@ public class EventPrinter {
         STDOUT.info("Ulica: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getStreet(), ConsoleColor.RESET);
         STDOUT.info("Długość geograficzna: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getLng(), ConsoleColor.RESET);
         STDOUT.info("Szerokość geograficzna: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getLng(), ConsoleColor.RESET);
+    }
+
+    public void printTicket(Event e) {
+        STDOUT.info("Typ biletu: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getType(), ConsoleColor.RESET);
+        STDOUT.info("Cena: {}{} - {}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getStartTicket(), e.getTickets().getEndTicket(), ConsoleColor.RESET);
     }
 }

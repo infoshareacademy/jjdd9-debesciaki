@@ -5,6 +5,7 @@ import com.infoshareacademy.parser.Organizer;
 import com.infoshareacademy.properties.PropertiesRepository;
 import com.infoshareacademy.repository.CategoryRepository;
 import com.infoshareacademy.repository.EventRepository;
+import com.infoshareacademy.repository.JSONFileChanger;
 import com.infoshareacademy.repository.OrganizerRepository;
 import com.infoshareacademy.validator.Validator;
 import org.slf4j.Logger;
@@ -363,6 +364,8 @@ public class DisplayEvents {
                 limD += elemPerPage;
             } else if (dec == 4) {
                 ModificationMenu(eventsDisplayTable, limU, limD);
+                resetList();
+                break;
             } else if (dec == 0) {
                 break;
             }
@@ -382,21 +385,18 @@ public class DisplayEvents {
                 case 1: {
                     int removalID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz usunąć: ", limU + 1, limD + 1, false).get();
                     removeByIDinRep(eventsDisplayTable.get(removalID));
-                    resetList();
-                    STDOUT.info("{}Usunięto wydarzenie!{}\n",ConsoleColor.YELLOW_BACKGROUND, ConsoleColor.RESET);
+                    STDOUT.info("{}Usunięto wydarzenie!{}\n", ConsoleColor.YELLOW_BACKGROUND, ConsoleColor.RESET);
                     break;
                 }
                 case 2: {
                     int editID = v.inputInteger(SPACING_MOD_SUBMENU + "Wprowadź Lp. wydarzenia, które chcesz edytować: ", limU + 1, limD + 1, false).get();
                     editByIDinRep(eventsDisplayTable.get(editID));
-                    resetList();
-                    STDOUT.info("{}Zmodyfikowano wydarzenie!{}\n",ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RESET);
+                    STDOUT.info("{}Zmodyfikowano wydarzenie!{}\n", ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RESET);
                     break;
                 }
                 case 3: {
                     new AddEvent();
-                    resetList();
-                    STDOUT.info("{}Dodano wydarzenie!{}\n",ConsoleColor.GREEN_BACKGROUND, ConsoleColor.RESET);
+                    STDOUT.info("{}Dodano wydarzenie!{}\n", ConsoleColor.GREEN_BACKGROUND, ConsoleColor.RESET);
                     break;
                 }
                 case 0: {
@@ -408,7 +408,7 @@ public class DisplayEvents {
     }
 
     public void removeByIDinRep(int id) {
-        EventRepository.removeEvent(id);
+        new JSONFileChanger().removeEvent(id);
     }
 
     public void editByIDinRep(int id) {
@@ -462,8 +462,12 @@ public class DisplayEvents {
                     editEntity.editUrl(editedEvent);
                     break;
                 }
+                case 9: {
+                    editEntity.editTicket(editedEvent);
+                    break;
+                }
                 case 0: {
-                    EventRepository.addEvent(editedEvent);
+                    new JSONFileChanger().addEvent(editedEvent);
                     break;
                 }
             }
@@ -485,6 +489,7 @@ public class DisplayEvents {
         eventPrinter.printOrganizer(e);
         eventPrinter.printStartDate(e);
         eventPrinter.printEndDate(e);
+        eventPrinter.printTicket(e);
         STDOUT.info("\n");
     }
 
