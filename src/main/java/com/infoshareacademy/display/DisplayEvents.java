@@ -449,7 +449,7 @@ public class DisplayEvents {
 
     public void consolePrintSingleEventScheme(Event e) {
         int eventNumber = e.getId();
-        STDOUT.info("Numer wydarzenia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, eventNumber, ConsoleColor.RESET);
+
         EventPrinter eventPrinter = new EventPrinter(ConsoleColor.GREEN_BOLD, ConsoleColor.RED_BOLD);
         eventPrinter.printName(e);
         eventPrinter.printOrganizer(e);

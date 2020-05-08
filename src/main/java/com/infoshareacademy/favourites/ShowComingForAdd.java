@@ -20,6 +20,8 @@ public class ShowComingForAdd extends DisplayEvents {
     private Integer elemPerPage;
     private boolean firstStart;
     private List<Event> eventList;
+    private List <Event> eventListForSinglePage = new ArrayList<>();
+
 
     @Override
     public void displayComingEvents() {
@@ -55,10 +57,12 @@ public class ShowComingForAdd extends DisplayEvents {
         do {
             cleanConsole();
             STDOUT.info("{}WYBIERZ ULUBIONE WYDARZENIE{}\n", ConsoleColor.RED_BOLD, ConsoleColor.RESET);
-            for (int i = limU; i < limD; i++) {
+            for (int i = limU, j = 1; i < limD; i++, j++) {
                 if (i < eventList.size()) {
                     Event e = eventList.get(i);
+                    STDOUT.info("Numer wydarzenia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, e.getId(), ConsoleColor.RESET);
                     consolePrintSingleEventScheme(e);
+                    eventListForSinglePage.add(e);
                 }
             }
             decision = pageNavigatorDisplay(pageCount, actual);
@@ -107,22 +111,45 @@ public class ShowComingForAdd extends DisplayEvents {
             STDOUT.info("{}", subject);
             Scanner scanner = new Scanner(System.in);
             in = scanner.nextLine();
+
             if (NumberUtils.isDigits(in)) {
                 quantity = Integer.parseInt(in);
             }
+
             opt = Optional.ofNullable(quantity);
+
             if (!NumberUtils.isDigits(in)) {
                 STDOUT.info("Źle wprowadzone dane, spróbuj ponownie!\n");
             }
         } while (opt.isEmpty());
 
-        if (quantity > 2) {
-            for (int i = 0; i < EventRepository.getAllEventsList().size(); i++) {
-                if (quantity == EventRepository.getAllEventsList().get(i).getId()) {
-                    new AddFavourites().addFavourite(EventRepository.getAllEventsList().get(i));
+        if (quantity > 1000) {
+
+            while(!isPresent(quantity)) {
+                STDOUT.info("Nie ma takiego numeru wydarzenia wśród ulubionych - wybierz ponownie: ");
+                Scanner scanner = new Scanner(System.in);
+                String newIn = scanner.nextLine();
+                quantity = Integer.parseInt(newIn);
+            }
+
+            if (!opt.isEmpty()) {
+                for (int i = 0; i < EventRepository.getAllEventsList().size(); i++) {
+                    if (quantity == EventRepository.getAllEventsList().get(i).getId()) {
+                        new AddFavourites().addFavourite(EventRepository.getAllEventsList().get(i));
+                    }
                 }
             }
         }
+
         return opt;
+    }
+
+    public boolean isPresent(Integer quantity) {
+        for (int i = 0; i < eventListForSinglePage.size(); i++) {
+            if (quantity == eventListForSinglePage.get(i).getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

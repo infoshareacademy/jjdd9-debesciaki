@@ -25,6 +25,7 @@ public class ShowUpcoming {
                     upcomingEvent = FavouritesRepository.getAllFavouritesList().get(i);
                 }
             }
+            STDOUT.info("Numer wydarzenia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, upcomingEvent.getId(), ConsoleColor.RESET);
             display.consolePrintSingleEventScheme(upcomingEvent);
         }
     }

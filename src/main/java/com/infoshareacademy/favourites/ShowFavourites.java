@@ -19,6 +19,7 @@ public class ShowFavourites {
             CMDCleaner.cleanConsole();
             STDOUT.info("{}\nWSZYSTKIE ULUBIONE WYDARZENIA{}\n", ConsoleColor.YELLOW, ConsoleColor.RESET);
             for (Event el : FavouritesRepository.getAllFavouritesList()) {
+                STDOUT.info("Numer wydarzenia: {}{}{}\n", ConsoleColor.BLUE_UNDERLINED, el.getId(), ConsoleColor.RESET);
                 display.consolePrintSingleEventScheme(el);
             }
         }
