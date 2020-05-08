@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class ShowFavourites {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    DisplayEvents display = new DisplayEvents();
+    ShowComingForAdd display = new ShowComingForAdd();
 
     public void run() {
         if (FavouritesRepository.getAllFavouritesList().isEmpty()) {

@@ -5,11 +5,13 @@ import com.infoshareacademy.parser.Ticket;
 import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
+
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 
 public class EventPrinter {
@@ -26,13 +28,20 @@ public class EventPrinter {
     }
 
     public void printName(Event e) {
-        String statusIndicator;
-        if (e.getEndDate().minusHours(1).isAfter(LocalDateTime.now())) {
-            statusIndicator = colorFuture;
-        } else {
-            statusIndicator = colorPast;
+        Optional<String> name = Optional.ofNullable(e.getName());
+        String out = "Brak informacji";
+        if (!name.isEmpty() && name.isPresent()) {
+            out = name.get();
         }
-        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, e.getName(), ConsoleColor.RESET);
+        String statusIndicator;
+        if (e.getStartDate().minusDays(2).isBefore(LocalDateTime.now())) {
+            statusIndicator = ConsoleColor.RED;
+        } else if (e.getStartDate().minusDays(7).isBefore(LocalDateTime.now())) {
+            statusIndicator = ConsoleColor.YELLOW;
+        } else {
+            statusIndicator = colorFuture;
+        }
+        STDOUT.info("Nazwa: {}{}{}\n", statusIndicator, out, ConsoleColor.RESET);
     }
 
     public void printID(Event e) {
@@ -65,6 +74,7 @@ public class EventPrinter {
         String date = dateAccordingToSetup(e.getStartDate());
         STDOUT.info("Data rozpoczęcia: {}{}{}\n", ConsoleColor.BLUE, date, ConsoleColor.RESET);
     }
+
     public void printOrganizer(Event e) {
         STDOUT.info("Organizator: {}{}{}\n", ConsoleColor.GREEN, e.getOrganizer().getDesignation(), ConsoleColor.RESET);
     }
@@ -100,5 +110,24 @@ public class EventPrinter {
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
         cleanConsole();
+    }
+
+    public void printPlace(Event e) {
+        STDOUT.info("Miasto: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getCity(), ConsoleColor.RESET);
+        STDOUT.info("Kod pocztowy: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getZipcode(), ConsoleColor.RESET);
+        STDOUT.info("Ulica: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getStreet(), ConsoleColor.RESET);
+        STDOUT.info("Długość geograficzna: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getLng(), ConsoleColor.RESET);
+        STDOUT.info("Szerokość geograficzna: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getPlace().getAddress().getLng(), ConsoleColor.RESET);
+    }
+
+    public void printTicket(Event e) {
+        if (e.getTickets() != null) {
+            if (e.getTickets().getType() != null && !e.getTickets().getType().equals("unknown")) {
+                STDOUT.info("Typ biletu: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getType(), ConsoleColor.RESET);
+            }
+            if (e.getTickets().getStartTicket() != null && e.getTickets().getEndTicket() != null) {
+                STDOUT.info("Cena: {}{} - {}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getStartTicket(), e.getTickets().getEndTicket(), ConsoleColor.RESET);
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.infoshareacademy.favourites;
 
 import com.infoshareacademy.display.ConsoleColor;
 import com.infoshareacademy.display.DisplayEvents;
+import com.infoshareacademy.display.EventPrinter;
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.repository.EventRepository;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -44,7 +45,7 @@ public class ShowComingForAdd extends DisplayEvents {
         displayPages(qty, elemPerPage, this.eventList);
     }
 
-    @Override
+
     public void displayPages(Integer qty, Integer elemPerPage, List<Event> eventList) {
         Optional<Integer> decision;
 
@@ -102,7 +103,17 @@ public class ShowComingForAdd extends DisplayEvents {
         return Optional.ofNullable(0);
     }
 
+
     @Override
+    public void consolePrintSingleEventScheme(Event e) {
+        EventPrinter eventPrinter = new EventPrinter(ConsoleColor.BLUE_BACKGROUND, ConsoleColor.RED_BACKGROUND);
+        eventPrinter.printName(e);
+        eventPrinter.printOrganizer(e);
+        eventPrinter.printStartDate(e);
+        eventPrinter.printEndDate(e);
+        STDOUT.info("\n");
+    }
+
     public Optional<Integer> inputInteger(String subject) {
         Integer quantity = null;
         Optional<Integer> opt;

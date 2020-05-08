@@ -6,13 +6,16 @@ public class Place {
     private String name;
     private Address address;
 
-
     public int getId() {
         return id;
     }
 
     public String getSubname() {
         return subname;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public String getName() {
