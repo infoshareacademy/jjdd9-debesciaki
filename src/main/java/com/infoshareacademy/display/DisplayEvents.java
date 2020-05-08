@@ -126,7 +126,7 @@ public class DisplayEvents {
         do {
             cleanConsole();
             LocalDateTime minStartDate = v.localDateTimeRequest("Od kiedy najwcześniej mają się rozpocząć wydarzenia?");
-            this.eventList = filterAfter(minStartDate);
+            this.eventList = filterAfter(minStartDate, this.eventList);
         } while (!searchingResultDisplay(true));
     }
 
@@ -135,7 +135,7 @@ public class DisplayEvents {
         do {
             cleanConsole();
             LocalDateTime maxEndDate = v.localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
-            this.eventList = filterBefore(maxEndDate);
+            this.eventList = filterBefore(maxEndDate, this.eventList);
         } while (!searchingResultDisplay(true));
     }
 
@@ -148,7 +148,7 @@ public class DisplayEvents {
             do {
                 maxEndDate = v.localDateTimeRequest("Do kiedy najpóźniej mają się zakończyć wydarzenia?");
             } while (maxEndDate.isBefore(minStartDate));
-            this.eventList = filterPeriodically(minStartDate, maxEndDate);
+            this.eventList = filterPeriodically(minStartDate, maxEndDate, this.eventList);
         } while (!searchingResultDisplay(true));
     }
 
@@ -258,9 +258,9 @@ public class DisplayEvents {
         return this.eventList;
     }
 
-    private List<Event> filterBefore(LocalDateTime beforeTimePoint) {
+    public List<Event> filterBefore(LocalDateTime beforeTimePoint, List<Event> currentList) {
         List<Event> out = new ArrayList<>();
-        for (Event e : this.eventList) {
+        for (Event e : currentList) {
             if (e.getEndDate().isBefore(beforeTimePoint)) {
                 out.add(e);
             }
@@ -269,9 +269,9 @@ public class DisplayEvents {
         return this.eventList;
     }
 
-    private List<Event> filterAfter(LocalDateTime afterTimePoint) {
+    public List<Event> filterAfter(LocalDateTime afterTimePoint, List<Event> currentList) {
         List<Event> out = new ArrayList<>();
-        for (Event e : this.eventList) {
+        for (Event e : currentList) {
             if (e.getStartDate().isAfter(afterTimePoint)) {
                 out.add(e);
             }
@@ -280,9 +280,9 @@ public class DisplayEvents {
         return this.eventList;
     }
 
-    private List<Event> filterPeriodically(LocalDateTime afterTimePoint, LocalDateTime beforeTimePoint) {
+    public List<Event> filterPeriodically(LocalDateTime afterTimePoint, LocalDateTime beforeTimePoint, List<Event> currentList) {
         List<Event> out = new ArrayList<>();
-        for (Event e : this.eventList) {
+        for (Event e : currentList) {
             LocalDateTime d = e.getStartDate();
             LocalDateTime b = e.getEndDate();
 
