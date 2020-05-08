@@ -79,4 +79,23 @@ class DisplayEventsTest {
         //THEN
         org.assertj.core.api.Assertions.assertThat(result).containsOnly(e2).doesNotContain(e1);
     }
+
+    @Test
+    void isAfterNow() {
+        //GIVEN
+        DisplayEvents displayEvents = new DisplayEvents();
+        boolean result;
+        boolean result2;
+        LocalDateTime localDateTimeAfterNow = LocalDateTime.now().plusDays(1);
+        LocalDateTime localDateTimeBeforeNow = LocalDateTime.now().minusDays(1);
+
+        //WHEN
+        result = displayEvents.isAfterNow(localDateTimeAfterNow);
+        result2 = displayEvents.isAfterNow(localDateTimeBeforeNow);
+
+        //THEN
+        org.assertj.core.api.Assertions.assertThat(result).isTrue();
+        org.assertj.core.api.Assertions.assertThat(result2).isFalse();
+
+    }
 }

@@ -1,12 +1,8 @@
 package com.infoshareacademy.display;
 
 import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.repository.EventRepository;
 import com.infoshareacademy.repository.JSONFileChanger;
-import com.infoshareacademy.repository.UniqueIDprovider;
 import com.infoshareacademy.validator.Validator;
-
-import java.util.Optional;
 
 import static com.infoshareacademy.display.CMDCleaner.cleanConsole;
 

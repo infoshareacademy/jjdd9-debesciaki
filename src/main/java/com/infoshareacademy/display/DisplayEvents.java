@@ -312,7 +312,7 @@ public class DisplayEvents {
         return this.eventList.stream().parallel().filter(byOrganizer).collect(Collectors.toList());
     }
 
-    private boolean isAfterNow(LocalDateTime eventTime) {
+    public boolean isAfterNow(LocalDateTime eventTime) {
         return eventTime.isAfter(LocalDateTime.now());
     }
 
