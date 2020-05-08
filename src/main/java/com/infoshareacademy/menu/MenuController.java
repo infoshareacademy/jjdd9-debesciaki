@@ -126,6 +126,7 @@ public class MenuController {
                     PropertiesRepository.getInstance().putBreadcrumb(" Dodaj do ulubionych ");
                     showFavourites.run();
                     new AddFavourites().run();
+                    PropertiesRepository.getInstance().removeBreadcrumb();
                     break;
                 case DELETE:
                     if (FavouritesRepository.getAllFavouritesList().isEmpty()) {
@@ -134,6 +135,7 @@ public class MenuController {
                         PropertiesRepository.getInstance().putBreadcrumb(" Usuń z ulubionych ");
                         RemoveFavourites removeFavourites = new RemoveFavourites();
                         removeFavourites.run(false);
+                        PropertiesRepository.getInstance().removeBreadcrumb();
                     }
                     break;
             }

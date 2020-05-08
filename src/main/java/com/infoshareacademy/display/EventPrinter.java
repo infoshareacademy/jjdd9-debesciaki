@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -99,7 +100,7 @@ public class EventPrinter {
     }
 
     public String dateConfigurator(LocalDateTime eventTime, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern, Locale.forLanguageTag("pl-PL"));
         return eventTime.format(formatter);
     }
 

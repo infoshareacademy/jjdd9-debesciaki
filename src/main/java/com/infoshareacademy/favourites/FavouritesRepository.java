@@ -12,6 +12,7 @@ public class FavouritesRepository {
     }
 
     public static List<Event> getAllFavouritesList() {
+        new SaveToFileWithFavourites().run(allFavouritesList);
         return allFavouritesList;
     }
 

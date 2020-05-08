@@ -1,6 +1,5 @@
 package com.infoshareacademy.favourites;
 
-import com.infoshareacademy.properties.PropertiesRepository;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,12 +51,8 @@ public class RemoveFavourites {
                     index = i;
                 }
             }
-
             FavouritesRepository.getAllFavouritesList().remove(index);
             STDOUT.info("Wydarzenie numer {} zostało usunięte z ulubionych.\n", choiceFromKeyboard);
-            PropertiesRepository.getInstance().removeBreadcrumb();
-        } else {
-            PropertiesRepository.getInstance().removeBreadcrumb();
         }
     }
 }

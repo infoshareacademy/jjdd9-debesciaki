@@ -1,7 +1,6 @@
 package com.infoshareacademy.favourites;
 
 import com.infoshareacademy.parser.Event;
-import com.infoshareacademy.properties.PropertiesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +38,6 @@ public class AddFavourites {
         listFavourites.stream().distinct().collect(Collectors.toList());
         FavouritesRepository.setAllFavouritesList(listFavourites);
         new SaveToFileWithFavourites().run(listFavourites);
-        PropertiesRepository.getInstance().removeBreadcrumb();
 
     }
 }

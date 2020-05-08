@@ -1,5 +1,6 @@
 package com.infoshareacademy.display;
 
+import com.infoshareacademy.parser.Category;
 import com.infoshareacademy.parser.Event;
 import com.infoshareacademy.parser.Organizer;
 import com.infoshareacademy.properties.PropertiesRepository;
