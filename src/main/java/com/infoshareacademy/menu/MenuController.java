@@ -42,15 +42,12 @@ public class MenuController {
                     PropertiesRepository.getInstance().putBreadcrumb(" Pokaż ulubione wydarzenia ");
                     showFavouritesMenu();
                     break;
-                case SETTINGS:
-                    showSettingsMenu();
-                    break;
             }
         } while (true);
 
     }
 
-    private void showEventsMenu() throws IOException {
+    private void showEventsMenu() {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
 
         do {
@@ -137,25 +134,6 @@ public class MenuController {
                         removeFavourites.run(false);
                         PropertiesRepository.getInstance().removeBreadcrumb();
                     }
-                    break;
-            }
-        } while (true);
-    }
-
-    private void showSettingsMenu() {
-        PropertiesRepository.getInstance().putBreadcrumb("Ustawienia");
-        DisplayMenu<MenuSettingsOption> m = new DisplayMenu<>();
-
-        do {
-            cleanConsole();
-            MenuSettingsOption choice = m.showMenu(MenuSettingsOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
-            switch (choice) {
-                case RETURN:
-                    PropertiesRepository.getInstance().removeBreadcrumb();
-                    return;
-
-                default:
-                    showSettingsMenu();
                     break;
             }
         } while (true);
