@@ -32,7 +32,7 @@ class RootCategoryTest {
         result = rc.getName();
 
         //THEN
-        org.assertj.core.api.Assertions.assertThat(result).contains("Film");
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("Film");
 
     }
 }

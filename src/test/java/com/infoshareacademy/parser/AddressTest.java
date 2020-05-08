@@ -15,7 +15,7 @@ class AddressTest {
         result = a.getStreet();
 
         //THEN
-        org.assertj.core.api.Assertions.assertThat(result).containsOnlyOnce("A").contains("A").doesNotContainAnyWhitespaces().doesNotContain("X");
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("A").doesNotContainAnyWhitespaces().doesNotContain("X");
     }
 
     @Test
@@ -43,7 +43,7 @@ class AddressTest {
         result = a.getCity();
 
         //THEN
-        org.assertj.core.api.Assertions.assertThat(result).contains("Gdańsk").doesNotContain("Warszawa");
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("Gdańsk").doesNotContain("Warszawa");
 
     }
 

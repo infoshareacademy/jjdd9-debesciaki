@@ -15,7 +15,7 @@ class UrlTest {
         result=u.getTickets();
 
         //THEN
-        org.assertj.core.api.Assertions.assertThat(result).contains("www.tickets.pl");
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("www.tickets.pl");
 
     }
 
@@ -30,7 +30,7 @@ class UrlTest {
         result = u.getWww();
 
         //THEN
-        org.assertj.core.api.Assertions.assertThat(result).contains("www.webpage.pl");
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("www.webpage.pl");
 
     }
 
@@ -45,7 +45,7 @@ class UrlTest {
         result = u.getFb();
 
         //THEN
-        org.assertj.core.api.Assertions.assertThat(result).contains("www.fb.pl");
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("www.fb.pl");
 
     }
 }

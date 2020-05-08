@@ -29,7 +29,7 @@ class CategoryTest {
         result = c.getName();
 
         //THEN
-        org.assertj.core.api.Assertions.assertThat(result).contains("Kino").doesNotContain("Teattr");
+        org.assertj.core.api.Assertions.assertThat(result).isEqualTo("Kino").doesNotContain("Teattr");
 
     }
 
