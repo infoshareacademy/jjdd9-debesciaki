@@ -26,4 +26,8 @@ public class Category {
         return rootCategory;
     }
 
+    public void setRootCategory(RootCategory rootCategory) {
+        this.rootCategory = rootCategory;
+    }
+
 }
