@@ -2,7 +2,6 @@ package com.infoshareacademy.favourites;
 
 import com.infoshareacademy.display.CMDCleaner;
 import com.infoshareacademy.display.ConsoleColor;
-import com.infoshareacademy.display.DisplayEvents;
 import com.infoshareacademy.parser.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

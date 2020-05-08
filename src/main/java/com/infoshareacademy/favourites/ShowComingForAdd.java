@@ -21,7 +21,7 @@ public class ShowComingForAdd extends DisplayEvents {
     private Integer elemPerPage;
     private boolean firstStart;
     private List<Event> eventList;
-    private List <Event> eventListForSinglePage = new ArrayList<>();
+    private List<Event> eventListForSinglePage = new ArrayList<>();
 
 
     @Override
@@ -136,7 +136,7 @@ public class ShowComingForAdd extends DisplayEvents {
 
         if (quantity > 1000) {
 
-            while(!isPresent(quantity)) {
+            while (!isPresent(quantity)) {
                 STDOUT.info("Nie ma takiego numeru wydarzenia wśród ulubionych - wybierz ponownie: ");
                 Scanner scanner = new Scanner(System.in);
                 String newIn = scanner.nextLine();
