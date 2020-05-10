@@ -3,8 +3,7 @@ package com.infoshareacademy.menu;
 public enum MenuMainOption {
     EXIT("Zakończ program"),
     SHOW_EVENTS("Pokaż wydarzenia"),
-    SHOW_FAVOURITES("Pokaż ulubione wydarzenia"),
-    SETTINGS("Ustawienia programu");
+    SHOW_FAVOURITES("Pokaż ulubione wydarzenia");
 
     private String description;
 
