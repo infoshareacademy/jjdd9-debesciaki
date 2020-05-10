@@ -15,11 +15,11 @@ public class MenuController {
     private final static Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
 
 
-    public void run() throws IOException {
+    public void run() {
         showMainMenu();
     }
 
-    private void showMainMenu() throws IOException {
+    public void showMainMenu() {
         PropertiesRepository.getInstance().putBreadcrumb("Menu główne ");
         DisplayMenu<MenuMainOption> m = new DisplayMenu<>();
 

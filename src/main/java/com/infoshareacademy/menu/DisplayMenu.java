@@ -4,8 +4,9 @@ import com.infoshareacademy.display.CMDCleaner;
 import com.infoshareacademy.display.ConsoleColor;
 import com.infoshareacademy.favourites.ShowUpcoming;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Scanner;
 
 public class DisplayMenu<T extends Enum> {
@@ -40,7 +41,7 @@ public class DisplayMenu<T extends Enum> {
 
         if (choice == null || choice >= length) {
             CMDCleaner.cleanConsole();
-            STDOUT.info("{}Błędne dane! Wybierz ponownie:\n{}", ConsoleColor.RED,ConsoleColor.RESET);
+            STDOUT.info("{}Błędne dane! Wybierz ponownie:\n{}", ConsoleColor.RED, ConsoleColor.RESET);
             choice = null;
         }
         return choice;
