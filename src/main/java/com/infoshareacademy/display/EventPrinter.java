@@ -21,6 +21,7 @@ public class EventPrinter {
     private String colorFuture;
 
     public EventPrinter() {
+        this.colorFuture = ConsoleColor.BLUE;
     }
 
     public EventPrinter(String colorFuture, String colorPast) {
