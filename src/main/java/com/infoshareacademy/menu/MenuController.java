@@ -49,10 +49,9 @@ public class MenuController {
 
     private void showEventsMenu() {
         DisplayMenu<MenuEventsOption> m = new DisplayMenu<>();
-
+        DisplayEvents displayEvents = new DisplayEvents();
         do {
             cleanConsole();
-            DisplayEvents displayEvents = new DisplayEvents();
             MenuEventsOption choice = m.showMenu(MenuEventsOption.values(), PropertiesRepository.getInstance().getProperty("homeOnly"));
             switch (choice) {
                 case RETURN:

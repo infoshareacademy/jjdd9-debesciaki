@@ -52,7 +52,7 @@ public class DisplayEvents {
             }
             firstStart = false;
             compQty = v.inputInteger("Ile nadchodzących wydarzeń chcesz zobaczyć łącznie? ");
-            pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
+            pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT, 1, this.eventList.size(), false);
             qty = compQty.get();
             elemPerPage = pageMaxElements.get();
         } while (qty <= 0 || elemPerPage <= 0);
@@ -106,7 +106,7 @@ public class DisplayEvents {
             if (this.eventList.size() > 1) {
                 STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
                 if (this.eventList.size() > 5) {
-                    pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
+                    pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT, 1, this.eventList.size(), false);
                 } else {
                     pageMaxElements = Optional.ofNullable(eventList.size());
                 }
@@ -201,7 +201,7 @@ public class DisplayEvents {
 
         if (this.eventList.size() > 1) {
             if (this.eventList.size() > 5) {
-                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
+                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT, 1, this.eventList.size(), false);
             } else {
                 pageMaxElements = Optional.ofNullable(eventList.size());
             }
@@ -512,7 +512,7 @@ public class DisplayEvents {
             cleanConsole();
             STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
             if (this.eventList.size() > 5) {
-                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT);
+                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT,1, this.eventList.size(), false);
             } else {
                 pageMaxElements = Optional.ofNullable(eventList.size());
             }
