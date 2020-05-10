@@ -95,8 +95,11 @@ public class DisplayEvents {
         String decision;
         firstStart = true;
         do {
-            optQuery = v.inputString("Wpisz wyszukiwaną frazę: ");
-            query = optQuery.get();
+            do {
+                cleanConsole();
+                optQuery = v.inputString("Wpisz wyszukiwaną frazę (min. 3 znaki): ");
+                query = optQuery.get();
+            } while (query.length() < 3);
 
             if (byNameOrOrganizer) {
                 this.eventList = searchListByName(query);
@@ -512,7 +515,7 @@ public class DisplayEvents {
             cleanConsole();
             STDOUT.info("Znaleziono {} wydarzeń odpowiadających kryteriom.\n", this.eventList.size());
             if (this.eventList.size() > 5) {
-                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT,1, this.eventList.size(), false);
+                pageMaxElements = v.inputInteger(ASK_FOR_PAGE_COUNT, 1, this.eventList.size(), false);
             } else {
                 pageMaxElements = Optional.ofNullable(eventList.size());
             }

@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class EditEvent {
     private static final Logger STDOUT = LoggerFactory.getLogger("CONSOLE_OUT");
-    private static final String COLOR = ConsoleColor.RED_UNDERLINED;
+    private static final String COLOR = ConsoleColor.WHITE_UNDERLINED;
 
     EditEvent() {
 

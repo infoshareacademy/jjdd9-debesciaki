@@ -127,9 +127,10 @@ public class EventPrinter {
             if (e.getTickets().getType() != null && !e.getTickets().getType().equals("unknown")) {
                 if (e.getTickets().getType().equalsIgnoreCase("tickets")) {
                     STDOUT.info("Wstęp: {}bilety{}\n", ConsoleColor.GREEN_BOLD, ConsoleColor.RESET);
-                }
-                if (e.getTickets().getType().equalsIgnoreCase("free")) {
+                } else if (e.getTickets().getType().equalsIgnoreCase("free")) {
                     STDOUT.info("Wstęp: {}darmowy{}\n", ConsoleColor.GREEN_BOLD, ConsoleColor.RESET);
+                } else {
+                    STDOUT.info("Wstęp: {}{}{}\n", ConsoleColor.GREEN_BOLD, e.getTickets().getType(), ConsoleColor.RESET);
                 }
             }
             if (e.getTickets().getStartTicket() != null && e.getTickets().getEndTicket() != null && !e.getTickets().getType().equalsIgnoreCase("free")) {
