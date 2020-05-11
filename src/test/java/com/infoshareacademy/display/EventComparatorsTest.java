@@ -81,7 +81,7 @@ class EventComparatorsTest {
         Event e1 = new Event();
         Event e2 = new Event();
         LocalDateTime localDateTimeNow = LocalDateTime.now();
-        LocalDateTime localDateTimeBefore = localDateTimeNow.minusDays(10);
+        LocalDateTime localDateTimeBefore = localDateTimeNow.minusDays(1);
         e1.setEndDate(localDateTimeNow);
         e2.setEndDate(localDateTimeBefore);
         int result;
@@ -100,7 +100,7 @@ class EventComparatorsTest {
         Event e1 = new Event();
         Event e2 = new Event();
         LocalDateTime localDateTimeNow = LocalDateTime.now();
-        LocalDateTime localDateTimeBefore = localDateTimeNow.minusDays(10);
+        LocalDateTime localDateTimeBefore = localDateTimeNow.minusDays(1);
         e1.setEndDate(localDateTimeNow);
         e2.setEndDate(localDateTimeBefore);
         int result;
