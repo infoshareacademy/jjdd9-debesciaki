@@ -13,7 +13,7 @@ public class ShowFavourites {
     public void run() {
         if (FavouritesRepository.getAllFavouritesList().isEmpty()) {
             CMDCleaner.cleanConsole();
-            STDOUT.info("{}BRAK ULUBIONYCH WYDARZEŃ{}\n", ConsoleColor.RED_BOLD, ConsoleColor.RESET);
+            STDOUT.info("{}BRAK ULUBIONYCH WYDARZEŃ{}\n", ConsoleColor.YELLOW_BOLD, ConsoleColor.RESET);
         } else {
             CMDCleaner.cleanConsole();
             STDOUT.info("{}\nWSZYSTKIE ULUBIONE WYDARZENIA{}\n", ConsoleColor.YELLOW, ConsoleColor.RESET);
