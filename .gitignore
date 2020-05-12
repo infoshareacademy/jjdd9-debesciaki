@@ -1,4 +1,9 @@
-target/
-.idea/
-debesciaki.iml
 *.json
+.idea
+web/*.iml
+app/*.iml
+web/target
+app/target
+*.iml
+web/.idea
+app/.idea
