@@ -16,7 +16,7 @@
     <packaging>war</packaging>
 
 
-    <name>Wydarzenia kulturalne w Gdańsku</name>
+    <name>web</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
