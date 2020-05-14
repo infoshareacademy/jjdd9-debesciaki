@@ -14,10 +14,10 @@
         </Async>
     </Appenders>
     <Loggers>
-        <Logger name="server" level="DEBUG" additivity="false">
+        <Logger name="com.infoshareacademy" level="DEBUG" additivity="false">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Logger name="application" level="INFO" additivity="false">
+        <Logger name="com.infoshareacademy" level="INFO" additivity="false">
             <AppenderRef ref="Async"/>
         </Logger>
     </Loggers>

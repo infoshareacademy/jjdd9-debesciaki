@@ -13,8 +13,8 @@ import java.io.PrintWriter;
 
 @WebServlet("/hello")
 public class LoggerCheck extends HttpServlet {
-    private static final Logger STDODG = LoggerFactory.getLogger("server");
-    private static final Logger STDOIO = LoggerFactory.getLogger("application");
+    private static final Logger STDODG = LoggerFactory.getLogger(LoggerCheck.class.getName());
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,11 +24,7 @@ public class LoggerCheck extends HttpServlet {
         STDODG.debug("Server debug ");
         STDODG.warn("Server warn ");
         STDODG.trace("Server trace ");
-        STDOIO.info("Application file info ");
-        STDOIO.error("Application file error ");
-        STDOIO.debug("Application file debug ");
-        STDOIO.warn("Application file warn ");
-        STDOIO.trace("Application file trace ");
+
 
         PrintWriter writer = resp.getWriter();
         writer.println("SZALOMKA");
