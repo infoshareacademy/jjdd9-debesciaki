@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `gwk`.`address`
     `lat`      DOUBLE NULL,
     `lng`      DOUBLE NULL,
     `place_id` BIGINT NOT NULL,
-    --PRIMARY KEY (`place_id`),
+    PRIMARY KEY (`place_id`),
     CONSTRAINT `place_id`
         FOREIGN KEY (`place_id`)
             REFERENCES `gwk`.`place` (`id`)
