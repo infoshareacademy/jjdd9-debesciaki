@@ -2,11 +2,19 @@ SET @OLD_UNIQUE_CHECKS = @@UNIQUE_CHECKS, UNIQUE_CHECKS = 0;
 SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 0;
 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'TRADITIONAL,ALLOW_INVALID_DATES';
 
+-- -----------------------------------------------------
+-- Schema gwk
+-- -----------------------------------------------------
 
+-- -----------------------------------------------------
+-- Schema gwk
+-- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `gwk` DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
 USE `gwk`;
 
-
+-- -----------------------------------------------------
+-- Table `gwk`.`place`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gwk`.`place`
 (
     `id`      BIGINT NOT NULL AUTO_INCREMENT,
@@ -18,26 +26,10 @@ CREATE TABLE IF NOT EXISTS `gwk`.`place`
     DEFAULT CHARACTER SET = utf8
     COLLATE = utf8_polish_ci;
 
-CREATE TABLE IF NOT EXISTS `gwk`.`address`
-(
-    `street`   TEXT   NULL,
-    `zipcode`  TEXT   NULL,
-    `city`     TEXT   NULL,
-    `lat`      DOUBLE NULL,
-    `lng`      DOUBLE NULL,
-    `place_id` BIGINT NOT NULL,
-    PRIMARY KEY (`place_id`),
-    CONSTRAINT `place_id`
-        FOREIGN KEY (`place_id`)
-            REFERENCES `gwk`.`place` (`id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
-)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8
-    COLLATE = utf8_polish_ci;
 
-
+-- -----------------------------------------------------
+-- Table `gwk`.`organizer`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gwk`.`organizer`
 (
     `id`          BIGINT NOT NULL AUTO_INCREMENT,
@@ -49,7 +41,9 @@ CREATE TABLE IF NOT EXISTS `gwk`.`organizer`
     COLLATE = utf8_polish_ci;
 
 
-
+-- -----------------------------------------------------
+-- Table `gwk`.`category`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gwk`.`category`
 (
     `id`               BIGINT NOT NULL AUTO_INCREMENT,
@@ -68,6 +62,41 @@ CREATE TABLE IF NOT EXISTS `gwk`.`category`
     COLLATE = utf8_polish_ci;
 
 
+-- -----------------------------------------------------
+-- Table `gwk`.`ticket`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gwk`.`ticket`
+(
+    `id`           BIGINT      NOT NULL,
+    `type`         VARCHAR(45) NULL,
+    `start_ticket` INT         NULL,
+    `end_ticket`   INT         NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8
+    COLLATE = utf8_polish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `gwk`.`urls`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gwk`.`urls`
+(
+    `id`      BIGINT      NOT NULL,
+    `www`     VARCHAR(50) NULL,
+    `tickets` VARCHAR(45) NULL,
+    `fb`      VARCHAR(45) NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8
+    COLLATE = utf8_polish_ci;
+
+
+-- -----------------------------------------------------
+-- Table `gwk`.`event`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gwk`.`event`
 (
     `id`           BIGINT NOT NULL,
@@ -77,8 +106,8 @@ CREATE TABLE IF NOT EXISTS `gwk`.`event`
     `active`       INT    NULL,
     `desc_long`    TEXT   NULL,
     `desc_short`   TEXT   NULL,
-    `tickets`      TEXT   NULL,
-    `urls`         TEXT   NULL,
+    `ticket_id`    BIGINT NULL,
+    `urls_id`      BIGINT NULL,
     `attachments`  TEXT   NULL,
     `place_id`     BIGINT NULL,
     `organizer_id` BIGINT NULL,
@@ -87,6 +116,8 @@ CREATE TABLE IF NOT EXISTS `gwk`.`event`
     INDEX `place_id_idx` (`place_id` ASC),
     INDEX `organizer_id_idx` (`organizer_id` ASC),
     INDEX `category_id_idx` (`category_id` ASC),
+    INDEX `ticket_id_idx` (`ticket_id` ASC),
+    INDEX `urls_id_idx` (`urls_id` ASC),
     CONSTRAINT `place_id`
         FOREIGN KEY (`place_id`)
             REFERENCES `gwk`.`place` (`id`)
@@ -101,6 +132,16 @@ CREATE TABLE IF NOT EXISTS `gwk`.`event`
         FOREIGN KEY (`category_id`)
             REFERENCES `gwk`.`category` (`id`)
             ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `ticket_id`
+        FOREIGN KEY (`ticket_id`)
+            REFERENCES `gwk`.`ticket` (`id`)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION,
+    CONSTRAINT `urls_id`
+        FOREIGN KEY (`urls_id`)
+            REFERENCES `gwk`.`urls` (`id`)
+            ON DELETE NO ACTION
             ON UPDATE NO ACTION
 )
     ENGINE = InnoDB
@@ -108,10 +149,32 @@ CREATE TABLE IF NOT EXISTS `gwk`.`event`
     COLLATE = utf8_polish_ci;
 
 
+-- -----------------------------------------------------
+-- Table `gwk`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `gwk`.`address`
+(
+    `street`     TEXT   NULL,
+    `zipcode`    TEXT   NULL,
+    `city`       TEXT   NULL,
+    `lat`        DOUBLE NULL,
+    `lng`        DOUBLE NULL,
+    `place_id`   BIGINT NOT NULL,
+    `placefk_id` BIGINT not null,
+    PRIMARY KEY (`place_id`),
+    FOREIGN KEY (`placefk_id`)
+        REFERENCES `gwk`.`place` (`id`)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8
+    COLLATE = utf8_polish_ci;
 
 
-
-
+-- -----------------------------------------------------
+-- Table `gwk`.`role`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gwk`.`role`
 (
     `id`   INT         NOT NULL AUTO_INCREMENT,
@@ -124,6 +187,9 @@ CREATE TABLE IF NOT EXISTS `gwk`.`role`
     COLLATE = utf8_polish_ci;
 
 
+-- -----------------------------------------------------
+-- Table `gwk`.`user`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gwk`.`user`
 (
     `id`      BIGINT      NOT NULL AUTO_INCREMENT,
@@ -138,10 +204,14 @@ CREATE TABLE IF NOT EXISTS `gwk`.`user`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 )
-    ENGINE = InnoDB;
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8
+    COLLATE = utf8_polish_ci;
 
 
-
+-- -----------------------------------------------------
+-- Table `gwk`.`favourite`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `gwk`.`favourite`
 (
     `user_id`  BIGINT NULL,
@@ -159,7 +229,9 @@ CREATE TABLE IF NOT EXISTS `gwk`.`favourite`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
 )
-    ENGINE = InnoDB;
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8
+    COLLATE = utf8_polish_ci;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;
