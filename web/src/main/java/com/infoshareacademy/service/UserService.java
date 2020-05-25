@@ -20,7 +20,7 @@ public class UserService {
         User user = new User();
         user.setId(1L);
         user.setMail("user@gmail.com");
-        user.setRoleId(1);
+
         entityManager.persist(user);
       //  LOGGER.info("User succesfully added Id: {} mail: {} role: {}",user.getId(),user.getMail(),user.getRoleId());
     }

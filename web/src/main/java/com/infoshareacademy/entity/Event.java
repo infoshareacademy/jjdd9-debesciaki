@@ -3,6 +3,9 @@ package com.infoshareacademy.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "event")
@@ -32,16 +35,29 @@ public class Event {
     @Column(name = "desc_short")
     private String descShort;
 
-    @Column(name = "tickets")
-    private String tickets;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organizer_id")
+    private Organizer organizer;
 
-    @Column(name = "urls")
-    private String urls;
-
-    @Column(name = "attachments")
-    private String attachments;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
+
+    @OneToOne(mappedBy = "event")
+    private Ticket ticket;
+
+    @OneToOne(mappedBy = "event")
+    private Urls urls;
+
+    @OneToMany(mappedBy = "event")
+    private List<Attachment> attachments;
+
+    @ManyToMany(mappedBy = "events")
+    private Set<User> users = new HashSet<>();
+
+
 }

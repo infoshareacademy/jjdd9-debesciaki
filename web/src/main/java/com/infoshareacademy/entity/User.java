@@ -3,10 +3,12 @@ package com.infoshareacademy.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable{
+public class User implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -16,9 +18,17 @@ public class User implements Serializable{
     @NotNull
     private String mail;
 
-    @Column(name = "role_id")
-    @NotNull
-    private int roleId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "Favourite",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "event_id")}
+    )
+    Set<Event> events = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -34,13 +44,5 @@ public class User implements Serializable{
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
     }
 }
