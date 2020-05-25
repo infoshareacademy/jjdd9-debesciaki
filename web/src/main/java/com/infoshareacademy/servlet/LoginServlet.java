@@ -17,8 +17,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/index")
-public class MainPageServlet extends HttpServlet {
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(LoggerCheck.class.getName());
 
     @Inject
@@ -26,7 +26,7 @@ public class MainPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "index.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "login.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
 
         req.setCharacterEncoding("UTF-8");

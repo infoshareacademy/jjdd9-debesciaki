@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl-PL">
 <#include "headSection.ftlh">
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -23,7 +23,7 @@
                     <a class="nav-link" href="#">Organizatorzy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Zaloguj się</a>
+                    <a class="nav-link" href="/login">Zaloguj się</a>
                 </li>
             </ul>
         </div>

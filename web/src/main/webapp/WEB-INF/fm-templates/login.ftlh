@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Strona główna</a>
+                    <a class="nav-link" href="/index">Strona główna</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Wydarzenia</a>
