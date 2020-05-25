@@ -22,4 +22,43 @@ public class Urls {
     @JoinColumn(name = "event_id")
     private Event event;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getWww() {
+        return www;
+    }
+
+    public void setWww(String www) {
+        this.www = www;
+    }
+
+    public String getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(String tickets) {
+        this.tickets = tickets;
+    }
+
+    public String getFb() {
+        return fb;
+    }
+
+    public void setFb(String fb) {
+        this.fb = fb;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }
