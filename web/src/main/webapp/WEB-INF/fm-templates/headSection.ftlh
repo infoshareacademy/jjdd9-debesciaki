@@ -6,6 +6,6 @@
 
     <title>Projekt Debeściaki - Wydarzenia kulturalne w Gdańsku</title>
 
-    <link href="../WEB-INF/bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../WEB-INF/bootstrap/css/heroic-features.css" rel="stylesheet">
+    <link href="../../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bootstrap/css/heroic-features.css" rel="stylesheet">
 </head>

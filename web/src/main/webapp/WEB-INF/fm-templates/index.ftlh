@@ -23,7 +23,7 @@
                     <a class="nav-link" href="#">Organizatorzy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">Zaloguj się</a>
+                    <a class="nav-link" href="#">Zaloguj się</a>
                 </li>
             </ul>
         </div>
@@ -34,13 +34,13 @@
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="../WEB-INF/bootstrap/img/gdańsk.jpg" class="d-block w-100" alt="Panorama Gdańska">
+                <img src="../../bootstrap/img/gdansk.jpg" class="d-block w-100" alt="Gdańska">
             </div>
             <div class="carousel-item">
-                <img src="../WEB-INF/bootstrap/img/panoramaGdańska.jpg" class="d-block w-100" alt="Panorama Gdańska">
+                <img src="../../bootstrap/img/panoramaGdanska.jpg" class="d-block w-100" alt="Panorama Gdańska">
             </div>
             <div class="carousel-item">
-                <img src="../WEB-INF/bootstrap/img/panoramaNeptun.jpg" class="d-block w-100" alt="Panorama Gdańska">
+                <img src="../../bootstrap/img/panoramaNeptun.jpg" class="d-block w-100" alt="Panorama Neptun">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
