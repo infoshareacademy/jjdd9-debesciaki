@@ -1,18 +1,23 @@
 package com.infoshareacademy.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user", schema = "gwk")
+@Table(name = "user")
 public class User implements Serializable{
     @Id
     @GeneratedValue
     @Column(name = "id")
     private Long id;
+
     @Column(name = "mail")
+    @NotNull
     private String mail;
+
     @Column(name = "role_id")
+    @NotNull
     private int roleId;
 
     public Long getId() {
