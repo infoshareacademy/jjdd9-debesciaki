@@ -8,7 +8,6 @@ import java.util.List;
 @Table(name = "role")
 public class Role {
     @Id
-    @GeneratedValue
     private Long id;
 
     @Column(name = "name")

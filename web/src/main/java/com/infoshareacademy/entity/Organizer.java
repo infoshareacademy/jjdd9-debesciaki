@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "organizer")
 public class Organizer {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "designation")

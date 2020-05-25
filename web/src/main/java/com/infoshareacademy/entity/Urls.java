@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "urls")
 public class Urls {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "www")

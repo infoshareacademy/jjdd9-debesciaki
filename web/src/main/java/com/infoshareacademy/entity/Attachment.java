@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "attachment")
 public class Attachment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "file_name")

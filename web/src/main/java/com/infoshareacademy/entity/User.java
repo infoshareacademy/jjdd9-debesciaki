@@ -10,8 +10,7 @@ import java.util.Set;
 @Table(name = "user")
 public class User implements Serializable {
     @Id
-    @GeneratedValue
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "mail")
