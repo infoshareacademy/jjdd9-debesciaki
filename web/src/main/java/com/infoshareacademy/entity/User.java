@@ -24,7 +24,7 @@ public class User implements Serializable {
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
-            name = "Favourite",
+            name = "favourite",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "event_id")}
     )

@@ -3,7 +3,7 @@ package com.infoshareacademy.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "place")
+@Table(name = "ticket")
 public class Ticket {
     @Id
     @GeneratedValue
