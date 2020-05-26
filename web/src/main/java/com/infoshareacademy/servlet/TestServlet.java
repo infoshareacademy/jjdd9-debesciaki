@@ -1,7 +1,7 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.entity.Role;
-import com.infoshareacademy.entity.User;
+import com.infoshareacademy.entityDAO.Role;
+import com.infoshareacademy.entityDAO.User;
 import com.infoshareacademy.service.RoleService;
 import com.infoshareacademy.service.UserService;
 

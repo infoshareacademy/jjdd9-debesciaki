@@ -1,4 +1,4 @@
-package com.infoshareacademy.entity;
+package com.infoshareacademy.entityDAO;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
