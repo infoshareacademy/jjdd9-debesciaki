@@ -1,10 +1,10 @@
 package com.infoshareacademy.classJSONs;
 
 public class OrganizerJSON {
-    private long id;
+    private Long id;
     private String designation;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -12,7 +12,7 @@ public class OrganizerJSON {
         return designation;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

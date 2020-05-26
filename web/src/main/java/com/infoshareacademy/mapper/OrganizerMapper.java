@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class OrganizerMapper {
+
     public OrganizerJSON daoToJson(Organizer organizer) {
         OrganizerJSON jsonOrganizer = new OrganizerJSON();
         jsonOrganizer.setId(organizer.getId());
