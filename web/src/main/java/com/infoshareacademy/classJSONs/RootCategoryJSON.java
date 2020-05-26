@@ -1,7 +1,6 @@
-package com.infoshareacademy.parser;
+package com.infoshareacademy.classJSONs;
 
-
-public class RootCategory {
+public class RootCategoryJSON {
     private int id;
     private String name;
 
