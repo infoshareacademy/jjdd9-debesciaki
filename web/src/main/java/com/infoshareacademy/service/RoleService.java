@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.entityDAO.Role;
+import com.infoshareacademy.entityDomain.Role;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

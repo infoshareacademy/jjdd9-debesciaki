@@ -1,4 +1,4 @@
-package com.infoshareacademy.entityDAO;
+package com.infoshareacademy.entityDomain;
 
 import javax.persistence.*;
 

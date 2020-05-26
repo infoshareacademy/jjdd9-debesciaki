@@ -1,7 +1,7 @@
 package com.infoshareacademy.mapper;
 
 import com.infoshareacademy.classJSONs.EventJSON;
-import com.infoshareacademy.entityDAO.Event;
+import com.infoshareacademy.entityDomain.Event;
 
 import javax.ejb.Stateless;
 

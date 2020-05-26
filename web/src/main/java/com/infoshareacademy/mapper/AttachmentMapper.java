@@ -1,7 +1,7 @@
 package com.infoshareacademy.mapper;
 
 import com.infoshareacademy.classJSONs.AttachmentJSON;
-import com.infoshareacademy.entityDAO.Attachment;
+import com.infoshareacademy.entityDomain.Attachment;
 
 import javax.ejb.Stateless;
 

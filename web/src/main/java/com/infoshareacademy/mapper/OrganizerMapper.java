@@ -1,7 +1,7 @@
 package com.infoshareacademy.mapper;
 
 import com.infoshareacademy.classJSONs.OrganizerJSON;
-import com.infoshareacademy.entityDAO.Organizer;
+import com.infoshareacademy.entityDomain.Organizer;
 
 import javax.ejb.Stateless;
 
