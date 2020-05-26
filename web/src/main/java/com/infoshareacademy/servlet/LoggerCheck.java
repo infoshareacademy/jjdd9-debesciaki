@@ -13,17 +13,17 @@ import java.io.PrintWriter;
 
 @WebServlet("/hello")
 public class LoggerCheck extends HttpServlet {
-    private static final Logger STDODG = LoggerFactory.getLogger(LoggerCheck.class.getName());
+    private static final Logger STDLOG = LoggerFactory.getLogger(LoggerCheck.class.getName());
 
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
-        STDODG.info("Server info ");
-        STDODG.error("Server error ");
-        STDODG.debug("Server debug ");
-        STDODG.warn("Server warn ");
-        STDODG.trace("Server trace ");
+        STDLOG.info("Server info ");
+        STDLOG.error("Server error ");
+        STDLOG.debug("Server debug ");
+        STDLOG.warn("Server warn ");
+        STDLOG.trace("Server trace ");
 
 
         PrintWriter writer = resp.getWriter();
