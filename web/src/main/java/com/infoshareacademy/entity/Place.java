@@ -16,6 +16,9 @@ public class Place {
     @Column(name = "subname")
     private String subname;
 
+    @OneToOne(mappedBy = "place")
+    private Address address;
+
     @OneToMany(mappedBy = "place")
     List<Event> eventList;
 

@@ -26,7 +26,7 @@ public class Address {
     private Double lng;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id")
+    @JoinColumn(name = "place_id", unique = true)
     private Place place;
 
     public Long getId() {
