@@ -14,7 +14,7 @@ public class AttachmentMapper {
         return jsonAttachment;
     }
 
-    public Attachment jsonToDao(Attachment attachment) {
+    public Attachment jsonToDao(AttachmentJSON attachment) {
         Attachment daoAttachment = new Attachment();
         daoAttachment.setFileName(attachment.getFileName());
         return daoAttachment;

@@ -3,6 +3,7 @@ package com.infoshareacademy.reader;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.infoshareacademy.classJSONs.CategoryJSON;
+import com.infoshareacademy.mapper.CategoryMapper;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

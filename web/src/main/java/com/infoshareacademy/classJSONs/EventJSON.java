@@ -1,33 +1,32 @@
 package com.infoshareacademy.classJSONs;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.infoshareacademy.parser.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventJSON {
     private Long id;
-    private Place place;
+    private PlaceJSON place;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[Z]")
     private LocalDateTime endDate;
     private String name;
-    private Url urls;
-    private List<Attachment> attachments;
+    private UrlJSON urls;
+    private List<AttachmentJSON> attachments;
     private String descLong;
-    private int categoryId;
+    private long categoryId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[Z]")
     private LocalDateTime startDate;
-    private Organizer organizer;
+    private OrganizerJSON organizer;
     private int active;
     private String descShort;
-    private Ticket tickets;
+    private TicketJSON tickets;
 
     public Long getId() {
         return id;
     }
 
-    public Place getPlace() {
+    public PlaceJSON getPlace() {
         return place;
     }
 
@@ -35,11 +34,11 @@ public class EventJSON {
         return name;
     }
 
-    public Url getUrls() {
+    public UrlJSON getUrls() {
         return urls;
     }
 
-    public List<Attachment> getAttachments() {
+    public List<AttachmentJSON> getAttachments() {
         return attachments;
     }
 
@@ -47,11 +46,11 @@ public class EventJSON {
         return descLong;
     }
 
-    public int getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
-    public Organizer getOrganizer() {
+    public OrganizerJSON getOrganizer() {
         return organizer;
     }
 
@@ -67,7 +66,7 @@ public class EventJSON {
         this.id = id;
     }
 
-    public void setPlace(Place place) {
+    public void setPlace(PlaceJSON place) {
         this.place = place;
     }
 
@@ -75,11 +74,11 @@ public class EventJSON {
         this.name = name;
     }
 
-    public void setUrls(Url urls) {
+    public void setUrls(UrlJSON urls) {
         this.urls = urls;
     }
 
-    public void setAttachments(List<Attachment> attachments) {
+    public void setAttachments(List<AttachmentJSON> attachments) {
         this.attachments = attachments;
     }
 
@@ -87,7 +86,7 @@ public class EventJSON {
         this.descLong = descLong;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -107,7 +106,7 @@ public class EventJSON {
         this.startDate = startDate;
     }
 
-    public void setOrganizer(Organizer organizer) {
+    public void setOrganizer(OrganizerJSON organizer) {
         this.organizer = organizer;
     }
 
@@ -119,11 +118,11 @@ public class EventJSON {
         this.descShort = descShort;
     }
 
-    public Ticket getTickets() {
+    public TicketJSON getTickets() {
         return tickets;
     }
 
-    public void setTickets(Ticket tickets) {
+    public void setTickets(TicketJSON tickets) {
         this.tickets = tickets;
     }
 }
