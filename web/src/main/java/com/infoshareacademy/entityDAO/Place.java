@@ -22,6 +22,14 @@ public class Place {
     @OneToMany(mappedBy = "place")
     List<Event> eventList;
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public Long getId() {
         return id;
     }

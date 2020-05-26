@@ -1,14 +1,12 @@
 package com.infoshareacademy.classJSONs;
 
-import com.infoshareacademy.parser.Address;
-
 public class PlaceJSON {
-    private int id;
+    private long id;
     private String subname;
     private String name;
-    private Address address;
+    private AddressJSON address;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -16,7 +14,7 @@ public class PlaceJSON {
         return subname;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressJSON address) {
         this.address = address;
     }
 
@@ -24,7 +22,7 @@ public class PlaceJSON {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -36,7 +34,7 @@ public class PlaceJSON {
         this.subname = subname;
     }
 
-    public Address getAddress() {
+    public AddressJSON getAddress() {
         return address;
     }
 }
