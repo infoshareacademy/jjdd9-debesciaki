@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.infoshareacademy.parser.RootCategory;
 
 public class CategoryJSON {
-    private int id;
+    private Long id;
     private String name;
     @JsonProperty("root_category") private RootCategory rootCategory ;
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

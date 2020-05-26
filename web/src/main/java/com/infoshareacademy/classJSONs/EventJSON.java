@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class EventJSON {
-    private int id;
+    private Long id;
     private Place place;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss[Z]")
     private LocalDateTime endDate;
@@ -23,7 +23,7 @@ public class EventJSON {
     private String descShort;
     private Ticket tickets;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -63,7 +63,7 @@ public class EventJSON {
         return descShort;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

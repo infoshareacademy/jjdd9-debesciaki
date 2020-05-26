@@ -1,7 +1,7 @@
 package com.infoshareacademy.mapper;
 
 import com.infoshareacademy.classJSONs.PlaceJSON;
-import com.infoshareacademy.entityDAO.Place;
+import com.infoshareacademy.entityDomain.Place;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

@@ -1,7 +1,7 @@
 package com.infoshareacademy.mapper;
 
 import com.infoshareacademy.classJSONs.AddressJSON;
-import com.infoshareacademy.entityDAO.Address;
+import com.infoshareacademy.entityDomain.Address;
 
 import javax.ejb.Stateless;
 
