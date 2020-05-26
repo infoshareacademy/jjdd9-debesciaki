@@ -2,8 +2,7 @@ package com.infoshareacademy.reader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.classJSONs.OrganizerJSON;
-import com.infoshareacademy.mapper.OrganizerMapper;
+import com.infoshareacademy.classJSONs.CategoryJSON;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,19 +13,19 @@ import java.io.IOException;
 import java.util.List;
 
 @Stateless
-public class OrganizerPersister {
+public class CategoryPersisterBean {
     @Inject
-    OrganizerMapper organizerMapper;
+    CategoryMapper categoryMapper;
 
     @PersistenceContext
     EntityManager entityManager;
 
     public void fromJsonFile(File file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<OrganizerJSON> organizerJSON = mapper.readValue(file, new TypeReference<List<OrganizerJSON>>() {
+        List<CategoryJSON> categoryList = mapper.readValue(file, new TypeReference<List<CategoryJSON>>() {
         });
-        for (OrganizerJSON o : organizerJSON) {
-            entityManager.persist(organizerMapper.jsonToDao(o));
+        for (CategoryJSON c:categoryList){
+            entityManager.persist(categoryMapper.jsonToDao(c));
         }
     }
 }
