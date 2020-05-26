@@ -19,7 +19,7 @@ import java.util.Map;
 
 @WebServlet("/index")
 public class MainPageServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(LoggerCheck.class.getName());
+    private static final Logger STDLOG = LoggerFactory.getLogger(MainPageServlet.class.getName());
 
     @Inject
     TemplateProvider templateProvider;
