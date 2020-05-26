@@ -23,4 +23,5 @@ public class UrlMapper {
         daoUrl.setTickets(url.getTickets());
         return daoUrl;
     }
+
 }
