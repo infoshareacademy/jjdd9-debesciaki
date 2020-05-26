@@ -1,5 +1,6 @@
 package com.infoshareacademy.mapper;
 
+import com.infoshareacademy.classJSONs.CategoryJSON;
 import com.infoshareacademy.classJSONs.RootCategoryJSON;
 import com.infoshareacademy.entityDomain.Category;
 
@@ -15,4 +16,10 @@ public class RootCategoryMapper {
         return jsonRootCategory;
     }
 
+    public Category jsonToDao (CategoryJSON category){
+        Category daocategory = new Category();
+        daocategory.setId(category.getRootCategory().getId());
+        daocategory.setName(category.getRootCategory().getName());
+        return daocategory;
+    }
 }

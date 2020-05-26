@@ -1,6 +1,6 @@
 package com.infoshareacademy.classJSONs;
 
-public class RootCategoryJSON {
+public class RootCategoryJSON{
     private Long id;
     private String name;
 

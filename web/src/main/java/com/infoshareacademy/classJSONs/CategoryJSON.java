@@ -1,12 +1,11 @@
 package com.infoshareacademy.classJSONs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.infoshareacademy.parser.RootCategory;
 
-public class CategoryJSON {
+public class CategoryJSON{
     private Long id;
     private String name;
-    @JsonProperty("root_category") private RootCategory rootCategory ;
+    @JsonProperty("root_category") private RootCategoryJSON rootCategory ;
     public Long getId() {
         return id;
     }
@@ -23,11 +22,11 @@ public class CategoryJSON {
         this.name = name;
     }
 
-    public RootCategory getRootCategory() {
+    public RootCategoryJSON getRootCategory() {
         return rootCategory;
     }
 
-    public void setRootCategory(RootCategory rootCategory) {
+    public void setRootCategory(RootCategoryJSON rootCategory) {
         this.rootCategory = rootCategory;
     }
 }
