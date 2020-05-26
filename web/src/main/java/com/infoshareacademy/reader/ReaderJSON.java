@@ -4,10 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.infoshareacademy.classJSONs.CategoryJSON;
-import com.infoshareacademy.classJSONs.EventJSON;
-import com.infoshareacademy.classJSONs.OrganizerJSON;
-import com.infoshareacademy.classJSONs.PlaceJSON;
+import com.infoshareacademy.domain.api.EventJSON;
+import com.infoshareacademy.domain.api.OrganizerJSON;
+import com.infoshareacademy.domain.api.PlaceJSON;
 
 import java.io.File;
 import java.io.IOException;

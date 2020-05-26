@@ -1,4 +1,4 @@
-package com.infoshareacademy.classJSONs;
+package com.infoshareacademy.domain.api;
 
 public class RootCategoryJSON{
     private Long id;

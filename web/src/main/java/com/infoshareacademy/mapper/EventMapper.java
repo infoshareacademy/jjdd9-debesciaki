@@ -1,9 +1,9 @@
 package com.infoshareacademy.mapper;
 
-import com.infoshareacademy.classJSONs.AttachmentJSON;
-import com.infoshareacademy.classJSONs.EventJSON;
-import com.infoshareacademy.entityDomain.Attachment;
-import com.infoshareacademy.entityDomain.Event;
+import com.infoshareacademy.domain.api.AttachmentJSON;
+import com.infoshareacademy.domain.api.EventJSON;
+import com.infoshareacademy.domain.entity.Attachment;
+import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.repository.CategoryRepositoryBean;
 
 import javax.ejb.Stateless;

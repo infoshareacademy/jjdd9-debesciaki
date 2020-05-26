@@ -1,6 +1,6 @@
 package com.infoshareacademy.repository;
 
-import com.infoshareacademy.entityDomain.Category;
+import com.infoshareacademy.domain.entity.Category;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

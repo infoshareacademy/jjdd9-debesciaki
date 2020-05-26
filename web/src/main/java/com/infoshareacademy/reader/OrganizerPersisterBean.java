@@ -2,7 +2,7 @@ package com.infoshareacademy.reader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.classJSONs.OrganizerJSON;
+import com.infoshareacademy.domain.api.OrganizerJSON;
 import com.infoshareacademy.mapper.OrganizerMapper;
 
 import javax.ejb.Stateless;

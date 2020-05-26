@@ -2,7 +2,7 @@ package com.infoshareacademy.reader;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.classJSONs.PlaceJSON;
+import com.infoshareacademy.domain.api.PlaceJSON;
 import com.infoshareacademy.mapper.PlaceMapper;
 
 import javax.inject.Inject;

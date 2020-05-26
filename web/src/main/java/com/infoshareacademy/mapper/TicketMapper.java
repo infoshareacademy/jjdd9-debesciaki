@@ -1,7 +1,7 @@
 package com.infoshareacademy.mapper;
 
-import com.infoshareacademy.classJSONs.TicketJSON;
-import com.infoshareacademy.entityDomain.Ticket;
+import com.infoshareacademy.domain.api.TicketJSON;
+import com.infoshareacademy.domain.entity.Ticket;
 
 import javax.ejb.Stateless;
 

@@ -1,7 +1,7 @@
 package com.infoshareacademy.mapper;
 
-import com.infoshareacademy.classJSONs.CategoryJSON;
-import com.infoshareacademy.entityDomain.Category;
+import com.infoshareacademy.domain.api.CategoryJSON;
+import com.infoshareacademy.domain.entity.Category;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
