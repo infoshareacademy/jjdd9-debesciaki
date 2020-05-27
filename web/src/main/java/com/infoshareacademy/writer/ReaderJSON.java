@@ -1,4 +1,4 @@
-package com.infoshareacademy.reader;
+package com.infoshareacademy.writer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

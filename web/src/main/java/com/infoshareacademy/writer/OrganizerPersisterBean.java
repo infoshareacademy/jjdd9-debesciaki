@@ -1,9 +1,9 @@
-package com.infoshareacademy.reader;
+package com.infoshareacademy.writer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.domain.api.EventJSON;
-import com.infoshareacademy.mapper.EventMapper;
+import com.infoshareacademy.domain.api.OrganizerJSON;
+import com.infoshareacademy.mapper.OrganizerMapper;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,19 +14,19 @@ import java.io.IOException;
 import java.util.List;
 
 @Stateless
-public class EventPersisterBean {
+public class OrganizerPersisterBean {
     @Inject
-    EventMapper eventMapper;
+    OrganizerMapper organizerMapper;
 
     @PersistenceContext
     EntityManager entityManager;
 
     public void fromJsonFile(File file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<EventJSON> eventList = mapper.readValue(file, new TypeReference<List<EventJSON>>() {
+        List<OrganizerJSON> organizerJSON = mapper.readValue(file, new TypeReference<List<OrganizerJSON>>() {
         });
-        for (EventJSON e : eventList) {
-            entityManager.persist(eventMapper.jsonToDao(e));
+        for (OrganizerJSON o : organizerJSON) {
+            entityManager.persist(organizerMapper.jsonToDao(o));
         }
     }
 }

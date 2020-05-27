@@ -1,10 +1,11 @@
-package com.infoshareacademy.reader;
+package com.infoshareacademy.writer;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.infoshareacademy.domain.api.PlaceJSON;
-import com.infoshareacademy.mapper.PlaceMapper;
+import com.infoshareacademy.domain.api.EventJSON;
+import com.infoshareacademy.mapper.EventMapper;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,19 +13,20 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class PlacePersisterBean {
+@Stateless
+public class EventPersisterBean {
     @Inject
-    PlaceMapper placeMapper;
+    EventMapper eventMapper;
 
     @PersistenceContext
     EntityManager entityManager;
 
     public void fromJsonFile(File file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<PlaceJSON> placeJSON = mapper.readValue(file, new TypeReference<List<PlaceJSON>>() {
+        List<EventJSON> eventList = mapper.readValue(file, new TypeReference<List<EventJSON>>() {
         });
-        for (PlaceJSON p : placeJSON) {
-            entityManager.persist(placeMapper.jsonToDao(p));
+        for (EventJSON e : eventList) {
+            entityManager.persist(eventMapper.jsonToDao(e));
         }
     }
 }
