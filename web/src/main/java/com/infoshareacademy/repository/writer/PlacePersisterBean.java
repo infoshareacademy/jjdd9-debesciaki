@@ -1,4 +1,4 @@
-package com.infoshareacademy.writerRepository;
+package com.infoshareacademy.repository.writer;
 
 import com.infoshareacademy.domain.entity.Place;
 

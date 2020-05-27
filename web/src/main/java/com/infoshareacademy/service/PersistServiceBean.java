@@ -1,9 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.writerRepository.CategoryPersisterBean;
-import com.infoshareacademy.writerRepository.EventPersisterBean;
-import com.infoshareacademy.writerRepository.OrganizerPersisterBean;
-import com.infoshareacademy.writerRepository.PlacePersisterBean;
+import com.infoshareacademy.repository.writer.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -28,6 +25,14 @@ public class PersistServiceBean {
     }
 
     public void organizer(File file) throws IOException {
-        organizerPersisterBean.persistEntityList(fileToDaoBean.placeList(file));
+        organizerPersisterBean.persistEntityList(fileToDaoBean.organizerList(file));
+    }
+
+    public void category(File file) throws IOException {
+        categoryPersisterBean.persistEntityList(fileToDaoBean.categoryList(file));
+    }
+
+    public void event(File file) throws IOException {
+        eventPersisterBean.persistEntityList(fileToDaoBean.eventList(file));
     }
 }

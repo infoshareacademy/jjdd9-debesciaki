@@ -1,6 +1,6 @@
-package com.infoshareacademy.writerRepository;
+package com.infoshareacademy.repository.writer;
 
-import com.infoshareacademy.domain.entity.Category;
+import com.infoshareacademy.domain.entity.Organizer;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.util.List;
 
 @Stateless
-public class CategoryPersisterBean {
+public class OrganizerPersisterBean {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void persistEntityList(List<Category> list) throws IOException {
-        for (Category o : list) {
+    public void persistEntityList(List<Organizer> list) throws IOException {
+        for (Organizer o : list) {
             entityManager.persist(o);
         }
     }
