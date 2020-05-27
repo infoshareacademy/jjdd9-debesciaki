@@ -1,9 +1,5 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.api.CategoryJSON;
-import com.infoshareacademy.domain.api.EventJSON;
-import com.infoshareacademy.domain.api.OrganizerJSON;
-import com.infoshareacademy.domain.api.PlaceJSON;
 import com.infoshareacademy.domain.entity.Category;
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.Organizer;

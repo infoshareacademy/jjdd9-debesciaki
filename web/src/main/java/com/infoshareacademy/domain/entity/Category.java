@@ -2,6 +2,7 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,9 +19,12 @@ public class Category {
     @NotNull
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "root_category_id")
     private Category rootCategory;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Category> categories= new ArrayList<>();
 
     @OneToMany(mappedBy = "category")
     private List<Event> eventList;
