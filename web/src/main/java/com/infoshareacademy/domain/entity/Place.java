@@ -10,6 +10,9 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "api_id", unique = true)
+    private Long apiId;
+
     @Column(name = "name")
     private String name;
 
@@ -36,6 +39,14 @@ public class Place {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(Long apiId) {
+        this.apiId = apiId;
     }
 
     public String getName() {

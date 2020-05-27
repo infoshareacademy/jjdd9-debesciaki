@@ -10,14 +10,14 @@ public class OrganizerMapper {
 
     public OrganizerJSON daoToJson(Organizer organizer) {
         OrganizerJSON jsonOrganizer = new OrganizerJSON();
-        jsonOrganizer.setId(organizer.getId());
+        jsonOrganizer.setId(organizer.getApiId());
         jsonOrganizer.setDesignation(organizer.getDesignation());
         return jsonOrganizer;
     }
 
     public Organizer jsonToDao(OrganizerJSON organizer) {
         Organizer daoOrganizer = new Organizer();
-        daoOrganizer.setId(organizer.getId());
+        daoOrganizer.setApiId(organizer.getId());
         daoOrganizer.setDesignation(organizer.getDesignation());
         return daoOrganizer;
     }

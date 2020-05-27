@@ -11,6 +11,9 @@ public class Organizer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "api_id", unique = true)
+    private Long apiId;
+
     @Column(name = "designation")
     @NotNull
     private String designation;
@@ -24,6 +27,14 @@ public class Organizer {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(Long apiId) {
+        this.apiId = apiId;
     }
 
     public String getDesignation() {

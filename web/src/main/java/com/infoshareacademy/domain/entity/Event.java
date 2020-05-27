@@ -14,6 +14,9 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "api_id", unique = true)
+    private Long apiId;
+
     @Column(name = "name")
     @NotNull
     private String name;
@@ -27,7 +30,7 @@ public class Event {
     private LocalDateTime startDate;
 
     @Column(name = "active")
-    private int active;
+    private Integer active;
 
     @Column(name = "desc_long")
     private String descLong;
@@ -67,6 +70,18 @@ public class Event {
         this.id = id;
     }
 
+    public Long getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(Long apiId) {
+        this.apiId = apiId;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
     public String getName() {
         return name;
     }
@@ -91,13 +106,10 @@ public class Event {
         this.startDate = startDate;
     }
 
-    public int getActive() {
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(int active) {
-        this.active = active;
-    }
 
     public String getDescLong() {
         return descLong;
