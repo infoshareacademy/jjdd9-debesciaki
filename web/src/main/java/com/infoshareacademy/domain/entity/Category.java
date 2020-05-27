@@ -19,11 +19,11 @@ public class Category {
     @NotNull
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "root_category_id")
     private Category rootCategory;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rootCategory",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Category> categories= new ArrayList<>();
 
     @OneToMany(mappedBy = "category")
