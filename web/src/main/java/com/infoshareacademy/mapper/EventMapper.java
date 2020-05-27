@@ -35,7 +35,7 @@ public class EventMapper {
         jsonEvent.getCategory(categoryMapper.daoToJson(event.getCategory());
         return jsonEvent;
     }
-    public Event jsonToDao(Event event){
+    public Event jsonToDao(EventJSON event){
         Event daoEvent = new Event();
         daoEvent.setName(event.getName());
         daoEvent.setEndDate(event.getEndDate());
