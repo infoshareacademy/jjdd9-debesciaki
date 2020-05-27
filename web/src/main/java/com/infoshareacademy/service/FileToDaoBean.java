@@ -23,11 +23,11 @@ public class FileToDaoBean {
     ListJsonToDaoBean listJsonToDaoBean;
 
     public List<Place> placeList(File file) throws IOException {
-        return listJsonToDaoBean.place(fileToJsonList.generic(file, PlaceJSON.class));
+        return listJsonToDaoBean.place(fileToJsonList.place(file));
     }
 
     public List<Event> eventList(File file) throws IOException {
-        return listJsonToDaoBean.event(fileToJsonList.generic(file, EventJSON.class));
+        return listJsonToDaoBean.event(fileToJsonList.event(file));
     }
 
     public List<Organizer> organizerList(File file) throws IOException {
@@ -35,7 +35,7 @@ public class FileToDaoBean {
     }
 
     public List<Category> categoryList(File file) throws IOException {
-        return listJsonToDaoBean.category(fileToJsonList.generic(file, CategoryJSON.class));
+        return listJsonToDaoBean.category(fileToJsonList.category(file));
     }
 
 }

@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @MultipartConfig
-@WebServlet("/upload")
-public class UploadJsonServlet extends HttpServlet {
+@WebServlet("/upload-pla")
+public class UploadJsonServletPla extends HttpServlet {
     @Inject
     PersistServiceBean persistServiceBean;
 
@@ -23,6 +23,6 @@ public class UploadJsonServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        persistServiceBean.organizer(fileUploadBean.uploadFile(req.getPart("json")));
+        persistServiceBean.place(fileUploadBean.uploadFile(req.getPart("json")));
     }
 }
