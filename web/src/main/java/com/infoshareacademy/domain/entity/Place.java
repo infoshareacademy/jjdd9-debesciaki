@@ -19,7 +19,8 @@ public class Place {
     @Column(name = "subname")
     private String subname;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", unique = true)
     private Address address;
 
     @OneToMany(mappedBy = "place")

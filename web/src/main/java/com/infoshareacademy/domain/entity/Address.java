@@ -24,8 +24,7 @@ public class Address {
     @Column(name = "lng")
     private Double lng;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", unique = true)
+    @OneToOne(mappedBy = "address")
     private Place place;
 
     public Long getId() {
