@@ -34,6 +34,9 @@ public class EventMapper {
     TicketMapper ticketMapper;
 
     @Inject
+    UrlMapper urlMapper;
+
+    @Inject
     CategoryRepositoryBean categoryRepositoryBean;
 
     @Inject
@@ -92,6 +95,7 @@ public class EventMapper {
             category = null;
         }
         daoEvent.setCategory(category);
+        daoEvent.setUrls(urlMapper.jsonToDao(event.getUrls()));
 
         STDLOG.info("Success in mapping json to dao");
         return daoEvent;

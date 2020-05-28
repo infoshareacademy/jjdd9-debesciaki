@@ -20,7 +20,7 @@ public class UrlMapper {
         return jsonUrl;
     }
 
-    public Urls jsonToDao(Urls url) {
+    public Urls jsonToDao(UrlJSON url) {
         Urls daoUrl = new Urls();
         daoUrl.setWww(url.getWww());
         daoUrl.setFb(url.getFb());

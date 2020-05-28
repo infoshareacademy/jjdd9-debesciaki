@@ -18,7 +18,7 @@ public class Urls {
     @Column(name = "fb")
     private String fb;
 
-    @OneToOne(mappedBy = "urls")
+    @OneToOne(mappedBy = "urls", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Event event;
 
     public Long getId() {

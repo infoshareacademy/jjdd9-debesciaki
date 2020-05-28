@@ -50,15 +50,15 @@ public class Event {
     @JoinColumn(name = "place_id")
     private Place place;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "ticket_id", unique = true)
     private Ticket ticket;
 
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "urls_id", unique = true)
     private Urls urls;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event", cascade = CascadeType.ALL)
     private List<Attachment> attachments;
 
     @ManyToMany(mappedBy = "events")
