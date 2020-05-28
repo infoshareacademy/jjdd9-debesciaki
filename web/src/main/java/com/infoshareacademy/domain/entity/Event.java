@@ -32,7 +32,7 @@ public class Event {
     @Column(name = "active")
     private Integer active;
 
-    @Column(name = "desc_long")
+    @Column(name = "desc_long", length = 10000)
     private String descLong;
 
     @Column(name = "desc_short")
