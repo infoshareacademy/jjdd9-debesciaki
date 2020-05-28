@@ -5,7 +5,8 @@
             <thead>
             <tr class="bg-dark text-white">
                 <th class="th-sm text-center" width="5%">Numer</th>
-                <th class="th-sm text-center" width="55%">Nazwa</th>
+                <th class="th-sm text-center" width="40%">Nazwa</th>
+                <th class="th-sm text-center" width="15%">Kategoria</th>
                 <th class="th-sm text-center" width="20%">Data rozpoczęcia</th>
                 <th class="th-sm text-center" width="20%">Data zakończenia</th>
             </tr>
@@ -14,7 +15,8 @@
             <#list events as event>
                 <tr>
                     <td class="text-center">${event.id}</td>
-                    <td class="text-center">${event.name}</td>
+                    <td class="text-primary font-weight-bold">${event.name}</td>
+                    <td class="text-center">${event.categoryName}</td>
                     <td class="text-center">${event.startDate}</td>
                     <td class="text-center">${event.endDate}</td>
                 </tr>

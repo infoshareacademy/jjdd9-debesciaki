@@ -40,6 +40,7 @@ public class EventViewService {
         eventView.setName(event.getName());
         eventView.setEndDate(LocalDateTime.parse(event.getEndDate().format(formatter), formatter));
         eventView.setStartDate(LocalDateTime.parse(event.getStartDate().format(formatter), formatter));
+        eventView.setCategoryName(event.getCategory().getName());
         return eventView;
     }
 
