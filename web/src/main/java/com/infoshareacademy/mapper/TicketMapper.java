@@ -20,7 +20,7 @@ public class TicketMapper {
         return jsonTicket;
     }
 
-    public Ticket jsonToDao(Ticket ticket) {
+    public Ticket jsonToDao(TicketJSON ticket) {
         Ticket daoTicket = new Ticket();
         daoTicket.setType(ticket.getType());
         daoTicket.setStartTicket(ticket.getStartTicket());

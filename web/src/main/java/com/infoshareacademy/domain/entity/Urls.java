@@ -18,8 +18,7 @@ public class Urls {
     @Column(name = "fb")
     private String fb;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", unique = true)
+    @OneToOne(mappedBy = "urls")
     private Event event;
 
     public Long getId() {
