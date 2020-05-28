@@ -30,9 +30,9 @@ public class CategoryMapper {
         Category daoCategory = new Category();
         daoCategory.setApiId(category.getId());
         daoCategory.setName(category.getName());
-        if (category.getId() >= 100) {
-            daoCategory.setRootCategory(rootCategoryMapper.jsonToDao(category));
-        }
+//        if (category.getId() >= 100) {
+//            daoCategory.setRootCategory(rootCategoryMapper.jsonToDao(category));
+//        }
         STDLOG.info("Success in mapping json to dao");
         return daoCategory;
     }

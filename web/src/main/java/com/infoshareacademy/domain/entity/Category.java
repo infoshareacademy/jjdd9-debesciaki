@@ -12,7 +12,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "api_id", unique = true)
+    @Column(name = "api_id")
     private Long apiId;
 
     @Column(name = "name")
@@ -23,7 +23,7 @@ public class Category {
     @JoinColumn(name = "root_category_id")
     private Category rootCategory;
 
-    @OneToMany(mappedBy = "rootCategory",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rootCategory",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Category> categories= new ArrayList<>();
 
     @OneToMany(mappedBy = "category")
@@ -67,5 +67,13 @@ public class Category {
 
     public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }

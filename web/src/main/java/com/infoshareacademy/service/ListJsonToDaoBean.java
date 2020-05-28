@@ -13,6 +13,7 @@ import com.infoshareacademy.mapper.EventMapper;
 import com.infoshareacademy.mapper.OrganizerMapper;
 import com.infoshareacademy.mapper.PlaceMapper;
 
+import com.infoshareacademy.mapper.RootCategoryMapper;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class ListJsonToDaoBean {
     CategoryMapper categoryMapper;
     @Inject
     OrganizerMapper organizerMapper;
+    @Inject
+    RootCategoryMapper rootCategoryMapper;
 
     public List<Place> place(List<PlaceJSON> in) {
         List<Place> out = new ArrayList<>();
@@ -56,9 +59,28 @@ public class ListJsonToDaoBean {
     public List<Category> category(List<CategoryJSON> in) {
         List<Category> out = new ArrayList<>();
         for (CategoryJSON c : in) {
-            out.add(categoryMapper.jsonToDao(c));
+
+            if (c.getId() < 100) {
+              Category rootCategory = categoryMapper.jsonToDao(c);
+              out.add(rootCategory);
+
+            } else {
+              Long rootCategoryid = c.getRootCategory().getId();
+              Category category = categoryMapper.jsonToDao(c);
+              Category rootCategory = findCategoryByApiId(out, rootCategoryid);
+
+              if(rootCategory != null) {
+                rootCategory.getCategories().add(category);
+                category.setRootCategory(rootCategory);
+              }
+            }
         }
+
         return out;
+    }
+
+    private Category findCategoryByApiId(List<Category> categories, Long id) {
+        return categories.stream().filter(c -> id.equals(c.getApiId())).findFirst().orElse(null);
     }
 
 }
