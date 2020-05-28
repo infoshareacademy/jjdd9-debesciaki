@@ -1,4 +1,4 @@
-package com.infoshareacademy.entity;
+package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +21,14 @@ public class Place {
 
     @OneToMany(mappedBy = "place")
     List<Event> eventList;
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;

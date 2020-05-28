@@ -9,5 +9,5 @@
 
     <link href="../../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../bootstrap/css/heroic-features.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../bootstrap/css/style-login.css">
+    <link rel="stylesheet" href="../../bootstrap/css/style.css">
 </head>

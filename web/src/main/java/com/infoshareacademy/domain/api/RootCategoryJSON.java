@@ -1,15 +1,14 @@
-package com.infoshareacademy.parser;
+package com.infoshareacademy.domain.api;
 
-
-public class RootCategory {
-    private int id;
+public class RootCategoryJSON{
+    private Long id;
     private String name;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
