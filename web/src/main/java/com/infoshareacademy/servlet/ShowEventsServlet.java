@@ -43,6 +43,10 @@ public class ShowEventsServlet extends HttpServlet {
         List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage-1)*20);
         req.setCharacterEncoding("UTF-8");
 
+        if(actPage < 1 || actPage > numberOfPages) {
+            resp.sendRedirect("/show-events?page=1");
+        }
+
         dataModel.put("events", listEvents);
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
