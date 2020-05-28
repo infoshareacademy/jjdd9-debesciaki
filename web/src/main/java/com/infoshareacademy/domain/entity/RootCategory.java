@@ -2,11 +2,12 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "root_category")
+public class RootCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,13 +19,9 @@ public class Category {
     @NotNull
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "root_category_id")
-    private RootCategory rootCategory;
+    @OneToMany(mappedBy = "rootCategory")
+    private List<Category> categories = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "category")
-    private List<Event> eventList;
 
     public Long getId() {
         return id;
@@ -50,23 +47,11 @@ public class Category {
         this.name = name;
     }
 
-    public RootCategory getRootCategory() {
-        return rootCategory;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setRootCategory(RootCategory rootCategory) {
-        this.rootCategory = rootCategory;
-    }
-
-    public List<Event> getEventList() {
-        return eventList;
-    }
-
-    public void setEventList(List<Event> eventList) {
-        this.eventList = eventList;
-    }
-
-    public boolean isRoot(){
-        return this.rootCategory!=null;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
