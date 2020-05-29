@@ -39,11 +39,11 @@ public class ShowEventsServlet extends HttpServlet {
 
         Integer actPage = Integer.parseInt(req.getParameter("page"));
         Integer listSize = eventViewService.listSize();
-        Integer numberOfPages = listSize /20 + 1;
-        List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage-1)*20);
+        Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
+        List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
         req.setCharacterEncoding("UTF-8");
 
-        if(actPage < 1 || actPage > numberOfPages) {
+        if (actPage < 1 || actPage > numberOfPages) {
             resp.sendRedirect("/show-events?page=1");
         }
 
