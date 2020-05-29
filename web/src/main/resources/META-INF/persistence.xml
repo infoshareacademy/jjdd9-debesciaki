@@ -13,7 +13,7 @@
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
             <property name="hibernate.cache.use_query_cache" value="false"/>
-            <property name="javax.persistence.sql-load-script-source" value="start.sql"/>
+            <!--<property name="javax.persistence.sql-load-script-source" value="start.sql"/>-->
         </properties>
     </persistence-unit>
 </persistence>
