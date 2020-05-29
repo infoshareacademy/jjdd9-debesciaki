@@ -15,7 +15,7 @@ public class PlacePersisterBean {
 
     public void persistEntityList(List<Place> list) throws IOException {
         for (Place p : list) {
-            entityManager.persist(p);
+            entityManager.merge(p);
         }
     }
 }

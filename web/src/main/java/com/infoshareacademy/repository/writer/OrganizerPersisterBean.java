@@ -15,7 +15,7 @@ public class OrganizerPersisterBean {
 
     public void persistEntityList(List<Organizer> list) throws IOException {
         for (Organizer o : list) {
-            entityManager.persist(o);
+            entityManager.merge(o);
         }
     }
 }

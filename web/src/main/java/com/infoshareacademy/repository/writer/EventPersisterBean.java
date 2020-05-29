@@ -15,7 +15,7 @@ public class EventPersisterBean {
 
     public void persistEntityList(List<Event> list) throws IOException {
         for (Event o : list) {
-            entityManager.persist(o);
+            entityManager.merge(o);
         }
     }
 }
