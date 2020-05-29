@@ -15,7 +15,7 @@
             <#list events as event>
                 <tr>
                     <td class="text-center">${event.id}</td>
-                    <td class="text-primary font-weight-bold">${event.name}</td>
+                    <td class="text-primary font-weight-bold"><a href="/show-one-event?event=${event.id}">${event.name}</a></td>
                     <td class="text-center">${event.categoryName}</td>
                     <td class="text-center">${event.startDate}</td>
                     <td class="text-center">${event.endDate}</td>

@@ -1,11 +1,5 @@
 package com.infoshareacademy.domain.view;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.infoshareacademy.domain.api.*;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
 public class EventView {
     private Long id;
     private String name;
@@ -15,11 +9,13 @@ public class EventView {
     private String descLong;
     private Integer active;
     private String categoryName;
-    private UrlJSON urls;
-    private PlaceJSON place;
-    private TicketJSON tickets;
-    private OrganizerJSON organizer;
-    private List<AttachmentJSON> attachments;
+    private String organizerName;
+    private String placeName;
+    private String ticket;
+    private Integer minTicketPrice;
+    private Integer maxTicketPrice;
+    private String website;
+    private String fileName;
 
     public Long getId() {
         return id;
@@ -53,11 +49,91 @@ public class EventView {
         this.endDate = endDate;
     }
 
+    public String getDescShort() {
+        return descShort;
+    }
+
+    public void setDescShort(String descShort) {
+        this.descShort = descShort;
+    }
+
+    public String getDescLong() {
+        return descLong;
+    }
+
+    public void setDescLong(String descLong) {
+        this.descLong = descLong;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
     public String getCategoryName() {
         return categoryName;
     }
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getOrganizerName() {
+        return organizerName;
+    }
+
+    public void setOrganizerName(String organizerName) {
+        this.organizerName = organizerName;
+    }
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+
+    public Integer getMinTicketPrice() {
+        return minTicketPrice;
+    }
+
+    public void setMinTicketPrice(Integer minTicketPrice) {
+        this.minTicketPrice = minTicketPrice;
+    }
+
+    public Integer getMaxTicketPrice() {
+        return maxTicketPrice;
+    }
+
+    public void setMaxTicketPrice(Integer maxTicketPrice) {
+        this.maxTicketPrice = maxTicketPrice;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getPlaceName() {
+        return placeName;
+    }
+
+    public void setPlaceName(String placeName) {
+        this.placeName = placeName;
     }
 }
