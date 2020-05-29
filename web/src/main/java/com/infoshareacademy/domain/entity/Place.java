@@ -10,13 +10,17 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "api_id", unique = true)
+    private Long apiId;
+
     @Column(name = "name")
     private String name;
 
     @Column(name = "subname")
     private String subname;
 
-    @OneToOne(mappedBy = "place")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", unique = true)
     private Address address;
 
     @OneToMany(mappedBy = "place")
@@ -36,6 +40,14 @@ public class Place {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(Long apiId) {
+        this.apiId = apiId;
     }
 
     public String getName() {
