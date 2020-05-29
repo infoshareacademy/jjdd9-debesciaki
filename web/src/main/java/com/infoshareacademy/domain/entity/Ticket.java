@@ -18,8 +18,7 @@ public class Ticket {
     @Column(name = "end_ticket")
     private Integer endTicket;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", unique = true)
+    @OneToOne(mappedBy = "ticket")
     private Event event;
 
     public Long getId() {

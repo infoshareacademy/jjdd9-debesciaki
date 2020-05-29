@@ -14,7 +14,7 @@ public class Attachment {
     @NotNull
     private String fileName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "event_id")
     private Event event;
 

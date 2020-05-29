@@ -20,6 +20,9 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "api_id", unique = true)
+    private Long apiId;
+
     @Column(name = "name")
     @NotNull
     private String name;
@@ -35,7 +38,7 @@ public class Event {
     @Column(name = "active")
     private Integer active;
 
-    @Column(name = "desc_long")
+    @Column(name = "desc_long", length = 10000)
     private String descLong;
 
     @Column(name = "desc_short")
@@ -53,13 +56,15 @@ public class Event {
     @JoinColumn(name = "place_id")
     private Place place;
 
-    @OneToOne(mappedBy = "event")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticket_id", unique = true)
     private Ticket ticket;
 
-    @OneToOne(mappedBy = "event")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "urls_id", unique = true)
     private Urls urls;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event", cascade = CascadeType.ALL)
     private List<Attachment> attachments;
 
     @ManyToMany(mappedBy = "events")
@@ -71,6 +76,18 @@ public class Event {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(Long apiId) {
+        this.apiId = apiId;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
     }
 
     public String getName() {
@@ -97,13 +114,10 @@ public class Event {
         this.startDate = startDate;
     }
 
-    public int getActive() {
+    public Integer getActive() {
         return active;
     }
 
-    public void setActive(int active) {
-        this.active = active;
-    }
 
     public String getDescLong() {
         return descLong;
