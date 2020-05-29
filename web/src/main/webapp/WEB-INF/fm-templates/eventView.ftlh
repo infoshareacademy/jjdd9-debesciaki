@@ -1,9 +1,9 @@
 <div class="container">
     <div class="jumbotron ">
-        <h3 class="display-4 text-center">${event.name}</h3><br><br>
-        <p class="lead text-center">${event.organizerName}</p>
+        <h3 class="display-4 text-center">${event.name}</h3>
+        <h3><p class="lead text-center">${event.organizerName}</p></h3>
         <hr class="my-4">
-        <p class = "text-center">${event.descShort}</p>
+        <h6><p class = "text-center">${event.descShort}</p></h6>
 
     </div>
     <div class = "container">

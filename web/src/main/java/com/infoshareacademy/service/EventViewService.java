@@ -52,10 +52,10 @@ public class EventViewService {
         eventView.setName(event.getName());
         eventView.setEndDate(event.getEndDate().format(formatter));
         eventView.setStartDate(event.getStartDate().format(formatter));
-        eventView.setCategoryName(Optional.ofNullable(event.getCategory().getName()).get());
-//        eventView.setDescShort(Optional.ofNullable(event.getDescShort()).get());
-//        eventView.setDescLong(Optional.ofNullable(event.getDescLong()).get());
-//        eventView.setActive(Optional.ofNullable(event.getActive()).get());
+        eventView.setCategoryName(event.getCategory().getName().isEmpty() ? null : event.getCategory().getName());
+        eventView.setOrganizerName((Optional.ofNullable(event.getOrganizer().getDesignation()).isPresent()) ? event.getOrganizer().getDesignation() : "Brak informacji");
+        eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji" );
+//        eventView.setDescLong(event.getDescLong().isEmpty() ? null : event.getDescLong());
 //        eventView.setOrganizerName(Optional.ofNullable(event.getOrganizer().getDesignation()).get());
 //        eventView.setTicket(Optional.ofNullable(event.getTicket().getType()).get());
 //        eventView.setMinTicketPrice(Optional.ofNullable(event.getTicket().getStartTicket()).get());

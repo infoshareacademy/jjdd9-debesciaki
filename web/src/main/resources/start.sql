@@ -2,7 +2,7 @@ INSERT INTO category (name, root_category_id) VALUES ('tance', 1);
 INSERT INTO organizer (designation) VALUES ('Teatr Miniatura');
 INSERT INTO place (name, subname) VALUES ('Domek', 'dom');
 
-INSERT INTO event (end_date, name, start_date, category_id, organizer_id, place_id) VALUES ('2020-01-31 12:00:00', 'Event1', '2020-01-01 12:00:00', 1, 1, 1);
+INSERT INTO event (end_date, name, start_date, category_id, organizer_id, place_id, desc_short) VALUES ('2020-01-31 12:00:00', 'Event1', '2020-01-01 12:00:00', 1, 1, 1, 'abba');
 INSERT INTO event (end_date, name, start_date, category_id, organizer_id, place_id) VALUES ('2020-02-11 12:00:00', 'Event2', '2020-02-01 13:00:00', 1, 1, 1);
 INSERT INTO event (end_date, name, start_date, category_id, organizer_id, place_id) VALUES ('2020-03-21 12:00:00', 'Event3', '2020-03-01 16:00:00', 1, 1, 1);
 INSERT INTO event (end_date, name, start_date, category_id, organizer_id, place_id) VALUES ('2020-01-31 12:00:00', 'Event4', '2020-01-01 12:00:00', 1, 1, 1);
