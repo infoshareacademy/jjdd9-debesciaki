@@ -15,7 +15,7 @@ public class CategoryPersisterBean {
 
     public void persistEntityList(List<Category> list) throws IOException {
         for (Category o : list) {
-            entityManager.merge(o);
+            entityManager.persist(o);
         }
     }
 }
