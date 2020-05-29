@@ -77,13 +77,15 @@ public class EventMapper {
         daoEvent.setDescShort(event.getDescShort());
         List<Attachment> attachments = new ArrayList<>();
         for (AttachmentJSON a : event.getAttachments()) {
-            attachments.add(attachmentMapper.jsonToDao(a));
+            Attachment attachment = attachmentMapper.jsonToDao(a);
+            attachment.setEvent(daoEvent);
+            attachments.add(attachment);
         }
         daoEvent.setAttachments(attachments);
 
         daoEvent.setTicket(ticketMapper.jsonToDao(event.getTickets()));
 
-        Place place = placeRepositoryBean.findByApiId(event.getCategoryId()).get();
+        Place place = placeRepositoryBean.findByApiId(event.getPlace().getId()).get();
         daoEvent.setPlace(place);
 
         Organizer organizer = organizerRepositoryBean.findByApiId(event.getOrganizer().getId()).get();
@@ -96,6 +98,7 @@ public class EventMapper {
         }
         daoEvent.setCategory(category);
         daoEvent.setUrls(urlMapper.jsonToDao(event.getUrls()));
+
 
         STDLOG.info("Success in mapping json to dao");
         return daoEvent;
