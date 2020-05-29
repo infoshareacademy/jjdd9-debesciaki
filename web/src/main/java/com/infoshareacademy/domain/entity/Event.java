@@ -7,6 +7,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Event.findAll",
+                query = "SELECT e FROM Event e"
+        )
+})
 @Entity
 @Table(name = "event")
 public class Event {
