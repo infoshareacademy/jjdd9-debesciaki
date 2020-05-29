@@ -37,8 +37,10 @@ public class ShowSingleEventServlet extends HttpServlet {
 
         Long eventIdToShow = Long.parseLong(req.getParameter("event"));
         EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
+        String previous = req.getHeader("referer");
 
         dataModel.put("event", event);
+        dataModel.put("previous", previous);
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");

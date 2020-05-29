@@ -55,7 +55,9 @@ public class EventViewService {
         eventView.setCategoryName(event.getCategory().getName().isEmpty() ? null : event.getCategory().getName());
         eventView.setOrganizerName((Optional.ofNullable(event.getOrganizer().getDesignation()).isPresent()) ? event.getOrganizer().getDesignation() : "Brak informacji");
         eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji" );
-//        eventView.setDescLong(event.getDescLong().isEmpty() ? null : event.getDescLong());
+        eventView.setDescLong(Optional.ofNullable(event.getDescLong()).isPresent() ? event.getDescLong() : "Brak informacji o wydarzeniu" );
+        eventView.setPlaceName(Optional.ofNullable(event.getPlace().getName()).isPresent() ? event.getPlace().getName() : "Brak informacji");
+        eventView.setFileName((Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
 //        eventView.setOrganizerName(Optional.ofNullable(event.getOrganizer().getDesignation()).get());
 //        eventView.setTicket(Optional.ofNullable(event.getTicket().getType()).get());
 //        eventView.setMinTicketPrice(Optional.ofNullable(event.getTicket().getStartTicket()).get());
