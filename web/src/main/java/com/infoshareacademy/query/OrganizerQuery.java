@@ -1,4 +1,4 @@
-package com.infoshareacademy.repository;
+package com.infoshareacademy.query;
 
 import com.infoshareacademy.domain.entity.Organizer;
 
@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import java.util.Optional;
 
 @Stateless
-public class OrganizerRepositoryBean {
+public class OrganizerQuery {
     @PersistenceContext
     EntityManager entityManager;
 
