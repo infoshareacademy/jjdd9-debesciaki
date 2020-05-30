@@ -50,20 +50,36 @@ public class EventViewService {
         EventView eventView = new EventView();
         eventView.setId(event.getId());
         eventView.setName(event.getName());
-        eventView.setEndDate(event.getEndDate().format(formatter));
         eventView.setStartDate(event.getStartDate().format(formatter));
-        eventView.setCategoryName(event.getCategory().getName().isEmpty() ? null : event.getCategory().getName());
-        eventView.setOrganizerName((Optional.ofNullable(event.getOrganizer().getDesignation()).isPresent()) ? event.getOrganizer().getDesignation() : "Brak informacji");
+        eventView.setEndDate(event.getEndDate().format(formatter));
         eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji" );
         eventView.setDescLong(Optional.ofNullable(event.getDescLong()).isPresent() ? event.getDescLong() : "Brak informacji o wydarzeniu" );
+        eventView.setCategoryName(event.getCategory().getName().isEmpty() ? null : event.getCategory().getName());
+        eventView.setOrganizerName((Optional.ofNullable(event.getOrganizer().getDesignation()).isPresent()) ? event.getOrganizer().getDesignation() : "Brak informacji");
         eventView.setPlaceName(Optional.ofNullable(event.getPlace().getName()).isPresent() ? event.getPlace().getName() : "Brak informacji");
-        eventView.setFileName((Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
-//        eventView.setOrganizerName(Optional.ofNullable(event.getOrganizer().getDesignation()).get());
-//        eventView.setTicket(Optional.ofNullable(event.getTicket().getType()).get());
-//        eventView.setMinTicketPrice(Optional.ofNullable(event.getTicket().getStartTicket()).get());
-//        eventView.setMaxTicketPrice(Optional.ofNullable(event.getTicket().getEndTicket()).get());
-//        eventView.setWebsite(Optional.ofNullable(event.getUrls().getWww()).get());
-//        eventView.setPlaceName(Optional.ofNullable(event.getPlace().getName()).get());
+        eventView.setPlaceSubname(Optional.ofNullable(event.getPlace().getSubname()).isPresent() ? event.getPlace().getSubname() : "brak");
+
+        if (eventView.getPlaceName() == eventView.getPlaceSubname()) {
+            eventView.setPlaceSubname("brak");
+        }
+
+        if(event.getTicket().getType().equals("tickets")) {
+            eventView.setTicket("bilety");
+        } else if (event.getTicket().getType().equals("free")) {
+            eventView.setTicket("wstęp wolny");
+        } else {
+            eventView.setTicket("brak informacji");
+        }
+
+        if (eventView.getTicket() == "bilety") {
+            eventView.setMinTicketPrice(event.getTicket().getStartTicket());
+            eventView.setMaxTicketPrice(event.getTicket().getEndTicket());
+        }
+
+        eventView.setWebsite(Optional.ofNullable(event.getUrls().getWww()).isPresent() ? event.getUrls().getWww() : "Brak strony internetowej");
+        eventView.setFacebook(Optional.ofNullable(event.getUrls().getFb()).isPresent() ? event.getUrls().getFb() : "Brak profilu na facebooku");
+        eventView.setFileName((Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && event.getAttachments().get(0).getFileName().contains("http")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
+
         return eventView;
     }
 

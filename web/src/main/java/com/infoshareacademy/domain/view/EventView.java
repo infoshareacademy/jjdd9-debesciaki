@@ -11,10 +11,12 @@ public class EventView {
     private String categoryName;
     private String organizerName;
     private String placeName;
+    private String placeSubname;
     private String ticket;
     private Integer minTicketPrice;
     private Integer maxTicketPrice;
     private String website;
+    private String facebook;
     private String fileName;
 
     public Long getId() {
@@ -135,5 +137,21 @@ public class EventView {
 
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
+    }
+
+    public String getPlaceSubname() {
+        return placeSubname;
+    }
+
+    public void setPlaceSubname(String placeSubname) {
+        this.placeSubname = placeSubname;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
     }
 }
