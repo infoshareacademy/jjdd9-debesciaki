@@ -29,8 +29,6 @@ public class ListJsonToDaoBean {
     CategoryMapper categoryMapper;
     @Inject
     OrganizerMapper organizerMapper;
-    @Inject
-    RootCategoryMapper rootCategoryMapper;
 
     public List<Place> place(List<PlaceJSON> in) {
         List<Place> out = new ArrayList<>();

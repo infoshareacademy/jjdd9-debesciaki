@@ -12,6 +12,7 @@ import com.infoshareacademy.domain.api.PlaceJSON;
 import javax.ejb.Stateless;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -26,9 +27,23 @@ public class FileToJsonList {
         return listJSON;
     }
 
+    public List<OrganizerJSON> organizer(URL url) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<OrganizerJSON> listJSON = mapper.readValue(url, new TypeReference<List<OrganizerJSON>>() {
+        });
+        return listJSON;
+    }
+
     public List<CategoryJSON> category(File file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         List<CategoryJSON> listJSON = mapper.readValue(file, new TypeReference<List<CategoryJSON>>() {
+        });
+        return listJSON;
+    }
+
+    public List<CategoryJSON> category(URL url) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<CategoryJSON> listJSON = mapper.readValue(url, new TypeReference<List<CategoryJSON>>() {
         });
         return listJSON;
     }
@@ -44,9 +59,27 @@ public class FileToJsonList {
         return listJSON;
     }
 
+    public List<EventJSON> event(URL url) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JavaTimeModule module = new JavaTimeModule();
+        LocalDateTimeDeserializer deserializer = new LocalDateTimeDeserializer(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        module.addDeserializer(LocalDateTime.class, deserializer);
+        mapper.registerModule(module);
+        List<EventJSON> listJSON = mapper.readValue(url, new TypeReference<List<EventJSON>>() {
+        });
+        return listJSON;
+    }
+
     public List<PlaceJSON> place(File file) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         List<PlaceJSON> listJSON = mapper.readValue(file, new TypeReference<List<PlaceJSON>>() {
+        });
+        return listJSON;
+    }
+
+    public List<PlaceJSON> place(URL url) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        List<PlaceJSON> listJSON = mapper.readValue(url, new TypeReference<List<PlaceJSON>>() {
         });
         return listJSON;
     }
