@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.api.EventJSON;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.EventViewService;
@@ -19,11 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-@WebServlet("/show-events")
-public class ShowEventsServlet extends HttpServlet {
+@WebServlet("show-one-event")
+public class ShowSingleEventServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
 
     @Inject
@@ -34,23 +32,15 @@ public class ShowEventsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "singleEventPage.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
 
-        Integer actPage = Integer.parseInt(req.getParameter("page"));
-        Integer listSize = eventViewService.listSize();
-        Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
-        List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
-        req.setCharacterEncoding("UTF-8");
+        Long eventIdToShow = Long.parseLong(req.getParameter("event"));
+        EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
+        String previous = req.getHeader("referer");
 
-        if (actPage < 1 || actPage > numberOfPages) {
-            resp.sendRedirect("/show-events?page=1");
-        }
-
-        dataModel.put("events", listEvents);
-        dataModel.put("actPage", actPage);
-        dataModel.put("numberOfPages", numberOfPages);
-        dataModel.put("numberOfEvents", listSize);
+        dataModel.put("event", event);
+        dataModel.put("previous", previous);
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");

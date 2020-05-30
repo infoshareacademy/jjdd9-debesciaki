@@ -18,9 +18,14 @@ public class EventQuery {
 
     private final static int MAX_RESULTS = 20;
 
-    public List<Event> eventList(int firstElement) {
+    public List<Event> eventListWithLimit(int firstElement) {
         Query query = entityManager.createNamedQuery("Event.findAll");
         query.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        return query.getResultList();
+    }
+
+    public List<Event> allEventsList () {
+        Query query = entityManager.createNamedQuery("Event.findAll");
         return query.getResultList();
     }
 
