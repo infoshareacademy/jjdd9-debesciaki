@@ -1,6 +1,6 @@
 <div class="container">
     <div class="jumbotron ">
-        <h3 class="display-2 text-center text-primary">${event.name}</h3>
+        <h3 class="display-3 text-center text-primary">${event.name}</h3>
         <h2><p class="display-4 lead text-center font-italic">${event.organizerName}</p></h2>
         <hr class="my-4">
         <table class="table table-borderless mb-1">
