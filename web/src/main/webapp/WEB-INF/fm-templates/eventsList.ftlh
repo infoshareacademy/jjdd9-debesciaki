@@ -1,6 +1,6 @@
 <div class="container">
     <div class="jumbotron ">
-        <h3 class="display-4 text-center">Lista nadchodzących wydarzeń</h3><br>
+        <h3 class="display-4 text-center">Lista wszystkich wydarzeń</h3><br>
         <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white" cellspacing="0">
             <thead>
             <tr class="bg-dark text-white">
@@ -24,7 +24,7 @@
             </tbody>
         </table>
         <#if numberOfEvents gt 20>
-        <#include "eventsNavigation.ftlh">
+        <#include "navigationUnderTable.ftlh">
         </#if>
     </div>
 </div>

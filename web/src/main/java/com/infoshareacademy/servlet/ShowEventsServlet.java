@@ -58,6 +58,7 @@ public class ShowEventsServlet extends HttpServlet {
         Integer actPage = Integer.parseInt(req.getParameter("page"));
         Integer listSize = eventViewService.getAllEventsCount();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
+
         List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
         req.setCharacterEncoding("UTF-8");
 
@@ -118,6 +119,7 @@ public class ShowEventsServlet extends HttpServlet {
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
+        dataModel.put("name", "events");
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
