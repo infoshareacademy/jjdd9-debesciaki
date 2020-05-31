@@ -24,6 +24,7 @@ import java.util.Map;
 @WebServlet("/show-events")
 public class ShowEventsServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+    String action;
 
     @Inject
     TemplateProvider templateProvider;
@@ -33,7 +34,7 @@ public class ShowEventsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String action = req.getParameter("action");
+        action = req.getParameter("action");
 
         STDLOG.info("Requested action: {}", action);
 
@@ -55,10 +56,12 @@ public class ShowEventsServlet extends HttpServlet {
     }
 
     private void showAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        action = req.getParameter("action");
+
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
         Integer actPage = Integer.parseInt(req.getParameter("page"));
-        Integer listSize = eventViewService.listSize();
+        Integer listSize = eventViewService.getAllEventsCount();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
         List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
         req.setCharacterEncoding("UTF-8");
@@ -68,6 +71,7 @@ public class ShowEventsServlet extends HttpServlet {
         }
 
         dataModel.put("events", listEvents);
+        dataModel.put("action", action);
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
@@ -79,26 +83,39 @@ public class ShowEventsServlet extends HttpServlet {
         try {
             template.process(dataModel, pw);
         } catch (TemplateException e) {
-            STDLOG.error("Template for main page error");
+            STDLOG.error("Template for Show All Events page error");
         }
     }
+
     private void searchByPhrase(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        action = req.getParameter("action");
+
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
 
         Integer actPage = Integer.parseInt(req.getParameter("page"));
         String phrase = req.getParameter("phrase");
 
-        Integer listSize = eventViewService.listSize();
+        Integer listSize = eventViewService.prepareSearchedEventsToShow(1, phrase, false).size();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
-        List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
+        List<EventView> listEvents = eventViewService.prepareSearchedEventsToShow((actPage - 1) * 20, phrase, true);
         req.setCharacterEncoding("UTF-8");
 
+        StringBuilder redirect = new StringBuilder();
+        redirect.append("/show-events?action=searchByPhrase&page=1&phrase=");
+        redirect.append(phrase);
+
         if (actPage < 1 || actPage > numberOfPages) {
-            resp.sendRedirect("/show-events?page=1");
+            resp.sendRedirect(redirect.toString());
         }
 
+        StringBuilder actionPlusPhrase = new StringBuilder();
+        actionPlusPhrase.append(action);
+        actionPlusPhrase.append("&phrase=");
+        actionPlusPhrase.append(phrase);
+
         dataModel.put("events", listEvents);
+        dataModel.put("action", actionPlusPhrase.toString());
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
@@ -110,7 +127,7 @@ public class ShowEventsServlet extends HttpServlet {
         try {
             template.process(dataModel, pw);
         } catch (TemplateException e) {
-            STDLOG.error("Template for main page error");
+            STDLOG.error("Template for Show Search Results page error");
         }
     }
 }

@@ -4,9 +4,9 @@ package com.infoshareacademy.query;
 import com.infoshareacademy.domain.entity.Event;
 
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +24,25 @@ public class EventQuery {
         return query.getResultList();
     }
 
-    public List<Event> allEventsList () {
+    public List<Event> allEventsList() {
         Query query = entityManager.createNamedQuery("Event.findAll");
+        return query.getResultList();
+    }
+
+    public List<Event> searchByPhraseList(int firstElement, String phrase, Boolean isLimited) {
+        Query query = entityManager.createQuery("SELECT c FROM Event c WHERE c.name LIKE :phrase");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("/%");
+        sb.append(phrase);
+        sb.append("/%");
+
+        query.setParameter("phrase", sb.toString());
+        if (isLimited) {
+            query.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        }else{
+            return query.getResultList();
+        }
         return query.getResultList();
     }
 

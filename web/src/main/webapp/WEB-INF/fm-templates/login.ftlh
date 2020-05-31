@@ -20,6 +20,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Organizatorzy</a>
                 </li>
+                <li class="nav-item">
+                    <a>
+                        <#include "searchInput.ftlh">
+                    </a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Zaloguj się
                         <span class="sr-only">(current)</span>
