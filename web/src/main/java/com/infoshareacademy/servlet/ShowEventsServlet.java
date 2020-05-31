@@ -66,11 +66,17 @@ public class ShowEventsServlet extends HttpServlet {
             resp.sendRedirect("/show-events?action=showAll&page=1");
         }
 
+        StringBuilder actionAppender = new StringBuilder();
+        actionAppender.append("action=");
+        actionAppender.append(action);
+        actionAppender.append("&");
+
         dataModel.put("events", listEvents);
-        dataModel.put("action", action);
+        dataModel.put("action", actionAppender.toString());
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
+        dataModel.put("name", "events");
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -101,6 +107,11 @@ public class ShowEventsServlet extends HttpServlet {
         redirect.append("/show-events?action=search&page=1&phrase=");
         redirect.append(phrase);
 
+        StringBuilder actionAppender = new StringBuilder();
+        actionAppender.append("action=");
+        actionAppender.append(action);
+        actionAppender.append("&");
+
         if ((actPage < 1 || actPage > numberOfPages) && listSize > 0) {
             resp.sendRedirect(redirect.toString());
         } else if (listSize == 0) {
@@ -110,9 +121,10 @@ public class ShowEventsServlet extends HttpServlet {
 
 
         StringBuilder actionPlusPhrase = new StringBuilder();
-        actionPlusPhrase.append(action);
+        actionPlusPhrase.append(actionAppender.toString());
         actionPlusPhrase.append("&phrase=");
         actionPlusPhrase.append(phrase);
+        actionPlusPhrase.append("&");
 
         dataModel.put("events", listEvents);
         dataModel.put("action", actionPlusPhrase.toString());
