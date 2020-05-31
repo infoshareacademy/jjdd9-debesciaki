@@ -1,7 +1,7 @@
 <div class="container">
     <div class="jumbotron ">
-        <h3 class="display-2 text-center text-primary">${event.name}</h3>
-        <h2><p class="display-4 lead text-center font-italic">${event.organizerName}</p></h2>
+        <h1 class="display-5 text-center text-primary">${event.name}</h1>
+        <h6><p class="display-6 lead text-center font-italic">${event.organizerName}</p></h6>
         <hr class="my-4">
         <table class="table table-borderless mb-1">
             <tr>
