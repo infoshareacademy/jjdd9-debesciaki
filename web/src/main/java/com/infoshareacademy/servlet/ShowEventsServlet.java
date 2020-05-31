@@ -100,9 +100,13 @@ public class ShowEventsServlet extends HttpServlet {
         redirect.append("/show-events?action=search&page=1&phrase=");
         redirect.append(phrase);
 
-        if (actPage < 1 || actPage > numberOfPages) {
+        if ((actPage < 1 || actPage > numberOfPages) && listSize > 0) {
             resp.sendRedirect(redirect.toString());
+        } else if (listSize == 0) {
+            noResultsFound(req, resp);
+            return;
         }
+
 
         StringBuilder actionPlusPhrase = new StringBuilder();
         actionPlusPhrase.append(action);
@@ -116,6 +120,27 @@ public class ShowEventsServlet extends HttpServlet {
         dataModel.put("numberOfEvents", listSize);
 
         resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter pw = resp.getWriter();
+
+        try {
+            template.process(dataModel, pw);
+        } catch (TemplateException e) {
+            STDLOG.error("Template for Show Search Results page error");
+        }
+    }
+
+    private void noResultsFound(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        Template template = templateProvider.getTemplate(getServletContext(), "noResultsFound.ftlh");
+        Map<String, Object> dataModel = new HashMap<>();
+        req.setCharacterEncoding("UTF-8");
+
+        String phrase = req.getParameter("phrase");
+        dataModel.put("phrase", phrase);
+
+        resp.setContentType("text/html; charset=UTF-8");
+
         resp.setCharacterEncoding("UTF-8");
         PrintWriter pw = resp.getWriter();
 

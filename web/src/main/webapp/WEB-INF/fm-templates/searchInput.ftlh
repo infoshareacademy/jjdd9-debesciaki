@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top-2">
     <div class="container">
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="navbar" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a>
@@ -10,7 +10,7 @@
                                         name="action"
                                         type="submit"
                                         value="search"
-                                        style="float: left">
+                                        style="float: right">
                                     Szukaj
                                 </button>
                                 <input type="hidden" name="page" value="1"/>

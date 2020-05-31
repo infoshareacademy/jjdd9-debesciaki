@@ -58,8 +58,8 @@
         <h1 class="display-4">Wydarzenia kulturalne w Gdańsku</h1>
         <p class="lead">Witaj serdecznie na naszej stronie internetowej, prezentującej nadchodzące wydarzenia w Gdańsku!<br>Znajdziesz
             tutaj wszystkie informacje dotyczące imprez w naszym mieście - kto, gdzie, kiedy.<br>Co więcej, sprawdzisz
-            czy są jeszcze dostępne bilety, a po zalogowaniu będziesz miał możliwość zakupu ich.</p>
-        <a href="show-events?page=1" class="btn btn-primary btn-lg">Sprawdź więcej</a>
+            czy są jeszcze dostępne bilety, a po zalogowaniu będziesz miał możliwość je zakupić.</p>
+        <a href="/show-events?action=showAll&page=1" class="btn btn-primary btn-lg">Sprawdź więcej</a>
     </div>
 </div>
 
