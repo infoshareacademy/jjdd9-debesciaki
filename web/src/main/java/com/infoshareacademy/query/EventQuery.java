@@ -30,20 +30,22 @@ public class EventQuery {
     }
 
     public List<Event> searchByPhraseList(int firstElement, String phrase, Boolean isLimited) {
-        Query query = entityManager.createQuery("SELECT c FROM Event c WHERE c.name LIKE :phrase");
+        Query queryEventName = entityManager
+                .createQuery("SELECT c FROM Event c WHERE (c.name LIKE :phrase) OR (c.organizer.designation LIKE :phrase) ");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
         sb.append(phrase);
         sb.append("%");
 
-        query.setParameter("phrase", sb.toString());
+        queryEventName.setParameter("phrase", sb.toString());
+
         if (isLimited) {
-            query.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
         }else{
-            return query.getResultList();
+            return queryEventName.getResultList();
         }
-        return query.getResultList();
+        return queryEventName.getResultList();
     }
 
     public Integer getAllEventsCount() {
