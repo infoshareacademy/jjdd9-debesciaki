@@ -45,14 +45,9 @@ public class ShowEventsServlet extends HttpServlet {
 
         if (action.equals("showAll")) {
             showAll(req, resp);
-        } else if (action.equals("searchByPhrase")) {
+        } else if (action.equals("search")) {
             searchByPhrase(req, resp);
-        } /*else if (action.equals("delete")) {
-            deleteCourse(req, resp);
-        } else {
-            resp.getWriter().write("Unknown action.");
-        }*/
-
+        }
     }
 
     private void showAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -102,7 +97,7 @@ public class ShowEventsServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
 
         StringBuilder redirect = new StringBuilder();
-        redirect.append("/show-events?action=searchByPhrase&page=1&phrase=");
+        redirect.append("/show-events?action=search&page=1&phrase=");
         redirect.append(phrase);
 
         if (actPage < 1 || actPage > numberOfPages) {

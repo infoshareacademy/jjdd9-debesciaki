@@ -33,9 +33,9 @@ public class EventQuery {
         Query query = entityManager.createQuery("SELECT c FROM Event c WHERE c.name LIKE :phrase");
 
         StringBuilder sb = new StringBuilder();
-        sb.append("/%");
+        sb.append("%");
         sb.append(phrase);
-        sb.append("/%");
+        sb.append("%");
 
         query.setParameter("phrase", sb.toString());
         if (isLimited) {

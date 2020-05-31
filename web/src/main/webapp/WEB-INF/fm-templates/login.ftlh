@@ -20,11 +20,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Organizatorzy</a>
                 </li>
-                <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Zaloguj się
                         <span class="sr-only">(current)</span>
@@ -34,6 +29,9 @@
         </div>
     </div>
 </nav>
+<#-- ftlh for  search navbar-->
+<#include "searchInput.ftlh">
+
 <div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -42,7 +40,9 @@
                     <form class="form-signin">
                         <div class="text-center"><img src="../../bootstrap/img/logo-google.svg" alt="google"></div>
                         <span class="m-2"><br></span>
-                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Zaloguj się z Google</button>
+                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i
+                                    class="fab fa-google mr-2"></i> Zaloguj się z Google
+                        </button>
                     </form>
                 </div>
             </div>

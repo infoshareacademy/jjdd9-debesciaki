@@ -24,17 +24,15 @@
                     <a class="nav-link" href="#">Organizatorzy</a>
                 </li>
                 <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/login">Zaloguj się</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<#-- ftlh for  search navbar-->
+<#include "searchInput.ftlh">
+
 <br><br>
 <#include "eventsList.ftlh">
 <#include "footerWithScripts.ftlh">
