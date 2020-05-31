@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.api.EventJSON;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.EventViewService;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +44,9 @@ public class ShowEventsServlet extends HttpServlet {
 
         if (action.equals("showAll")) {
             showAll(req, resp);
-        } /*else if (action.equals("add")) {
-            addCourse(req, resp);
-        } else if (action.equals("delete")) {
+        } else if (action.equals("searchByPhrase")) {
+            searchByPhrase(req, resp);
+        } /*else if (action.equals("delete")) {
             deleteCourse(req, resp);
         } else {
             resp.getWriter().write("Unknown action.");
@@ -84,10 +82,13 @@ public class ShowEventsServlet extends HttpServlet {
             STDLOG.error("Template for main page error");
         }
     }
-    private void searchByQuery(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void searchByPhrase(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
+
         Integer actPage = Integer.parseInt(req.getParameter("page"));
+        String phrase = req.getParameter("phrase");
+
         Integer listSize = eventViewService.listSize();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
         List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);

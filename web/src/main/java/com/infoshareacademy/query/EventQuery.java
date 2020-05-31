@@ -29,7 +29,7 @@ public class EventQuery {
         return query.getResultList();
     }
 
-    public Integer sizeList() {
+    public Integer getAllEventsCount() {
         Query query = entityManager.createNamedQuery("Event.findAll");
         return query.getResultList().size();
     }

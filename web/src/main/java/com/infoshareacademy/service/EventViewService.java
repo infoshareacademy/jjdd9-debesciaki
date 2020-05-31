@@ -31,7 +31,7 @@ public class EventViewService {
     }
 
     public Integer listSize() {
-        return eventQuery.sizeList();
+        return eventQuery.getAllEventsCount();
     }
 
     public EventView prepareSingleEvent(Long id) {
