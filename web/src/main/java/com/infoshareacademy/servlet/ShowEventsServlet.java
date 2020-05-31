@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,58 @@ public class ShowEventsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String action = req.getParameter("action");
+
+        STDLOG.info("Requested action: {}", action);
+
+        if (action == null || action.isEmpty()) {
+            resp.getWriter().write("Empty action parameter.");
+            return;
+        }
+
+        if (action.equals("showAll")) {
+            showAll(req, resp);
+        } /*else if (action.equals("add")) {
+            addCourse(req, resp);
+        } else if (action.equals("delete")) {
+            deleteCourse(req, resp);
+        } else {
+            resp.getWriter().write("Unknown action.");
+        }*/
+
+    }
+
+    private void showAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
+        Integer actPage = Integer.parseInt(req.getParameter("page"));
+        Integer listSize = eventViewService.listSize();
+        Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
+        List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
+        req.setCharacterEncoding("UTF-8");
 
+        if (actPage < 1 || actPage > numberOfPages) {
+            resp.sendRedirect("/show-events?action=showAll&page=1");
+        }
+
+        dataModel.put("events", listEvents);
+        dataModel.put("actPage", actPage);
+        dataModel.put("numberOfPages", numberOfPages);
+        dataModel.put("numberOfEvents", listSize);
+
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter pw = resp.getWriter();
+
+        try {
+            template.process(dataModel, pw);
+        } catch (TemplateException e) {
+            STDLOG.error("Template for main page error");
+        }
+    }
+    private void searchByQuery(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
+        Map<String, Object> dataModel = new HashMap<>();
         Integer actPage = Integer.parseInt(req.getParameter("page"));
         Integer listSize = eventViewService.listSize();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
