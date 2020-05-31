@@ -52,6 +52,7 @@ public class ShowEventsServlet extends HttpServlet {
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
+        dataModel.put("name", "events");
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");

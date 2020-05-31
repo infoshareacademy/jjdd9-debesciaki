@@ -24,7 +24,7 @@
             </tbody>
         </table>
         <#if numberOfEvents gt 20>
-        <#include "eventsNavigation.ftlh">
+        <#include "navigationUnderTable.ftlh">
         </#if>
     </div>
 </div>

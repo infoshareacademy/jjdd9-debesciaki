@@ -1,7 +1,7 @@
 <div class="container">
     <div class="jumbotron ">
         <h3 class="display-4 text-center">Lista organizatorów</h3><br>
-        <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white" cellspacing="0">
+        <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white align-content-center" cellspacing="0" width="70%">
             <thead>
             <tr class="bg-dark text-white">
                 <th class="th-sm text-center" width="10%">Numer</th>
@@ -18,7 +18,7 @@
             </tbody>
         </table>
         <#if numberOfOrganizers gt 20>
-            <#include "organizersNavigation.ftlh">
+            <#include "navigationUnderTable.ftlh">
         </#if>
     </div>
 </div>

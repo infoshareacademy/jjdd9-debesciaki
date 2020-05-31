@@ -52,6 +52,7 @@ public class ShowOrganizersServlet extends HttpServlet {
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfOrganizers", listSize);
+        dataModel.put("name", "organizers");
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
