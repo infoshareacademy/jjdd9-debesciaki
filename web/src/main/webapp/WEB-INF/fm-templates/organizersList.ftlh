@@ -12,7 +12,7 @@
             <#list organizers as organizer>
                 <tr>
                     <td class="text-center">${organizer.id}</td>
-                    <td class="text-primary font-weight-bold">${organizer.designation}</td>
+                    <td class="text-primary font-weight-bold"><a href="/show-events?action=search&page=1&phrase=${organizer.designation}">${organizer.designation}</td>
                 </tr>
             </#list>
             </tbody>
