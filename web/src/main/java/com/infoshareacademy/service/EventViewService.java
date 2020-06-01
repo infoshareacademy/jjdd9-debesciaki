@@ -1,7 +1,7 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.domain.entity.Event;
+import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.query.EventQuery;
 
 import javax.ejb.Stateless;
@@ -23,22 +23,34 @@ public class EventViewService {
 
         List<EventView> eventsList = new ArrayList<>();
 
-        for(Event el : eventQuery.eventListWithLimit(firstResult)) {
+        for (Event el : eventQuery.eventListWithLimit(firstResult)) {
             eventsList.add(mapper(el));
         }
 
         return eventsList;
     }
 
-    public Integer listSize() {
-        return eventQuery.sizeList();
+    public List<EventView> prepareSearchedEventsToShow(int firstResult, String phrase, Boolean isLimited) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventQuery.searchByPhraseList(firstResult, phrase, isLimited)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
     }
+
+    public Integer getAllEventsCount() {
+        return eventQuery.getAllEventsCount();
+    }
+
 
     public EventView prepareSingleEvent(Long id) {
         EventView event = new EventView();
 
         for (Event el : eventQuery.allEventsList()) {
-            if(el.getId() == id) {
+            if (el.getId() == id) {
                 event = mapper(el);
             }
         }
@@ -52,8 +64,8 @@ public class EventViewService {
         eventView.setName(event.getName());
         eventView.setStartDate(event.getStartDate().format(formatter));
         eventView.setEndDate(event.getEndDate().format(formatter));
-        eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji" );
-        eventView.setDescLong(Optional.ofNullable(event.getDescLong()).isPresent() ? event.getDescLong() : "Brak informacji o wydarzeniu" );
+        eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji");
+        eventView.setDescLong(Optional.ofNullable(event.getDescLong()).isPresent() ? event.getDescLong() : "Brak informacji o wydarzeniu");
         eventView.setCategoryName(event.getCategory().getName().isEmpty() ? null : event.getCategory().getName());
         eventView.setOrganizerName((Optional.ofNullable(event.getOrganizer().getDesignation()).isPresent()) ? event.getOrganizer().getDesignation() : "Brak informacji");
         eventView.setPlaceName(Optional.ofNullable(event.getPlace().getName()).isPresent() ? event.getPlace().getName() : "Brak informacji");
@@ -63,7 +75,7 @@ public class EventViewService {
             eventView.setPlaceSubname("brak");
         }
 
-        if(event.getTicket().getType().equals("tickets")) {
+        if (event.getTicket().getType().equals("tickets")) {
             eventView.setTicket("bilety");
         } else if (event.getTicket().getType().equals("free")) {
             eventView.setTicket("wstęp wolny");

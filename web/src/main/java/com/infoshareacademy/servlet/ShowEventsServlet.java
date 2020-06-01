@@ -1,6 +1,5 @@
 package com.infoshareacademy.servlet;
 
-import com.infoshareacademy.domain.api.EventJSON;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.EventViewService;
@@ -25,6 +24,7 @@ import java.util.Map;
 @WebServlet("/show-events")
 public class ShowEventsServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+    String action;
 
     @Inject
     TemplateProvider templateProvider;
@@ -34,23 +34,49 @@ public class ShowEventsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        action = req.getParameter("action");
+
+        STDLOG.info("Requested action: {}", action);
+
+        if (action == null || action.isEmpty()) {
+            resp.getWriter().write("Empty action parameter.");
+            return;
+        }
+
+        if (action.equals("showAll")) {
+            showAll(req, resp);
+        } else if (action.equals("search")) {
+            searchByPhrase(req, resp);
+        }
+    }
+
+    private void showAll(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        action = req.getParameter("action");
+
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
-
         Integer actPage = Integer.parseInt(req.getParameter("page"));
-        Integer listSize = eventViewService.listSize();
+        Integer listSize = eventViewService.getAllEventsCount();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
+
         List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
         req.setCharacterEncoding("UTF-8");
 
         if (actPage < 1 || actPage > numberOfPages) {
-            resp.sendRedirect("/show-events?page=1");
+            resp.sendRedirect("/show-events?action=showAll&page=1");
         }
 
+        StringBuilder actionAppender = new StringBuilder();
+        actionAppender.append("action=");
+        actionAppender.append(action);
+        actionAppender.append("&");
+
         dataModel.put("events", listEvents);
+        dataModel.put("action", actionAppender.toString());
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
+        dataModel.put("name", "events");
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -59,7 +85,83 @@ public class ShowEventsServlet extends HttpServlet {
         try {
             template.process(dataModel, pw);
         } catch (TemplateException e) {
-            STDLOG.error("Template for main page error");
+            STDLOG.error("Template for Show All Events page error");
+        }
+    }
+
+    private void searchByPhrase(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        action = req.getParameter("action");
+
+        Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
+        Map<String, Object> dataModel = new HashMap<>();
+
+        Integer actPage = Integer.parseInt(req.getParameter("page"));
+        String phrase = req.getParameter("phrase");
+
+        Integer listSize = eventViewService.prepareSearchedEventsToShow(1, phrase, false).size();
+        Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
+        List<EventView> listEvents = eventViewService.prepareSearchedEventsToShow((actPage - 1) * 20, phrase, true);
+        req.setCharacterEncoding("UTF-8");
+
+        StringBuilder redirect = new StringBuilder();
+        redirect.append("/show-events?action=search&page=1&phrase=");
+        redirect.append(phrase);
+
+        StringBuilder actionAppender = new StringBuilder();
+        actionAppender.append("action=");
+        actionAppender.append(action);
+        actionAppender.append("&");
+
+        if ((actPage < 1 || actPage > numberOfPages) && listSize > 0) {
+            resp.sendRedirect(redirect.toString());
+        } else if (listSize == 0) {
+            noResultsFound(req, resp);
+            return;
+        }
+
+
+        StringBuilder actionPlusPhrase = new StringBuilder();
+        actionPlusPhrase.append(actionAppender.toString());
+        actionPlusPhrase.append("&phrase=");
+        actionPlusPhrase.append(phrase);
+        actionPlusPhrase.append("&");
+
+        dataModel.put("events", listEvents);
+        dataModel.put("action", actionPlusPhrase.toString());
+        dataModel.put("actPage", actPage);
+        dataModel.put("numberOfPages", numberOfPages);
+        dataModel.put("numberOfEvents", listSize);
+        dataModel.put("name", "events");
+
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter pw = resp.getWriter();
+
+        try {
+            template.process(dataModel, pw);
+        } catch (TemplateException e) {
+            STDLOG.error("Template for Show Search Results page error");
+        }
+    }
+
+    private void noResultsFound(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        Template template = templateProvider.getTemplate(getServletContext(), "noResultsFound.ftlh");
+        Map<String, Object> dataModel = new HashMap<>();
+        req.setCharacterEncoding("UTF-8");
+
+        String phrase = req.getParameter("phrase");
+        dataModel.put("phrase", phrase);
+
+        resp.setContentType("text/html; charset=UTF-8");
+
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter pw = resp.getWriter();
+
+        try {
+            template.process(dataModel, pw);
+        } catch (TemplateException e) {
+            STDLOG.error("Template for Show Search Results page error");
         }
     }
 }

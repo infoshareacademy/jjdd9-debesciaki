@@ -4,7 +4,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand " href="#">&nbsp;&nbsp;Projekt Debeściaki - Infoshare Academy</a>
+        <a class="navbar-brand " href="/index">&nbsp;&nbsp;Projekt Debeściaki</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -17,13 +17,32 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/show-events?page=1">Wydarzenia</a>
+                    <a class="nav-link" href="/show-events?action=showAll&page=1">Wydarzenia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Organizatorzy</a>
+                    <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Zaloguj się</a>
+                </li>
+                <li class="nav-item">
+                    <a>
+                        <#noautoesc>
+                            <form method="get" action="/show-events">
+                                <button class="btn btn-primary"
+                                        name="action"
+                                        type="submit"
+                                        value="search"
+                                        style="float: right">
+                                    Szukaj
+                                </button>
+                                <input type="hidden" name="page" value="1"/>
+                                <div style="overflow: hidden; padding-right: .5em;">
+                                    <input type="text" name="phrase" style="width: 100%;"/>
+                                </div>
+                            </form>
+                        </#noautoesc>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -56,8 +75,8 @@
         <h1 class="display-4">Wydarzenia kulturalne w Gdańsku</h1>
         <p class="lead">Witaj serdecznie na naszej stronie internetowej, prezentującej nadchodzące wydarzenia w Gdańsku!<br>Znajdziesz
             tutaj wszystkie informacje dotyczące imprez w naszym mieście - kto, gdzie, kiedy.<br>Co więcej, sprawdzisz
-            czy są jeszcze dostępne bilety, a po zalogowaniu będziesz miał możliwość zakupu ich.</p>
-        <a href="show-events?page=1" class="btn btn-primary btn-lg">Sprawdź więcej</a>
+            czy są jeszcze dostępne bilety, a po zalogowaniu będziesz miał możliwość je zakupić.</p>
+        <nobr><a href="/show-events?action=showAll&page=1" class="btn btn-primary btn-lg">Sprawdź więcej</a>&nbsp;&nbsp;&nbsp;<a href="/upload.html" class="btn btn-primary btn-lg">Załaduj bazę</a></nobr>
     </div>
 </div>
 

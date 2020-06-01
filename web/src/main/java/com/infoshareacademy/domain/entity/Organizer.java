@@ -4,6 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Organizer.findAll",
+                query = "SELECT o FROM Organizer o"
+        )
+})
 @Entity
 @Table(name = "organizer")
 public class Organizer {

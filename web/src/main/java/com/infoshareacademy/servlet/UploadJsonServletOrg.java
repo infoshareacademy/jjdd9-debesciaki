@@ -24,5 +24,6 @@ public class UploadJsonServletOrg extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         persistServiceBean.organizer(fileUploadBean.uploadFile(req.getPart("json")));
+        resp.sendRedirect("/upload.html");
     }
 }

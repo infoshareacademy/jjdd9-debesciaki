@@ -1,33 +1,81 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl-PL">
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome to upload form</title>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Projekt Debeściaki - Infoshare Academy 2020">
+    <meta name="author" content="Bartłomiej Trawiński, Jakub Cichacki">
+
+    <title>Projekt Debeściaki - Wydarzenia kulturalne w Gdańsku</title>
+
+    <link href="/bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/bootstrap/css/heroic-features.css" rel="stylesheet">
+    <link rel="stylesheet" href="/bootstrap/css/style.css">
 </head>
 <body>
-<h1>JSON ORGANIZER</h1>
-<form method="post" action="/upload-org" enctype="multipart/form-data">
-    JSON file: <input type="file" name="json"/><br/><br/>
-    <input type="submit" name="save" value="save"/><br/><br/>
-</form>
-<h1>JSON PLACE</h1>
-<form method="post" action="/upload-pla" enctype="multipart/form-data">
-    JSON file: <input type="file" name="json"/><br/><br/>
-    <input type="submit" name="save" value="save"/><br/><br/>
-</form>
-<h1>JSON CATEGORY</h1>
-<form method="post" action="/upload-cat" enctype="multipart/form-data">
-    JSON file: <input type="file" name="json"/><br/><br/>
-    <input type="submit" name="save" value="save"/><br/><br/>
-</form>
-<h1>JSON EVENT</h1>
-<form method="post" action="/upload-eve" enctype="multipart/form-data">
-    JSON file: <input type="file" name="json"/><br/><br/>
-    <input type="submit" name="save" value="save"/><br/><br/>
-</form>
-<h1>ALL INFO FROM REST API</h1>
-<form method="post" action="/upload-rest">
-    <input type="submit" name="save" value="save"/><br/><br/>
-</form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand " href="/index">&nbsp;&nbsp;Projekt Debeściaki - Infoshare Academy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/index">Strona główna</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/show-events?page=1">Wydarzenia
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Organizatorzy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Zaloguj się</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="jumbotron ">
+        <h1>Załaduj dane z REST API</h1>
+        <form method="post" action="/upload-rest">
+            <input type="submit" name="save" value="Załaduj"/><br/><br/>
+        </form>
+        <h1>Załaduj plik z bazą organizatorów</h1>
+        <form method="post" action="/upload-org" enctype="multipart/form-data">
+            Plik JSON: <input type="file" name="json"/><br/><br/>
+            <input type="submit" name="save" value="Zapisz"/><br/><br/>
+        </form>
+        <h1>Załaduj plik z bazą miejsc</h1>
+        <form method="post" action="/upload-pla" enctype="multipart/form-data">
+            Plik JSON: <input type="file" name="json"/><br/><br/>
+            <input type="submit" name="save" value="Zapisz"/><br/><br/>
+        </form>
+        <h1>Załaduj plik z bazą kategorii</h1>
+        <form method="post" action="/upload-cat" enctype="multipart/form-data">
+            Plik JSON: <input type="file" name="json"/><br/><br/>
+            <input type="submit" name="save" value="Zapisz"/><br/><br/>
+        </form>
+        <h1>Załaduj plik z bazą wydarzeń</h1>
+        <form method="post" action="/upload-eve" enctype="multipart/form-data">
+            Plik JSON: <input type="file" name="json"/><br/><br/>
+            <input type="submit" name="save" value="Zapisz"/><br/><br/>
+        </form>
+    </div>
+</div>
+<footer class="footer py-3 bg-dark fixed-bottom">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Bartłomiej Trawiński & Jakub Cichacki 2020</p>
+    </div>
+</footer>
+
+<script src="/bootstrap/vendor/jquery/jquery.min.js"></script>
+<script src="/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
