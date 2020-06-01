@@ -24,5 +24,7 @@ public class UploadJsonServletCat extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         persistServiceBean.category(fileUploadBean.uploadFile(req.getPart("json")));
+        resp.sendRedirect("/upload.html");
     }
+
 }

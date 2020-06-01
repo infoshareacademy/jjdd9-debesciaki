@@ -19,7 +19,7 @@
                     <a class="nav-link" href="/show-events?action=showAll&page=1">Wydarzenia</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Organizatorzy</a>
+                    <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Zaloguj się</a>

@@ -28,6 +28,8 @@ public class MainPageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "index.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
+        String previous = req.getHeader("referer");
+        dataModel.put("previous", previous);
 
         req.setCharacterEncoding("UTF-8");
 
