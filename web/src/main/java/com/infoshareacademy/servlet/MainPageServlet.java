@@ -17,7 +17,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/index")
+@WebServlet("")
 public class MainPageServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(MainPageServlet.class.getName());
 
