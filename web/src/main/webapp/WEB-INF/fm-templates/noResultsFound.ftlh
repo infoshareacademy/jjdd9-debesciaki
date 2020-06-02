@@ -28,8 +28,8 @@
         </div>
     </div>
 </nav>
-<#-- ftlh for  search navbar-->
-<#include "searchInput.ftlh">
+<#-- ftlh for  search navbar
+<#include "searchInput.ftlh"> -->
 
 <br><br>
 <div class="container">
@@ -41,6 +41,7 @@
         <p>
             Nie znaleziono wydarzenia dla frazy: ${phrase}
         </p>
+        <h6 class="text-right"><a href="${previous}" class="text-primary font-italic">Powrót do poprzedniej strony</a></h6>
     </div>
 </div>
 

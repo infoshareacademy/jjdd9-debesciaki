@@ -21,17 +21,36 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Organizatorzy</a>
+                    <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Zaloguj się</a>
+                </li>
+                <li class="nav-item">
+                    <a>
+                        <#noautoesc>
+                            <form method="get" action="/show-events">
+                                <button class="btn btn-primary"
+                                        name="action"
+                                        type="submit"
+                                        value="search"
+                                        style="float: right">
+                                    Szukaj
+                                </button>
+                                <input type="hidden" name="page" value="1"/>
+                                <div style="overflow: hidden; padding-right: .5em;">
+                                    <input type="text" name="phrase" style="width: 100%;"/>
+                                </div>
+                            </form>
+                        </#noautoesc>
+                    </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-<#-- ftlh for  search navbar-->
-<#include "searchInput.ftlh">
+<#-- ftlh for  search navbar
+<#include "searchInput.ftlh"> -->
 
 <br><br>
 <#include "eventView.ftlh">

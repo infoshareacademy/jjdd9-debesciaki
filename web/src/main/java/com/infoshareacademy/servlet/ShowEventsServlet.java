@@ -149,9 +149,11 @@ public class ShowEventsServlet extends HttpServlet {
         Template template = templateProvider.getTemplate(getServletContext(), "noResultsFound.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
         req.setCharacterEncoding("UTF-8");
+        String previous = req.getHeader("referer");
 
         String phrase = req.getParameter("phrase");
         dataModel.put("phrase", phrase);
+        dataModel.put("previous", previous);
 
         resp.setContentType("text/html; charset=UTF-8");
 
