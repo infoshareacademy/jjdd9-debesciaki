@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlet;
+package com.infoshareacademy.servlet.upload;
 
 import com.infoshareacademy.service.FileUploadBean;
 import com.infoshareacademy.service.PersistServiceBean;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @MultipartConfig
-@WebServlet("/upload-pla")
-public class UploadJsonServletPla extends HttpServlet {
+@WebServlet("/upload-cat")
+public class UploadJsonServletCat extends HttpServlet {
     @Inject
     PersistServiceBean persistServiceBean;
 
@@ -23,7 +23,8 @@ public class UploadJsonServletPla extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        persistServiceBean.place(fileUploadBean.uploadFile(req.getPart("json")));
+        persistServiceBean.category(fileUploadBean.uploadFile(req.getPart("json")));
         resp.sendRedirect("/upload.html");
     }
+
 }
