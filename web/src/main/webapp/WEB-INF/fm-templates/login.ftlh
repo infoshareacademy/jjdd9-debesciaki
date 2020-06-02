@@ -30,7 +30,7 @@
     </div>
 </nav>
 <#-- ftlh for  search navbar
-<#include "searchInput.ftlh"> -->
+<#include "searchInput.ftlh">-->
 
 <div class="container">
     <div class="row">
