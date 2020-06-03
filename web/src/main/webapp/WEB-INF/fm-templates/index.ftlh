@@ -38,7 +38,7 @@
                                 </button>
                                 <input type="hidden" name="page" value="1"/>
                                 <div style="overflow: hidden; padding-right: .5em;">
-                                    <input type="text" name="phrase" style="width: 100%;"/>
+                                    <input type="text" name="phrase" required minlength="2" style="width: 100%;"/>
                                 </div>
                             </form>
                         </#noautoesc>
