@@ -4,7 +4,8 @@
                 name="action"
                 type="submit"
                 value="search"
-                style="float: right">
+                style="float: right"
+                required minlength="3">
             Szukaj
         </button>
         <input type="hidden" name="page" value="1"/>
