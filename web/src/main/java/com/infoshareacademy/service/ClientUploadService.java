@@ -8,10 +8,10 @@ import com.infoshareacademy.domain.entity.Category;
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.Organizer;
 import com.infoshareacademy.domain.entity.Place;
-import com.infoshareacademy.repository.writer.CategoryPersisterBean;
-import com.infoshareacademy.repository.writer.EventPersisterBean;
-import com.infoshareacademy.repository.writer.OrganizerPersisterBean;
-import com.infoshareacademy.repository.writer.PlacePersisterBean;
+import com.infoshareacademy.repository.CategoryDao;
+import com.infoshareacademy.repository.EventDao;
+import com.infoshareacademy.repository.OrganizerDao;
+import com.infoshareacademy.repository.PlaceDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,30 +34,30 @@ public class ClientUploadService {
     @Inject
     ListJsonToDaoBean listJsonToDaoBean;
     @Inject
-    PlacePersisterBean placePersisterBean;
+    PlaceDao placeDao;
     @Inject
-    EventPersisterBean eventPersisterBean;
+    EventDao eventDao;
     @Inject
-    OrganizerPersisterBean organizerPersisterBean;
+    OrganizerDao organizerDao;
     @Inject
-    CategoryPersisterBean categoryPersisterBean;
+    CategoryDao categoryDao;
 
     public void upload() throws IOException {
         List<CategoryJSON> categoryJSON = parseCategoryFromURL("https://planerkulturalny.pl/api/rest/categories.json");
         List<Category> category = listJsonToDaoBean.category(categoryJSON);
-        categoryPersisterBean.persistEntityList(category);
+        categoryDao.persistEntityList(category);
 
         List<OrganizerJSON> organizerJSON = parseOrganizerFromURL("https://planerkulturalny.pl/api/rest/organizers.json");
         List<Organizer> organizer = listJsonToDaoBean.organizer(organizerJSON);
-        organizerPersisterBean.persistEntityList(organizer);
+        organizerDao.persistEntityList(organizer);
 
         List<PlaceJSON> placeJSON = parsePlaceFromURL("https://planerkulturalny.pl/api/rest/places.json");
         List<Place> place = listJsonToDaoBean.place(placeJSON);
-        placePersisterBean.persistEntityList(place);
+        placeDao.persistEntityList(place);
 
         List<EventJSON> eventJSON = parseEventFromURL("https://planerkulturalny.pl/api/rest/events.json");
         List<Event> event = listJsonToDaoBean.event(eventJSON);
-        eventPersisterBean.persistEntityList(event);
+        eventDao.persistEntityList(event);
     }
 
     public List<OrganizerJSON> parseOrganizerFromURL(String urlPath) throws IOException {

@@ -2,8 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.api.OrganizerJSON;
 import com.infoshareacademy.domain.entity.Organizer;
-import com.infoshareacademy.mapper.OrganizerMapper;
-import com.infoshareacademy.query.OrganizerQuery;
+import com.infoshareacademy.repository.OrganizerDao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -14,13 +13,13 @@ import java.util.List;
 public class OrganizerViewService {
 
     @Inject
-    OrganizerQuery organizerQuery;
+    OrganizerDao organizerDao;
 
     public List<OrganizerJSON> prepareOrganizersToShow(int firstResult) {
 
         List<OrganizerJSON> organizersList = new ArrayList<>();
 
-        for(Organizer organizer : organizerQuery.organizersListWithLimit(firstResult)) {
+        for (Organizer organizer : organizerDao.organizersListWithLimit(firstResult)) {
             organizersList.add(mapper(organizer));
         }
 
@@ -28,7 +27,7 @@ public class OrganizerViewService {
     }
 
     public Integer listSize() {
-        return organizerQuery.sizeList();
+        return organizerDao.sizeList();
     }
 
     public OrganizerJSON mapper(Organizer organizer) {

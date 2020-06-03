@@ -27,21 +27,7 @@
                 </li>
                 <li class="nav-item">
                     <a>
-                        <#noautoesc>
-                            <form method="get" action="/show-events">
-                                <button class="btn btn-primary"
-                                        name="action"
-                                        type="submit"
-                                        value="search"
-                                        style="float: right">
-                                    Szukaj
-                                </button>
-                                <input type="hidden" name="page" value="1"/>
-                                <div style="overflow: hidden; padding-right: .5em;">
-                                    <input type="text" name="phrase" required minlength="2" style="width: 100%;"/>
-                                </div>
-                            </form>
-                        </#noautoesc>
+                        <#include "searchInput.ftlh">
                     </a>
                 </li>
             </ul>
