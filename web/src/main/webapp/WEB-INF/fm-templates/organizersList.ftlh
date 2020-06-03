@@ -4,8 +4,7 @@
         <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white align-content-center" cellspacing="0" width="70%">
             <thead>
             <tr class="bg-dark text-white">
-                <th class="th-sm text-center" width="10%">Numer</th>
-                <th class="th-sm text-center" width="90%">Nazwa</th>
+                <th class="th-sm text-center" width="100%">Nazwa</th>
             </tr>
             </thead>
             <tbody>

@@ -2,7 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.view.EventView;
-import com.infoshareacademy.query.EventQuery;
+import com.infoshareacademy.repository.EventDao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class EventViewService {
 
     @Inject
-    EventQuery eventQuery;
+    EventDao eventDao;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
@@ -23,7 +23,7 @@ public class EventViewService {
 
         List<EventView> eventsList = new ArrayList<>();
 
-        for (Event el : eventQuery.eventListWithLimit(firstResult)) {
+        for (Event el : eventDao.eventListWithLimit(firstResult)) {
             eventsList.add(mapper(el));
         }
 
@@ -34,7 +34,7 @@ public class EventViewService {
 
         List<EventView> eventsList = new ArrayList<>();
 
-        for (Event el : eventQuery.searchByPhraseList(firstResult, phrase, isLimited)) {
+        for (Event el : eventDao.searchByPhraseList(firstResult, phrase, isLimited)) {
             eventsList.add(mapper(el));
         }
 
@@ -42,14 +42,14 @@ public class EventViewService {
     }
 
     public Integer getAllEventsCount() {
-        return eventQuery.getAllEventsCount();
+        return eventDao.getAllEventsCount();
     }
 
 
     public EventView prepareSingleEvent(Long id) {
         EventView event = new EventView();
 
-        for (Event el : eventQuery.allEventsList()) {
+        for (Event el : eventDao.allEventsList()) {
             if (el.getId() == id) {
                 event = mapper(el);
             }

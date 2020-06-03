@@ -3,9 +3,9 @@ package com.infoshareacademy.mapper;
 import com.infoshareacademy.domain.api.AttachmentJSON;
 import com.infoshareacademy.domain.api.EventJSON;
 import com.infoshareacademy.domain.entity.*;
-import com.infoshareacademy.query.CategoryQuery;
-import com.infoshareacademy.query.OrganizerQuery;
-import com.infoshareacademy.query.PlaceQuery;
+import com.infoshareacademy.repository.CategoryDao;
+import com.infoshareacademy.repository.OrganizerDao;
+import com.infoshareacademy.repository.PlaceDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,13 +37,13 @@ public class EventMapper {
     UrlMapper urlMapper;
 
     @Inject
-    CategoryQuery categoryQuery;
+    CategoryDao categoryDao;
 
     @Inject
-    PlaceQuery placeQuery;
+    PlaceDao placeDao;
 
     @Inject
-    OrganizerQuery organizerQuery;
+    OrganizerDao organizerDao;
 
     public EventJSON daoToJson(Event event) {
         EventJSON jsonEvent = new EventJSON();
@@ -85,14 +85,14 @@ public class EventMapper {
 
         daoEvent.setTicket(ticketMapper.jsonToDao(event.getTickets()));
 
-        Place place = placeQuery.findByApiId(event.getPlace().getId()).get();
+        Place place = placeDao.findByApiId(event.getPlace().getId()).get();
         daoEvent.setPlace(place);
 
-        Organizer organizer = organizerQuery.findByApiId(event.getOrganizer().getId()).get();
+        Organizer organizer = organizerDao.findByApiId(event.getOrganizer().getId()).get();
         daoEvent.setOrganizer(organizer);
         Category category = new Category();
-        if (!categoryQuery.findById(event.getCategoryId()).isEmpty()) {
-            category = categoryQuery.findById(event.getCategoryId()).get();
+        if (!categoryDao.findById(event.getCategoryId()).isEmpty()) {
+            category = categoryDao.findById(event.getCategoryId()).get();
         } else {
             category = null;
         }
