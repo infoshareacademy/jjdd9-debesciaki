@@ -46,6 +46,14 @@ public class ShowEventsServlet extends HttpServlet {
         if (action.equals("showAll")) {
             showAll(req, resp);
         } else if (action.equals("search")) {
+
+            String phrase = req.getParameter("phrase");
+            String cleanPhrase = phrase.replaceAll("%", "");
+
+            if (cleanPhrase.length() < 3) {
+                resp.sendRedirect("/show-events?action=showAll&page=1");
+            }
+
             searchByPhrase(req, resp);
         }
     }
@@ -96,16 +104,18 @@ public class ShowEventsServlet extends HttpServlet {
         Map<String, Object> dataModel = new HashMap<>();
 
         Integer actPage = Integer.parseInt(req.getParameter("page"));
-        String phrase = req.getParameter("phrase");
 
-        Integer listSize = eventViewService.prepareSearchedEventsToShow(1, phrase, false).size();
+        String phrase = req.getParameter("phrase");
+        String cleanPhrase = phrase.replaceAll("%", "");
+
+        Integer listSize = eventViewService.prepareSearchedEventsToShow(1, cleanPhrase, false).size();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
-        List<EventView> listEvents = eventViewService.prepareSearchedEventsToShow((actPage - 1) * 20, phrase, true);
+        List<EventView> listEvents = eventViewService.prepareSearchedEventsToShow((actPage - 1) * 20, cleanPhrase, true);
         req.setCharacterEncoding("UTF-8");
 
         StringBuilder redirect = new StringBuilder();
         redirect.append("/show-events?action=search&page=1&phrase=");
-        redirect.append(phrase);
+        redirect.append(cleanPhrase);
 
         StringBuilder actionAppender = new StringBuilder();
         actionAppender.append("action=");
@@ -123,7 +133,7 @@ public class ShowEventsServlet extends HttpServlet {
         StringBuilder actionPlusPhrase = new StringBuilder();
         actionPlusPhrase.append(actionAppender.toString());
         actionPlusPhrase.append("&phrase=");
-        actionPlusPhrase.append(phrase);
+        actionPlusPhrase.append(cleanPhrase);
         actionPlusPhrase.append("&");
 
         dataModel.put("events", listEvents);
