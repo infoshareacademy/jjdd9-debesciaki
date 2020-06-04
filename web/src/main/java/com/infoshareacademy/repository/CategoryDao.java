@@ -1,4 +1,4 @@
-package com.infoshareacademy.query;
+package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.entity.Category;
 
@@ -6,12 +6,20 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Stateless
-public class CategoryQuery {
+public class CategoryDao {
     @PersistenceContext
     EntityManager entityManager;
+
+    public void persistEntityList(List<Category> list) throws IOException {
+        for (Category o : list) {
+            entityManager.persist(o);
+        }
+    }
 
     public Optional<Category> findById(long id) {
         try {
@@ -29,6 +37,5 @@ public class CategoryQuery {
         } catch (Exception e) {
             return Optional.empty();
         }
-
     }
 }

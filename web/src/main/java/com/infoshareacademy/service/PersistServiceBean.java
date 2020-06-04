@@ -1,6 +1,9 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.repository.writer.*;
+import com.infoshareacademy.repository.CategoryDao;
+import com.infoshareacademy.repository.EventDao;
+import com.infoshareacademy.repository.OrganizerDao;
+import com.infoshareacademy.repository.PlaceDao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -12,27 +15,27 @@ public class PersistServiceBean {
     @Inject
     FileToDaoBean fileToDaoBean;
     @Inject
-    PlacePersisterBean placePersisterBean;
+    PlaceDao placeDao;
     @Inject
-    EventPersisterBean eventPersisterBean;
+    EventDao eventDao;
     @Inject
-    OrganizerPersisterBean organizerPersisterBean;
+    OrganizerDao organizerDao;
     @Inject
-    CategoryPersisterBean categoryPersisterBean;
+    CategoryDao categoryDao;
 
     public void place(File file) throws IOException {
-        placePersisterBean.persistEntityList(fileToDaoBean.placeList(file));
+        placeDao.persistEntityList(fileToDaoBean.placeList(file));
     }
 
     public void organizer(File file) throws IOException {
-        organizerPersisterBean.persistEntityList(fileToDaoBean.organizerList(file));
+        organizerDao.persistEntityList(fileToDaoBean.organizerList(file));
     }
 
     public void category(File file) throws IOException {
-        categoryPersisterBean.persistEntityList(fileToDaoBean.categoryList(file));
+        categoryDao.persistEntityList(fileToDaoBean.categoryList(file));
     }
 
     public void event(File file) throws IOException {
-        eventPersisterBean.persistEntityList(fileToDaoBean.eventList(file));
+        eventDao.persistEntityList(fileToDaoBean.eventList(file));
     }
 }

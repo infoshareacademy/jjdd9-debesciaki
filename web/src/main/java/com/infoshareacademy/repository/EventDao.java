@@ -1,5 +1,4 @@
-package com.infoshareacademy.query;
-
+package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.entity.Event;
 
@@ -7,14 +6,14 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @Stateless
-public class EventQuery {
-
+public class EventDao {
     @PersistenceContext
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     private final static int MAX_RESULTS = 20;
 
@@ -72,4 +71,9 @@ public class EventQuery {
 
     }
 
+    public void persistEntityList(List<Event> list) throws IOException {
+        for (Event o : list) {
+            entityManager.persist(o);
+        }
+    }
 }

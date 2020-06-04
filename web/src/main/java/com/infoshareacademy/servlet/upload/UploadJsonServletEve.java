@@ -1,4 +1,4 @@
-package com.infoshareacademy.servlet;
+package com.infoshareacademy.servlet.upload;
 
 import com.infoshareacademy.service.FileUploadBean;
 import com.infoshareacademy.service.PersistServiceBean;
