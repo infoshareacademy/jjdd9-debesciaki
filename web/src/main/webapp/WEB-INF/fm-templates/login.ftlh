@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html>
-<#include "headSection.ftlh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Projekt Debeściaki - Infoshare Academy 2020">
+    <meta name="author" content="Bartłomiej Trawiński, Jakub Cichacki">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content=982683700163-ed48vnuiru6qtim5k45qjhn80jrqkcip.apps.googleusercontent.com>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <title>Projekt Debeściaki - Wydarzenia kulturalne w Gdańsku</title>
+
+    <link href="../../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../bootstrap/css/heroic-features.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../bootstrap/css/style.css">
+</head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -40,9 +55,7 @@
                     <form class="form-signin">
                         <div class="text-center"><img src="../../bootstrap/img/logo-google.svg" alt="google"></div>
                         <span class="m-2"><br></span>
-                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i
-                                    class="fab fa-google mr-2"></i> Zaloguj się z Google
-                        </button>
+                        <div class="g-signin2 align-content-center" data-onsuccess="onSignIn"></div>
                     </form>
                 </div>
             </div>
