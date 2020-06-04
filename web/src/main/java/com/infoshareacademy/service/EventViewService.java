@@ -34,7 +34,7 @@ public class EventViewService {
 
         List<EventView> eventsList = new ArrayList<>();
 
-        for (Event el : eventDao.searchByPhraseList(firstResult, phrase, isLimited)) {
+        for (Event el : eventDao.searchByPhraseListEveOrg(firstResult, phrase, isLimited)) {
             eventsList.add(mapper(el));
         }
 

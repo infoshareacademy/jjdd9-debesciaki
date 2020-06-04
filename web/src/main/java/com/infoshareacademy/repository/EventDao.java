@@ -28,7 +28,7 @@ public class EventDao {
         return query.getResultList();
     }
 
-    public List<Event> searchByPhraseList(int firstElement, String phrase, Boolean isLimited) {
+    public List<Event> searchByPhraseListEveOrg(int firstElement, String phrase, Boolean isLimited) {
         Query queryEventName = entityManager
                 .createQuery("SELECT c FROM Event c WHERE (c.name LIKE :phrase) OR (c.organizer.designation LIKE :phrase) ");
 
@@ -41,7 +41,45 @@ public class EventDao {
 
         if (isLimited) {
             queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
-        }else{
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListEve(int firstElement, String phrase, Boolean isLimited) {
+        Query queryEventName = entityManager
+                .createQuery("SELECT c FROM Event c WHERE c.name LIKE :phrase");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListOrg(int firstElement, String phrase, Boolean isLimited) {
+        Query queryEventName = entityManager
+                .createQuery("SELECT c FROM Event c WHERE c.organizer.designation LIKE :phrase");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
             return queryEventName.getResultList();
         }
         return queryEventName.getResultList();
