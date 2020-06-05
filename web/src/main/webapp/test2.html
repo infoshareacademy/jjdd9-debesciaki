@@ -78,42 +78,35 @@
 <body>
 
 <form autocomplete="off" action="/api/search/eve-org">
-    <div class="autocomplete" style="width:300px;">
+    <div class="autocomplete" style="width:30%;">
         <input id="phrase" type="text" name="phrase" placeholder="Nazwa">
     </div>
     <input type="submit" value="Szukaj">
     <div>
-        <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false"/>
-        <div class="dropdown-menu" id="list">
-            <div class="dropdown-item">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" id="checkEve" onclick="buttonCheckEve()">
                     <label for="checkEve"> Nazwy wydarzeń </label>
                 </div>
-            </div>
-            <div class="dropdown-item">
+
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()" >
                     <label for="checkOrg"> Nazwy organizatorów </label>
                 </div>
-            </div>
-            <div class="dropdown-item">
+
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
                     <label for="checkDate"> Przedział czasowy </label>
                 </div>
-            </div>
-            <div class="dropdown-divider"></div>
-            <div class="dropdown-item">
+
+            <div>
                 <label for="start">Data rozpoczęcia:</label>
                 <input type="date" id="start" name="start">
             </div>
-            <div class="dropdown-item">
+            <div >
                 <label for="end">Data zakończenia:</label>
                 <input type="date" id="end" name="end">
             </div>
-        </div>
+
     </div>
 </form>
 </body>
@@ -127,7 +120,6 @@
 
     document.getElementById("phrase").addEventListener("keyup", myFunction);
 
-
     function myFunction() {
         if (document.getElementById("phrase").textLength > 2) {
             arr2 = [];
@@ -140,7 +132,12 @@
                     str1 = "http://localhost:8080/api/search/eve/";
                 } else if (orgBool == true && eveBool == false) {
                     str1 = "http://localhost:8080/api/search/org/";
-                }
+                }/*
+                if (dateBool==true){
+                    str1.concat(document.getElementById("start").value);
+                    str1.concat("/");
+                    str1.concat(document.getElementById("end").value);
+                }*/
 
                 var str2 = document.getElementById("phrase").value;
                 var res = str1.concat(str2);
