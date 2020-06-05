@@ -1,7 +1,6 @@
 package com.infoshareacademy.controller;
 
 import com.infoshareacademy.service.EventMapLiveSearch;
-import com.infoshareacademy.service.EventQueryRestService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -16,32 +15,29 @@ import javax.ws.rs.core.Response;
 public class SearchController {
 
     @Inject
-    EventQueryRestService eventQueryRestService;
-
-    @Inject
     EventMapLiveSearch eventMapLiveSearch;
 
     @GET
     @Path("/eve/{phrase}")
     public Response eve(@PathParam("phrase") String phrase) {
         return Response.status(Response.Status.OK)
-                .entity(eventMapLiveSearch.searchThenAndMap(phrase))
+                .entity(eventMapLiveSearch.searchThenAndMapEve(phrase))
                 .build();
     }
 
     @GET
-    @Path("/org")
-    public Response org(String phrase) {
+    @Path("/org/{phrase}")
+    public Response org(@PathParam("phrase") String phrase) {
         return Response.status(Response.Status.OK)
-                .entity(eventQueryRestService.findByOrg(1, phrase, true))
+                .entity(eventMapLiveSearch.searchThenAndMapOrg(phrase))
                 .build();
     }
 
     @GET
-    @Path("/eve-org")
-    public Response eveOrg(String phrase) {
+    @Path("/eve-org/{phrase}")
+    public Response eveOrg(@PathParam("phrase") String phrase) {
         return Response.status(Response.Status.OK)
-                .entity(eventQueryRestService.findByEveOrg(1, phrase, true))
+                .entity(eventMapLiveSearch.searchThenAndMapEveOrg(phrase))
                 .build();
     }
 }

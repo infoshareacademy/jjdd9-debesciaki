@@ -13,8 +13,34 @@ public class EventMapLiveSearch {
     @Inject
     EventQueryRestService eventQueryRestService;
 
-    public List<EventLS> searchThenAndMap(String phrase) {
+    public List<EventLS> searchThenAndMapEve(String phrase) {
         List<Event> entities = eventQueryRestService.findByEve(1, phrase, true);
+        List<EventLS> liveSearchList = new ArrayList<>();
+        for (Event e : entities) {
+            EventLS x = new EventLS();
+            x.setApiId(e.getApiId());
+            x.setId(e.getId());
+            x.setName(e.getName());
+            liveSearchList.add(x);
+        }
+        return liveSearchList;
+    }
+
+    public List<EventLS> searchThenAndMapEveOrg(String phrase) {
+        List<Event> entities = eventQueryRestService.findByEveOrg(1, phrase, true);
+        List<EventLS> liveSearchList = new ArrayList<>();
+        for (Event e : entities) {
+            EventLS x = new EventLS();
+            x.setApiId(e.getApiId());
+            x.setId(e.getId());
+            x.setName(e.getName());
+            liveSearchList.add(x);
+        }
+        return liveSearchList;
+    }
+
+    public List<EventLS> searchThenAndMapOrg(String phrase) {
+        List<Event> entities = eventQueryRestService.findByOrg(1, phrase, true);
         List<EventLS> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
             EventLS x = new EventLS();
