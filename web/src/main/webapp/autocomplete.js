@@ -18,13 +18,16 @@ function autocomplete(inp, arr) {
         /*append the DIV element as a child of the autocomplete container:*/
         this.parentNode.appendChild(a);
         /*for each item in the array...*/
+        console.log('arr length ' + arr.length);
+        ///show-one-event?event=2
         for (i = 0; i < arr.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            console.log('name for ' + i + ' is ' + arr[i].name);
+            if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
+                b.innerHTML = "<strong>" + arr[i].name .substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].name.substr(val.length);
                 /*insert a input field that will hold the current array item's value:*/
                 b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
