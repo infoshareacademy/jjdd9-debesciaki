@@ -1,4 +1,4 @@
-function autocomplete(inp, arr) {
+function autocomplete(inp, arr, arr2) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -19,22 +19,31 @@ function autocomplete(inp, arr) {
         this.parentNode.appendChild(a);
         /*for each item in the array...*/
         console.log('arr length ' + arr.length);
-        ///show-one-event?event=2
+
         for (i = 0; i < arr.length; i++) {
             /*check if the item starts with the same letters as the text field value:*/
-            console.log('name for ' + i + ' is ' + arr[i].name);
             if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                q1 = 'show-one-event?event=';
+                arr2.push(arr[i].id);
                 /*create a DIV element for each matching element:*/
                 b = document.createElement("DIV");
                 /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i].name .substr(0, val.length) + "</strong>";
+
+                // b.innerHTML = "<a href ='" + q1.concat(arr2[i]) + "'>";
+
+                b.innerHTML = "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].name.substr(val.length);
                 /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i].name + "'>";
+                b.innerHTML += "<input type='hidden' value='" + arr[i].id + "'>";
+
+                //  b.innerHTML += "</a>";
                 /*execute a function when someone clicks on the item value (DIV element):*/
+                console.log(q1.concat(arr2[i]));
                 b.addEventListener("click", function (e) {
                     /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
+                    //inp.value = this.getElementsByTagName("input")[0].value;
+                    /*redirect to specific event with ID*/
+                    location.replace(q1.concat(this.getElementsByTagName("input")[0].value));
                     /*close the list of autocompleted values,
                     (or any other open lists of autocompleted values:*/
                     closeAllLists();

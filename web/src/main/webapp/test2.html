@@ -82,8 +82,56 @@
         <input id="phrase" type="text" name="phrase" placeholder="Nazwa">
     </div>
     <input type="submit" value="Szukaj">
-</form>
+    <!--
 
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-sm-8 offset-sm-2 col-12">
+                    <div class="input-group" id="adv-search">
+                        <input type="text" class="form-control form-control-search" placeholder="Wyszukaj wydarzenie"/>
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button"
+                                            class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <form>
+                                            <div class="form-group">
+                                                <label>Wyszukaj po:</label><br>
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">Nazwie wydarzenia</span>
+                                                </label>
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">Nazwie organizatora</span>
+                                                </label>
+                                                <label class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input">
+                                                    <span class="custom-control-indicator"></span>
+                                                    <span class="custom-control-description">Obu</span>
+                                                </label>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group text-center">
+                                                <button type="submit" class="btn btn-primary">Wyszukaj</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><span class="fa fa-search"
+                                                                                    aria-hidden="true"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+</form>
 </body>
 </html>
 <script type="text/javascript" src="autocomplete.js"></script>
@@ -93,8 +141,8 @@
 
     function myFunction() {
         if (document.getElementById("phrase").textLength > 2) {
-            // let results = [];
-             eventJsonToArrayOfNames($(document).ready(function () {
+            arr2 = [];
+            eventJsonToArrayOfNames($(document).ready(function () {
                 var str1 = "http://localhost:8080/api/search/eve/";
                 var str2 = document.getElementById("phrase").value;
                 var res = str1.concat(str2);
@@ -103,7 +151,7 @@
                     type: "GET",
                     success: function (result) {
                         console.log('Success in converting data');
-                        results =  result;
+                        results = result;
                     },
                     error: function (error) {
                         console.log(error);
@@ -111,7 +159,7 @@
                 })
             }));
 
-            autocomplete(document.getElementById("phrase"), results);
+            autocomplete(document.getElementById("phrase"), results, arr2);
         }
     }
 </script>
