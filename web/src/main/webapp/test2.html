@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl-PL">
 <head>
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -82,70 +82,69 @@
         <input id="phrase" type="text" name="phrase" placeholder="Nazwa">
     </div>
     <input type="submit" value="Szukaj">
-    <!--
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 offset-lg-3 col-sm-8 offset-sm-2 col-12">
-                    <div class="input-group" id="adv-search">
-                        <input type="text" class="form-control form-control-search" placeholder="Wyszukaj wydarzenie"/>
-                        <div class="input-group-btn">
-                            <div class="btn-group" role="group">
-                                <div class="dropdown dropdown-lg">
-                                    <button type="button"
-                                            class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <form>
-                                            <div class="form-group">
-                                                <label>Wyszukaj po:</label><br>
-                                                <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <span class="custom-control-indicator"></span>
-                                                    <span class="custom-control-description">Nazwie wydarzenia</span>
-                                                </label>
-                                                <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <span class="custom-control-indicator"></span>
-                                                    <span class="custom-control-description">Nazwie organizatora</span>
-                                                </label>
-                                                <label class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <span class="custom-control-indicator"></span>
-                                                    <span class="custom-control-description">Obu</span>
-                                                </label>
-                                            </div>
-                                            <hr>
-                                            <div class="form-group text-center">
-                                                <button type="submit" class="btn btn-primary">Wyszukaj</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary"><span class="fa fa-search"
-                                                                                    aria-hidden="true"></span></button>
-                            </div>
-                        </div>
-                    </div>
+    <div>
+        <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"/>
+        <div class="dropdown-menu" id="list">
+            <div class="dropdown-item">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="checkEve" onclick="buttonCheckEve()">
+                    <label for="checkEve"> Nazwy wydarzeń </label>
                 </div>
             </div>
-        </div>-->
+            <div class="dropdown-item">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()" >
+                    <label for="checkOrg"> Nazwy organizatorów </label>
+                </div>
+            </div>
+            <div class="dropdown-item">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
+                    <label for="checkDate"> Przedział czasowy </label>
+                </div>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-item">
+                <label for="start">Data rozpoczęcia:</label>
+                <input type="date" id="start" name="start">
+            </div>
+            <div class="dropdown-item">
+                <label for="end">Data zakończenia:</label>
+                <input type="date" id="end" name="end">
+            </div>
+        </div>
+    </div>
 </form>
 </body>
 </html>
 <script type="text/javascript" src="autocomplete.js"></script>
 <script type="text/javascript" src="eventJsonToArrayOfNames.js"></script>
 <script>
+    orgBool = new Boolean(true);
+    eveBool = new Boolean(true);
+    dateBool = new Boolean(false);
+
     document.getElementById("phrase").addEventListener("keyup", myFunction);
+
 
     function myFunction() {
         if (document.getElementById("phrase").textLength > 2) {
             arr2 = [];
             eventJsonToArrayOfNames($(document).ready(function () {
                 var str1 = "http://localhost:8080/api/search/eve/";
+
+                if (orgBool == true && eveBool == true) {
+                    str1 = "http://localhost:8080/api/search/eve-org/";
+                } else if (orgBool == false && eveBool == true) {
+                    str1 = "http://localhost:8080/api/search/eve/";
+                } else if (orgBool == true && eveBool == false) {
+                    str1 = "http://localhost:8080/api/search/org/";
+                }
+
                 var str2 = document.getElementById("phrase").value;
                 var res = str1.concat(str2);
+
                 $.ajax({
                     url: res,
                     type: "GET",
@@ -162,4 +161,38 @@
             autocomplete(document.getElementById("phrase"), results, arr2);
         }
     }
+
+    function buttonCheckOrg() {
+        var checkBox = document.getElementById("checkOrg");
+        if (checkBox.checked == true) {
+            console.log('Organizers filtering is on');
+            orgBool = true;
+        } else {
+            console.log('Organizers filtering is off');
+            orgBool = false;
+        }
+    }
+
+    function buttonCheckEve() {
+        var checkBox = document.getElementById("checkEve");
+        if (checkBox.checked == true) {
+            console.log('Event names filtering is on');
+            eveBool = true;
+        } else {
+            console.log('Event names filtering is off');
+            eveBool = false;
+        }
+    }
+
+    function buttonCheckDate() {
+        var checkBox = document.getElementById("checkDate");
+        if (checkBox.checked == true) {
+            console.log('Date filtering is on');
+            dateBool = true;
+        } else {
+            console.log('Date filtering is off');
+            dateBool = false;
+        }
+    }
+
 </script>
