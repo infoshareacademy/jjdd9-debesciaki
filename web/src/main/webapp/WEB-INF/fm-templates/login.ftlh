@@ -60,7 +60,7 @@
                     <form class="form-signin">
                         <div class="text-center"><img src="../../bootstrap/img/logo-google.svg" alt="google"></div>
                         <span class="m-2"><br></span>
-                        <div class="g-signin2 align-content-center" data-onsuccess="onSignIn"></div>
+                        <div class="g-signin2 justify-content-center" data-onsuccess="onSignIn" ></div>
                     </form>
                 </div>
             </div>
