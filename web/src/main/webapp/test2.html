@@ -83,29 +83,29 @@
     </div>
     <input type="submit" value="Szukaj">
     <div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" id="checkEve" onclick="buttonCheckEve()">
-                    <label for="checkEve"> Nazwy wydarzeń </label>
-                </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="checkEve" onclick="buttonCheckEve()">
+            <label for="checkEve"> Nazwy wydarzeń </label>
+        </div>
 
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()" >
-                    <label for="checkOrg"> Nazwy organizatorów </label>
-                </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()">
+            <label for="checkOrg"> Nazwy organizatorów </label>
+        </div>
 
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
-                    <label for="checkDate"> Przedział czasowy </label>
-                </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
+            <label for="checkDate"> Przedział czasowy </label>
+        </div>
 
-            <div>
-                <label for="start">Data rozpoczęcia:</label>
-                <input type="date" id="start" name="start">
-            </div>
-            <div >
-                <label for="end">Data zakończenia:</label>
-                <input type="date" id="end" name="end">
-            </div>
+        <div>
+            <label for="start">Data rozpoczęcia:</label>
+            <input type="date" id="start" name="start">
+        </div>
+        <div>
+            <label for="end">Data zakończenia:</label>
+            <input type="date" id="end" name="end">
+        </div>
 
     </div>
 </form>
@@ -132,12 +132,15 @@
                     str1 = "http://localhost:8080/api/search/eve/";
                 } else if (orgBool == true && eveBool == false) {
                     str1 = "http://localhost:8080/api/search/org/";
-                }/*
-                if (dateBool==true){
+                }
+                if (dateBool == true) {
                     str1.concat(document.getElementById("start").value);
-                    str1.concat("/");
+                    console.log(document.getElementById("start").value);
+                    str1.concat(" 00:00:00/");
                     str1.concat(document.getElementById("end").value);
-                }*/
+                    str1.concat(" 23:59:59")
+                    console.log(document.getElementById("end").value);
+                }
 
                 var str2 = document.getElementById("phrase").value;
                 var res = str1.concat(str2);

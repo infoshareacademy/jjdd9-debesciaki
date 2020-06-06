@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,28 @@ public class EventDao {
         sb.append("%");
 
         queryEventName.setParameter("phrase", sb.toString());
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListEveDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        Query queryEventName = entityManager
+                .createQuery("SELECT c FROM Event c WHERE (c.name LIKE :phrase) AND (c.startDate  BETWEEN :start AND :end) AND (c.endDate BETWEEN :start AND :end)");
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+        queryEventName.setParameter("start", start);
+        queryEventName.setParameter("end", end);
 
         if (isLimited) {
             queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
