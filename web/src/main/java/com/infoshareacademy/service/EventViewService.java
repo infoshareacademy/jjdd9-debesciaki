@@ -6,6 +6,7 @@ import com.infoshareacademy.repository.EventDao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,66 @@ public class EventViewService {
         return eventsList;
     }
 
-    public List<EventView> prepareSearchedEventsToShow(int firstResult, String phrase, Boolean isLimited) {
+    public List<EventView> prepareSearchedEventsToShowByEveOrg(int firstResult, String phrase, Boolean isLimited) {
 
         List<EventView> eventsList = new ArrayList<>();
 
         for (Event el : eventDao.searchByPhraseListEveOrg(firstResult, phrase, isLimited)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByEveOrgDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListEveOrgDate(firstResult, phrase, isLimited, start, end)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByEve(int firstResult, String phrase, Boolean isLimited) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListEve(firstResult, phrase, isLimited)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByEveDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListEveDate(firstResult, phrase, isLimited, start, end)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByOrg(int firstResult, String phrase, Boolean isLimited) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListOrg(firstResult, phrase, isLimited)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByOrgDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListOrgDate(firstResult, phrase, isLimited, start, end)) {
             eventsList.add(mapper(el));
         }
 

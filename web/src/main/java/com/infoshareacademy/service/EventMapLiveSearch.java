@@ -105,7 +105,7 @@ public class EventMapLiveSearch {
         return liveSearchList;
     }
 
-    public LocalDateTime stringToDate(String in) {
+    private LocalDateTime stringToDate(String in) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return LocalDateTime.parse(in, formatter);
     }
