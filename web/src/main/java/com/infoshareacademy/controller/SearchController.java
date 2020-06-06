@@ -24,6 +24,7 @@ public class SearchController {
                 .entity(eventMapLiveSearch.searchThenAndMapEve(phrase))
                 .build();
     }
+
     @GET
     @Path("/eve/{phrase}/{start}/{end}")
     public Response eveDate(@PathParam("phrase") String phrase,
@@ -31,7 +32,7 @@ public class SearchController {
                             @PathParam("end") String end) {
 
         return Response.status(Response.Status.OK)
-                .entity(eventMapLiveSearch.searchThenAndMapEveDate(phrase,start,end))
+                .entity(eventMapLiveSearch.searchThenAndMapEveDate(phrase, start, end))
                 .build();
     }
 
@@ -44,10 +45,32 @@ public class SearchController {
     }
 
     @GET
+    @Path("/org/{phrase}/{start}/{end}")
+    public Response orgDate(@PathParam("phrase") String phrase,
+                            @PathParam("start") String start,
+                            @PathParam("end") String end) {
+
+        return Response.status(Response.Status.OK)
+                .entity(eventMapLiveSearch.searchThenAndMapOrgDate(phrase, start, end))
+                .build();
+    }
+
+    @GET
     @Path("/eve-org/{phrase}")
     public Response eveOrg(@PathParam("phrase") String phrase) {
         return Response.status(Response.Status.OK)
                 .entity(eventMapLiveSearch.searchThenAndMapEveOrg(phrase))
+                .build();
+    }
+
+    @GET
+    @Path("/eve-org/{phrase}/{start}/{end}")
+    public Response eveOrgDate(@PathParam("phrase") String phrase,
+                               @PathParam("start") String start,
+                               @PathParam("end") String end) {
+
+        return Response.status(Response.Status.OK)
+                .entity(eventMapLiveSearch.searchThenAndMapEveOrgDate(phrase, start, end))
                 .build();
     }
 }

@@ -77,34 +77,39 @@
 </head>
 <body>
 
-<form autocomplete="off" action="/api/search/eve-org">
+<form autocomplete="off" action="/show-events">
     <div class="autocomplete" style="width:30%;">
-        <input id="phrase" type="text" name="phrase" placeholder="Nazwa">
+        <input type="hidden" value="search" name="action">
+        <input type="hidden" name="page" value="1"/>
+        <input id="phrase" type="text" name="phrase" required minlength="3" placeholder="Nazwa">
     </div>
     <input type="submit" value="Szukaj">
     <div>
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" id="checkEve" onclick="buttonCheckEve()">
+            <input type="checkbox" id="checkEve" onclick="buttonCheckEve()" checked>
+            <input type="hidden" id="checkEveVal" name="eve" value="1">
             <label for="checkEve"> Nazwy wydarzeń </label>
         </div>
 
         <div class="custom-control custom-checkbox">
             <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()">
+            <input type="hidden" id="checkOrgVal" name="org" value="0">
             <label for="checkOrg"> Nazwy organizatorów </label>
         </div>
 
         <div class="custom-control custom-checkbox">
             <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
+            <input type="hidden" id="checkDateVal" name="date" value="0">
             <label for="checkDate"> Przedział czasowy </label>
         </div>
 
         <div>
             <label for="start">Data rozpoczęcia:</label>
-            <input type="date" id="start" name="start">
+            <input type="date" id="start" name="start" value="2020-06-01">
         </div>
         <div>
             <label for="end">Data zakończenia:</label>
-            <input type="date" id="end" name="end">
+            <input type="date" id="end" name="end"  value="2021-06-01">
         </div>
 
     </div>
@@ -167,9 +172,11 @@
         if (checkBox.checked == true) {
             console.log('Organizers filtering is on');
             orgBool = true;
+            document.getElementById("checkOrgVal").value=1;
         } else {
             console.log('Organizers filtering is off');
             orgBool = false;
+            document.getElementById("checkOrgVal").value=0;
         }
     }
 
@@ -178,9 +185,11 @@
         if (checkBox.checked == true) {
             console.log('Event names filtering is on');
             eveBool = true;
+            document.getElementById("checkDateVal").value=1;
         } else {
             console.log('Event names filtering is off');
             eveBool = false;
+            document.getElementById("checkDateVal").value=0;
         }
     }
 
@@ -189,9 +198,11 @@
         if (checkBox.checked == true) {
             console.log('Date filtering is on');
             dateBool = true;
+            document.getElementById("checkDateVal").value=1;
         } else {
             console.log('Date filtering is off');
             dateBool = false;
+            document.getElementById("checkDateVal").value=0;
         }
     }
 

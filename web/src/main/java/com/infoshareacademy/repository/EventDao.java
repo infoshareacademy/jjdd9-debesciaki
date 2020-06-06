@@ -48,6 +48,28 @@ public class EventDao {
         return queryEventName.getResultList();
     }
 
+    public List<Event> searchByPhraseListEveOrgDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        Query queryEventName = entityManager
+                .createQuery("SELECT c FROM Event c WHERE ((c.name LIKE :phrase) OR(c.organizer.designation LIKE :phrase)) AND (c.startDate  BETWEEN :start AND :end) AND (c.endDate BETWEEN :start AND :end)");
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+        queryEventName.setParameter("start", start);
+        queryEventName.setParameter("end", end);
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
     public List<Event> searchByPhraseListEve(int firstElement, String phrase, Boolean isLimited) {
         Query queryEventName = entityManager
                 .createQuery("SELECT c FROM Event c WHERE c.name LIKE :phrase");
@@ -99,6 +121,28 @@ public class EventDao {
         sb.append("%");
 
         queryEventName.setParameter("phrase", sb.toString());
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListOrgDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        Query queryEventName = entityManager
+                .createQuery("SELECT c FROM Event c WHERE (c.organizer.designation LIKE :phrase) AND (c.startDate  BETWEEN :start AND :end) AND (c.endDate BETWEEN :start AND :end)");
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+        queryEventName.setParameter("start", start);
+        queryEventName.setParameter("end", end);
 
         if (isLimited) {
             queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);

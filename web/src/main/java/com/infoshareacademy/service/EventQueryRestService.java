@@ -25,8 +25,16 @@ public class EventQueryRestService {
         return eventDao.searchByPhraseListOrg(firstResult, phrase, isLimited);
     }
 
+    public List<Event> findByOrgDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        return eventDao.searchByPhraseListOrgDate(firstResult, phrase, isLimited, start, end);
+    }
+
     public List<Event> findByEveOrg(int firstResult, String phrase, Boolean isLimited) {
         return eventDao.searchByPhraseListEveOrg(firstResult, phrase, isLimited);
+    }
+
+    public List<Event> findByEveOrgDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        return eventDao.searchByPhraseListEveOrgDate(firstResult, phrase, isLimited, start, end);
     }
 
 }

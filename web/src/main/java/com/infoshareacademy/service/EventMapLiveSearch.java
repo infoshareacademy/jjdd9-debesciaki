@@ -62,8 +62,38 @@ public class EventMapLiveSearch {
         return liveSearchList;
     }
 
+    public List<EventLS> searchThenAndMapOrgDate(String phrase, String start, String end) {
+        LocalDateTime startDate = stringToDate(start);
+        LocalDateTime endDate = stringToDate(end);
+        List<Event> entities = eventQueryRestService.findByEveDate(1, phrase, true, startDate, endDate);
+        List<EventLS> liveSearchList = new ArrayList<>();
+        for (Event e : entities) {
+            EventLS x = new EventLS();
+            x.setApiId(e.getApiId());
+            x.setId(e.getId());
+            x.setName(e.getName());
+            liveSearchList.add(x);
+        }
+        return liveSearchList;
+    }
+
     public List<EventLS> searchThenAndMapOrg(String phrase) {
         List<Event> entities = eventQueryRestService.findByOrg(1, phrase, true);
+        List<EventLS> liveSearchList = new ArrayList<>();
+        for (Event e : entities) {
+            EventLS x = new EventLS();
+            x.setApiId(e.getApiId());
+            x.setId(e.getId());
+            x.setName(e.getName());
+            liveSearchList.add(x);
+        }
+        return liveSearchList;
+    }
+
+    public List<EventLS> searchThenAndMapEveOrgDate(String phrase, String start, String end) {
+        LocalDateTime startDate = stringToDate(start);
+        LocalDateTime endDate = stringToDate(end);
+        List<Event> entities = eventQueryRestService.findByEveOrgDate(1, phrase, true, startDate, endDate);
         List<EventLS> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
             EventLS x = new EventLS();
