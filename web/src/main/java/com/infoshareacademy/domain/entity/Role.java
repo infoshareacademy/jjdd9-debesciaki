@@ -3,7 +3,12 @@ package com.infoshareacademy.domain.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
-
+@NamedQueries( {
+       @NamedQuery(
+               name = "Role.findByRole",
+               query = "SELECT r FROM Role r WHERE r.name=:role"
+       )
+})
 @Entity
 @Table(name = "role")
 public class Role {
