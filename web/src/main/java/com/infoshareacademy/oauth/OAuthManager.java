@@ -6,12 +6,14 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
 
-
+@Stateless
 public class OAuthManager {
     private static final List<String> SCOPE = List.of("profile", "openid", "email");
     private static final Logger logger = LoggerFactory.getLogger(OAuthManager.class.getName());
