@@ -31,7 +31,7 @@ public class OAuthManager {
         Properties properties = new Properties();
         try {
             properties.load(Objects.requireNonNull(Thread.currentThread()
-                    .getContextClassLoader().getResource("login.properties"))
+                    .getContextClassLoader().getResource("oauth.properties"))
                     .openStream());
         } catch (IOException e) {
             logger.error(e.getMessage());
