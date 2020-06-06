@@ -3,6 +3,7 @@ package com.infoshareacademy.servlet.login;
 import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.servlet.auth.oauth2.AbstractAuthorizationCodeCallbackServlet;
+import com.google.api.client.http.GenericUrl;
 import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfoplus;
 import com.infoshareacademy.context.ContextHolder;
@@ -10,6 +11,7 @@ import com.infoshareacademy.domain.request.UserRequest;
 import com.infoshareacademy.domain.view.UserView;
 import com.infoshareacademy.mapper.GoogleUserMapper;
 import com.infoshareacademy.oauth.OAuthBuilder;
+import com.infoshareacademy.oauth.OAuthManager;
 import com.infoshareacademy.service.UserService;
 
 import javax.ejb.EJB;
@@ -19,12 +21,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet("/oauth2callback")
 public class CallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
     @EJB
     OAuthBuilder oAuthBuilder;
+
+    @EJB
+    OAuthManager oAuthManager;
 
     @Inject
     GoogleUserMapper googleUserMapper;
@@ -44,16 +50,18 @@ public class CallbackServlet extends AbstractAuthorizationCodeCallbackServlet {
 
     @Override
     protected AuthorizationCodeFlow initializeFlow() throws ServletException, IOException {
-        return null;
+        return oAuthManager.buildFlow();
     }
 
     @Override
     protected String getRedirectUri(HttpServletRequest httpServletRequest) throws ServletException, IOException {
-        return null;
+        GenericUrl url = new GenericUrl(httpServletRequest.getRequestURL().toString());
+        url.setRawPath("/oauth2callback");
+        return url.build();
     }
 
     @Override
     protected String getUserId(HttpServletRequest httpServletRequest) throws ServletException, IOException {
-        return null;
+        return UUID.randomUUID().toString();
     }
 }
