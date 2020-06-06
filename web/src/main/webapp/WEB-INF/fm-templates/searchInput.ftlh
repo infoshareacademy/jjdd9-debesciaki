@@ -1,46 +1,59 @@
 <#noautoesc>
-    <form autocomplete="off" action="/show-events">
-        <div class="autocomplete" style="width:30%;">
-            <input type="hidden" value="search" name="action">
-            <input type="hidden" name="page" value="1"/>
-            <input id="phrase" type="text" name="phrase" required minlength="3" placeholder="Nazwa">
-        </div>
-        <input type="submit" value="Szukaj">
-        <div>
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="checkEve" onclick="buttonCheckEve()" checked>
-                <input type="hidden" id="checkEveVal" name="eve" value="1">
-                <label for="checkEve"> Nazwy wydarzeń </label>
-            </div>
+    <nav class="navbar navbar-light bg-light fixed-top-2">
+        <form autocomplete="off" action="/show-events">
 
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()">
-                <input type="hidden" id="checkOrgVal" name="org" value="0">
-                <label for="checkOrg"> Nazwy organizatorów </label>
-            </div>
+            <div class="flex-grid nav-item">
+                <div class="col-lg-12 col-md-3 col-sm-1"></div>
+                <div class="autocomplete col-lg-12 col-md-6 col-sm-3" style="width:100%;">
+                    <input type="hidden" value="search" name="action">
+                    <input type="hidden" name="page" value="1"/>
+                    <input id="phrase" type="text" name="phrase" required minlength="3" placeholder="Nazwa">
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="custom-control custom-checkbox dropdown-item">
+                            <input type="checkbox" id="checkEve" onclick="buttonCheckEve()" checked>
+                            <input type="hidden" id="checkEveVal" name="eve" value="1">
+                            <label for="checkEve"> Nazwy wydarzeń </label>
+                        </div>
 
-            <div class="custom-control custom-checkbox">
-                <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
-                <input type="hidden" id="checkDateVal" name="date" value="0">
-                <label for="checkDate"> Przedział czasowy </label>
-            </div>
+                        <div class="custom-control custom-checkbox dropdown-item">
+                            <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()">
+                            <input type="hidden" id="checkOrgVal" name="org" value="0">
+                            <label for="checkOrg"> Nazwy organizatorów </label>
+                        </div>
 
-            <div>
-                <label for="start">Data rozpoczęcia:</label>
-                <input type="date" id="start" name="start" value="2020-06-01">
-            </div>
-            <div>
-                <label for="end">Data zakończenia:</label>
-                <input type="date" id="end" name="end" value="2021-06-01">
-            </div>
+                        <div class="custom-control custom-checkbox dropdown-item">
+                            <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
+                            <input type="hidden" id="checkDateVal" name="date" value="0">
+                            <label for="checkDate"> Przedział czasowy </label>
+                        </div>
 
-        </div>
-    </form>
+                        <div class="dropdown-item">
+                            <label for="start">Data rozpoczęcia:</label>
+                            <input type="date" id="start" name="start" value="2020-06-01">
+                        </div>
+                        <div class="dropdown-item">
+                            <label for="end">Data zakończenia:</label>
+                            <input type="date" id="end" name="end" value="2021-06-01">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Szukaj">
+                <div class="col-lg-12 col-md-3 col-sm-1"></div>
+            </div>
+        </form>
+    </nav>
+
     <script type="text/javascript" src="autocomplete.js"></script>
     <script type="text/javascript" src="eventJsonToArrayOfNames.js"></script>
     <script>
-        orgBool = new Boolean(true);
         eveBool = new Boolean(true);
+        orgBool = new Boolean(false);
         dateBool = new Boolean(false);
 
         document.getElementById("phrase").addEventListener("keyup", myFunction);
@@ -128,4 +141,5 @@
 
     </script>
 </#noautoesc>
+
 
