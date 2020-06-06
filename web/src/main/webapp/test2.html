@@ -109,7 +109,7 @@
         </div>
         <div>
             <label for="end">Data zakończenia:</label>
-            <input type="date" id="end" name="end"  value="2021-06-01">
+            <input type="date" id="end" name="end" value="2021-06-01">
         </div>
 
     </div>
@@ -129,7 +129,8 @@
         if (document.getElementById("phrase").textLength > 2) {
             arr2 = [];
             eventJsonToArrayOfNames($(document).ready(function () {
-                var str1 = "http://localhost:8080/api/search/eve/";
+                str1 = "http://localhost:8080/api/search/eve/";
+                res = str1;
 
                 if (orgBool == true && eveBool == true) {
                     str1 = "http://localhost:8080/api/search/eve-org/";
@@ -138,17 +139,16 @@
                 } else if (orgBool == true && eveBool == false) {
                     str1 = "http://localhost:8080/api/search/org/";
                 }
-                if (dateBool == true) {
-                    str1.concat(document.getElementById("start").value);
-                    console.log(document.getElementById("start").value);
-                    str1.concat(" 00:00:00/");
-                    str1.concat(document.getElementById("end").value);
-                    str1.concat(" 23:59:59")
-                    console.log(document.getElementById("end").value);
-                }
+                str2 = str1.concat(document.getElementById("phrase").value);
+                res = str2;
 
-                var str2 = document.getElementById("phrase").value;
-                var res = str1.concat(str2);
+                if (dateBool == true) {
+                    str3 = str2.concat("/" + document.getElementById("start").value +
+                        " 00:00:00/" + document.getElementById("end").value + " 23:59:59");
+                    console.log(document.getElementById("start").value);
+                    console.log(document.getElementById("end").value);
+                    res = str3;
+                }
 
                 $.ajax({
                     url: res,
@@ -172,11 +172,11 @@
         if (checkBox.checked == true) {
             console.log('Organizers filtering is on');
             orgBool = true;
-            document.getElementById("checkOrgVal").value=1;
+            document.getElementById("checkOrgVal").value = 1;
         } else {
             console.log('Organizers filtering is off');
             orgBool = false;
-            document.getElementById("checkOrgVal").value=0;
+            document.getElementById("checkOrgVal").value = 0;
         }
     }
 
@@ -185,11 +185,11 @@
         if (checkBox.checked == true) {
             console.log('Event names filtering is on');
             eveBool = true;
-            document.getElementById("checkDateVal").value=1;
+            document.getElementById("checkDateVal").value = 1;
         } else {
             console.log('Event names filtering is off');
             eveBool = false;
-            document.getElementById("checkDateVal").value=0;
+            document.getElementById("checkDateVal").value = 0;
         }
     }
 
@@ -198,11 +198,11 @@
         if (checkBox.checked == true) {
             console.log('Date filtering is on');
             dateBool = true;
-            document.getElementById("checkDateVal").value=1;
+            document.getElementById("checkDateVal").value = 1;
         } else {
             console.log('Date filtering is off');
             dateBool = false;
-            document.getElementById("checkDateVal").value=0;
+            document.getElementById("checkDateVal").value = 0;
         }
     }
 
