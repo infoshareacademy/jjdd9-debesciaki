@@ -30,6 +30,7 @@
         </div>
     </div>
 </nav>
+
 <#include "searchInput.ftlh">
 
 <br><br>

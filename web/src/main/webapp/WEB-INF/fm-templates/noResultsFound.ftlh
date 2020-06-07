@@ -24,17 +24,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Zaloguj się</a>
                 </li>
-                <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
-<#-- ftlh for  search navbar
-<#include "searchInput.ftlh"> -->
+
+<#include "searchInput.ftlh">
 
 <br><br>
 <div class="container">

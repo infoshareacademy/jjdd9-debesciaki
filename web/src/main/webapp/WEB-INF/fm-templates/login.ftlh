@@ -25,17 +25,12 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
-<#-- ftlh for  search navbar
-<#include "searchInput.ftlh">-->
+
+<#include "searchInput.ftlh">
 
 <div class="container">
     <div class="row">
@@ -45,8 +40,7 @@
                     <form class="form-signin">
                         <div class="text-center"><img src="../../bootstrap/img/logo-google.svg" alt="google"></div>
                         <span class="m-2"><br></span>
-                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i
-                                    class="fab fa-google mr-2"></i> Zaloguj się z Google
+                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit">Zaloguj się z Google
                         </button>
                     </form>
                 </div>
