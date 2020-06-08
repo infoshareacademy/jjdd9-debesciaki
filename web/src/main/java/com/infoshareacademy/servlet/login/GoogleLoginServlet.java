@@ -7,10 +7,12 @@ import com.infoshareacademy.oauth.OAuthManager;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.UUID;
 
+@WebServlet("/loginGoogle")
 public class GoogleLoginServlet extends AbstractAuthorizationCodeServlet {
 
     @EJB

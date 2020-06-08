@@ -61,7 +61,7 @@
                         <div class="text-center"><img src="../../bootstrap/img/logo-google.svg" alt="google"></div>
                         <span class="m-2"><br></span>
                         <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" data-onsuccess="onSignIn"><i
-                                    class="fab fa-google mr-2"></i> Zaloguj się z Google
+                                    class="fab fa-google mr-2"></i><a href="/loginGoogle" class="text-white"> Zaloguj się z Google </a>
                         </button>
                     </form>
                 </div>

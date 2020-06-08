@@ -24,11 +24,11 @@ public class ContextHolder {
         setContext(userView);
     }
 
-    public String getName() {
-        return (String) httpSession.getAttribute(NAME);
+    public String getEmail() {
+        return (String) httpSession.getAttribute(EMAIL);
     }
 
-    public String getROLE() {
+    public String getRole() {
         return Optional.ofNullable((String) httpSession.getAttribute(ROLE)).orElse(String.valueOf(RoleEnum.GUEST));
     }
 
