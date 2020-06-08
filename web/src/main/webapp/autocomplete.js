@@ -1,4 +1,4 @@
-function autocomplete(inp, arr, arr2) {
+function autocomplete(inp, arr, arr2, searchButtonName) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/
     var currentFocus;
@@ -34,7 +34,7 @@ function autocomplete(inp, arr, arr2) {
                 b.innerHTML = "<strong>" + arr[i].name.substr(0, val.length) + "</strong>";
                 b.innerHTML += arr[i].name.substr(val.length);
                 /*insert a input field that will hold the current array item's value:*/
-            }else{
+            } else {
                 b.innerHTML = arr[i].name;
             }
             b.innerHTML += "<input type='hidden' value='" + arr[i].id + "'>";
@@ -53,41 +53,40 @@ function autocomplete(inp, arr, arr2) {
             a.appendChild(b);
         }
     });
-    /*execute a function presses a key on the keyboard:*/
+    /*
     inp.addEventListener("keydown", function (e) {
         var x = document.getElementById(this.id + "autocomplete-list");
         if (x) x = x.getElementsByTagName("div");
         if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
             currentFocus++;
-            /*and and make the current item more visible:*/
             addActive(x);
-        } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
+        } else if (e.keyCode == 38) {
             currentFocus--;
-            /*and and make the current item more visible:*/
             addActive(x);
-        } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        } else if (e.keyCode == 13 && currentFocus != -1) {
             e.preventDefault();
             if (currentFocus > -1) {
-                /*and simulate a click on the "active" item:*/
                 if (x) x[currentFocus].click();
             }
+        }else if (e.keyCode == 13 && currentFocus == -1) {
+            document.getElementById(searchButtonName).click();
         }
     });
+
+     */
 
     function addActive(x) {
         /*a function to classify an item as "active":*/
         if (!x) return false;
+        console.log(x);
         /*start by removing the "active" class on all items:*/
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
         if (currentFocus < 0) currentFocus = (x.length - 1);
         /*add class "autocomplete-active":*/
         x[currentFocus].classList.add("autocomplete-active");
+        //x.item(currentFocus).classList.add("autocomplete-active");
+        console.log(x);
     }
 
     function removeActive(x) {

@@ -1,7 +1,6 @@
 <#noautoesc>
     <nav class="navbar navbar-light bg-light fixed-top-2">
-        <form autocomplete="off" action="/show-events">
-
+        <form autocomplete="off" action="/show-events" id="form">
             <div class="flex-grid nav-item">
                 <div class="col-lg-12 col-md-3 col-sm-1"></div>
                 <div class="autocomplete col-lg-12 col-md-6 col-sm-3" style="width:100%;">
@@ -10,7 +9,7 @@
                     <input id="phrase" type="text" name="phrase" required minlength="3" placeholder="Nazwa">
                 </div>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true"
                             aria-expanded="false">
                     </button>
@@ -43,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Szukaj">
+                <button type="submit"  class="btn btn-primary" form="form" id="szukaj">Szukaj</button>
                 <div class="col-lg-12 col-md-3 col-sm-1"></div>
             </div>
         </form>
@@ -56,11 +55,15 @@
         orgBool = new Boolean(false);
         dateBool = new Boolean(false);
 
-        document.getElementById("phrase").addEventListener("keyup", myFunction);
+        document.getElementById("phrase").addEventListener("keydown", myFunction);
 
         function myFunction() {
-            if (document.getElementById("phrase").textLength > 2) {
+            var value = $(document.getElementById("phrase")).val();
+            console.log(document.getElementById("phrase").value);
+            console.log(document.getElementById("phrase").toString().length);
+            if (value.length > 1) {
                 arr2 = [];
+
                 eventJsonToArrayOfNames($(document).ready(function () {
                     str1 = "http://localhost:8080/api/search/eve/";
                     res = str1;
