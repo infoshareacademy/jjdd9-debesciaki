@@ -30,8 +30,7 @@ public class EventDao {
     }
 
     public List<Event> searchByPhraseListEveOrg(int firstElement, String phrase, Boolean isLimited) {
-        Query queryEventName = entityManager
-                .createQuery("SELECT c FROM Event c WHERE (c.name LIKE :phrase) OR (c.organizer.designation LIKE :phrase) ");
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEveOrg");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
@@ -49,9 +48,7 @@ public class EventDao {
     }
 
     public List<Event> searchByPhraseListEveOrgDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
-        Query queryEventName = entityManager
-                .createQuery("SELECT c FROM Event c WHERE ((c.name LIKE :phrase) OR(c.organizer.designation LIKE :phrase)) AND (c.startDate  BETWEEN :start AND :end) AND (c.endDate BETWEEN :start AND :end)");
-
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEveOrgDate");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
@@ -71,8 +68,7 @@ public class EventDao {
     }
 
     public List<Event> searchByPhraseListEve(int firstElement, String phrase, Boolean isLimited) {
-        Query queryEventName = entityManager
-                .createQuery("SELECT c FROM Event c WHERE c.name LIKE :phrase");
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEve");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
@@ -90,9 +86,7 @@ public class EventDao {
     }
 
     public List<Event> searchByPhraseListEveDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
-        Query queryEventName = entityManager
-                .createQuery("SELECT c FROM Event c WHERE (c.name LIKE :phrase) AND (c.startDate  BETWEEN :start AND :end) AND (c.endDate BETWEEN :start AND :end)");
-
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEveDate");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
@@ -112,8 +106,7 @@ public class EventDao {
     }
 
     public List<Event> searchByPhraseListOrg(int firstElement, String phrase, Boolean isLimited) {
-        Query queryEventName = entityManager
-                .createQuery("SELECT c FROM Event c WHERE c.organizer.designation LIKE :phrase");
+        Query queryEventName = entityManager.createNamedQuery("Event.findByOrg");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
@@ -131,9 +124,7 @@ public class EventDao {
     }
 
     public List<Event> searchByPhraseListOrgDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
-        Query queryEventName = entityManager
-                .createQuery("SELECT c FROM Event c WHERE (c.organizer.designation LIKE :phrase) AND (c.startDate  BETWEEN :start AND :end) AND (c.endDate BETWEEN :start AND :end)");
-
+        Query queryEventName = entityManager.createNamedQuery("Event.findByOrgDate");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
@@ -166,7 +157,7 @@ public class EventDao {
     }
 
     public Optional<Event> findByApiId(long id) {
-        Query query = entityManager.createQuery("SELECT c FROM Event c WHERE c.apiId=:apiID");
+        Query query = entityManager.createNamedQuery("Event.findByApiId");
         query.setParameter("apiID", id);
         try {
             return Optional.ofNullable((Event) query.getSingleResult());

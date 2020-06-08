@@ -1,7 +1,7 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.entity.Event;
-import com.infoshareacademy.domain.livesearch.EventLS;
+import com.infoshareacademy.domain.livesearch.EventLiveSearchDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Stateless
 public class EventMapLiveSearch {
@@ -20,11 +19,11 @@ public class EventMapLiveSearch {
     @Inject
     EventQueryRestService eventQueryRestService;
 
-    public List<EventLS> searchThenAndMapEve(String phrase) {
+    public List<EventLiveSearchDTO> searchThenAndMapEve(String phrase) {
         List<Event> entities = eventQueryRestService.findByEve(1, phrase, true);
-        List<EventLS> liveSearchList = new ArrayList<>();
+        List<EventLiveSearchDTO> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
-            EventLS x = new EventLS();
+            EventLiveSearchDTO x = new EventLiveSearchDTO();
             x.setApiId(e.getApiId());
             x.setId(e.getId());
             x.setName(e.getName());
@@ -34,13 +33,13 @@ public class EventMapLiveSearch {
         return liveSearchList;
     }
 
-    public List<EventLS> searchThenAndMapEveDate(String phrase, String start, String end) {
+    public List<EventLiveSearchDTO> searchThenAndMapEveDate(String phrase, String start, String end) {
         LocalDateTime startDate = stringToDate(start);
         LocalDateTime endDate = stringToDate(end);
         List<Event> entities = eventQueryRestService.findByEveDate(1, phrase, true, startDate, endDate);
-        List<EventLS> liveSearchList = new ArrayList<>();
+        List<EventLiveSearchDTO> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
-            EventLS x = new EventLS();
+            EventLiveSearchDTO x = new EventLiveSearchDTO();
             x.setApiId(e.getApiId());
             x.setId(e.getId());
             x.setName(e.getName());
@@ -49,11 +48,11 @@ public class EventMapLiveSearch {
         return liveSearchList;
     }
 
-    public List<EventLS> searchThenAndMapEveOrg(String phrase) {
+    public List<EventLiveSearchDTO> searchThenAndMapEveOrg(String phrase) {
         List<Event> entities = eventQueryRestService.findByEveOrg(1, phrase, true);
-        List<EventLS> liveSearchList = new ArrayList<>();
+        List<EventLiveSearchDTO> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
-            EventLS x = new EventLS();
+            EventLiveSearchDTO x = new EventLiveSearchDTO();
             x.setApiId(e.getApiId());
             x.setId(e.getId());
             x.setName(e.getName());
@@ -62,13 +61,13 @@ public class EventMapLiveSearch {
         return liveSearchList;
     }
 
-    public List<EventLS> searchThenAndMapOrgDate(String phrase, String start, String end) {
+    public List<EventLiveSearchDTO> searchThenAndMapOrgDate(String phrase, String start, String end) {
         LocalDateTime startDate = stringToDate(start);
         LocalDateTime endDate = stringToDate(end);
         List<Event> entities = eventQueryRestService.findByEveDate(1, phrase, true, startDate, endDate);
-        List<EventLS> liveSearchList = new ArrayList<>();
+        List<EventLiveSearchDTO> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
-            EventLS x = new EventLS();
+            EventLiveSearchDTO x = new EventLiveSearchDTO();
             x.setApiId(e.getApiId());
             x.setId(e.getId());
             x.setName(e.getName());
@@ -77,11 +76,11 @@ public class EventMapLiveSearch {
         return liveSearchList;
     }
 
-    public List<EventLS> searchThenAndMapOrg(String phrase) {
+    public List<EventLiveSearchDTO> searchThenAndMapOrg(String phrase) {
         List<Event> entities = eventQueryRestService.findByOrg(1, phrase, true);
-        List<EventLS> liveSearchList = new ArrayList<>();
+        List<EventLiveSearchDTO> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
-            EventLS x = new EventLS();
+            EventLiveSearchDTO x = new EventLiveSearchDTO();
             x.setApiId(e.getApiId());
             x.setId(e.getId());
             x.setName(e.getName());
@@ -90,13 +89,13 @@ public class EventMapLiveSearch {
         return liveSearchList;
     }
 
-    public List<EventLS> searchThenAndMapEveOrgDate(String phrase, String start, String end) {
+    public List<EventLiveSearchDTO> searchThenAndMapEveOrgDate(String phrase, String start, String end) {
         LocalDateTime startDate = stringToDate(start);
         LocalDateTime endDate = stringToDate(end);
         List<Event> entities = eventQueryRestService.findByEveOrgDate(1, phrase, true, startDate, endDate);
-        List<EventLS> liveSearchList = new ArrayList<>();
+        List<EventLiveSearchDTO> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
-            EventLS x = new EventLS();
+            EventLiveSearchDTO x = new EventLiveSearchDTO();
             x.setApiId(e.getApiId());
             x.setId(e.getId());
             x.setName(e.getName());

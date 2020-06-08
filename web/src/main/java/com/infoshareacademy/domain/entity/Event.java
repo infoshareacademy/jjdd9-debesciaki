@@ -11,7 +11,38 @@ import java.util.Set;
         @NamedQuery(
                 name = "Event.findAll",
                 query = "SELECT e FROM Event e"
-        )
+        ),
+        @NamedQuery(
+                name = "Event.findByEveOrg",
+                query = "SELECT e FROM Event e WHERE (e.name LIKE :phrase) OR (e.organizer.designation LIKE :phrase)"
+        ),
+        @NamedQuery(
+                name = "Event.findByEveOrgDate",
+                query = "SELECT e FROM Event e WHERE ((e.name LIKE :phrase) OR(e.organizer.designation LIKE :phrase)) " +
+                        "AND (e.startDate  BETWEEN :start AND :end) AND (e.endDate BETWEEN :start AND :end)"
+        ),
+        @NamedQuery(
+                name = "Event.findByEve",
+                query = "SELECT e FROM Event e WHERE e.name LIKE :phrase"
+        ),
+        @NamedQuery(
+                name = "Event.findByEveDate",
+                query = "SELECT e FROM Event e WHERE (e.name LIKE :phrase) AND (e.startDate  BETWEEN :start AND :end) " +
+                        "AND (e.endDate BETWEEN :start AND :end)"
+        ),
+        @NamedQuery(
+                name = "Event.findByOrg",
+                query = "SELECT e FROM Event e WHERE e.organizer.designation LIKE :phrase"
+        ),
+        @NamedQuery(
+                name = "Event.findByOrgDate",
+                query = "SELECT e FROM Event e WHERE (e.organizer.designation LIKE :phrase) " +
+                        "AND (e.startDate  BETWEEN :start AND :end) AND (e.endDate BETWEEN :start AND :end)"
+        ),
+        @NamedQuery(
+                name = "Event.findByApiId",
+                query = "SELECT e FROM Event e WHERE e.apiId=:apiID"
+        ),
 })
 @Entity
 @Table(name = "event")

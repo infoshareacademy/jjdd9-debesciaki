@@ -16,12 +16,12 @@ public class PlaceDao {
     EntityManager entityManager;
 
     public Optional<Place> findByApiId(long id) {
-        Query query = entityManager.createQuery("SELECT c FROM Place c WHERE c.apiId=:apiID");
+        Query query = entityManager.createNamedQuery("Place.findByApiId");
         query.setParameter("apiID", id);
         return Optional.ofNullable((Place) query.getSingleResult());
     }
 
-    public void persistEntityList(List<Place> list) throws IOException {
+    public void persistEntityList(List<Place> list) {
         for (Place p : list) {
             entityManager.persist(p);
         }

@@ -1,209 +1,60 @@
-<!DOCTYPE html>
-<html lang="pl-PL">
+<!doctype html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-            crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Autocomplete - Remote JSONP datasource</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            font: 16px Arial;
-        }
-
-        .autocomplete {
-            /*the container must be positioned relative:*/
-            position: relative;
-            display: inline-block;
-        }
-
-        input {
-            border: 1px solid transparent;
-            background-color: #f1f1f1;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        input[type=text] {
-            background-color: #f1f1f1;
-            width: 100%;
-        }
-
-        input[type=submit] {
-            background-color: DodgerBlue;
-            color: #fff;
-        }
-
-        .autocomplete-items {
-            position: absolute;
-            border: 1px solid #d4d4d4;
-            border-bottom: none;
-            border-top: none;
-            z-index: 99;
-            /*position the autocomplete items to be the same width as the container:*/
-            top: 100%;
-            left: 0;
-            right: 0;
-        }
-
-        .autocomplete-items div {
-            padding: 10px;
-            cursor: pointer;
-            background-color: #fff;
-            border-bottom: 1px solid #d4d4d4;
-        }
-
-        .autocomplete-items div:hover {
-            /*when hovering an item:*/
-            background-color: #e9e9e9;
-        }
-
-        .autocomplete-active {
-            /*when navigating through the items using the arrow keys:*/
-            background-color: DodgerBlue !important;
-            color: #ffffff;
+        .ui-autocomplete-loading {
+            background: white url("https://cdn.dribbble.com/users/3337757/screenshots/6825268/076_-loading_animated_dribbble_copy.gif") right center no-repeat;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            function log( message ) {
+                $( "<div>" ).text( message ).prependTo( "#log" );
+                $( "#log" ).scrollTop( 0 );
+            }
+
+            $( "#birds" ).autocomplete({
+                source: function( request, response ) {
+                    $.ajax( {
+                        url: "http://localhost:8080/api/search/eve/karate",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function( data ) {
+                            response( data );
+                            console.log(data);
+                        }
+                    } );
+                },
+                minLength: 2,
+                select: function( event, ui ) {
+                    log( "Selected: " + ui.item.value + " aka " + ui.item.id );
+                }
+            } );
+        } );
+    </script>
+
 </head>
 <body>
 
-<form autocomplete="off" action="/show-events">
-    <div class="autocomplete" style="width:30%;">
-        <input type="hidden" value="search" name="action">
-        <input type="hidden" name="page" value="1"/>
-        <input id="phrase" type="text" name="phrase" required minlength="3" placeholder="Nazwa">
-    </div>
-    <input type="submit" value="Szukaj">
-    <div>
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" id="checkEve" onclick="buttonCheckEve()" checked>
-            <input type="hidden" id="checkEveVal" name="eve" value="1">
-            <label for="checkEve"> Nazwy wydarzeń </label>
-        </div>
+<div class="ui-widget">
+    <label for="birds">Birds: </label>
+    <input id="birds">
+</div>
 
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" id="checkOrg" onclick="buttonCheckOrg()">
-            <input type="hidden" id="checkOrgVal" name="org" value="0">
-            <label for="checkOrg"> Nazwy organizatorów </label>
-        </div>
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+    Result:
+    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
 
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" id="checkDate" onclick="buttonCheckDate()">
-            <input type="hidden" id="checkDateVal" name="date" value="0">
-            <label for="checkDate"> Przedział czasowy </label>
-        </div>
 
-        <div>
-            <label for="start">Data rozpoczęcia:</label>
-            <input type="date" id="start" name="start" value="2020-06-01">
-        </div>
-        <div>
-            <label for="end">Data zakończenia:</label>
-            <input type="date" id="end" name="end" value="2021-06-01">
-        </div>
-
-    </div>
-</form>
 </body>
 </html>
-<script type="text/javascript" src="autocomplete.js"></script>
-<script type="text/javascript" src="eventJsonToArrayOfNames.js"></script>
-<script>
-    orgBool = new Boolean(true);
-    eveBool = new Boolean(true);
-    dateBool = new Boolean(false);
-
-    document.getElementById("phrase").addEventListener("keyup", myFunction);
-
-    function myFunction() {
-        if (document.getElementById("phrase").textLength > 2) {
-            arr2 = [];
-            eventJsonToArrayOfNames($(document).ready(function () {
-                str1 = "http://localhost:8080/api/search/eve/";
-                res = str1;
-
-                if (orgBool == true && eveBool == true) {
-                    str1 = "http://localhost:8080/api/search/eve-org/";
-                } else if (orgBool == false && eveBool == true) {
-                    str1 = "http://localhost:8080/api/search/eve/";
-                } else if (orgBool == true && eveBool == false) {
-                    str1 = "http://localhost:8080/api/search/org/";
-                }
-                str2 = str1.concat(document.getElementById("phrase").value);
-                res = str2;
-
-                if (dateBool == true) {
-                    str3 = str2.concat("/" + document.getElementById("start").value +
-                        " 00:00:00/" + document.getElementById("end").value + " 23:59:59");
-                    console.log(document.getElementById("start").value);
-                    console.log(document.getElementById("end").value);
-                    res = str3;
-                }
-
-                $.ajax({
-                    url: res,
-                    type: "GET",
-                    success: function (result) {
-                        console.log('Success in converting data');
-                        results = result;
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                })
-            }));
-
-            autocomplete(document.getElementById("phrase"), results, arr2);
-        }
-    }
-
-    function buttonCheckOrg() {
-        var checkBox = document.getElementById("checkOrg");
-        if (checkBox.checked == true) {
-            console.log('Organizers filtering is on');
-            orgBool = true;
-            document.getElementById("checkOrgVal").value = 1;
-        } else {
-            console.log('Organizers filtering is off');
-            orgBool = false;
-            document.getElementById("checkOrgVal").value = 0;
-        }
-    }
-
-    function buttonCheckEve() {
-        var checkBox = document.getElementById("checkEve");
-        if (checkBox.checked == true) {
-            console.log('Event names filtering is on');
-            eveBool = true;
-            document.getElementById("checkDateVal").value = 1;
-        } else {
-            console.log('Event names filtering is off');
-            eveBool = false;
-            document.getElementById("checkDateVal").value = 0;
-        }
-    }
-
-    function buttonCheckDate() {
-        var checkBox = document.getElementById("checkDate");
-        if (checkBox.checked == true) {
-            console.log('Date filtering is on');
-            dateBool = true;
-            document.getElementById("checkDateVal").value = 1;
-        } else {
-            console.log('Date filtering is off');
-            dateBool = false;
-            document.getElementById("checkDateVal").value = 0;
-        }
-    }
-
-</script>

@@ -1,6 +1,6 @@
 package com.infoshareacademy.domain.livesearch;
 
-public class EventLS {
+public class EventLiveSearchDTO {
     private Long id;
     private Long apiId;
     private String name;

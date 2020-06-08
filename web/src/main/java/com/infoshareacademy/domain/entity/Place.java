@@ -2,7 +2,12 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 import java.util.List;
-
+@NamedQueries({
+        @NamedQuery(
+                name = "Place.findByApiId",
+                query = "SELECT p FROM Place p WHERE p.apiId=:apiID"
+        )
+})
 @Entity
 @Table(name = "place")
 public class Place {
