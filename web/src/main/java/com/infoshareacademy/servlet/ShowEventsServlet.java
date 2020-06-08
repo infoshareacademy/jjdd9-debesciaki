@@ -160,9 +160,9 @@ public class ShowEventsServlet extends HttpServlet {
         String cleanPhrase = phrase.replaceAll("%", "");
 
 
-        Integer listSize = listSize(cleanPhrase, eveInd, orgInd, dateInd, start, end);
+        Integer listSize = eventViewService.listSize(cleanPhrase, eveInd, orgInd, dateInd, start, end);
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
-        List<EventView> listEvents = listEvents((actPage - 1) * 20, cleanPhrase, eveInd, orgInd, dateInd, start, end);
+        List<EventView> listEvents = eventViewService.listEvents((actPage - 1) * 20, cleanPhrase, eveInd, orgInd, dateInd, start, end);
         req.setCharacterEncoding("UTF-8");
 
         StringBuilder redirect = new StringBuilder();
@@ -218,42 +218,6 @@ public class ShowEventsServlet extends HttpServlet {
             template.process(dataModel, pw);
         } catch (TemplateException e) {
             STDLOG.error("Template for Show Search Results page error");
-        }
-    }
-
-    private Integer listSize(String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {
-        if (eve == 1 && org == 0 && date == 0) {
-            return eventViewService.prepareSearchedEventsToShowByEve(1, cleanPhrase, false).size();
-        } else if (eve == 0 && org == 1 && date == 0) {
-            return eventViewService.prepareSearchedEventsToShowByOrg(1, cleanPhrase, false).size();
-        } else if (eve == 1 && org == 1 && date == 0) {
-            return eventViewService.prepareSearchedEventsToShowByEveOrg(1, cleanPhrase, false).size();
-        } else if (eve == 1 && org == 1 && date == 1) {
-            return eventViewService.prepareSearchedEventsToShowByEveOrgDate(1, cleanPhrase, false, start, end).size();
-        } else if (eve == 0 && org == 1 && date == 1) {
-            return eventViewService.prepareSearchedEventsToShowByOrgDate(1, cleanPhrase, false, start, end).size();
-        } else if (eve == 1 && org == 0 && date == 1) {
-            return eventViewService.prepareSearchedEventsToShowByEveDate(1, cleanPhrase, false, start, end).size();
-        } else {
-            return 0;
-        }
-    }
-
-    private List<EventView> listEvents(Integer firstResult, String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {
-        if (eve == 1 && org == 0 && date == 0) {
-            return eventViewService.prepareSearchedEventsToShowByEve(firstResult, cleanPhrase, true);
-        } else if (eve == 0 && org == 1 && date == 0) {
-            return eventViewService.prepareSearchedEventsToShowByOrg(firstResult, cleanPhrase, true);
-        } else if (eve == 1 && org == 1 && date == 0) {
-            return eventViewService.prepareSearchedEventsToShowByEveOrg(firstResult, cleanPhrase, true);
-        } else if (eve == 1 && org == 1 && date == 1) {
-            return eventViewService.prepareSearchedEventsToShowByEveOrgDate(firstResult, cleanPhrase, true, start, end);
-        } else if (eve == 0 && org == 1 && date == 1) {
-            return eventViewService.prepareSearchedEventsToShowByOrgDate(firstResult, cleanPhrase, true, start, end);
-        } else if (eve == 1 && org == 0 && date == 1) {
-            return eventViewService.prepareSearchedEventsToShowByEveDate(firstResult, cleanPhrase, true, start, end);
-        } else {
-            return null;
         }
     }
 

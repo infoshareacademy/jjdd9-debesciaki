@@ -16,7 +16,7 @@
                     <a class="nav-link" href="/">Strona główna</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Wydarzenia
+                    <a class="nav-link" href="http://localhost:8080/show-events?action=showAll&page=1">Wydarzenia
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
