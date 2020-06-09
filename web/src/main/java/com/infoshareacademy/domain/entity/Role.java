@@ -1,9 +1,17 @@
+
 package com.infoshareacademy.domain.entity;
 
+import com.infoshareacademy.domain.view.RoleEnum;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Role.findByRole",
+                query = "SELECT r FROM Role r WHERE r.name=:role"
+        )
+})
 @Entity
 @Table(name = "role")
 public class Role {
@@ -11,8 +19,8 @@ public class Role {
     private Long id;
 
     @Column(name = "name")
-    @NotNull
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleEnum name;
 
     @OneToMany(mappedBy = "role")
     private List<User> user;
@@ -25,11 +33,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
+    public RoleEnum getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(RoleEnum name) {
         this.name = name;
     }
 
