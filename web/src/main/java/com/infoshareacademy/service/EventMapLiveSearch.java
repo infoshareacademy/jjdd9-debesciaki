@@ -23,11 +23,11 @@ public class EventMapLiveSearch {
         List<Event> entities = eventQueryRestService.findByEve(1, phrase, true);
         List<EventLiveSearchDTO> liveSearchList = new ArrayList<>();
         for (Event e : entities) {
-            EventLiveSearchDTO x = new EventLiveSearchDTO();
-            x.setApiId(e.getApiId());
-            x.setId(e.getId());
-            x.setName(e.getName());
-            liveSearchList.add(x);
+            EventLiveSearchDTO eventLiveSearchDTO = new EventLiveSearchDTO();
+            eventLiveSearchDTO.setApiId(e.getApiId());
+            eventLiveSearchDTO.setId(e.getId());
+            eventLiveSearchDTO.setName(e.getName());
+            liveSearchList.add(eventLiveSearchDTO);
         }
         STDLOG.debug("Succes in mapping event to event live search format, searching by event name");
         return liveSearchList;
