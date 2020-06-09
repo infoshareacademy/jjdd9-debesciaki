@@ -4,7 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-
+@NamedQueries({
+        @NamedQuery(
+                name = "Category.findByApiId",
+                query = "SELECT c FROM Category c WHERE c.apiId=:apiID"
+        )})
 @Entity
 @Table(name = "category")
 public class Category {

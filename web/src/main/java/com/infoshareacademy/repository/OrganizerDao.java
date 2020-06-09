@@ -16,7 +16,7 @@ public class OrganizerDao {
     EntityManager entityManager;
 
     public Optional<Organizer> findByApiId(long id) {
-        Query query = entityManager.createQuery("SELECT c FROM Organizer c WHERE c.apiId=:apiID");
+        Query query = entityManager.createNamedQuery("Organizer.findByApiId");
         query.setParameter("apiID", id);
         return Optional.ofNullable((Organizer) query.getSingleResult());
     }

@@ -17,9 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet("/show-events")
 public class ShowEventsServlet extends HttpServlet {
@@ -46,6 +49,14 @@ public class ShowEventsServlet extends HttpServlet {
         if (action.equals("showAll")) {
             showAll(req, resp);
         } else if (action.equals("search")) {
+
+            String phrase = req.getParameter("phrase");
+            String cleanPhrase = phrase.replaceAll("%", "");
+
+            if (cleanPhrase.length() < 3) {
+                resp.sendRedirect("/show-events?action=showAll&page=1");
+            }
+
             searchByPhrase(req, resp);
         }
     }
@@ -90,26 +101,92 @@ public class ShowEventsServlet extends HttpServlet {
     }
 
     private void searchByPhrase(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        action = req.getParameter("action");
-
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
         Map<String, Object> dataModel = new HashMap<>();
 
-        Integer actPage = Integer.parseInt(req.getParameter("page"));
-        String phrase = req.getParameter("phrase");
+        action = req.getParameter("action");
 
-        Integer listSize = eventViewService.prepareSearchedEventsToShow(1, phrase, false).size();
+        Integer eveInd;
+        Optional<String> eveIndOpt = Optional.ofNullable(req.getParameter("eve"));
+        if (eveIndOpt.isPresent() && !eveIndOpt.isEmpty()) {
+            eveInd = Integer.parseInt(eveIndOpt.get());
+        } else {
+            eveInd = 1;
+        }
+
+        Integer orgInd;
+        Optional<String> orgIndOpt = Optional.ofNullable(req.getParameter("org"));
+        if (orgIndOpt.isPresent() && !orgIndOpt.isEmpty()) {
+            orgInd = Integer.parseInt(orgIndOpt.get());
+        } else {
+            orgInd = 1;
+        }
+
+        Integer dateInd;
+        Optional<String> dateIndOpt = Optional.ofNullable(req.getParameter("date"));
+        if (dateIndOpt.isPresent() && !dateIndOpt.isEmpty()) {
+            dateInd = Integer.parseInt(dateIndOpt.get());
+        } else {
+            dateInd = 0;
+        }
+
+        String startDateStr;
+        LocalDateTime start;
+        Optional<String> startDateStrOpt = Optional.ofNullable(req.getParameter("start"));
+        if (startDateStrOpt.isPresent() && !startDateStrOpt.isEmpty()) {
+            startDateStr = startDateStrOpt.get();
+            String conRdyStart = startDateStr.concat(" 00:00:00");
+            start = stringToDate(conRdyStart);
+        } else {
+            startDateStr = (LocalDateTime.now().getYear()-1)+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth();
+            start = LocalDateTime.now().minusYears(1L);
+        }
+
+        String endDateStr;
+        LocalDateTime end;
+        Optional<String> endDateStrOpt = Optional.ofNullable(req.getParameter("end"));
+        if (endDateStrOpt.isPresent() && !endDateStrOpt.isEmpty()) {
+            endDateStr = endDateStrOpt.get();
+            String conRdyEnd = endDateStr.concat(" 23:59:59");
+            end = stringToDate(conRdyEnd);
+        } else {
+            endDateStr = (LocalDateTime.now().getYear()+2)+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth();
+            end = LocalDateTime.now().plusYears(2L);
+        }
+
+        Integer actPage = Integer.parseInt(req.getParameter("page"));
+
+        String phrase = req.getParameter("phrase");
+        String cleanPhrase = phrase.replaceAll("%", "");
+
+
+        Integer listSize = eventViewService.listSize(cleanPhrase, eveInd, orgInd, dateInd, start, end);
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
-        List<EventView> listEvents = eventViewService.prepareSearchedEventsToShow((actPage - 1) * 20, phrase, true);
+        List<EventView> listEvents = eventViewService.listEvents((actPage - 1) * 20, cleanPhrase, eveInd, orgInd, dateInd, start, end);
         req.setCharacterEncoding("UTF-8");
 
         StringBuilder redirect = new StringBuilder();
         redirect.append("/show-events?action=search&page=1&phrase=");
-        redirect.append(phrase);
+        redirect.append(cleanPhrase);
 
         StringBuilder actionAppender = new StringBuilder();
         actionAppender.append("action=");
         actionAppender.append(action);
+        actionAppender.append("&");
+        actionAppender.append("eve=");
+        actionAppender.append(eveInd);
+        actionAppender.append("&");
+        actionAppender.append("org=");
+        actionAppender.append(orgInd);
+        actionAppender.append("&");
+        actionAppender.append("date=");
+        actionAppender.append(eveInd);
+        actionAppender.append("&");
+        actionAppender.append("start=");
+        actionAppender.append(startDateStr);
+        actionAppender.append("&");
+        actionAppender.append("end=");
+        actionAppender.append(endDateStr);
         actionAppender.append("&");
 
         if ((actPage < 1 || actPage > numberOfPages) && listSize > 0) {
@@ -123,7 +200,7 @@ public class ShowEventsServlet extends HttpServlet {
         StringBuilder actionPlusPhrase = new StringBuilder();
         actionPlusPhrase.append(actionAppender.toString());
         actionPlusPhrase.append("&phrase=");
-        actionPlusPhrase.append(phrase);
+        actionPlusPhrase.append(cleanPhrase);
         actionPlusPhrase.append("&");
 
         dataModel.put("events", listEvents);
@@ -142,6 +219,11 @@ public class ShowEventsServlet extends HttpServlet {
         } catch (TemplateException e) {
             STDLOG.error("Template for Show Search Results page error");
         }
+    }
+
+    private LocalDateTime stringToDate(String in) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(in, formatter);
     }
 
     private void noResultsFound(HttpServletRequest req, HttpServletResponse resp) throws IOException {

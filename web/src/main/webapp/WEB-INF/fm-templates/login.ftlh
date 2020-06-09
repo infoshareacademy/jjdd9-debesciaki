@@ -40,11 +40,6 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
@@ -67,6 +62,7 @@
         </div>
     </div>
 </div>
+
 
 <#include "footerWithScripts.ftlh">
 </body>

@@ -31,15 +31,12 @@
                         <a class="nav-link" href="/login">Zaloguj się</a>
                     </li>
                 </#if>
-                <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<#include "searchInput.ftlh">
 
 <div class="container">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

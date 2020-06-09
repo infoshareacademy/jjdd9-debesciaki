@@ -8,6 +8,10 @@ import java.util.List;
         @NamedQuery(
                 name = "Organizer.findAll",
                 query = "SELECT o FROM Organizer o"
+        ),
+        @NamedQuery(
+                name = "Organizer.findByApiId",
+                query = "SELECT o FROM Organizer o WHERE o.apiId=:apiID"
         )
 })
 @Entity

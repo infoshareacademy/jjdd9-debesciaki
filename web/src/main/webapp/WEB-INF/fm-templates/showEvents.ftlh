@@ -16,7 +16,7 @@
                     <a class="nav-link" href="/">Strona główna</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Wydarzenia
+                    <a class="nav-link" href="http://localhost:8080/show-events?action=showAll&page=1">Wydarzenia
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -26,17 +26,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Zaloguj się</a>
                 </li>
-                <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
-<#-- ftlh for  search navbar
-<#include "searchInput.ftlh"> -->
+
+<#include "searchInput.ftlh">
 
 <br><br>
 <#include "eventsList.ftlh">

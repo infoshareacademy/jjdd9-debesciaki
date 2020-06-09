@@ -6,6 +6,7 @@ import com.infoshareacademy.repository.EventDao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,66 @@ public class EventViewService {
         return eventsList;
     }
 
-    public List<EventView> prepareSearchedEventsToShow(int firstResult, String phrase, Boolean isLimited) {
+    public List<EventView> prepareSearchedEventsToShowByEveOrg(int firstResult, String phrase, Boolean isLimited) {
 
         List<EventView> eventsList = new ArrayList<>();
 
-        for (Event el : eventDao.searchByPhraseList(firstResult, phrase, isLimited)) {
+        for (Event el : eventDao.searchByPhraseListEveOrg(firstResult, phrase, isLimited)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByEveOrgDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListEveOrgDate(firstResult, phrase, isLimited, start, end)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByEve(int firstResult, String phrase, Boolean isLimited) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListEve(firstResult, phrase, isLimited)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByEveDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListEveDate(firstResult, phrase, isLimited, start, end)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByOrg(int firstResult, String phrase, Boolean isLimited) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListOrg(firstResult, phrase, isLimited)) {
+            eventsList.add(mapper(el));
+        }
+
+        return eventsList;
+    }
+
+    public List<EventView> prepareSearchedEventsToShowByOrgDate(int firstResult, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+
+        List<EventView> eventsList = new ArrayList<>();
+
+        for (Event el : eventDao.searchByPhraseListOrgDate(firstResult, phrase, isLimited, start, end)) {
             eventsList.add(mapper(el));
         }
 
@@ -95,4 +151,39 @@ public class EventViewService {
         return eventView;
     }
 
+    public List<EventView> listEvents(Integer firstResult, String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {
+        if (eve == 1 && org == 0 && date == 0) {
+            return prepareSearchedEventsToShowByEve(firstResult, cleanPhrase, true);
+        } else if (eve == 0 && org == 1 && date == 0) {
+            return prepareSearchedEventsToShowByOrg(firstResult, cleanPhrase, true);
+        } else if (eve == 1 && org == 1 && date == 0) {
+            return prepareSearchedEventsToShowByEveOrg(firstResult, cleanPhrase, true);
+        } else if (eve == 1 && org == 1 && date == 1) {
+            return prepareSearchedEventsToShowByEveOrgDate(firstResult, cleanPhrase, true, start, end);
+        } else if (eve == 0 && org == 1 && date == 1) {
+            return prepareSearchedEventsToShowByOrgDate(firstResult, cleanPhrase, true, start, end);
+        } else if (eve == 1 && org == 0 && date == 1) {
+            return prepareSearchedEventsToShowByEveDate(firstResult, cleanPhrase, true, start, end);
+        } else {
+            return null;
+        }
+    }
+
+    public Integer listSize(String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {
+        if (eve == 1 && org == 0 && date == 0) {
+            return prepareSearchedEventsToShowByEve(1, cleanPhrase, false).size();
+        } else if (eve == 0 && org == 1 && date == 0) {
+            return prepareSearchedEventsToShowByOrg(1, cleanPhrase, false).size();
+        } else if (eve == 1 && org == 1 && date == 0) {
+            return prepareSearchedEventsToShowByEveOrg(1, cleanPhrase, false).size();
+        } else if (eve == 1 && org == 1 && date == 1) {
+            return prepareSearchedEventsToShowByEveOrgDate(1, cleanPhrase, false, start, end).size();
+        } else if (eve == 0 && org == 1 && date == 1) {
+            return prepareSearchedEventsToShowByOrgDate(1, cleanPhrase, false, start, end).size();
+        } else if (eve == 1 && org == 0 && date == 1) {
+            return prepareSearchedEventsToShowByEveDate(1, cleanPhrase, false, start, end).size();
+        } else {
+            return 0;
+        }
+    }
 }
