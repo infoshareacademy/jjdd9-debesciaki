@@ -25,15 +25,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Zaloguj się</a>
                 </li>
-                <li class="nav-item">
-                    <a>
-                        <#include "searchInput.ftlh">
-                    </a>
-                </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<#include "searchInput.ftlh">
 
 <div class="container">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -65,7 +62,6 @@
         <nobr><a href="/show-events?action=showAll&page=1" class="btn btn-primary btn-lg">Sprawdź więcej</a>&nbsp</nobr>
     </div>
 </div>
-
 <#include "footerWithScripts.ftlh">
 </body>
 </html>

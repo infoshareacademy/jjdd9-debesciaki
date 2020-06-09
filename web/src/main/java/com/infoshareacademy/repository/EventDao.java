@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +29,8 @@ public class EventDao {
         return query.getResultList();
     }
 
-    public List<Event> searchByPhraseList(int firstElement, String phrase, Boolean isLimited) {
-        Query queryEventName = entityManager
-                .createQuery("SELECT c FROM Event c WHERE (c.name LIKE :phrase) OR (c.organizer.designation LIKE :phrase) ");
+    public List<Event> searchByPhraseListEveOrg(int firstElement, String phrase, Boolean isLimited) {
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEveOrg");
 
         StringBuilder sb = new StringBuilder();
         sb.append("%");
@@ -41,7 +41,103 @@ public class EventDao {
 
         if (isLimited) {
             queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
-        }else{
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListEveOrgDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEveOrgDate");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+        queryEventName.setParameter("start", start);
+        queryEventName.setParameter("end", end);
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListEve(int firstElement, String phrase, Boolean isLimited) {
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEve");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListEveDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        Query queryEventName = entityManager.createNamedQuery("Event.findByEveDate");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+        queryEventName.setParameter("start", start);
+        queryEventName.setParameter("end", end);
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListOrg(int firstElement, String phrase, Boolean isLimited) {
+        Query queryEventName = entityManager.createNamedQuery("Event.findByOrg");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
+            return queryEventName.getResultList();
+        }
+        return queryEventName.getResultList();
+    }
+
+    public List<Event> searchByPhraseListOrgDate(int firstElement, String phrase, Boolean isLimited, LocalDateTime start, LocalDateTime end) {
+        Query queryEventName = entityManager.createNamedQuery("Event.findByOrgDate");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("%");
+        sb.append(phrase);
+        sb.append("%");
+
+        queryEventName.setParameter("phrase", sb.toString());
+        queryEventName.setParameter("start", start);
+        queryEventName.setParameter("end", end);
+
+        if (isLimited) {
+            queryEventName.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        } else {
             return queryEventName.getResultList();
         }
         return queryEventName.getResultList();
@@ -61,7 +157,7 @@ public class EventDao {
     }
 
     public Optional<Event> findByApiId(long id) {
-        Query query = entityManager.createQuery("SELECT c FROM Event c WHERE c.apiId=:apiID");
+        Query query = entityManager.createNamedQuery("Event.findByApiId");
         query.setParameter("apiID", id);
         try {
             return Optional.ofNullable((Event) query.getSingleResult());

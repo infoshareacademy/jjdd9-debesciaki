@@ -30,7 +30,7 @@ public class CategoryDao {
     }
 
     public Optional<Category> findByApiId(long id) {
-        Query query = entityManager.createQuery("SELECT c FROM Category c WHERE c.apiId=:apiID");
+        Query query = entityManager.createNamedQuery("Category.findByApiId");
         query.setParameter("apiID", id);
         try {
             return Optional.ofNullable((Category) query.getSingleResult());
