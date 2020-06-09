@@ -16,11 +16,16 @@ public class FavouritesController {
 
     @POST
     @Path("{userEmail}/event/{eventId}")
-    public Response eve(@PathParam("userEmail") String userEmail,
+    public Response addFavourite(@PathParam("userEmail") String userEmail,
                         @PathParam("eventId") Long eventId) {
-        return Response.status(Response.Status.OK)
-                .entity(favouriteRestService.addFavourite(userEmail, eventId))
-                .build();
+        return favouriteRestService.addFavourite(userEmail, eventId);
+    }
+
+    @DELETE
+    @Path("{userEmail}/event/{eventId}")
+    public Response removeFavourite(@PathParam("userEmail") String userEmail,
+                        @PathParam("eventId") Long eventId) {
+        return favouriteRestService.removeFavourite(userEmail, eventId);
     }
 
 }

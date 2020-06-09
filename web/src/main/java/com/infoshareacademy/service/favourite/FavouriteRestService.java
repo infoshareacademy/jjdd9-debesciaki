@@ -7,6 +7,7 @@ import com.infoshareacademy.repository.UserDao;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import java.util.Optional;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class FavouriteRestService {
     @Inject
     EventDao eventDao;
 
-    public Optional<User> addFavourite(String email, Long eventId) {
+    public Response addFavourite(String email, Long eventId) {
 
         Optional<User> userOptional = userDao.findByEmail(email);
         Optional<Event> eventOptional = eventDao.findById(eventId);
@@ -31,12 +32,27 @@ public class FavouriteRestService {
             events.add(event);
             user.setEvents(events);
             userDao.update(user);
-            return Optional.ofNullable(user);
+            return Response.status(Response.Status.OK).build();
         } else {
-            return Optional.empty();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 
+    public Response removeFavourite(String email, Long eventId) {
 
+        Optional<User> userOptional = userDao.findByEmail(email);
+        Optional<Event> eventOptional = eventDao.findById(eventId);
+        if (userOptional.isPresent() && eventOptional.isPresent()) {
+            User user = userOptional.get();
+            Set<Event> events = user.getEvents();
+            Event event = eventOptional.get();
+            events.remove(event);
+            user.setEvents(events);
+            userDao.update(user);
+            return Response.status(Response.Status.OK).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }
 
