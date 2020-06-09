@@ -22,9 +22,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Zaloguj się</a>
-                </li>
+                <#if role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logoutGoogle">Wyloguj się</a>
+                    </li>
+                <#else>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Zaloguj się</a>
+                    </li>
+                </#if>
                 <li class="nav-item">
                     <a>
                         <#include "searchInput.ftlh">
