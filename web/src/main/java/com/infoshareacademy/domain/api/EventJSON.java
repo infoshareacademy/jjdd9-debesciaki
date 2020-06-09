@@ -1,10 +1,12 @@
 package com.infoshareacademy.domain.api;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EventJSON {
     private Long id;
     private PlaceJSON place;
