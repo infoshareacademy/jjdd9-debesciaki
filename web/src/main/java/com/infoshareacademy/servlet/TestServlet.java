@@ -21,7 +21,7 @@ public class TestServlet extends HttpServlet {
     @Inject
     RoleService roleService;
 
-
+/*
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = new User();
@@ -48,4 +48,6 @@ public class TestServlet extends HttpServlet {
         this.roleService.saveRole(role2);
         this.roleService.saveRole(role3);
     }
+
+ */
 }
