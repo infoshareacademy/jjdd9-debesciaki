@@ -24,7 +24,7 @@ import java.util.Map;
 
 @WebServlet("/show-organizers")
 public class ShowOrganizersServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+    private static final Logger STDLOG = LoggerFactory.getLogger(ShowOrganizersServlet.class.getName());
 
     @Inject
     TemplateProvider templateProvider;
