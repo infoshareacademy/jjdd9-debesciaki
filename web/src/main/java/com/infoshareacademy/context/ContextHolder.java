@@ -1,6 +1,5 @@
 package com.infoshareacademy.context;
 
-import com.infoshareacademy.domain.view.RoleEnum;
 import com.infoshareacademy.domain.view.UserView;
 
 import javax.servlet.http.HttpSession;
@@ -29,7 +28,7 @@ public class ContextHolder {
     }
 
     public String getRole() {
-        return Optional.ofNullable((String) httpSession.getAttribute(ROLE)).orElse(String.valueOf(RoleEnum.GUEST));
+        return Optional.ofNullable((String) httpSession.getAttribute(ROLE)).orElse("GUEST");
     }
 
     private void setContext(UserView userView) {

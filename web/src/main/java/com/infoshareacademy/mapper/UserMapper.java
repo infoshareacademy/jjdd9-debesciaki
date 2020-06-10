@@ -11,7 +11,7 @@ public class UserMapper {
         UserView userView = new UserView();
         userView.setId(user.getId());
         userView.setEmail(user.getMail());
-        userView.setRole(user.getRole().getName().toString());
+        userView.setRole(user.getRole().getName());
         return userView;
     }
 }

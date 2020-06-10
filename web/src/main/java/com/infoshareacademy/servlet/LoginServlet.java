@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         try {
             template.process(dataModel, pw);
         } catch (TemplateException e) {
-            STDLOG.error("Template for main page error");
+            STDLOG.error("Template for login page error");
         }
 
     }

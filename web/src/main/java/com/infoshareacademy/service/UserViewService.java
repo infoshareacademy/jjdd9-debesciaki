@@ -2,6 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.UserView;
+import com.infoshareacademy.repository.RoleDao;
 import com.infoshareacademy.repository.UserDao;
 
 import javax.ejb.Stateless;
@@ -15,6 +16,9 @@ public class UserViewService {
     @Inject
     UserDao userDao;
 
+    @Inject
+    RoleDao roleDao;
+
     public List<UserView> prepareUsersToShow() {
         List<UserView> usersList = new ArrayList<>();
 
@@ -25,10 +29,30 @@ public class UserViewService {
         return usersList;
     }
 
+    public Integer sizeOfUsersList() {
+        return prepareUsersToShow().size();
+    }
+
     private UserView mapper(User user) {
         UserView userView = new UserView();
         userView.setEmail(user.getMail());
-        userView.setRole(user.getRole().getName().toString());
+        userView.setRole(user.getRole().getName());
         return  userView;
+    }
+
+    public UserView findByEmail(String email) {
+       return mapper(userDao.findByEmail(email).get());
+    }
+
+    public void changeRole(String email, String role) {
+        UserView userView = findByEmail(email);
+        User user = findFromDao(userView);
+        user.setRole(roleDao.findByRoleType(role).get());
+        userDao.update(user);
+        userDao.save(user);
+    }
+
+    private User findFromDao(UserView userView) {
+        return userDao.findByEmail(userView.getEmail()).get();
     }
  }

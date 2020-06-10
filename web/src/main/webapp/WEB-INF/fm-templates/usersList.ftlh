@@ -33,7 +33,10 @@
 <div class="container">
     <div class="jumbotron ">
         <h3 class="display-4 text-center">Lista zarejestrowanych użytkowników</h3><br>
-        <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white align-content-center" cellspacing="0" width="70%">
+
+        <table id="dtBasicExample"
+               class="table table-striped table-bordered table-hover table-sm bg-white align-content-center"
+               cellspacing="0" width="70%">
             <thead>
             <tr class="bg-dark text-white">
                 <th class="th-sm text-center" width="50%">Email</th>
@@ -43,10 +46,24 @@
             <tbody>
             <#list users as user>
                 <tr>
-                    <td class="text-primary font-weight-bold">${user.email}</td>
-                    <td class="text-primary font-weight-bold">
-                    <#if user.role == "SUPER_ADMIN" >
-                    </#if></td>
+                    <form method="post" action="/users-list">
+                        <td class="text-primary font-weight-bold">${user.email}</td>
+                        <td class="text-primary font-weight-bold">
+                            <#if user.role == "SUPER_ADMIN"> Główny administrator aplikacji
+                            <#elseif user.role == "ADMIN">
+                                <input type="hidden" name="email" value="${user.email}"/>
+                                <select class="form-control" name="role" onchange='if(this.value != "ADMIN") { this.form.submit(); }'>
+                                    <option value="ADMIN" name="ADMIN">Administrator</option>
+                                    <option value="USER" name="USER">Użytkownik</option>
+                                </select>
+                            <#elseif user.role == "USER">
+                                <input type="hidden" name="email" value="${user.email}"/>
+                                <select class="form-control" name="role" onchange='if(this.value != "USER") { this.form.submit(); }'>
+                                    <option value="USER" name="USER">Użytkownik</option>
+                                    <option value="ADMIN" name="ADMIN">Administrator</option>
+                                </select>
+                            </#if></td>
+                    </form>
                 </tr>
             </#list>
             </tbody>
