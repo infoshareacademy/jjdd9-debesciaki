@@ -1,6 +1,5 @@
 package com.infoshareacademy.controller;
 
-import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.service.favourite.FavouriteRestService;
 
 import javax.inject.Inject;
@@ -17,15 +16,23 @@ public class FavouritesController {
     @POST
     @Path("{userEmail}/event/{eventId}")
     public Response addFavourite(@PathParam("userEmail") String userEmail,
-                        @PathParam("eventId") Long eventId) {
+                                 @PathParam("eventId") Long eventId) {
         return favouriteRestService.addFavourite(userEmail, eventId);
     }
 
     @DELETE
     @Path("{userEmail}/event/{eventId}")
     public Response removeFavourite(@PathParam("userEmail") String userEmail,
-                        @PathParam("eventId") Long eventId) {
+                                    @PathParam("eventId") Long eventId) {
         return favouriteRestService.removeFavourite(userEmail, eventId);
     }
+
+    @GET
+    @Path("{userEmail}/event/{eventId}")
+    public Response isFavourite(@PathParam("userEmail") String userEmail,
+                                @PathParam("eventId") Long eventId) {
+        return favouriteRestService.isFavourite(userEmail, eventId);
+    }
+
 
 }
