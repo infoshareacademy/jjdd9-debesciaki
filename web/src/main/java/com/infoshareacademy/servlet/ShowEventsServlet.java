@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.EventViewService;
@@ -65,7 +66,9 @@ public class ShowEventsServlet extends HttpServlet {
         action = req.getParameter("action");
 
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
         Integer actPage = Integer.parseInt(req.getParameter("page"));
         Integer listSize = eventViewService.getAllEventsCount();
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
@@ -102,7 +105,9 @@ public class ShowEventsServlet extends HttpServlet {
 
     private void searchByPhrase(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "showEvents.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
 
         action = req.getParameter("action");
 
@@ -229,7 +234,9 @@ public class ShowEventsServlet extends HttpServlet {
     private void noResultsFound(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         Template template = templateProvider.getTemplate(getServletContext(), "noResultsFound.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
         req.setCharacterEncoding("UTF-8");
         String previous = req.getHeader("referer");
 

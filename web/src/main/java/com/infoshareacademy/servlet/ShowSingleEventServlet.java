@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.EventViewService;
@@ -33,7 +34,9 @@ public class ShowSingleEventServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "singleEventPage.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
 
         Long eventIdToShow = Long.parseLong(req.getParameter("event"));
         EventView event = eventViewService.prepareSingleEvent(eventIdToShow);

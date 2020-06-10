@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -27,7 +28,9 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "login.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
 
         req.setCharacterEncoding("UTF-8");
 

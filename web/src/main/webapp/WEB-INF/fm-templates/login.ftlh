@@ -7,7 +7,8 @@
     <meta name="description" content="Projekt Debeściaki - Infoshare Academy 2020">
     <meta name="author" content="Bartłomiej Trawiński, Jakub Cichacki">
     <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content=982683700163-ed48vnuiru6qtim5k45qjhn80jrqkcip.apps.googleusercontent.com>
+    <meta name="google-signin-client_id"
+          content=982683700163-ed48vnuiru6qtim5k45qjhn80jrqkcip.apps.googleusercontent.com>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <title>Projekt Debeściaki - Wydarzenia kulturalne w Gdańsku</title>
@@ -44,26 +45,28 @@
         </div>
     </div>
 </nav>
-<#-- ftlh for  search navbar
-<#include "searchInput.ftlh">-->
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            <div class="card card-signin my-5">
-                <div class="card-body">
-                    <form class="form-signin">
-                        <div class="text-center"><img src="../../bootstrap/img/logo-google.svg" alt="google"></div>
-                        <span class="m-2"><br></span>
-                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" data-onsuccess="onSignIn"><i class="fab fa-google mr-2"></i><a href="/loginGoogle" class="text-white"> Zaloguj się z Google</a></button>
-                    </form>
+<#if role == "GUEST">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <form class="form-signin">
+                            <div class="text-center"><img src="../../bootstrap/img/logo-google.svg" alt="google"></div>
+                            <span class="m-2"><br></span>
+                            <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"
+                                    data-onsuccess="onSignIn"><i class="fab fa-google mr-2"></i><a href="/loginGoogle"
+                                                                                                   class="text-white">
+                                    Zaloguj się z Google</a></button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
-
+<#else>
+    <#include "alreadyLogged.ftlh">
+</#if>
 <#include "footerWithScripts.ftlh">
 </body>
 </html>

@@ -88,7 +88,7 @@
         }
 
         .fixed-top-2 {
-            margin-top: 50px;
+            margin-top: 10px;
         }
 
         .flex-grid {

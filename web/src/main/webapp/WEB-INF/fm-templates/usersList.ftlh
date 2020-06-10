@@ -18,12 +18,22 @@
                 <li class="nav-item ">
                     <a class="nav-link" href="/show-events?action=showAll&page=1">Wydarzenia</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Organizatorzy
-                        <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
+                </li>
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Panel administratora<span class="sr-only">(current)</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/upload.html">Załaduj bazę</a>
+                        <a class="dropdown-item" href="/users-list">Lista użytkowników</a>
+                        <a class="dropdown-item" href="#">Statystyki</a>
+                    </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Zaloguj się</a>
+                    <a class="nav-link" href="/logoutGoogle">Wyloguj się</a>
                 </li>
             </ul>
         </div>
@@ -51,14 +61,20 @@
                         <td class="text-primary font-weight-bold">
                             <#if user.role == "SUPER_ADMIN"> Główny administrator aplikacji
                             <#elseif user.role == "ADMIN">
-                                <input type="hidden" name="email" value="${user.email}"/>
-                                <select class="form-control" name="role" onchange='if(this.value != "ADMIN") { this.form.submit(); }'>
-                                    <option value="ADMIN" name="ADMIN">Administrator</option>
-                                    <option value="USER" name="USER">Użytkownik</option>
-                                </select>
+                                <#if user.email == email>
+                                    Administrator
+                                <#else>
+                                    <input type="hidden" name="email" value="${user.email}"/>
+                                    <select class="form-control" name="role"
+                                            onchange='if(this.value != "ADMIN") { this.form.submit(); }'>
+                                        <option value="ADMIN" name="ADMIN">Administrator</option>
+                                        <option value="USER" name="USER">Użytkownik</option>
+                                    </select>
+                                </#if>
                             <#elseif user.role == "USER">
                                 <input type="hidden" name="email" value="${user.email}"/>
-                                <select class="form-control" name="role" onchange='if(this.value != "USER") { this.form.submit(); }'>
+                                <select class="form-control" name="role"
+                                        onchange='if(this.value != "USER") { this.form.submit(); }'>
                                     <option value="USER" name="USER">Użytkownik</option>
                                     <option value="ADMIN" name="ADMIN">Administrator</option>
                                 </select>

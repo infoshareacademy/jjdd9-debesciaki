@@ -22,35 +22,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
-                <#if role == "USER" >
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logoutGoogle">Wyloguj się</a>
-                    </li>
-                <#elseif role == "ADMIN" || role == "SUPER_ADMIN">
-                    <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Panel administratora
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/upload.html">Załaduj bazę</a>
-                        <a class="dropdown-item" href="/users-list">Lista użytkowników</a>
-                    </div>
-                </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logoutGoogle">Wyloguj się</a>
-                    </li>
-                <#else>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/login">Zaloguj się</a>
-                    </li>
-                </#if>
+                <#include "loginLogout.ftlh">
             </ul>
         </div>
     </div>
 </nav>
-
-<#include "searchInput.ftlh">
-
+<br><br>
 <div class="container">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
