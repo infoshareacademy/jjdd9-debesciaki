@@ -61,19 +61,19 @@
             var value = $(document.getElementById("phrase")).val();
             console.log(document.getElementById("phrase").value);
             console.log(document.getElementById("phrase").toString().length);
-            if (value.length > 1) {
+            if (value.length > 2) {
                 arr2 = [];
 
                 eventJsonToArrayOfNames($(document).ready(function () {
-                    str1 = "http://localhost:8080/api/search/eve/";
+                    str1 = "/api/search/eve/";
                     res = str1;
 
                     if (orgBool == true && eveBool == true) {
-                        str1 = "http://localhost:8080/api/search/eve-org/";
+                        str1 = "/api/search/eve-org/";
                     } else if (orgBool == false && eveBool == true) {
-                        str1 = "http://localhost:8080/api/search/eve/";
+                        str1 = "/api/search/eve/";
                     } else if (orgBool == true && eveBool == false) {
-                        str1 = "http://localhost:8080/api/search/org/";
+                        str1 = "/api/search/org/";
                     }
                     str2 = str1.concat(document.getElementById("phrase").value);
                     res = str2;
