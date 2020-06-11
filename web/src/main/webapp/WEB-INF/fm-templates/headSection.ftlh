@@ -31,7 +31,7 @@
         body {
             background: #007bff;
             background: linear-gradient(to right, #0062E6, #33AEFF);
-            font: 16px Arial;
+            font-size: 16px;
         }
 
         .autocomplete {
@@ -88,7 +88,7 @@
         }
 
         .fixed-top-2 {
-            margin-top: 50px;
+            margin-top: 10px;
         }
 
         .flex-grid {

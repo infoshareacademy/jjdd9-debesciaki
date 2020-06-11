@@ -1,5 +1,6 @@
 package com.infoshareacademy.servlet;
 
+import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.api.OrganizerJSON;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.EventViewService;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 @WebServlet("/show-organizers")
 public class ShowOrganizersServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+    private static final Logger STDLOG = LoggerFactory.getLogger(ShowOrganizersServlet.class.getName());
 
     @Inject
     TemplateProvider templateProvider;
@@ -35,7 +36,9 @@ public class ShowOrganizersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "showOrganizers.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
 
         Integer actPage = Integer.parseInt(req.getParameter("page"));
         Integer listSize = organizerViewService.listSize();

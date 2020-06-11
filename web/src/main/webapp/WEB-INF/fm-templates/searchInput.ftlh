@@ -1,13 +1,13 @@
 <#noautoesc>
-    <nav class="navbar navbar-light bg-light fixed-top-2">
-        <form autocomplete="off" action="/show-events" id="form">
-            <div class="flex-grid nav-item">
-                <div class="col-lg-12 col-md-3 col-sm-1"></div>
-                <div class="autocomplete col-lg-12 col-md-6 col-sm-3" style="width:100%;">
+    <nav class="navbar navbar-light fixed-top-2" style="width: 100%">
+        <form autocomplete="off" action="/show-events" id="form" style="width: 90%">
+            <div class="flex-grid nav-item ">
+                <div class="autocomplete col-lg-12 col-md-6 col-sm-3 mr-sm-2">
                     <input type="hidden" value="search" name="action">
                     <input type="hidden" name="page" value="1"/>
-                    <input id="phrase" type="text" name="phrase" required minlength="3" placeholder="Nazwa">
+                    <input id="phrase" type="text" name="phrase" required minlength="3" placeholder="Wyszukaj">
                 </div>
+                <button type="submit"  class="btn btn-primary" form="form" id="szukaj">Szukaj</button>
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true"
@@ -42,8 +42,6 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit"  class="btn btn-primary" form="form" id="szukaj">Szukaj</button>
-                <div class="col-lg-12 col-md-3 col-sm-1"></div>
             </div>
         </form>
     </nav>

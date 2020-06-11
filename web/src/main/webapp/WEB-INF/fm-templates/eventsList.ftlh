@@ -1,7 +1,8 @@
 <div class="container">
     <div class="jumbotron ">
-        <h3 class="display-4 text-center">Lista wydarzeń</h3><br>
-        <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white" cellspacing="0">
+        <h3 class="display-4 text-center">Lista wydarzeń</h3>
+        <#include "searchInput.ftlh"><br>
+        <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white"  cellspacing="0">
             <thead>
             <tr class="bg-dark text-white">
                 <th class="th-sm text-center" width="35%">Nazwa</th>
