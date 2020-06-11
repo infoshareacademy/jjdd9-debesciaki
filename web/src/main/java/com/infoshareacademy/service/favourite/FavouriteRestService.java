@@ -4,6 +4,7 @@ import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.repository.UserDao;
+import com.infoshareacademy.service.MailService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,6 +20,9 @@ public class FavouriteRestService {
 
     @Inject
     EventDao eventDao;
+
+    @Inject
+    MailService mailService;
 
     public Response addFavourite(String email, Long eventId) {
         Optional<User> userOptional = userDao.findByEmail(email);
@@ -46,6 +50,7 @@ public class FavouriteRestService {
             events.remove(event);
             user.setEvents(events);
             userDao.update(user);
+            mailService.sendMailOnDeletion(email, event);
             return Response.status(Response.Status.OK).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
