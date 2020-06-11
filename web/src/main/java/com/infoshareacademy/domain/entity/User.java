@@ -6,6 +6,17 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+
+@NamedQueries({
+        @NamedQuery(
+                name = "User.findAll",
+                query = "SELECT u FROM User u"
+        ),
+        @NamedQuery(
+                name = "User.findByEmail",
+                query = "SELECT u FROM User u WHERE u.mail LIKE:email"
+        )
+})
 @Entity
 @Table(name = "user")
 public class User implements Serializable {

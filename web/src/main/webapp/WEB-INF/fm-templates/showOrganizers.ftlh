@@ -22,16 +22,11 @@
                     <a class="nav-link" href="#">Organizatorzy
                         <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Zaloguj się</a>
-                </li>
+                <#include "loginLogout.ftlh">
             </ul>
         </div>
     </div>
 </nav>
-
-<#include "searchInput.ftlh">
-
 <br><br>
 <#include "organizersList.ftlh">
 <#include "footerWithScripts.ftlh">

@@ -22,16 +22,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Zaloguj się</a>
-                </li>
+                <#include "loginLogout.ftlh">
             </ul>
         </div>
     </div>
 </nav>
-
-<#include "searchInput.ftlh">
-
+<br><br>
 <div class="container">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
@@ -62,6 +58,7 @@
         <nobr><a href="/show-events?action=showAll&page=1" class="btn btn-primary btn-lg">Sprawdź więcej</a>&nbsp</nobr>
     </div>
 </div>
+
 <#include "footerWithScripts.ftlh">
 </body>
 </html>
