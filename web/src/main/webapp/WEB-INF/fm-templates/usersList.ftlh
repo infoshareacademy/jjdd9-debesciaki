@@ -27,7 +27,7 @@
                         Panel administratora<span class="sr-only">(current)</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/upload.html">Załaduj bazę</a>
+                        <a class="dropdown-item" href="/upload-rest">Załaduj bazę</a>
                         <a class="dropdown-item" href="/users-list">Lista użytkowników</a>
                         <a class="dropdown-item" href="#">Statystyki</a>
                     </div>
