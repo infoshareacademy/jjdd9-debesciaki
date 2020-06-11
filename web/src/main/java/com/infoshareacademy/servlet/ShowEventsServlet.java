@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @WebServlet("/show-events")
 public class ShowEventsServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+    private static final Logger STDLOG = LoggerFactory.getLogger(ShowEventsServlet.class.getName());
     String action;
 
     @Inject

@@ -15,35 +15,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Strona główna</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/show-events?action=showAll&page=1">Wydarzenia</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="show-events?action=showAll&page=1">Wydarzenia
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Zaloguj się</a>
                 </li>
                 <#include "loginLogout.ftlh">
             </ul>
         </div>
     </div>
 </nav>
-
-
 <br><br>
-<div class="container">
-    <div class="jumbotron ">
-        <h3 class="display-4 text-center">Lista nadchodzących wydarzeń</h3>
-        <br>
-        <br>
-        <br>
-        <p>
-            Nie znaleziono wydarzenia dla frazy: ${phrase}
-        </p>
-        <h6 class="text-right"><a href="${previous}" class="text-primary font-italic">Powrót do poprzedniej strony</a></h6>
-    </div>
-</div>
-
+<#include "favouriteList.ftlh">
+<#include "footerWithScripts.ftlh">
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.entity.Event;
+import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.repository.EventDao;
 
@@ -8,9 +9,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Stateless
 public class EventViewService {
@@ -18,7 +17,33 @@ public class EventViewService {
     @Inject
     EventDao eventDao;
 
+    @Inject
+    UserService userService;
+
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+    public List<EventView> prepareFavouriteEvents(int firstResult, String email) {
+        List<EventView> eventsList = new ArrayList<>();
+
+        User user = userService.findByEmail(email);
+
+        int i = 0;
+        for (Event el : user.getEvents()) {
+            if (i >= firstResult) {
+                eventsList.add(mapper(el));
+            }
+            i++;
+        }
+
+        return eventsList;
+    }
+
+    public Integer getFavouritesCount(String email) {
+        Set<Event> eventsList = new HashSet<>();
+        User user = userService.findByEmail(email);
+        Set<Event> events = user.getEvents();
+        return events.size();
+    }
 
     public List<EventView> prepareEventsToShow(int firstResult) {
 
@@ -100,7 +125,6 @@ public class EventViewService {
     public Integer getAllEventsCount() {
         return eventDao.getAllEventsCount();
     }
-
 
     public EventView prepareSingleEvent(Long id) {
         EventView event = new EventView();
