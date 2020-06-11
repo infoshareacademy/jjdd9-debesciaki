@@ -1,7 +1,5 @@
-<button class ="btn btn-dark" id="myCheck" onclick="actOnClick(${event.id})"></button>
-<#--
-<p id="text" style="display:none">Checkbox is CHECKED!</p>
--->
+
+<button class="btn btn-dark" id="myCheck" onclick="actOnClick(${event.id})"></button>
 
 <script>
     function actOnClick(eventID) {
@@ -18,7 +16,7 @@
             success: function (result) {
                 console.log('Success in checking event in favourites');
                 isFavourite = result;
-                console.log("result is:  "+result);
+                console.log("result is:  " + result);
                 if (isFavourite == true) {
                     typeOfAction = "DELETE";
                     $.ajax({
@@ -52,21 +50,11 @@
                     )
 
                 }
-                console.log("Generated type of HTTP communication based on result "+typeOfAction);
-
+                console.log("Generated type of HTTP communication based on result " + typeOfAction);
             },
             error: function (error) {
                 console.log(error);
             }
         })
     }
-
-    /* var checkBox = document.getElementById("myCheck");
-     var text = document.getElementById("text");
-     if (checkBox.checked == true) {
-     text.style.display = "block";
-     } else {
-     text.style.display = "none";
-     }*/
-
 </script>
