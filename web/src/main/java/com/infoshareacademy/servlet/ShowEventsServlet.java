@@ -76,7 +76,7 @@ public class ShowEventsServlet extends HttpServlet {
         List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
         req.setCharacterEncoding("UTF-8");
 
-        if (actPage < 1 || actPage > numberOfPages) {
+        if ((actPage < 1 || actPage > numberOfPages) && listSize != 0) {
             resp.sendRedirect("/show-events?action=showAll&page=1");
         } else if (listSize == 0) {
             emptyDataBase(req, resp);
