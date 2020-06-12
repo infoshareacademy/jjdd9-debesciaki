@@ -34,6 +34,6 @@
     </li>
 <#else>
     <li class="nav-item">
-        <a class="nav-link" href="/login">Zaloguj się</a>
+        <a class="nav-link" href="/loginGoogle">Zaloguj się</a>
     </li>
 </#if>

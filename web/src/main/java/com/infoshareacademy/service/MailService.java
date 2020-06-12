@@ -44,9 +44,9 @@ public class MailService {
                 );
                 message.setSubject("Usunięto wydarzenie \"" + event.getName() + "\"");
                 message.setText("Drogi użytkowniku,"
-                        + "\n\n Team debeściaki chciałby Cię poinformować o usunięciu/odwołaniu wydarzenia, które znajdowało się wśród Twoich ulubionych: " + event.getName() + "." +
-                        "\n\n Z wyrazami szacunku," +
-                        "\n Team Debeściaki");
+                        + "\n\n Team debeściaki chciałby Cię poinformować o usunięciu/odwołaniu wydarzenia, które znajdowało się wśród Twoich ulubionych: \n\"" + event.getName() + "\"" +
+                        "\n\nZ wyrazami szacunku," +
+                        "\nTeam Debeściaki");
 
                 Transport.send(message);
 

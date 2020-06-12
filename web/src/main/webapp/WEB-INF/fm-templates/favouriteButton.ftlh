@@ -1,6 +1,8 @@
-<button id="${event.id}" class="btn" onclick="toFav(${event.id}, ${email})" >
+<button class="btn" onclick="toFav(${event.id}, ${email})">
     <strong>
-        &#11088;
+        <span id="${event.id}">
+            &#9734;
+        </span>
     </strong>
 </button>
 
@@ -48,22 +50,23 @@
                 isFavourite = result;
                 console.log("result is:  " + result);
                 if (isFavourite == true) {
-                    document.getElementById(eventID).style.background = "#3CB371";
-                   /* typeOfAction = "DELETE";
-                    $.ajax({
-                            url: favAddress,
-                            type: "DELETE",
-                            success: function (result) {
-                                console.log('Success in  deleting from favourite');
-                                document.getElementById(eventID).style.background = "#D3D3D3";
-                                window.alert('Udało się usunąć wydarzenie z ulubionych');
-                            },
-                            error: function (error) {
-                                console.log(error);
-                                window.alert('Błąd w trakcie usuwania wydarzenia  z ulubionych');
-                            }
-                        }
-                    )*/
+                    // document.getElementById(eventID).style.background = "#3CB371";
+                    document.getElementById(eventID).innerHTML = "&#11088;";
+                    /* typeOfAction = "DELETE";
+                     $.ajax({
+                             url: favAddress,
+                             type: "DELETE",
+                             success: function (result) {
+                                 console.log('Success in  deleting from favourite');
+                                 document.getElementById(eventID).style.background = "#D3D3D3";
+                                 window.alert('Udało się usunąć wydarzenie z ulubionych');
+                             },
+                             error: function (error) {
+                                 console.log(error);
+                                 window.alert('Błąd w trakcie usuwania wydarzenia  z ulubionych');
+                             }
+                         }
+                     )*/
                 }
                 if (isFavourite == false) {
                     typeOfAction = "POST";
@@ -72,7 +75,8 @@
                             type: "POST",
                             success: function (result) {
                                 console.log('Success in  adding  to favourite');
-                                document.getElementById(eventID).style.background = "#3CB371";
+                                //document.getElementById(eventID).style.background = "#3CB371";
+                                document.getElementById(eventID).innerHTML = "&#11088;";
                                 window.alert('Udało się dodać wydarzenie do ulubionych');
                             },
                             error: function (error) {
