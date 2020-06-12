@@ -48,21 +48,22 @@
                 isFavourite = result;
                 console.log("result is:  " + result);
                 if (isFavourite == true) {
-                    typeOfAction = "DELETE";
+                    document.getElementById(eventID).style.background = "#3CB371";
+                   /* typeOfAction = "DELETE";
                     $.ajax({
                             url: favAddress,
                             type: "DELETE",
                             success: function (result) {
                                 console.log('Success in  deleting from favourite');
-                                window.alert('Udało się usunąć wydarzenie z ulubionych');
                                 document.getElementById(eventID).style.background = "#D3D3D3";
+                                window.alert('Udało się usunąć wydarzenie z ulubionych');
                             },
                             error: function (error) {
                                 console.log(error);
                                 window.alert('Błąd w trakcie usuwania wydarzenia  z ulubionych');
                             }
                         }
-                    )
+                    )*/
                 }
                 if (isFavourite == false) {
                     typeOfAction = "POST";
@@ -71,8 +72,8 @@
                             type: "POST",
                             success: function (result) {
                                 console.log('Success in  adding  to favourite');
-                                window.alert('Udało się dodać wydarzenie do ulubionych');
                                 document.getElementById(eventID).style.background = "#3CB371";
+                                window.alert('Udało się dodać wydarzenie do ulubionych');
                             },
                             error: function (error) {
                                 console.log(error);
