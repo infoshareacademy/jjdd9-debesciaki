@@ -78,6 +78,9 @@ public class ShowEventsServlet extends HttpServlet {
 
         if (actPage < 1 || actPage > numberOfPages) {
             resp.sendRedirect("/show-events?action=showAll&page=1");
+        } else if (listSize == 0) {
+            emptyDataBase(req, resp);
+            return;
         }
 
         StringBuilder actionAppender = new StringBuilder();
@@ -252,6 +255,29 @@ public class ShowEventsServlet extends HttpServlet {
 
         String phrase = req.getParameter("phrase");
         dataModel.put("phrase", phrase);
+        dataModel.put("previous", previous);
+
+        resp.setContentType("text/html; charset=UTF-8");
+
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter pw = resp.getWriter();
+
+        try {
+            template.process(dataModel, pw);
+        } catch (TemplateException e) {
+            STDLOG.error("Template for Show Search Results page error");
+        }
+    }
+
+    private void emptyDataBase(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        Template template = templateProvider.getTemplate(getServletContext(), "emptyDataBase.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
+        req.setCharacterEncoding("UTF-8");
+        String previous = req.getHeader("referer");
+
         dataModel.put("previous", previous);
 
         resp.setContentType("text/html; charset=UTF-8");
