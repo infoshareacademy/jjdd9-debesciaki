@@ -50,7 +50,6 @@ public class FavouriteRestService {
             events.remove(event);
             user.setEvents(events);
             userDao.update(user);
-            mailService.sendMailOnDeletion(event);
             return Response.status(Response.Status.OK).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
