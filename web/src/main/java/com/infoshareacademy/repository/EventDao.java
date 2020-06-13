@@ -167,6 +167,12 @@ public class EventDao {
 
     }
 
+    public List<Event> findFinished() {
+        Query query = entityManager.createNamedQuery("Event.findFinished");
+        query.setParameter("now", LocalDateTime.now());
+        return query.getResultList();
+    }
+
     public void persistEntityList(List<Event> list) throws IOException {
         for (Event o : list) {
             entityManager.persist(o);

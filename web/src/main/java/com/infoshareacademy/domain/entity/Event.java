@@ -41,7 +41,11 @@ import java.util.Set;
         ),
         @NamedQuery(
                 name = "Event.findByApiId",
-                query = "SELECT e FROM Event e WHERE e.apiId=:apiID"
+                query = "SELECT e FROM Event e WHERE e.apiId = :apiID"
+        ),
+        @NamedQuery(
+                name = "Event.findFinished",
+                query = "SELECT e FROM Event e WHERE e.endDate < :now"
         ),
 })
 @Entity
