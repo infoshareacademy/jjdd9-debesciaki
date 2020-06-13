@@ -3,7 +3,7 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.EventViewService;
+import com.infoshareacademy.service.event.EventViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;

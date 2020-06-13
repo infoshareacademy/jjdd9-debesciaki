@@ -1,6 +1,6 @@
 package com.infoshareacademy.controller;
 
-import com.infoshareacademy.service.EventMapLiveSearch;
+import com.infoshareacademy.service.event.EventMapLiveSearch;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

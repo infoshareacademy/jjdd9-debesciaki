@@ -190,4 +190,8 @@ public class EventDao {
             entityManager.persist(o);
         }
     }
+
+    public void save(Event event) {
+        entityManager.persist(event);
+    }
 }

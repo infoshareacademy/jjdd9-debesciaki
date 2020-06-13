@@ -1,9 +1,9 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.view.UserView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.UserViewService;
+import com.infoshareacademy.service.event.EventViewService;
+import com.infoshareacademy.service.user.UserViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +30,9 @@ public class ShowUsersServlet extends HttpServlet {
 
     @EJB
     UserViewService userViewService;
+
+    @EJB
+    EventViewService eventViewService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

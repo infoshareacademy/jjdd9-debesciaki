@@ -1,12 +1,14 @@
-package com.infoshareacademy.service;
+package com.infoshareacademy.service.event;
 
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.EventView;
-import com.infoshareacademy.repository.EventDao;
+import com.infoshareacademy.repository.*;
+import com.infoshareacademy.service.user.UserService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -16,6 +18,21 @@ public class EventViewService {
 
     @Inject
     EventDao eventDao;
+
+    @Inject
+    OrganizerDao organizerDao;
+
+    @Inject
+    CategoryDao categoryDao;
+
+    @Inject
+    PlaceDao placeDao;
+
+    @Inject
+    UrlsDao urlsDao;
+
+    @Inject
+    TicketDao ticketDao;
 
     @Inject
     UserService userService;
@@ -173,6 +190,25 @@ public class EventViewService {
         eventView.setFileName((Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && event.getAttachments().get(0).getFileName().contains("http")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
 
         return eventView;
+    }
+
+    public void newEvent(EventView eventView) {
+        Event event = new Event();
+        event.setName(eventView.getName());
+        event.setActive(1);
+        event.setCategory(categoryDao.create(eventView.getCategoryName()));
+        event.setOrganizer(organizerDao.create(eventView.getOrganizerName()));
+        event.setPlace(placeDao.create(eventView.getPlaceName()));
+        event.setUrls(urlsDao.save(eventView.getWebsite()));
+        event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        if (eventView.getTicket().equals("free")) {
+            event.setTicket(ticketDao.save(eventView.getTicket()));
+        } else {
+            event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getMinTicketPrice(), eventView.getMaxTicketPrice()));
+        }
+        event.setDescLong(eventView.getDescLong());
+        eventDao.save(event);
     }
 
     public List<EventView> listEvents(Integer firstResult, String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {

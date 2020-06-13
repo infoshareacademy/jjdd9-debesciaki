@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="jumbotron ">
+    <div class="jumbotron mycustom-jumbotron">
         <h3 class="display-4 text-center">Lista wydarzeń</h3>
         <#include "searchInput.ftlh"><br>
         <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white"  cellspacing="0">
@@ -19,7 +19,7 @@
                     <td class="text-center">${event.organizerName}</td>
                     <td class="text-center">${event.startDate}</td>
                     <td class="text-center">${event.endDate}</td>
-                    <td class="text-center"><#include "favouriteButton.ftlh"></td>
+                    <td class="text-center"><nobr><#include "favouriteButton.ftlh"><#if role == "ADMIN" || role == "SUPER_ADMIN"><#include "editButton.ftlh">&nbsp;<#include "deleteButton.ftlh"></#if></nobr></td>
                 </tr>
             </#list>
             </tbody>

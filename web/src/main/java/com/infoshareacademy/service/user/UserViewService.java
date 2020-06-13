@@ -1,4 +1,4 @@
-package com.infoshareacademy.service;
+package com.infoshareacademy.service.user;
 
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.UserView;

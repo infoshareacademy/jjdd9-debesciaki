@@ -1,10 +1,14 @@
 package com.infoshareacademy.domain.view;
 
+import java.time.LocalDateTime;
+
 public class EventView {
     private Long id;
     private String name;
     private String startDate;
+    private LocalDateTime startDateLocal;
     private String endDate;
+    private LocalDateTime endDateLocal;
     private String descShort;
     private String descLong;
     private Integer active;
@@ -13,6 +17,7 @@ public class EventView {
     private String placeName;
     private String placeSubname;
     private String ticket;
+    private Integer numberOfTickets;
     private Integer minTicketPrice;
     private Integer maxTicketPrice;
     private String website;
@@ -97,6 +102,14 @@ public class EventView {
 
     public void setTicket(String ticket) {
         this.ticket = ticket;
+    }
+
+    public Integer getNumberOfTickets() {
+        return numberOfTickets;
+    }
+
+    public void setNumberOfTickets(Integer numberOfTickets) {
+        this.numberOfTickets = numberOfTickets;
     }
 
     public Integer getMinTicketPrice() {

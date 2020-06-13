@@ -12,7 +12,7 @@ import com.infoshareacademy.domain.view.UserView;
 import com.infoshareacademy.mapper.GoogleUserMapper;
 import com.infoshareacademy.oauth.OAuthBuilder;
 import com.infoshareacademy.oauth.OAuthManager;
-import com.infoshareacademy.service.UserService;
+import com.infoshareacademy.service.user.UserService;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;

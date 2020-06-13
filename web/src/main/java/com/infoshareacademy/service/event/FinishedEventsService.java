@@ -1,8 +1,9 @@
-package com.infoshareacademy.service;
+package com.infoshareacademy.service.event;
 
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.repository.EventDao;
+import com.infoshareacademy.service.MailService;
 import com.infoshareacademy.service.favourite.FavouriteRestService;
 
 import javax.ejb.Stateless;

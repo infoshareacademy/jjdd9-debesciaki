@@ -1,4 +1,4 @@
-package com.infoshareacademy.service;
+package com.infoshareacademy.service.event;
 
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.repository.EventDao;

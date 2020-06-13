@@ -47,36 +47,36 @@
             <span class="font-weight-bold">Nazwa wydarzenia: <input type="text" name="name" class="m-2" required/></span><br>
             <span class="font-weight-bold">Organizator: <input type="text" name="organizer" class="m-2" required/></span><br>
             <span class="font-weight-bold">Miejsce: <input type="text" name="place" class="m-2" required/></span><br>
+            <span class="font-weight-bold">Kategoria: <input type="text" name="category" class="m-2" required/></span><br>
             <span class="font-weight-bold">Adres strony internetowej: <input type="url" name="url" class="m-2"/></span><br>
             <span class="font-weight-bold">Data rozpoczęcia: <input type="datetime-local" name="startDate" class="m-2" required/></span><br>
             <span class="font-weight-bold">Data zakończenia: <input type="datetime-local" name="endDate" class="m-2" required/></span><br>
-            <nobr><span class="font-weight-bold" >Typ biletów:
-                <select class="m-2" id="selectBox">
+            <nobr><span class="font-weight-bold">Typ biletów:
+                <select class="m-2" onchange="freePay(this)" name="typeOfTicket">
                     <option value="free" name="free">bezpłatne</option>
                     <option value="tickets" name="tickets">płatne</option>
-                </select></span></nobr><br>
+                </select></span></nobr>
+            <br>
+            <span class="font-weight-bold">Ilość dostępnych miejsc: <input type="number" name="numberOfTickets" class="m-2" required min="1" step="1"/></span><br>
+            <div id="ifTickets" style="display: none;">
+                <span class="font-weight-bold">Cena biletu normalnego: <input type="number" name="normalTicket" class="m-2"  min="1" step="1"/></span><br>
+                <span class="font-weight-bold">Cena biletu ulgowego: <input type="number" name="reducedTicket" class="m-2" min="1" step="1"/></span><br>
+            </div>
             <span class="font-weight-bold">Opis: <input type="text" name="descLong" class="m-2"/></span><br>
-            <button type="submit" class="btn btn-primary btn-lg" >Zapisz</button>
+            <button type="submit" class="btn btn-primary btn-lg">Zapisz</button>
         </form>
     </div>
 </div>
-<div id="dialog-modal">test</div>
+
 <#include "footerWithScripts.ftlh">
-<script>
-    $(document).ready(function () {
-
-        $('#dialog-modal').dialog({
-            modal: true,
-            autoOpen: false
-        });
-
-        $('#selectBox').change(function () {
-            if ($(this).val() == 'tickets') {
-                $('#dialog-modal').dialog('open');
-            }
-        });
-
-    });
+<script type="text/javascript">
+    function freePay(that) {
+        if (that.value == "tickets") {
+            document.getElementById("ifTickets").style.display = "block";
+        } else {
+            document.getElementById("ifTickets").style.display = "none";
+        }
+    }
 </script>
 </body>
 </html>

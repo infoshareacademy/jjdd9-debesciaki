@@ -1,5 +1,6 @@
 package com.infoshareacademy.repository;
 
+import com.infoshareacademy.domain.entity.Category;
 import com.infoshareacademy.domain.entity.Place;
 
 import javax.ejb.Stateless;
@@ -21,9 +22,23 @@ public class PlaceDao {
         return Optional.ofNullable((Place) query.getSingleResult());
     }
 
+    public Optional<Place> findByName(String name) {
+        Query query = entityManager.createNamedQuery("Place.findByName");
+        query.setParameter("name", name);
+        return Optional.ofNullable((Place) query.getSingleResult());
+    }
+
+
     public void persistEntityList(List<Place> list) {
         for (Place p : list) {
             entityManager.persist(p);
         }
     }
+    public Place create(String name) {
+        Place place = new Place();
+        place.setName(name);
+        entityManager.persist(place);
+        return place;
+    }
+
 }

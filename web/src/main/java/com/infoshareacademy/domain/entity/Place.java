@@ -1,11 +1,17 @@
 package com.infoshareacademy.domain.entity;
 
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "Place.findByApiId",
                 query = "SELECT p FROM Place p WHERE p.apiId=:apiID"
+        ),
+        @NamedQuery(
+                name = "Place.findByName",
+                query = "SELECT p FROM Place p WHERE p.name=:name"
         )
 })
 @Entity

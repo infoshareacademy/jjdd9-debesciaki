@@ -38,4 +38,17 @@ public class CategoryDao {
             return Optional.empty();
         }
     }
+
+    public Optional<Category> findByName(String name) {
+        Query query = entityManager.createNamedQuery("Category.findByName");
+        query.setParameter("name", name);
+        return Optional.ofNullable((Category) query.getSingleResult());
+    }
+
+    public Category create(String categoryName) {
+        Category category = new Category();
+        category.setName(categoryName);
+        entityManager.persist(category);
+        return category;
+    }
 }
