@@ -20,11 +20,11 @@ public class UserAuthorizationFilter implements Filter {
 
         HttpSession session = httpServletRequest.getSession(false);
 
-        boolean isUSer = session != null && String.valueOf(session.getAttribute("role"))
+        boolean isUser = session != null && String.valueOf(session.getAttribute("role"))
                 .matches("USER|ADMIN|SUPER_ADMIN");
-        if (!isUSer) {
+        if (!isUser) {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-            httpResponse.sendRedirect("https://images.squarespace-cdn.com/content/5521673ce4b09eb81bf68349/1448711636375-N0M8RIC90IEP439GGM9I/image-asset.jpeg?format=1000w&content-type=image%2Fjpeg");
+            httpResponse.sendError(403);
             return;
         }
 

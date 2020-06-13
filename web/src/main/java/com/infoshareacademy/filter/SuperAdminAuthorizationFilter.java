@@ -24,7 +24,7 @@ public class SuperAdminAuthorizationFilter implements Filter {
                 .matches("ADMIN|SUPER_ADMIN");
         if (!isAdmin) {
             HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
-            httpResponse.sendRedirect("https://images.squarespace-cdn.com/content/5521673ce4b09eb81bf68349/1448711636375-N0M8RIC90IEP439GGM9I/image-asset.jpeg?format=1000w&content-type=image%2Fjpeg");
+            httpResponse.sendError(403);
             return;
         }
 
