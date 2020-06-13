@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand " href="/">&nbsp;&nbsp;Projekt Debeściaki - Infoshare Academy</a>
+        <a class="navbar-brand " href="/">&nbsp;&nbsp;Planer kulturalny</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -16,7 +16,7 @@
                     <a class="nav-link" href="/">Strona główna</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="http://localhost:8080/show-events?action=showAll&page=1">Wydarzenia
+                    <a class="nav-link" href="show-events?action=showAll&page=1">Wydarzenia
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
