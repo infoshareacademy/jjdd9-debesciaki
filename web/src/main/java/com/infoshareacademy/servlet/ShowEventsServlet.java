@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @WebServlet("/show-events")
 public class ShowEventsServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+    private static final Logger STDLOG = LoggerFactory.getLogger(ShowEventsServlet.class.getName());
     String action;
 
     @Inject
@@ -76,8 +76,11 @@ public class ShowEventsServlet extends HttpServlet {
         List<EventView> listEvents = eventViewService.prepareEventsToShow((actPage - 1) * 20);
         req.setCharacterEncoding("UTF-8");
 
-        if (actPage < 1 || actPage > numberOfPages) {
+        if ((actPage < 1 || actPage > numberOfPages) && listSize != 0) {
             resp.sendRedirect("/show-events?action=showAll&page=1");
+        } else if (listSize == 0) {
+            emptyDataBase(req, resp);
+            return;
         }
 
         StringBuilder actionAppender = new StringBuilder();
@@ -85,12 +88,21 @@ public class ShowEventsServlet extends HttpServlet {
         actionAppender.append(action);
         actionAppender.append("&");
 
+        String email;
+        Optional<String> emailOpt = Optional.ofNullable(contextHolder.getEmail());
+        if (emailOpt.isPresent() && !emailOpt.isEmpty()) {
+            email = "\"" + emailOpt.get() + "\"";
+        } else {
+            email = "\"placeholder\"";
+        }
+
         dataModel.put("events", listEvents);
         dataModel.put("action", actionAppender.toString());
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
         dataModel.put("name", "events");
+        dataModel.put("email", email);
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -143,7 +155,7 @@ public class ShowEventsServlet extends HttpServlet {
             String conRdyStart = startDateStr.concat(" 00:00:00");
             start = stringToDate(conRdyStart);
         } else {
-            startDateStr = (LocalDateTime.now().getYear()-1)+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth();
+            startDateStr = (LocalDateTime.now().getYear() - 1) + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
             start = LocalDateTime.now().minusYears(1L);
         }
 
@@ -155,7 +167,7 @@ public class ShowEventsServlet extends HttpServlet {
             String conRdyEnd = endDateStr.concat(" 23:59:59");
             end = stringToDate(conRdyEnd);
         } else {
-            endDateStr = (LocalDateTime.now().getYear()+2)+"-"+LocalDateTime.now().getMonthValue()+"-"+LocalDateTime.now().getDayOfMonth();
+            endDateStr = (LocalDateTime.now().getYear() + 2) + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
             end = LocalDateTime.now().plusYears(2L);
         }
 
@@ -214,6 +226,7 @@ public class ShowEventsServlet extends HttpServlet {
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
         dataModel.put("name", "events");
+        dataModel.put("email", contextHolder.getEmail());
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -242,6 +255,29 @@ public class ShowEventsServlet extends HttpServlet {
 
         String phrase = req.getParameter("phrase");
         dataModel.put("phrase", phrase);
+        dataModel.put("previous", previous);
+
+        resp.setContentType("text/html; charset=UTF-8");
+
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter pw = resp.getWriter();
+
+        try {
+            template.process(dataModel, pw);
+        } catch (TemplateException e) {
+            STDLOG.error("Template for Show Search Results page error");
+        }
+    }
+
+    private void emptyDataBase(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        Template template = templateProvider.getTemplate(getServletContext(), "emptyDataBase.ftlh");
+        ContextHolder contextHolder = new ContextHolder(req.getSession());
+        Map<String, Object> dataModel = new HashMap<>();
+        dataModel.put("role", contextHolder.getRole());
+        req.setCharacterEncoding("UTF-8");
+        String previous = req.getHeader("referer");
+
         dataModel.put("previous", previous);
 
         resp.setContentType("text/html; charset=UTF-8");

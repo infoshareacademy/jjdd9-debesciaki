@@ -11,7 +11,7 @@
           content=982683700163-ed48vnuiru6qtim5k45qjhn80jrqkcip.apps.googleusercontent.com>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-    <title>Projekt Debeściaki - Wydarzenia kulturalne w Gdańsku</title>
+    <title>Planer kulturalny</title>
 
     <link href="../../bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../bootstrap/css/heroic-features.css" rel="stylesheet">
@@ -20,7 +20,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand " href="/">&nbsp;&nbsp;Projekt Debeściaki - Infoshare Academy</a>
+        <a class="navbar-brand " href="/">&nbsp;&nbsp;<#include "logo.ftlh"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

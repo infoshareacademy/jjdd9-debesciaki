@@ -15,10 +15,8 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Strona główna</a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="show-events?action=showAll&page=1">Wydarzenia
-                        <span class="sr-only">(current)</span>
-                    </a>
+                <li class="nav-item">
+                    <a class="nav-link" href="/show-events?action=showAll&page=1">Wydarzenia</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
@@ -28,8 +26,21 @@
         </div>
     </div>
 </nav>
+
+
 <br><br>
-<#include "eventsList.ftlh">
+<div class="container">
+    <div class="jumbotron ">
+        <h3 class="display-4 text-center">Lista organizatorów</h3>
+        <br>
+        <br>
+        <br>
+        <p>
+            Brak organizatorów w bazie danych.
+        </p>
+        <h6 class="text-right"><a href="${previous}" class="text-primary font-italic">Powrót do poprzedniej strony</a></h6>
+    </div>
+</div>
 <#include "footerWithScripts.ftlh">
 </body>
 </html>

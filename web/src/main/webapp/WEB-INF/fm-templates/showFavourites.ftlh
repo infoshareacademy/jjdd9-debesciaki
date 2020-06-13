@@ -17,7 +17,6 @@
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="show-events?action=showAll&page=1">Wydarzenia
-                        <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -29,7 +28,7 @@
     </div>
 </nav>
 <br><br>
-<#include "eventsList.ftlh">
+<#include "favouriteList.ftlh">
 <#include "footerWithScripts.ftlh">
 </body>
 </html>
