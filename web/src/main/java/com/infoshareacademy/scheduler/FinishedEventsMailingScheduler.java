@@ -18,10 +18,8 @@ public class FinishedEventsMailingScheduler {
     FinishedEventsService finishedEventsService;
 
     @Schedule(hour = "*", minute = "*", second = "0", info = "Each minute")
-    public void fixedRate() {
+    public void checkEvents() {
         finishedEventsService.finishedManager();
-        STDLOG.severe("\n\n\n\n ");
-
-
+        STDLOG.info("Checking routine finished");
     }
 }

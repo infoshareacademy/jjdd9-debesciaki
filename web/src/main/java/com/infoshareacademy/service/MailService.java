@@ -49,6 +49,8 @@ public class MailService {
 
                 Transport.send(message);
 
+                STDLOG.info("Success in sending email to {} ", u.getMail());
+
             } catch (MessagingException e) {
                 STDLOG.info("Fail in sending email to {} \n error message:   ", u.getMail(), e.getMessage());
             }
@@ -86,6 +88,8 @@ public class MailService {
                         "\nTeam Debeściaki");
 
                 Transport.send(message);
+
+                STDLOG.info("Success in sending email to {} ", u.getMail());
 
             } catch (MessagingException e) {
                 STDLOG.info("Fail in sending email to {} \n error message:   ", u.getMail(), e.getMessage());
