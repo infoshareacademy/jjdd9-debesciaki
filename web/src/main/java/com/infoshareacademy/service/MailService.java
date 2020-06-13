@@ -50,7 +50,6 @@ public class MailService {
 
                 Transport.send(message);
 
-
             } catch (MessagingException e) {
                 STDLOG.info("Fail in sending email to {} \n error message:   ", u.getMail(), e.getMessage());
             }
