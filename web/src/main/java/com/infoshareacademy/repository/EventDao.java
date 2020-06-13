@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +23,7 @@ public class EventDao {
         entityManager.merge(event);
     }
 
+    @Transactional
     public void delete(Event event) {
         entityManager.remove(event);
     }

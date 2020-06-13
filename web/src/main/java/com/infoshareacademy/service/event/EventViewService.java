@@ -246,4 +246,11 @@ public class EventViewService {
             return 0;
         }
     }
+
+    public void delete(Long id) {
+        Event event = eventDao.findById(id).get();
+        eventDao.delete(event);
+    }
+
+
 }
