@@ -18,6 +18,18 @@ public class EventDao {
 
     private final static int MAX_RESULTS = 20;
 
+    public void update(Event event) {
+        entityManager.merge(event);
+    }
+
+    public void delete(Event event) {
+        entityManager.remove(event);
+    }
+
+    public void create(Event event) {
+        entityManager.persist(event);
+    }
+
     public List<Event> eventListWithLimit(int firstElement) {
         Query query = entityManager.createNamedQuery("Event.findAll");
         query.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
