@@ -8,6 +8,27 @@
 
 
 <script>
+    mailS = "${email}";
+    mailS = mailS.slice(6,-6);
+    console.log(mailS);
+    favAddressS = '/api/favourite/' + mailS + '/event/' + ${event.id};
+    $.ajax({
+        url: favAddressS,
+        type: "GET",
+        success: function (result) {
+            console.log('Success in checking event in favourites');
+            isFavouriteS = result;
+            console.log("Is event " + ${event.id} + " in favourites? :  " + result);
+            if (isFavouriteS == true) {
+                document.getElementById(${event.id}).innerHTML = "&#11088;";
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+
+
     function toFav(eventID, email) {
         id = eventID;
         mail = email;
