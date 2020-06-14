@@ -33,6 +33,7 @@
 
 <br><br>
 <div class="container">
+    <#include "sneakPeak.ftlh">
     <div class="jumbotron ">
         <h3 class="display-4 text-center">Lista nadchodzących wydarzeń</h3>
         <br>

@@ -53,7 +53,7 @@ public class ShowOrganizersServlet extends HttpServlet {
             return;
         }
 
-
+        dataModel.put("email", contextHolder.getEmail());
         dataModel.put("organizers", listOrganizers);
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);

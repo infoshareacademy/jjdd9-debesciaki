@@ -1,4 +1,4 @@
-<button class="btn" onclick="toFav(${event.id}, ${email})">
+<button class="btn" onclick="toFav(${event.id}, ${emailFav})">
     <strong>
         <span id="${event.id}">
             &#9734;
@@ -8,7 +8,7 @@
 
 
 <script>
-    mailS = "${email}";
+    mailS = "${emailFav}";
     mailS = mailS.slice(6,-6);
     console.log(mailS);
     favAddressS = '/api/favourite/' + mailS + '/event/' + ${event.id};

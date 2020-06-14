@@ -88,12 +88,12 @@ public class ShowEventsServlet extends HttpServlet {
         actionAppender.append(action);
         actionAppender.append("&");
 
-        String email;
+        String emailFav;
         Optional<String> emailOpt = Optional.ofNullable(contextHolder.getEmail());
         if (emailOpt.isPresent() && !emailOpt.isEmpty()) {
-            email = "\"" + emailOpt.get() + "\"";
+            emailFav = "\"" + emailOpt.get() + "\"";
         } else {
-            email = "\"placeholder\"";
+            emailFav = "\"placeholder\"";
         }
 
         dataModel.put("events", listEvents);
@@ -102,7 +102,8 @@ public class ShowEventsServlet extends HttpServlet {
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
         dataModel.put("name", "events");
-        dataModel.put("email", email);
+        dataModel.put("email", contextHolder.getEmail());
+        dataModel.put("emailFav", emailFav);
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");

@@ -22,11 +22,11 @@
         const closeSignup = document.querySelector('#closeSignup');
         closeSignup.addEventListener('click', () => signupContainer.style.display = 'none');
         closeSignup.addEventListener('click', () => sessionStorage.setItem('exclude', true));
-        address = "/api/sneak-peak/" + "${email}";
         exclusion = sessionStorage.getItem('exclude');
         if (exclusion=="true") {
             signupContainer.style.display = 'none';
         } else {
+            address = "/api/sneak-peak/" + "${email}";
             $.ajax({
                 url: address,
                 type: "GET",

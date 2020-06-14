@@ -42,6 +42,7 @@ public class ShowSingleEventServlet extends HttpServlet {
         EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
         String previous = req.getHeader("referer");
 
+        dataModel.put("email", contextHolder.getEmail());
         dataModel.put("event", event);
         dataModel.put("previous", previous);
 

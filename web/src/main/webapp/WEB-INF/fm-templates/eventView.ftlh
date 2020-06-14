@@ -1,4 +1,5 @@
 <div class="container">
+    <#include "sneakPeak.ftlh">
     <div class="jumbotron ">
         <h1 class="display-5 text-center text-primary">${event.name}</h1>
         <h6><p class="display-6 lead text-center font-italic">${event.organizerName}</p></h6>
