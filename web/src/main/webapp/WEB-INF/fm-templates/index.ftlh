@@ -28,6 +28,7 @@
     </div>
 </nav>
 <br><br>
+<#include "sneakPeak.ftlh">
 <div class="container">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">

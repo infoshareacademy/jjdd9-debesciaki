@@ -138,7 +138,7 @@ public class EventViewService {
         return event;
     }
 
-    private EventView mapper(Event event) {
+    public EventView mapper(Event event) {
         EventView eventView = new EventView();
         eventView.setId(event.getId());
         eventView.setName(event.getName());
