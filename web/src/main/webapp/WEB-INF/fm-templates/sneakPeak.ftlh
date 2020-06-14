@@ -9,7 +9,7 @@
         const signupContainer = document.querySelector('#signupContainer')
         const closeSignup = document.querySelector('#closeSignup')
         closeSignup.addEventListener('click', () => signupContainer.style.display = 'none')
-        address = "/api/sneak-peak/" +${email};
+        address = "/api/sneak-peak/" + "${email}";
         $.ajax({
             url: address,
             type: "GET",

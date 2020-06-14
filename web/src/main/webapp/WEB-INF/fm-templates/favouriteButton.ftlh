@@ -19,7 +19,7 @@
             success: function (result) {
                 console.log('Success in checking event in favourites');
                 isFavourite = result;
-                console.log("result is:  " + result);
+                console.log("Is event in favourites? :  " + result);
                 if (isFavourite == true) {
                     document.getElementById(eventID).innerHTML = "&#11088;";
                 }
