@@ -1,4 +1,4 @@
-<button id="${event.id}" class="btn btn-danger" onclick="toFav(${event.id}, ${email})" >
+<button id="${event.id}" class="btn btn-danger" onclick="toFav(${event.id}, ${emailFav})" >
     <strong>
         -
     </strong>
