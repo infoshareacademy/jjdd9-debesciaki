@@ -24,12 +24,16 @@
             url: address,
             type: "GET",
             success: function (result) {
-                document.getElementById("sneak-peak-text").innerHTML = "Nadchodzące ulubione wydarzenie: " + result.name;
-                document.getElementById("sneak-start").innerHTML = "Data rozpoczęcia: " + result.startDate;
-                document.getElementById("sneak-end").innerHTML = "Data zakończenia: " + result.endDate;
+                if (result.name == "NONE"){
+                    signupContainer.style.display = 'none';
+                }else{
+                    document.getElementById("sneak-peak-text").innerHTML = "Nadchodzące ulubione wydarzenie: " + result.name;
+                    document.getElementById("sneak-start").innerHTML = "Data rozpoczęcia: " + result.startDate;
+                    document.getElementById("sneak-end").innerHTML = "Data zakończenia: " + result.endDate;
+                }
             },
             error: function (error) {
-                signupContainer.style.display = 'none'
+                signupContainer.style.display = 'none';
                 console.log(error);
             }
         })

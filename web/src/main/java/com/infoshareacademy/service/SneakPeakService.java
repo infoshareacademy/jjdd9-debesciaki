@@ -32,6 +32,8 @@ public class SneakPeakService {
                 return events.stream().min(EventViewComparators.EventDateComparatorAsc);
             }
         }
-        return Optional.empty();
+        EventView eventView = new EventView();
+        eventView.setName("NONE");
+        return Optional.ofNullable(eventView);
     }
 }
