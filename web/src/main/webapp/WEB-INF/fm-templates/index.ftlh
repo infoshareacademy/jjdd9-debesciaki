@@ -28,8 +28,8 @@
     </div>
 </nav>
 <br><br>
-<#include "sneakPeak.ftlh">
 <div class="container">
+    <#include "sneakPeak.ftlh">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
