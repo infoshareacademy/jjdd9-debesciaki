@@ -16,7 +16,7 @@ import javax.ws.rs.core.Response;
 public class SneakPeakController {
 
     @Inject
-    SneakPeakService sneakPeakService;
+    private SneakPeakService sneakPeakService;
 
     @GET
     @Path("{email}")

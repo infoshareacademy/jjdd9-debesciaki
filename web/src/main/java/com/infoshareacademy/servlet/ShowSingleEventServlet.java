@@ -26,10 +26,10 @@ public class ShowSingleEventServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    EventViewService eventViewService;
+    private EventViewService eventViewService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

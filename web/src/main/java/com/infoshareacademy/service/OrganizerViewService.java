@@ -13,7 +13,7 @@ import java.util.List;
 public class OrganizerViewService {
 
     @Inject
-    OrganizerDao organizerDao;
+    private OrganizerDao organizerDao;
 
     public List<OrganizerJSON> prepareOrganizersToShow(int firstResult) {
 

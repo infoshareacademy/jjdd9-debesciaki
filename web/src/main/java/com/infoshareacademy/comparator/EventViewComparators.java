@@ -13,6 +13,5 @@ public class EventViewComparators {
             String eventName2 = event2.getStartDate();
             return eventName1.compareTo(eventName2);
         }
-
     };
 }

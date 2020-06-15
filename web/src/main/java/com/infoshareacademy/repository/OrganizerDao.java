@@ -13,7 +13,7 @@ import java.util.Optional;
 @Stateless
 public class OrganizerDao {
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public Optional<Organizer> findByApiId(long id) {
         Query query = entityManager.createNamedQuery("Organizer.findByApiId");

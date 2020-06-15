@@ -1,9 +1,9 @@
 package com.infoshareacademy.domain.api;
 
 public class TicketJSON {
-    String type;
-    Integer startTicket;
-    Integer endTicket;
+    private String type;
+    private Integer startTicket;
+    private Integer endTicket;
 
     public String getType() {
         return type;

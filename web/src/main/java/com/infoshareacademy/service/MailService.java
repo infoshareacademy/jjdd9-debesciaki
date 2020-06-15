@@ -15,8 +15,8 @@ import java.util.Set;
 @Stateless
 public class MailService {
     private static final Logger STDLOG = LoggerFactory.getLogger(MailService.class.getName());
-    final String USERNAME = "debesciaki.mailing@gmail.com";
-    final String PASSWORD = "Debesciaki1!";
+    private final String USERNAME = "debesciaki.mailing@gmail.com";
+    private final String PASSWORD = "Debesciaki1!";
 
     public void sendMailOnDeletion(Event event) {
         Properties prop = new Properties();

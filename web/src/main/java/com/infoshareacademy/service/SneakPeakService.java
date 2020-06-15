@@ -15,10 +15,10 @@ import java.util.Set;
 @Stateless
 public class SneakPeakService {
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
     @Inject
-    EventViewService eventViewService;
+    private EventViewService eventViewService;
 
     public Optional<EventView> upcomingEvent(String email) {
         Optional<User> userOpt = userDao.findByEmail(email);

@@ -27,10 +27,10 @@ public class ShowOrganizersServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(ShowOrganizersServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    OrganizerViewService organizerViewService;
+    private OrganizerViewService organizerViewService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

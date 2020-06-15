@@ -31,10 +31,10 @@ public class ShowEventsServlet extends HttpServlet {
     String action;
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    EventViewService eventViewService;
+    private EventViewService eventViewService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

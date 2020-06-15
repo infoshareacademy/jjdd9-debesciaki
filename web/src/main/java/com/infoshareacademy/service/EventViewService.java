@@ -15,10 +15,10 @@ import java.util.*;
 public class EventViewService {
 
     @Inject
-    EventDao eventDao;
+    private EventDao eventDao;
 
     @Inject
-    UserService userService;
+    private UserService userService;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 

@@ -23,7 +23,7 @@ public class MainPageServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(MainPageServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

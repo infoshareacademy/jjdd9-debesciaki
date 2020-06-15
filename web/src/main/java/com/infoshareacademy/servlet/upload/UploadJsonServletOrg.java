@@ -16,10 +16,10 @@ import java.io.IOException;
 @WebServlet("/upload-org")
 public class UploadJsonServletOrg extends HttpServlet {
     @Inject
-    PersistServiceBean persistServiceBean;
+    private PersistServiceBean persistServiceBean;
 
     @Inject
-    FileUploadBean fileUploadBean;
+    private FileUploadBean fileUploadBean;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

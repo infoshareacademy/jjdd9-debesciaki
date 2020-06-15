@@ -14,9 +14,10 @@ import java.util.List;
 @Stateless
 public class FileToDaoBean {
     @Inject
-    FileToJsonList fileToJsonList;
+    private FileToJsonList fileToJsonList;
+
     @Inject
-    ListJsonToDaoBean listJsonToDaoBean;
+    private ListJsonToDaoBean listJsonToDaoBean;
 
     public List<Place> placeList(File file) throws IOException {
         return listJsonToDaoBean.place(fileToJsonList.place(file));
