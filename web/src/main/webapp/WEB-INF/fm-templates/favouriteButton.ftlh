@@ -9,7 +9,7 @@
 
 <script>
     mailS = "${emailFav}";
-    mailS = mailS.slice(6,-6);
+    mailS = mailS.slice(6, -6);
     console.log(mailS);
     favAddressS = '/api/favourite/' + mailS + '/event/' + ${event.id};
     $.ajax({
@@ -18,7 +18,7 @@
         success: function (result) {
             console.log('Success in checking event in favourites');
             isFavouriteS = result;
-            console.log("Is event " + ${event.id} + " in favourites? :  " + result);
+            console.log("Is event " + ${event.id} +" in favourites? :  " + result);
             if (isFavouriteS == true) {
                 document.getElementById(${event.id}).innerHTML = "&#11088;";
             }
@@ -42,7 +42,21 @@
                 isFavourite = result;
                 console.log("Is event in favourites? :  " + result);
                 if (isFavourite == true) {
-                    document.getElementById(eventID).innerHTML = "&#11088;";
+                    typeOfAction = "DELETE";
+                    $.ajax({
+                            url: favAddress,
+                            type: "DELETE",
+                            success: function (result) {
+                                console.log('Success in  deleting from favourite');
+                                window.alert('Udało się usunąć wydarzenie z ulubionych');
+                            },
+                            error: function (error) {
+                                console.log(error);
+                                window.alert('Błąd w trakcie usuwania wydarzenia  z ulubionych');
+                            }
+                        }
+                    )
+                    document.getElementById(eventID).innerHTML = "&#9734;";
                 }
                 if (isFavourite == false) {
                     typeOfAction = "POST";
