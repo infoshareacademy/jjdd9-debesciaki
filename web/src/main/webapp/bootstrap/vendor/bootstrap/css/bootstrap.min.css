@@ -5040,6 +5040,10 @@ a.badge-dark.focus, a.badge-dark:focus {
     }
 }
 
+.mycustom-jumbotron {
+    width: 90%;
+}
+
 .jumbotron-fluid {
     padding-right: 0;
     padding-left: 0;

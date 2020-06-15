@@ -5,11 +5,14 @@
    function deleteEvent(eventID) {
       id = eventID;
       $.ajax({
-         url: '/show-one-event?event=' + id,
+         url: '/api/events/' + id,
          type: "DELETE",
          success: function (result) {
             console.log('Success in deleting event');
             window.alert('Udało się usunąć wydarzenie z bazy danych.');
+         },
+         error: function (error) {
+            console.log(error);
          }
       })
    }
