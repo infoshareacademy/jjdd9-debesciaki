@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.comparator.EventViewComparators;
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.EventView;
@@ -35,6 +36,7 @@ public class EventViewService {
             i++;
         }
 
+        eventsList.sort(EventViewComparators.EventDateComparatorAsc);
         return eventsList;
     }
 
