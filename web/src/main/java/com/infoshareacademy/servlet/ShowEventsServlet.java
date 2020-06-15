@@ -156,7 +156,7 @@ public class ShowEventsServlet extends HttpServlet {
             String conRdyStart = startDateStr.concat(" 00:00:00");
             start = stringToDate(conRdyStart);
         } else {
-            startDateStr = (LocalDateTime.now().getYear() - 1) + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+            startDateStr = (LocalDateTime.now().getYear() - 1) + "-01-01";
             start = LocalDateTime.now().minusYears(1L);
         }
 
@@ -168,7 +168,7 @@ public class ShowEventsServlet extends HttpServlet {
             String conRdyEnd = endDateStr.concat(" 23:59:59");
             end = stringToDate(conRdyEnd);
         } else {
-            endDateStr = (LocalDateTime.now().getYear() + 2) + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+            endDateStr = (LocalDateTime.now().getYear() + 2) + "-12-30";
             end = LocalDateTime.now().plusYears(2L);
         }
 
