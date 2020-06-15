@@ -31,10 +31,10 @@ public class ShowEventsServlet extends HttpServlet {
     String action;
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    EventViewService eventViewService;
+    private EventViewService eventViewService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -88,12 +88,12 @@ public class ShowEventsServlet extends HttpServlet {
         actionAppender.append(action);
         actionAppender.append("&");
 
-        String email;
+        String emailFav;
         Optional<String> emailOpt = Optional.ofNullable(contextHolder.getEmail());
         if (emailOpt.isPresent() && !emailOpt.isEmpty()) {
-            email = "\"" + emailOpt.get() + "\"";
+            emailFav = "\"" + emailOpt.get() + "\"";
         } else {
-            email = "\"placeholder\"";
+            emailFav = "\"placeholder\"";
         }
 
         dataModel.put("events", listEvents);
@@ -102,7 +102,8 @@ public class ShowEventsServlet extends HttpServlet {
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
         dataModel.put("name", "events");
-        dataModel.put("email", email);
+        dataModel.put("email", contextHolder.getEmail());
+        dataModel.put("emailFav", emailFav);
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -155,7 +156,7 @@ public class ShowEventsServlet extends HttpServlet {
             String conRdyStart = startDateStr.concat(" 00:00:00");
             start = stringToDate(conRdyStart);
         } else {
-            startDateStr = (LocalDateTime.now().getYear() - 1) + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+            startDateStr = (LocalDateTime.now().getYear() - 1) + "-01-01";
             start = LocalDateTime.now().minusYears(1L);
         }
 
@@ -167,7 +168,7 @@ public class ShowEventsServlet extends HttpServlet {
             String conRdyEnd = endDateStr.concat(" 23:59:59");
             end = stringToDate(conRdyEnd);
         } else {
-            endDateStr = (LocalDateTime.now().getYear() + 2) + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+            endDateStr = (LocalDateTime.now().getYear() + 2) + "-12-30";
             end = LocalDateTime.now().plusYears(2L);
         }
 
@@ -213,6 +214,13 @@ public class ShowEventsServlet extends HttpServlet {
             return;
         }
 
+        String emailFav;
+        Optional<String> emailOpt = Optional.ofNullable(contextHolder.getEmail());
+        if (emailOpt.isPresent() && !emailOpt.isEmpty()) {
+            emailFav = "\"" + emailOpt.get() + "\"";
+        } else {
+            emailFav = "\"placeholder\"";
+        }
 
         StringBuilder actionPlusPhrase = new StringBuilder();
         actionPlusPhrase.append(actionAppender.toString());
@@ -227,6 +235,7 @@ public class ShowEventsServlet extends HttpServlet {
         dataModel.put("numberOfEvents", listSize);
         dataModel.put("name", "events");
         dataModel.put("email", contextHolder.getEmail());
+        dataModel.put("emailFav", emailFav);
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -254,6 +263,7 @@ public class ShowEventsServlet extends HttpServlet {
         String previous = req.getHeader("referer");
 
         String phrase = req.getParameter("phrase");
+        dataModel.put("email", contextHolder.getEmail());
         dataModel.put("phrase", phrase);
         dataModel.put("previous", previous);
 

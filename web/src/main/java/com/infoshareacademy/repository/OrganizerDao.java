@@ -1,5 +1,6 @@
 package com.infoshareacademy.repository;
 
+import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.Organizer;
 
 import javax.ejb.Stateless;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Stateless
 public class OrganizerDao {
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public Optional<Organizer> findByApiId(long id) {
         Query query = entityManager.createNamedQuery("Organizer.findByApiId");
@@ -29,6 +30,12 @@ public class OrganizerDao {
         return query.getResultList();
     }
 
+    public List<Organizer> activeOrganizersListWithLimit(int firstElement) {
+        Query query = entityManager.createNamedQuery("Organizer.findActiveOrderByEventCount");
+        query.setFirstResult(firstElement).setMaxResults(MAX_RESULTS);
+        return query.getResultList();
+    }
+
     public List<Organizer> allOrganizersList () {
         Query query = entityManager.createNamedQuery("Organizer.findAll");
         return query.getResultList();
@@ -36,6 +43,11 @@ public class OrganizerDao {
 
     public Integer sizeList() {
         Query query = entityManager.createNamedQuery("Organizer.findAll");
+        return query.getResultList().size();
+    }
+
+    public Integer sizeActiveList() {
+        Query query = entityManager.createNamedQuery("Organizer.findActiveOrderByEventCount");
         return query.getResultList().size();
     }
 

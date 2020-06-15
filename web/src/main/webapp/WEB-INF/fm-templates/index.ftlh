@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Strona główna
+                    <a class="nav-link" href="">Strona główna
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
@@ -29,6 +29,7 @@
 </nav>
 <br><br>
 <div class="container">
+    <#include "sneakPeak.ftlh">
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">

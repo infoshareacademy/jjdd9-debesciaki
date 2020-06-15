@@ -13,15 +13,19 @@ import java.io.IOException;
 @Stateless
 public class PersistServiceBean {
     @Inject
-    FileToDaoBean fileToDaoBean;
+    private FileToDaoBean fileToDaoBean;
+
     @Inject
-    PlaceDao placeDao;
+    private PlaceDao placeDao;
+
     @Inject
-    EventDao eventDao;
+    private EventDao eventDao;
+
     @Inject
-    OrganizerDao organizerDao;
+    private OrganizerDao organizerDao;
+
     @Inject
-    CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
     public void place(File file) throws IOException {
         placeDao.persistEntityList(fileToDaoBean.placeList(file));

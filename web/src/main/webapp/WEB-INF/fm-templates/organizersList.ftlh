@@ -1,4 +1,5 @@
 <div class="container">
+    <#include "sneakPeak.ftlh">
     <div class="jumbotron ">
         <h3 class="display-4 text-center">Lista organizatorów</h3><br>
         <#include "searchInput.ftlh"><br>

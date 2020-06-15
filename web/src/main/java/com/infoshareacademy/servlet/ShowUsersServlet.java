@@ -1,7 +1,6 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.view.UserView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.UserViewService;
 import freemarker.template.Template;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,10 +25,10 @@ public class ShowUsersServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(ShowUsersServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    UserViewService userViewService;
+    private UserViewService userViewService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -64,7 +62,7 @@ public class ShowUsersServlet extends HttpServlet {
         String roleToChange = req.getParameter("role");
         String emailToFind = req.getParameter("email");
 
-        userViewService.changeRole(emailToFind,roleToChange);
+        userViewService.changeRole(emailToFind, roleToChange);
 
         dataModel.put("users", userViewService.prepareUsersToShow());
         dataModel.put("email", contextHolder.getEmail());

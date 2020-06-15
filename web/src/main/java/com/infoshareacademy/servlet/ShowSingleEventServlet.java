@@ -26,10 +26,10 @@ public class ShowSingleEventServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    EventViewService eventViewService;
+    private EventViewService eventViewService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,6 +42,7 @@ public class ShowSingleEventServlet extends HttpServlet {
         EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
         String previous = req.getHeader("referer");
 
+        dataModel.put("email", contextHolder.getEmail());
         dataModel.put("event", event);
         dataModel.put("previous", previous);
 

@@ -11,8 +11,9 @@ import javax.inject.Inject;
 @Stateless
 public class PlaceMapper {
     private static final Logger STDLOG = LoggerFactory.getLogger(PlaceMapper.class.getName());
+
     @Inject
-    AddressMapper addressMapper;
+    private AddressMapper addressMapper;
 
     public PlaceJSON daoToJson(Place place) {
         PlaceJSON jsonPlace = new PlaceJSON();

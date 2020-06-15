@@ -14,7 +14,7 @@ import java.util.Optional;
 @Stateless
 public class EventDao {
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     private final static int MAX_RESULTS = 20;
 

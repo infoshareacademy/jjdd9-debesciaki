@@ -22,13 +22,16 @@ import java.util.List;
 @Stateless
 public class ListJsonToDaoBean {
     @Inject
-    PlaceMapper placeMapper;
+    private PlaceMapper placeMapper;
+
     @Inject
-    EventMapper eventMapper;
+    private  EventMapper eventMapper;
+
     @Inject
-    CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
+
     @Inject
-    OrganizerMapper organizerMapper;
+    private OrganizerMapper organizerMapper;
 
     public List<Place> place(List<PlaceJSON> in) {
         List<Place> out = new ArrayList<>();

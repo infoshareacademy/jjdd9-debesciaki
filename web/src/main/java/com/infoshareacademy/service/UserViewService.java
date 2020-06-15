@@ -14,10 +14,10 @@ import java.util.List;
 public class UserViewService {
 
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
     @Inject
-    RoleDao roleDao;
+    private RoleDao roleDao;
 
     public List<UserView> prepareUsersToShow() {
         List<UserView> usersList = new ArrayList<>();

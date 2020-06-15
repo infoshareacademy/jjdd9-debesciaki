@@ -17,7 +17,7 @@ public class EventMapLiveSearch {
     private static final Logger STDLOG = LoggerFactory.getLogger(EventMapLiveSearch.class.getName());
 
     @Inject
-    EventQueryRestService eventQueryRestService;
+    private EventQueryRestService eventQueryRestService;
 
     public List<EventLiveSearchDTO> searchThenAndMapEve(String phrase) {
         List<Event> entities = eventQueryRestService.findByEve(1, phrase, true);

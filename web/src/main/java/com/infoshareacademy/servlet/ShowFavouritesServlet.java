@@ -30,10 +30,10 @@ public class ShowFavouritesServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    EventViewService eventViewService;
+    private EventViewService eventViewService;
 
 
     @Override
@@ -44,14 +44,14 @@ public class ShowFavouritesServlet extends HttpServlet {
         Map<String, Object> dataModel = new HashMap<>();
 
 
-        String email;
+        String emailFav;
         String emailQuery;
         Optional<String> emailOpt = Optional.ofNullable(contextHolder.getEmail());
         if (emailOpt.isPresent() && !emailOpt.isEmpty()) {
-            email = "\"" + emailOpt.get() + "\"";
+            emailFav = "\"" + emailOpt.get() + "\"";
             emailQuery = emailOpt.get();
         } else {
-            email = "\"placeholder\"";
+            emailFav = "\"placeholder\"";
             emailQuery = "placeholder";
         }
 
@@ -66,7 +66,7 @@ public class ShowFavouritesServlet extends HttpServlet {
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
-        dataModel.put("email", email);
+        dataModel.put("emailFav", emailFav);
         dataModel.put("name", "favourites");
         dataModel.put("action", "");
 

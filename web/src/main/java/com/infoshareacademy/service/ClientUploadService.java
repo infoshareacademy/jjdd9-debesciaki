@@ -30,17 +30,22 @@ public class ClientUploadService {
     private static final Logger STDLOG = LoggerFactory.getLogger(ClientUploadService.class.getName());
 
     @Inject
-    FileToJsonList fileToJsonList;
+    private FileToJsonList fileToJsonList;
+
     @Inject
-    ListJsonToDaoBean listJsonToDaoBean;
+    private ListJsonToDaoBean listJsonToDaoBean;
+
     @Inject
-    PlaceDao placeDao;
+    private PlaceDao placeDao;
+
     @Inject
-    EventDao eventDao;
+    private EventDao eventDao;
+
     @Inject
-    OrganizerDao organizerDao;
+    private OrganizerDao organizerDao;
+
     @Inject
-    CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
     public void upload() throws IOException {
         List<CategoryJSON> categoryJSON = parseCategoryFromURL("https://planerkulturalny.pl/api/rest/categories.json");

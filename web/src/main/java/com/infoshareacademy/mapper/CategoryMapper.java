@@ -13,7 +13,7 @@ public class CategoryMapper {
     private static final Logger STDLOG = LoggerFactory.getLogger(CategoryMapper.class.getName());
 
     @Inject
-    RootCategoryMapper rootCategoryMapper;
+    private RootCategoryMapper rootCategoryMapper;
 
     public CategoryJSON daoToJson(Category category) {
         CategoryJSON jsonCategory = new CategoryJSON();
@@ -30,9 +30,6 @@ public class CategoryMapper {
         Category daoCategory = new Category();
         daoCategory.setApiId(category.getId());
         daoCategory.setName(category.getName());
-//        if (category.getId() >= 100) {
-//            daoCategory.setRootCategory(rootCategoryMapper.jsonToDao(category));
-//        }
         STDLOG.info("Success in mapping json to dao");
         return daoCategory;
     }

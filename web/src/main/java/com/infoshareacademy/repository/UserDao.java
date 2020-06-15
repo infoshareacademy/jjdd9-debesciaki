@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UserDao {
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public void save(User user) {
         entityManager.persist(user);

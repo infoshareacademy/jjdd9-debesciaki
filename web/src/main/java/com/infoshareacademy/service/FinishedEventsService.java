@@ -17,13 +17,13 @@ public class FinishedEventsService {
     private static final Logger STDLOG = Logger.getLogger(FinishedEventsService.class.getName());
 
     @Inject
-    EventDao eventDao;
+    private EventDao eventDao;
 
     @Inject
-    FavouriteRestService favouriteRestService;
+    private FavouriteRestService favouriteRestService;
 
     @Inject
-    MailService mailService;
+    private MailService mailService;
 
     public void finishedManager() {
         List<Event> events = eventDao.findFinished();

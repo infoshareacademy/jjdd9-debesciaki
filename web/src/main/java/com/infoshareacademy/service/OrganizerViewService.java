@@ -13,13 +13,13 @@ import java.util.List;
 public class OrganizerViewService {
 
     @Inject
-    OrganizerDao organizerDao;
+    private OrganizerDao organizerDao;
 
     public List<OrganizerJSON> prepareOrganizersToShow(int firstResult) {
 
         List<OrganizerJSON> organizersList = new ArrayList<>();
 
-        for (Organizer organizer : organizerDao.organizersListWithLimit(firstResult)) {
+        for (Organizer organizer : organizerDao.activeOrganizersListWithLimit(firstResult)) {
             organizersList.add(mapper(organizer));
         }
 
@@ -27,7 +27,7 @@ public class OrganizerViewService {
     }
 
     public Integer listSize() {
-        return organizerDao.sizeList();
+        return organizerDao.sizeActiveList();
     }
 
     public OrganizerJSON mapper(Organizer organizer) {

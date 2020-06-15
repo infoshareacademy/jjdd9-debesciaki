@@ -1,4 +1,4 @@
-<button class="btn" onclick="toFav(${event.id}, ${email})">
+<button class="btn" onclick="toFav(${event.id}, ${emailFav})">
     <strong>
         <span id="${event.id}">
             &#9734;
@@ -8,6 +8,27 @@
 
 
 <script>
+    mailS = "${emailFav}";
+    mailS = mailS.slice(6, -6);
+    console.log(mailS);
+    favAddressS = '/api/favourite/' + mailS + '/event/' + ${event.id};
+    $.ajax({
+        url: favAddressS,
+        type: "GET",
+        success: function (result) {
+            console.log('Success in checking event in favourites');
+            isFavouriteS = result;
+            console.log("Is event " + ${event.id} +" in favourites? :  " + result);
+            if (isFavouriteS == true) {
+                document.getElementById(${event.id}).innerHTML = "&#11088;";
+            }
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+
+
     function toFav(eventID, email) {
         id = eventID;
         mail = email;
@@ -19,9 +40,23 @@
             success: function (result) {
                 console.log('Success in checking event in favourites');
                 isFavourite = result;
-                console.log("result is:  " + result);
+                console.log("Is event in favourites? :  " + result);
                 if (isFavourite == true) {
-                    document.getElementById(eventID).innerHTML = "&#11088;";
+                    typeOfAction = "DELETE";
+                    $.ajax({
+                            url: favAddress,
+                            type: "DELETE",
+                            success: function (result) {
+                                console.log('Success in  deleting from favourite');
+                                window.alert('Udało się usunąć wydarzenie z ulubionych');
+                            },
+                            error: function (error) {
+                                console.log(error);
+                                window.alert('Błąd w trakcie usuwania wydarzenia  z ulubionych');
+                            }
+                        }
+                    )
+                    document.getElementById(eventID).innerHTML = "&#9734;";
                 }
                 if (isFavourite == false) {
                     typeOfAction = "POST";
