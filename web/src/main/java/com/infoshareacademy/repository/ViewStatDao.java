@@ -1,6 +1,7 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.entity.ViewStat;
+import com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +21,11 @@ public class ViewStatDao {
 
     public List<ViewStat> findAll() {
         Query query = entityManager.createNamedQuery("ViewStat.findAll");
+        return query.getResultList();
+    }
+
+    public List<ClicksPerEvent> findGlobalClicksPerEvent() {
+        Query query = entityManager.createNamedQuery("ViewStat.globalClicksPerEvent");
         return query.getResultList();
     }
 }

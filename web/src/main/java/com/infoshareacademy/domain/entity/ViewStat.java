@@ -9,6 +9,12 @@ import java.time.LocalDateTime;
                 name = "ViewStat.findAll",
                 query = "SELECT v FROM ViewStat v"
         ),
+        @NamedQuery(
+                name = "ViewStat.globalClicksPerEvent",
+                query = "SELECT e.event.name AS event_name, COUNT(*) AS count " +
+                        "FROM ViewStat e " +
+                        "GROUP BY e.event.name"
+        )
 })
 @Entity
 @Table(name = "view_stat")

@@ -4,6 +4,7 @@ import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.entity.ViewStat;
 import com.infoshareacademy.domain.view.stat.ViewStatView;
+import com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.repository.UserDao;
 import com.infoshareacademy.repository.ViewStatDao;
@@ -42,6 +43,10 @@ public class ViewStatService {
             statList.add(viewStatMapper(v));
         }
         return statList;
+    }
+
+    public List<ClicksPerEvent> provideGlobalClicksPerEvent() {
+        return viewStatDao.findGlobalClicksPerEvent();
     }
 
     private ViewStat joinViewStat(String email, Long eventId) {

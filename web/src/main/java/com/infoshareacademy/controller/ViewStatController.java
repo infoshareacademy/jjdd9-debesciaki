@@ -22,4 +22,12 @@ public class ViewStatController {
                 .entity(viewStatService.provideAllViewStatsNonAggregated())
                 .build();
     }
+
+    @GET
+    @Path("/global")
+    public Response provideGlobalClicksPerEvent() {
+        return Response.status(Response.Status.OK)
+                .entity(viewStatService.provideGlobalClicksPerEvent())
+                .build();
+    }
 }
