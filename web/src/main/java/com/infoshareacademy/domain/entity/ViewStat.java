@@ -1,16 +1,25 @@
 package com.infoshareacademy.domain.entity;
 
-import com.infoshareacademy.domain.entity.Event;
-import com.infoshareacademy.domain.entity.User;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "ViewStat.findAll",
+                query = "SELECT v FROM ViewStat v"
+        ),
+})
 @Entity
 @Table(name = "view_stat")
 public class ViewStat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "view_date")
+    @NotNull
+    private LocalDateTime viewDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
@@ -26,6 +35,14 @@ public class ViewStat {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getViewDate() {
+        return viewDate;
+    }
+
+    public void setViewDate(LocalDateTime viewDate) {
+        this.viewDate = viewDate;
     }
 
     public Event getEvent() {
