@@ -1,10 +1,10 @@
 package com.infoshareacademy.domain.view.stat;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ViewStatView {
     private String eventName;
-    private LocalDate viewDate;
+    private LocalDateTime viewDate;
 
     public String getEventName() {
         return eventName;
@@ -14,11 +14,11 @@ public class ViewStatView {
         this.eventName = eventName;
     }
 
-    public LocalDate getViewDate() {
+    public LocalDateTime getViewDate() {
         return viewDate;
     }
 
-    public void setViewDate(LocalDate viewDate) {
+    public void setViewDate(LocalDateTime viewDate) {
         this.viewDate = viewDate;
     }
 }
