@@ -2,7 +2,7 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @NamedQueries({
         @NamedQuery(
@@ -19,7 +19,7 @@ public class ViewStat {
 
     @Column(name = "view_date")
     @NotNull
-    private LocalDateTime viewDate;
+    private LocalDate viewDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
@@ -37,11 +37,11 @@ public class ViewStat {
         this.id = id;
     }
 
-    public LocalDateTime getViewDate() {
+    public LocalDate getViewDate() {
         return viewDate;
     }
 
-    public void setViewDate(LocalDateTime viewDate) {
+    public void setViewDate(LocalDate viewDate) {
         this.viewDate = viewDate;
     }
 

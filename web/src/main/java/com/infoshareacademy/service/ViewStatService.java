@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Stateless
@@ -44,7 +44,7 @@ public class ViewStatService {
         if (eventOptional.isPresent()) {
             viewStat.setEvent(eventOptional.get());
         }
-        viewStat.setViewDate(LocalDateTime.now());
+        viewStat.setViewDate(LocalDate.now());
         return viewStat;
     }
 }
