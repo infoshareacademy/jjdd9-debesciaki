@@ -1,4 +1,4 @@
-package com.infoshareacademy.stat.entity;
+package com.infoshareacademy.domain.entity;
 
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
