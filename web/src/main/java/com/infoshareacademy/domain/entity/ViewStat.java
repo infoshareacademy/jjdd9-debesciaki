@@ -11,9 +11,8 @@ import java.time.LocalDateTime;
         ),
         @NamedQuery(
                 name = "ViewStat.globalClicksPerEvent",
-                query = "SELECT v.event.name AS event_name, COUNT(v) AS count " +
-                        "FROM ViewStat v " +
-                        "GROUP BY v.event.name"
+                query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent(v.event.name, COUNT(v)) " +
+                        "FROM ViewStat v GROUP BY v.event.name"
         )
 })
 @Entity

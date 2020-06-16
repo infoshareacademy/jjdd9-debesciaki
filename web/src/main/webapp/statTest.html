@@ -105,17 +105,22 @@
 
 <body>
 <div class="container">
-    <canvas id="myBarChart" width="400" height="400"></canvas>
+    <canvas id="myBarChart" width="100" height="100"></canvas>
 </div>
 <script type="text/javascript" src="eventJsonToArrayOfNames.js"></script>
 <script>
-    res = [];
+    let res;
+    let labels;
+    let values;
+    let colorsRepo = [];
+
     $.ajax({
             url: "/api/view-stat/global",
             type: "GET",
             success: function (result) {
                 res = eventJsonToArrayOfNames(result);
                 console.log(res);
+                func();
             },
             error: function (error) {
                 console.log(error);
@@ -123,39 +128,40 @@
             }
         }
     );
-  //  [["online na żywo: wykłady artystyczne",4],["Rzeźba i ceramika dla dzieci od lat 5 do 13",2]]
 
-    var MeSeData = {
-        labels: [
-            "online na żywo: wykłady artystyczne",
-            "Rzeźba i ceramika dla dzieci od lat 5 do 13"
-        ],
-        datasets: [
-            {
-                label: "KLIK KLIK",
-                data: [4, 2],
-                backgroundColor: ["#669911", "#119966" ],
-                hoverBackgroundColor: ["#66A2EB", "#FCCE56"]
-            }]
-    };
+    function func() {
+        labels = res.map(a => a.eventName);
+        values = res.map(a => a.count);
 
-    var ctx = document.getElementById('myBarChart');
-    var myBarChart = new Chart(ctx, {
-        type: 'horizontalBar',
-        data: MeSeData,
-        options: {
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        min: 0
-                    }
-                }],
-                yAxes: [{
-                    stacked: true
+        let MeSeData = {
+            labels: labels,
+            datasets: [
+                {
+                    label: "KLIK KLIK",
+                    data: values,
+                    //backgroundColor: ["#669911", "#119966" ],
+                    //hoverBackgroundColor: ["#66A2EB", "#FCCE56"]
                 }]
+        };
+
+        let ctx = document.getElementById('myBarChart');
+        let myBarChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: MeSeData,
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            min: 0
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true
+                    }]
+                }
             }
-        }
-    });
+        });
+    }
 </script>
 </body>
 <script src="../../bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
