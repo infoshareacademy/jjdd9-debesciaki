@@ -46,6 +46,7 @@ public class ViewStatService {
     }
 
     public List<ClicksPerEvent> provideGlobalClicksPerEvent() {
+        List<ClicksPerEvent> list = viewStatDao.findGlobalClicksPerEvent();
         return viewStatDao.findGlobalClicksPerEvent();
     }
 
