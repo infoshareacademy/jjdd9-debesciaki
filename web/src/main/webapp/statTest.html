@@ -112,7 +112,8 @@
     let res;
     let labels;
     let values;
-    let colorsRepo = [];
+    let colorsBarBodyRepo = [];
+    let colorsBarHoverRepo = [];
 
     $.ajax({
             url: "/api/view-stat/global",
@@ -130,6 +131,10 @@
     );
 
     function func() {
+        for (let i=0; i<res.length;i++){
+            colorsBarBodyRepo.push("#FF00FF");
+            colorsBarHoverRepo.push("#FFFF00");
+        }
         labels = res.map(a => a.eventName);
         values = res.map(a => a.count);
 
@@ -139,8 +144,8 @@
                 {
                     label: "KLIK KLIK",
                     data: values,
-                    //backgroundColor: ["#669911", "#119966" ],
-                    //hoverBackgroundColor: ["#66A2EB", "#FCCE56"]
+                    backgroundColor: colorsBarBodyRepo,
+                    hoverBackgroundColor: colorsBarHoverRepo,
                 }]
         };
 
