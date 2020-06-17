@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Stateless
@@ -30,13 +31,22 @@ public class ViewStatDao {
         return query.getResultList();
     }
 
+    public List<ClicksPerEvent> findPeriodClicksPerEvent(LocalDateTime date1, LocalDateTime date2) {
+        Query query = entityManager.createNamedQuery("ViewStat.periodClicksPerEvent");
+        query.setParameter("date1", date1);
+        query.setParameter("date2", date2);
+        return query.getResultList();
+    }
+
     public List<ClicksPerOrganizer> findGlobalClicksPerOrganizer() {
         Query query = entityManager.createNamedQuery("ViewStat.globalClicksPerOrganizer");
         return query.getResultList();
     }
 
-    public List<ClicksPerOrganizer> findPeriodClicksPerOrganizer() {
-        Query query = entityManager.createNamedQuery("ViewStat.globalClicksPerOrganizer");
+    public List<ClicksPerOrganizer> findPeriodClicksPerOrganizer(LocalDateTime date1, LocalDateTime date2) {
+        Query query = entityManager.createNamedQuery("ViewStat.periodClicksPerOrganizer");
+        query.setParameter("date1", date1);
+        query.setParameter("date2", date2);
         return query.getResultList();
     }
 

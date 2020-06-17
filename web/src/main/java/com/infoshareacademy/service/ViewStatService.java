@@ -9,6 +9,7 @@ import com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.repository.UserDao;
 import com.infoshareacademy.repository.ViewStatDao;
+import com.infoshareacademy.util.StringToLocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,9 +51,16 @@ public class ViewStatService {
         return viewStatDao.findGlobalClicksPerEvent();
     }
 
+    public List<ClicksPerEvent> providePeriodClicksPerEvent(String date1, String date2) {
+        return viewStatDao.findPeriodClicksPerEvent(StringToLocalDateTime.process(date1), StringToLocalDateTime.process(date2));
+    }
+
     public List<ClicksPerOrganizer> provideGlobalClicksPerOrganizer() {
-        List<ClicksPerOrganizer> list = viewStatDao.findGlobalClicksPerOrganizer();
         return viewStatDao.findGlobalClicksPerOrganizer();
+    }
+
+    public List<ClicksPerOrganizer> providePeriodClicksPerOrganizer(String date1, String date2) {
+        return viewStatDao.findPeriodClicksPerOrganizer(StringToLocalDateTime.process(date1), StringToLocalDateTime.process(date2));
     }
 
     private ViewStat joinViewStat(String email, Long eventId) {
