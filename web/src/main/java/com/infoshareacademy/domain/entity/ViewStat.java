@@ -13,6 +13,16 @@ import java.time.LocalDateTime;
                 name = "ViewStat.globalClicksPerEvent",
                 query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent(v.event.name, COUNT(v)) " +
                         "FROM ViewStat v GROUP BY v.event.name"
+        ),
+        @NamedQuery(
+                name = "ViewStat.globalClicksPerOrganizer",
+                query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer(v.event.organizer.designation, COUNT(v)) " +
+                        "FROM ViewStat v GROUP BY v.event.organizer.designation"
+        ),
+        @NamedQuery(
+                name = "ViewStat.periodClicksPerOrganizer",
+                query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer(v.event.organizer.designation, COUNT(v)) " +
+                        "FROM ViewStat v WHERE (v.viewDate BETWEEN :date1 AND :date2) GROUP BY v.event.organizer.designation"
         )
 })
 @Entity

@@ -1,6 +1,7 @@
 package com.infoshareacademy.controller;
 
 import com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent;
+import com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer;
 import com.infoshareacademy.service.ViewStatService;
 
 import javax.inject.Inject;
@@ -31,6 +32,15 @@ public class ViewStatController {
         List<ClicksPerEvent> list = viewStatService.provideGlobalClicksPerEvent();
         return Response.status(Response.Status.OK)
                 .entity(viewStatService.provideGlobalClicksPerEvent())
+                .build();
+    }
+
+    @GET
+    @Path("/global/org")
+    public Response provideGlobalClicksPerOrganizer() {
+        List<ClicksPerOrganizer> list = viewStatService.provideGlobalClicksPerOrganizer();
+        return Response.status(Response.Status.OK)
+                .entity(viewStatService.provideGlobalClicksPerOrganizer())
                 .build();
     }
 }

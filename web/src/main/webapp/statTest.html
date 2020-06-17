@@ -132,8 +132,8 @@
 
     function func() {
         for (let i=0; i<res.length;i++){
-            colorsBarBodyRepo.push("#FF00FF");
-            colorsBarHoverRepo.push("#FFFF00");
+            colorsBarBodyRepo.push("rgba(255, 0, 255, 0.4)");
+            colorsBarHoverRepo.push("rgba(255, 255, 0, 0.7)");
         }
         labels = res.map(a => a.eventName);
         values = res.map(a => a.count);

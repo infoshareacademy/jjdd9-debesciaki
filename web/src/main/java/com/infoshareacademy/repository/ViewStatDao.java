@@ -2,6 +2,7 @@ package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.entity.ViewStat;
 import com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent;
+import com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,4 +29,16 @@ public class ViewStatDao {
         Query query = entityManager.createNamedQuery("ViewStat.globalClicksPerEvent");
         return query.getResultList();
     }
+
+    public List<ClicksPerOrganizer> findGlobalClicksPerOrganizer() {
+        Query query = entityManager.createNamedQuery("ViewStat.globalClicksPerOrganizer");
+        return query.getResultList();
+    }
+
+    public List<ClicksPerOrganizer> findPeriodClicksPerOrganizer() {
+        Query query = entityManager.createNamedQuery("ViewStat.globalClicksPerOrganizer");
+        return query.getResultList();
+    }
+
+
 }
