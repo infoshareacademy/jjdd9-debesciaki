@@ -55,10 +55,4 @@ public class ShowSingleEventServlet extends HttpServlet {
             STDLOG.error("Template for main page error");
         }
     }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        eventViewService.delete(Long.valueOf(req.getParameter("event")));
-        resp.sendRedirect("/show-events?action=showAll&page=1");
-    }
 }

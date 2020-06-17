@@ -3,7 +3,6 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.OrganizerViewService;
 import com.infoshareacademy.service.event.EventViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -22,9 +21,9 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("/add-event")
-public class NewEventServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(NewEventServlet.class.getName());
+@WebServlet("/edit-event")
+public class EditEventServlet extends HttpServlet {
+    private static final Logger STDLOG = LoggerFactory.getLogger(EditEventServlet.class.getName());
 
     @Inject
     TemplateProvider templateProvider;
@@ -32,12 +31,9 @@ public class NewEventServlet extends HttpServlet {
     @EJB
     EventViewService eventViewService;
 
-    @EJB
-    OrganizerViewService organizerViewService;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "newEventForm.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "editEventForm.ftlh");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
         String previous = req.getHeader("referer");
@@ -45,7 +41,10 @@ public class NewEventServlet extends HttpServlet {
         dataModel.put("previous", previous);
         dataModel.put("email", contextHolder.getEmail());
         dataModel.put("role", contextHolder.getRole());
-        dataModel.put("organizers", organizerViewService.prepareOrganizersToShow());
+
+        Long eventIdToShow = Long.parseLong(req.getParameter("event"));
+        EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
+        dataModel.put("event", event);
 
         req.setCharacterEncoding("UTF-8");
 
@@ -56,9 +55,8 @@ public class NewEventServlet extends HttpServlet {
         try {
             template.process(dataModel, pw);
         } catch (TemplateException e) {
-            STDLOG.error("Template for add event page error");
+            STDLOG.error("Template for edit event page error");
         }
-
     }
 
     @Override
@@ -71,25 +69,25 @@ public class NewEventServlet extends HttpServlet {
         dataModel.put("email", contextHolder.getEmail());
         dataModel.put("role", contextHolder.getRole());
 
-        EventView newEvent = new EventView();
-        newEvent.setName(req.getParameter("name"));
-        newEvent.setOrganizerName(req.getParameter("organizer"));
-        newEvent.setCategoryName(req.getParameter("category"));
-        newEvent.setPlaceName(req.getParameter("place"));
-        newEvent.setWebsite(req.getParameter("url"));
-        newEvent.setStartDate(req.getParameter("startDate"));
-        newEvent.setEndDate(req.getParameter("endDate"));
-        newEvent.setTicket(req.getParameter("typeOfTicket"));
-        newEvent.setNumberOfTickets(Integer.valueOf(req.getParameter("numberOfTickets")));
+        EventView changedEvent = new EventView();
+        changedEvent.setName(req.getParameter("name"));
+        changedEvent.setOrganizerName(req.getParameter("organizer"));
+        changedEvent.setCategoryName(req.getParameter("category"));
+        changedEvent.setPlaceName(req.getParameter("place"));
+        changedEvent.setWebsite(req.getParameter("url"));
+        changedEvent.setStartDate(req.getParameter("startDate"));
+        changedEvent.setEndDate(req.getParameter("endDate"));
+        changedEvent.setTicket(req.getParameter("typeOfTicket"));
+        changedEvent.setNumberOfTickets(Integer.valueOf(req.getParameter("numberOfTickets")));
 
-        if(newEvent.getTicket().equals("tickets")) {
-            newEvent.setMinTicketPrice(Integer.valueOf(req.getParameter("reducedTicket")));
-            newEvent.setMaxTicketPrice(Integer.valueOf(req.getParameter("normalTicket")));
+        if(changedEvent.getTicket().equals("tickets")) {
+            changedEvent.setMinTicketPrice(Integer.valueOf(req.getParameter("reducedTicket")));
+            changedEvent.setMaxTicketPrice(Integer.valueOf(req.getParameter("normalTicket")));
         }
 
-        newEvent.setDescLong(req.getParameter("descLong"));
+        changedEvent.setDescLong(req.getParameter("descLong"));
 
-        eventViewService.newEvent(newEvent);
-        resp.sendRedirect("show-events?action=showAll&page=1");
+        eventViewService.update(changedEvent);
+        resp.sendRedirect("/show-events?action=showAll&page=1");
     }
 }

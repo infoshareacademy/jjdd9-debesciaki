@@ -167,4 +167,20 @@ public class EventView {
     public void setFacebook(String facebook) {
         this.facebook = facebook;
     }
+
+    public LocalDateTime getStartDateLocal() {
+        return startDateLocal;
+    }
+
+    public void setStartDateLocal(LocalDateTime startDateLocal) {
+        this.startDateLocal = startDateLocal;
+    }
+
+    public LocalDateTime getEndDateLocal() {
+        return endDateLocal;
+    }
+
+    public void setEndDateLocal(LocalDateTime endDateLocal) {
+        this.endDateLocal = endDateLocal;
+    }
 }

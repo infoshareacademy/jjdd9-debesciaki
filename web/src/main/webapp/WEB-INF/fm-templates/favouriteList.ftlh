@@ -21,7 +21,7 @@
                         <td class="text-center">${event.organizerName}</td>
                         <td class="text-center">${event.startDate}</td>
                         <td class="text-center">${event.endDate}</td>
-                        <td class="text-center"><#include "favouriteRemoveButton.ftlh"></td>
+                        <td class="text-center"><#include "buttons/favouriteRemoveButton.ftlh"></td>
                     </tr>
                 </#list>
                 </tbody>

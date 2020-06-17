@@ -34,6 +34,7 @@ public class PlaceDao {
             entityManager.persist(p);
         }
     }
+
     public Place create(String name) {
         Place place = new Place();
         place.setName(name);

@@ -160,7 +160,9 @@ public class EventViewService {
         eventView.setId(event.getId());
         eventView.setName(event.getName());
         eventView.setStartDate(event.getStartDate().format(formatter));
+        eventView.setStartDateLocal(event.getStartDate());
         eventView.setEndDate(event.getEndDate().format(formatter));
+        eventView.setEndDateLocal(event.getEndDate());
         eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji");
         eventView.setDescLong(Optional.ofNullable(event.getDescLong()).isPresent() ? event.getDescLong() : "Brak informacji o wydarzeniu");
         eventView.setCategoryName(event.getCategory().getName().isEmpty() ? null : event.getCategory().getName());
@@ -197,15 +199,15 @@ public class EventViewService {
         event.setName(eventView.getName());
         event.setActive(1);
         event.setCategory(categoryDao.create(eventView.getCategoryName()));
-        event.setOrganizer(organizerDao.create(eventView.getOrganizerName()));
+        event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
         event.setPlace(placeDao.create(eventView.getPlaceName()));
         event.setUrls(urlsDao.save(eventView.getWebsite()));
         event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         if (eventView.getTicket().equals("free")) {
-            event.setTicket(ticketDao.save(eventView.getTicket()));
+            event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getNumberOfTickets()));
         } else {
-            event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getMinTicketPrice(), eventView.getMaxTicketPrice()));
+            event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getMinTicketPrice(), eventView.getMaxTicketPrice(), eventView.getNumberOfTickets()));
         }
         event.setDescLong(eventView.getDescLong());
         eventDao.save(event);
@@ -250,6 +252,30 @@ public class EventViewService {
     public void delete(Long id) {
         Event event = eventDao.findById(id).get();
         eventDao.delete(event);
+    }
+
+    public void update(EventView eventView) {
+        eventDao.update(mapperFromView(eventView));
+    }
+
+    private Event mapperFromView(EventView eventView) {
+        Event event = new Event();
+        event.setName(eventView.getName());
+        event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
+        event.setCategory(categoryDao.findByName(eventView.getCategoryName()).get());
+        event.setPlace(placeDao.findByName(eventView.getPlaceName()).get());
+        event.setUrls(urlsDao.save(eventView.getWebsite()));
+        event.setStartDate(eventView.getStartDateLocal());
+        event.setEndDate(eventView.getEndDateLocal());
+
+        if(eventView.getTicket().equals("free")) {
+            event.setTicket(ticketDao.save("free", eventView.getNumberOfTickets()));
+        } else {
+            event.setTicket(ticketDao.save("tickets",eventView.getMinTicketPrice(), eventView.getMaxTicketPrice(), eventView.getNumberOfTickets()));
+        }
+
+        event.setDescLong(eventView.getDescLong());
+        return event;
     }
 
 

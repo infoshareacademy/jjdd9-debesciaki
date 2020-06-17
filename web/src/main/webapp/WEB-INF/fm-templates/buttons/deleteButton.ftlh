@@ -10,6 +10,7 @@
          success: function (result) {
             console.log('Success in deleting event');
             window.alert('Udało się usunąć wydarzenie z bazy danych.');
+            window.location.reload(true);
          },
          error: function (error) {
             console.log(error);

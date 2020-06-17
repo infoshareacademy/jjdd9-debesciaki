@@ -18,6 +18,9 @@ public class Ticket {
     @Column(name = "end_ticket")
     private Integer endTicket;
 
+    @Column(name = "number_of_places")
+    private Integer numberOfTickets;
+
     @OneToOne(mappedBy = "ticket")
     private Event event;
 
@@ -59,5 +62,13 @@ public class Ticket {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Integer getNumberOfTickets() {
+        return numberOfTickets;
+    }
+
+    public void setNumberOfTickets(Integer numberOfTickets) {
+        this.numberOfTickets = numberOfTickets;
     }
 }
