@@ -4,7 +4,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-
+@NamedQueries({
+        @NamedQuery(
+                name = "TicketStat.findAll",
+                query = "SELECT t FROM TicketStat t"
+        )
+})
 @Entity
 @Table(name = "ticket_stat")
 public class TicketStat {
