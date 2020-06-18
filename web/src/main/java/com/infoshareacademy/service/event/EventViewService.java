@@ -1,5 +1,6 @@
 package com.infoshareacademy.service.event;
 
+import com.infoshareacademy.comparator.EventViewComparators;
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.EventView;
@@ -8,7 +9,6 @@ import com.infoshareacademy.service.user.UserService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.net.URLDecoder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -17,7 +17,7 @@ import java.util.*;
 public class EventViewService {
 
     @Inject
-    EventDao eventDao;
+    private EventDao eventDao;
 
     @Inject
     OrganizerDao organizerDao;
@@ -35,7 +35,7 @@ public class EventViewService {
     TicketDao ticketDao;
 
     @Inject
-    UserService userService;
+    private UserService userService;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
@@ -52,6 +52,7 @@ public class EventViewService {
             i++;
         }
 
+        eventsList.sort(EventViewComparators.EventDateComparatorAsc);
         return eventsList;
     }
 
@@ -155,7 +156,7 @@ public class EventViewService {
         return event;
     }
 
-    private EventView mapper(Event event) {
+    public EventView mapper(Event event) {
         EventView eventView = new EventView();
         eventView.setId(event.getId());
         eventView.setName(event.getName());

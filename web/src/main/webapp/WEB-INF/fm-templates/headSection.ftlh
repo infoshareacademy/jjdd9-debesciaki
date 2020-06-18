@@ -100,5 +100,14 @@
             flex: 1;
         }
 
+
+
+
+        .container button#closeSignup {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
     </style>
 </head>

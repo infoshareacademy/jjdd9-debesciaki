@@ -21,9 +21,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Zaloguj się</a>
-                </li>
                 <#include "loginLogout.ftlh">
             </ul>
         </div>
@@ -33,6 +30,7 @@
 
 <br><br>
 <div class="container">
+    <#include "sneakPeak.ftlh">
     <div class="jumbotron ">
         <h3 class="display-4 text-center">Lista nadchodzących wydarzeń</h3>
         <br>

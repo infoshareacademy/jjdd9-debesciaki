@@ -13,7 +13,7 @@ import java.util.Optional;
 @Stateless
 public class CategoryDao {
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public void persistEntityList(List<Category> list) throws IOException {
         for (Category o : list) {

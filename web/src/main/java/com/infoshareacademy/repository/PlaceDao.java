@@ -14,7 +14,7 @@ import java.util.Optional;
 @Stateless
 public class PlaceDao {
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     public Optional<Place> findByApiId(long id) {
         Query query = entityManager.createNamedQuery("Place.findByApiId");

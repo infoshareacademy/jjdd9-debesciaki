@@ -26,10 +26,10 @@ public class ShowUsersServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(ShowUsersServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
 
     @EJB
-    UserViewService userViewService;
+    private UserViewService userViewService;
 
     @EJB
     EventViewService eventViewService;
@@ -66,7 +66,7 @@ public class ShowUsersServlet extends HttpServlet {
         String roleToChange = req.getParameter("role");
         String emailToFind = req.getParameter("email");
 
-        userViewService.changeRole(emailToFind,roleToChange);
+        userViewService.changeRole(emailToFind, roleToChange);
 
         dataModel.put("users", userViewService.prepareUsersToShow());
         dataModel.put("email", contextHolder.getEmail());

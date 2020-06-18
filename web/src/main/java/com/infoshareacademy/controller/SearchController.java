@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 public class SearchController {
 
     @Inject
-    EventMapLiveSearch eventMapLiveSearch;
+    private EventMapLiveSearch eventMapLiveSearch;
 
     @GET
     @Path("/eve/{phrase}")

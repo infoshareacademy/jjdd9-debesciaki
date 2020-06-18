@@ -19,31 +19,31 @@ public class EventMapper {
     private static final Logger STDLOG = LoggerFactory.getLogger(EventMapper.class.getName());
 
     @Inject
-    AttachmentMapper attachmentMapper;
+    private AttachmentMapper attachmentMapper;
 
     @Inject
-    PlaceMapper placeMapper;
+    private PlaceMapper placeMapper;
 
     @Inject
-    OrganizerMapper organizerMapper;
+    private OrganizerMapper organizerMapper;
 
     @Inject
-    CategoryMapper categoryMapper;
+    private CategoryMapper categoryMapper;
 
     @Inject
-    TicketMapper ticketMapper;
+    private TicketMapper ticketMapper;
 
     @Inject
-    UrlMapper urlMapper;
+    private UrlMapper urlMapper;
 
     @Inject
-    CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
     @Inject
-    PlaceDao placeDao;
+    private PlaceDao placeDao;
 
     @Inject
-    OrganizerDao organizerDao;
+    private OrganizerDao organizerDao;
 
     public EventJSON daoToJson(Event event) {
         EventJSON jsonEvent = new EventJSON();

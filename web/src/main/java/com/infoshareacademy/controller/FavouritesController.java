@@ -11,7 +11,7 @@ import javax.ws.rs.core.Response;
 @Produces(MediaType.APPLICATION_JSON)
 public class FavouritesController {
     @Inject
-    FavouriteRestService favouriteRestService;
+    private  FavouriteRestService favouriteRestService;
 
     @POST
     @Path("{userEmail}/event/{eventId}")
