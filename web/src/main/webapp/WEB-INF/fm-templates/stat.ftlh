@@ -171,11 +171,17 @@
 <div class="jumbotron">
 
     <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'Wydarzenia global')">Wydarzenia globalna popularność</button>
-        <button class="tablinks" onclick="openTab(event, 'Organizatorzy global')">Organizatorzy, globalna popularność
+        <button class="tablinks" onclick="openTab(event, 'Wydarzenia global')">
+            Wydarzenia globalna popularność
         </button>
-        <button class="tablinks" onclick="openTab(event, 'Wydarzenia period')">Wydarzenia, popularność okresowa</button>
-        <button class="tablinks" onclick="openTab(event, 'Organizatorzy period')">Organizatorzy, popularność okresowa
+        <button class="tablinks" onclick="openTab(event, 'Organizatorzy global')">
+            Organizatorzy, globalna popularność
+        </button>
+        <button class="tablinks" onclick="openTab(event, 'Wydarzenia period')">
+            Wydarzenia, popularność okresowa
+        </button>
+        <button class="tablinks" onclick="openTab(event, 'Organizatorzy period')">
+            Organizatorzy, popularność okresowa
         </button>
     </div>
 
@@ -201,25 +207,25 @@
                 <input type="time" id="time2" value="23:59:59">
             </th>
             <th>
-                <button class="btn btn-dark" onclick="load('eve')">Załaduj</button>
+                <button class="btn btn-dark" onclick="load1()">Załaduj</button>
             </th>
         </tr>
         <div class="container">
-            <canvas id="myBarChart3" width="100" height="40"></canvas>
+            <canvas id="myBarChart3" width="100" height="55"></canvas>
         </div>
     </div>
 
     <div id="Organizatorzy period" class="tabcontent">
         <tr>
             <th>
-                <input type="date" id="date1" value="2020-06-01">
-                <input type="time" id="time1" value="00:00:00">
+                <input type="date" id="date3" value="2020-06-01">
+                <input type="time" id="time3" value="00:00:00">
                 <br/>
-                <input type="date" id="date2" value="2022-06-01">
-                <input type="time" id="time2" value="23:59:59">
+                <input type="date" id="date4" value="2022-06-01">
+                <input type="time" id="time4" value="23:59:59">
             </th>
             <th>
-                <button class="btn btn-dark" onclick="load('org')">Załaduj</button>
+                <button class="btn btn-dark" onclick="load2()">Załaduj</button>
             </th>
         </tr>
         <div class="container">
@@ -232,6 +238,7 @@
     <script type="text/javascript" src="formatLabel.js"></script>
     <script>
         chartHandler();
+
         chartHandler2();
 
         function chartHandler() {
@@ -263,7 +270,7 @@
                     colorsBarHoverRepo.push("rgba(255, 100, 0, 0.7)");
                     colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
                 }
-                labels = res.map(a => formatLabel(a.eventName, 40));
+                labels = res.map(a => formatLabel(a.eventName, 50));
                 values = res.map(a => a.count);
 
                 let MeSeData = {
@@ -337,7 +344,7 @@
                     colorsBarHoverRepo.push("rgba(255, 255, 0, 0.7)");
                     colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
                 }
-                labels = res.map(a => formatLabel(a.organizerName, 40));
+                labels = res.map(a => formatLabel(a.organizerName, 50));
                 values = res.map(a => a.count);
 
                 let MeSeData = {
@@ -406,7 +413,7 @@
                     },
                     error: function (error) {
                         console.log(error);
-                        window.alert('Błąd w trakcie usuwaniaładowania danych do wykresu');
+                        window.alert('Błąd w trakcie ładowania danych do wykresu');
                     }
                 }
             );
@@ -417,7 +424,7 @@
                     colorsBarHoverRepo.push("rgba(255, 255, 0, 0.7)");
                     colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
                 }
-                labels = res.map(a => formatLabel(a.eventName, 40));
+                labels = res.map(a => formatLabel(a.eventName, 50));// ;
                 values = res.map(a => a.count);
 
                 let MeSeData = {
@@ -470,7 +477,6 @@
             let colorsBarHoverRepo = [];
             let colorsBarHoverBorderRepo = [];
 
-
             console.log(ff);
 
             $.ajax({
@@ -486,7 +492,7 @@
                     },
                     error: function (error) {
                         console.log(error);
-                        window.alert('Błąd w trakcie usuwaniaładowania danych do wykresu');
+                        window.alert('Błąd w trakcie ładowania danych do wykresu');
                     }
                 }
             );
@@ -497,7 +503,7 @@
                     colorsBarHoverRepo.push("rgba(255, 255, 0, 0.7)");
                     colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
                 }
-                labels = res.map(a => formatLabel(a.eventName, 40));
+                labels = res.map(a => formatLabel(a.organizerName, 50));
                 values = res.map(a => a.count);
 
                 let MeSeData = {
@@ -542,19 +548,21 @@
             }
         }
 
-        function load(choose) {
+        function load1() {
             let d1 = document.getElementById("date1").value + " " + document.getElementById("time1").value;
             let d2 = document.getElementById("date2").value + " " + document.getElementById("time2").value;
             ff = JSON.stringify({date1: d1, date2: d2});
             console.log(ff);
-            if (choose == "eve") {
-                chartHandler3();
-            } else {
-                chartHandler4();
-            }
-
+            chartHandler3();
         }
 
+        function load2() {
+            let d3 = document.getElementById("date3").value + " " + document.getElementById("time3").value;
+            let d4 = document.getElementById("date4").value + " " + document.getElementById("time4").value;
+            ff = JSON.stringify({date1: d3, date2: d4});
+            console.log(ff);
+            chartHandler4();
+        }
 
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
