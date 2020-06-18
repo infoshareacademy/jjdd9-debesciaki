@@ -65,6 +65,7 @@ public class NewEventServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
+        req.setCharacterEncoding("UTF-8");
         String previous = req.getHeader("referer");
 
         dataModel.put("previous", previous);
@@ -90,6 +91,8 @@ public class NewEventServlet extends HttpServlet {
         newEvent.setDescLong(req.getParameter("descLong"));
 
         eventViewService.newEvent(newEvent);
+        resp.setContentType("text/html; charset=UTF-8");
+        resp.setCharacterEncoding("UTF-8");
         resp.sendRedirect("show-events?action=showAll&page=1");
     }
 }

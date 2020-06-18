@@ -19,18 +19,18 @@
     </div>
 </div>
 <script>
+
+    $('#myModal').keypress(function (e) {
+        const key = e.which;
+        if (key == 13) {
+            $('button[name = save]').click();
+            return false;
+        }
+    });
+
     function f() {
         designation = $("#designation").val();
         address = '/api/organizers';
-
-        $('#myModal').keypress(function (e) {
-            const key = e.which;
-            if (key == 13) {
-                $('input[name = save]').click();
-                return false;
-            }
-        });
-
         $.ajax({
             url: address,
             async: true,
