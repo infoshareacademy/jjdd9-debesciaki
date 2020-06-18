@@ -4,7 +4,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand " href="/">&nbsp;&nbsp;Projekt Debeściaki - Infoshare Academy</a>
+        <a class="navbar-brand " href="/">&nbsp;&nbsp;Planer kulturalny</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -20,21 +20,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
-                <li class="nav-item dropdown active">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Panel administratora<span class="sr-only">(current)</span>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/upload.html">Załaduj bazę</a>
-                        <a class="dropdown-item" href="/users-list">Lista użytkowników</a>
-                        <a class="dropdown-item" href="/add-event">Dodaj wydarzenie</a>
-                        <a class="dropdown-item" href="#">Statystyki</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logoutGoogle">Wyloguj się</a>
-                </li>
+                <#include "loginLogout.ftlh">
             </ul>
         </div>
     </div>

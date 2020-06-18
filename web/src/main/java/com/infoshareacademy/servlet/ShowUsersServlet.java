@@ -36,7 +36,7 @@ public class ShowUsersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "usersList.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "showUsersList.ftlh");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
 
@@ -60,7 +60,7 @@ public class ShowUsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "usersList.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "showUsersList.ftlh");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
         String roleToChange = req.getParameter("role");
