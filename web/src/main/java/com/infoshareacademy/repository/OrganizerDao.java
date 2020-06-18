@@ -24,7 +24,7 @@ public class OrganizerDao {
     public Optional<Organizer> findByDesignation(String name) {
         Query query = entityManager.createNamedQuery("Organizer.findByDesignation");
         query.setParameter("designation", name);
-        return Optional.ofNullable((Organizer) query.getSingleResult());
+        return Optional.ofNullable((Organizer) query.getResultList().get(0));
     }
 
     private final static int MAX_RESULTS = 20;

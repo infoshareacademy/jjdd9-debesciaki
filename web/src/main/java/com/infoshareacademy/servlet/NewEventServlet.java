@@ -73,7 +73,7 @@ public class NewEventServlet extends HttpServlet {
 
         EventView newEvent = new EventView();
         newEvent.setName(req.getParameter("name"));
-        newEvent.setOrganizerName(req.getParameter("organizer"));
+        newEvent.setOrganizerName(req.getParameter("organizersDesignation"));
         newEvent.setCategoryName(req.getParameter("category"));
         newEvent.setPlaceName(req.getParameter("place"));
         newEvent.setWebsite(req.getParameter("url"));

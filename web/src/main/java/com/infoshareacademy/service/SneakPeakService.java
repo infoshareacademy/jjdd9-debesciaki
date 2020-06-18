@@ -5,6 +5,7 @@ import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.repository.UserDao;
+import com.infoshareacademy.service.event.EventViewService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
