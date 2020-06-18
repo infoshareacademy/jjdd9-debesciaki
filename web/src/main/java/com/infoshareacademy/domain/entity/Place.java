@@ -10,8 +10,8 @@ import java.util.List;
                 query = "SELECT p FROM Place p WHERE p.apiId=:apiID"
         ),
         @NamedQuery(
-                name = "Place.findByName",
-                query = "SELECT p FROM Place p WHERE p.name=:name"
+                name = "Place.findByNameAndSubname",
+                query = "SELECT p FROM Place p WHERE p.name=:name AND p.subname=:subname"
         )
 })
 @Entity

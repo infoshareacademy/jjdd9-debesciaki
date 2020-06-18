@@ -70,10 +70,15 @@ public class EditEventServlet extends HttpServlet {
         dataModel.put("role", contextHolder.getRole());
 
         EventView changedEvent = new EventView();
+        changedEvent.setId(Long.valueOf(req.getParameter("id")));
         changedEvent.setName(req.getParameter("name"));
         changedEvent.setOrganizerName(req.getParameter("organizer"));
         changedEvent.setCategoryName(req.getParameter("category"));
-        changedEvent.setPlaceName(req.getParameter("place"));
+        changedEvent.setPlaceName(req.getParameter("placeName"));
+        changedEvent.setPlaceSubname(req.getParameter("placeSubname"));
+        if (changedEvent.getPlaceSubname().equals("brak")) {
+            changedEvent.setPlaceSubname(null);
+        }
         changedEvent.setWebsite(req.getParameter("url"));
         changedEvent.setStartDate(req.getParameter("startDate"));
         changedEvent.setEndDate(req.getParameter("endDate"));

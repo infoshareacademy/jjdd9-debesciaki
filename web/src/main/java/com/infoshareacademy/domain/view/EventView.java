@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class EventView {
     private Long id;
+    private Long apiId;
     private String name;
     private String startDate;
     private LocalDateTime startDateLocal;
@@ -30,6 +31,14 @@ public class EventView {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getApiId() {
+        return apiId;
+    }
+
+    public void setApiId(Long apiId) {
+        this.apiId = apiId;
     }
 
     public String getName() {

@@ -22,10 +22,17 @@ public class PlaceDao {
         return Optional.ofNullable((Place) query.getSingleResult());
     }
 
-    public Optional<Place> findByName(String name) {
-        Query query = entityManager.createNamedQuery("Place.findByName");
+    public Place findByNameAndSubname(String name, String subname) {
+        Query query = entityManager.createNamedQuery("Place.findByNameAndSubname");
         query.setParameter("name", name);
-        return Optional.ofNullable((Place) query.getSingleResult());
+        query.setParameter("subname", subname);
+
+        if (query.getResultList().isEmpty()) {
+            return create(name, subname);
+        } else {
+            return (Place) query.getResultList().get(0);
+        }
+
     }
 
 
@@ -35,9 +42,10 @@ public class PlaceDao {
         }
     }
 
-    public Place create(String name) {
+    public Place create(String name, String subname) {
         Place place = new Place();
         place.setName(name);
+        place.setSubname(subname);
         entityManager.persist(place);
         return place;
     }

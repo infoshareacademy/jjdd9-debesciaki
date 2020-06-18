@@ -1,8 +1,7 @@
 package com.infoshareacademy.service.event;
 
 import com.infoshareacademy.comparator.EventViewComparators;
-import com.infoshareacademy.domain.entity.Event;
-import com.infoshareacademy.domain.entity.User;
+import com.infoshareacademy.domain.entity.*;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.repository.*;
 import com.infoshareacademy.service.user.UserService;
@@ -159,6 +158,7 @@ public class EventViewService {
     public EventView mapper(Event event) {
         EventView eventView = new EventView();
         eventView.setId(event.getId());
+        eventView.setApiId(event.getApiId());
         eventView.setName(event.getName());
         eventView.setStartDate(event.getStartDate().format(formatter));
         eventView.setStartDateLocal(event.getStartDate());
@@ -201,7 +201,7 @@ public class EventViewService {
         event.setActive(1);
         event.setCategory(categoryDao.create(eventView.getCategoryName()));
         event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
-        event.setPlace(placeDao.create(eventView.getPlaceName()));
+        event.setPlace(placeDao.create(eventView.getPlaceName(), eventView.getPlaceSubname()));
         event.setUrls(urlsDao.save(eventView.getWebsite()));
         event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
@@ -261,13 +261,23 @@ public class EventViewService {
 
     private Event mapperFromView(EventView eventView) {
         Event event = new Event();
+        Organizer organizer = organizerDao.findByDesignation(eventView.getOrganizerName()).get();
+        Category category = categoryDao.findByName(eventView.getCategoryName()).get();
+        Place place = placeDao.findByNameAndSubname(eventView.getPlaceName(), eventView.getPlaceSubname());
+        Urls url = urlsDao.save(eventView.getWebsite());
+
+        place.setName(eventView.getPlaceName());
+        place.setSubname(eventView.getPlaceSubname());
+
+        event.setId(eventView.getId());
+        event.setActive(1);
         event.setName(eventView.getName());
-        event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
-        event.setCategory(categoryDao.findByName(eventView.getCategoryName()).get());
-        event.setPlace(placeDao.findByName(eventView.getPlaceName()).get());
-        event.setUrls(urlsDao.save(eventView.getWebsite()));
-        event.setStartDate(eventView.getStartDateLocal());
-        event.setEndDate(eventView.getEndDateLocal());
+        event.setOrganizer(organizer);
+        event.setCategory(category);
+        event.setPlace(place);
+        event.setUrls(url);
+        event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
         if(eventView.getTicket().equals("free")) {
             event.setTicket(ticketDao.save("free", eventView.getNumberOfTickets()));

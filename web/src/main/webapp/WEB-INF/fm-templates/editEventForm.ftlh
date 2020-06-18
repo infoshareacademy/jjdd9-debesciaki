@@ -44,9 +44,12 @@
     <div class="jumbotron">
         <h1 class="display-4">Formularz edycji wydarzenia</h1><br>
         <form method="post" action="/edit-event">
+            <input hidden name="id" value="${event.id}">
+            <input hidden name="apiId" value="${event.apiId}">
             <span class="font-weight-bold">Nazwa wydarzenia: <input type="text" name="name" class="m-2" required value="${event.name}"/></span><br>
             <span class="font-weight-bold">Organizator: <input type="text" name="organizer" class="m-2" required value="${event.organizerName}"/></span><br>
-            <span class="font-weight-bold">Miejsce: <input type="text" name="place" class="m-2" required value="${event.placeName}"/></span><br>
+            <span class="font-weight-bold">Główna nazwa miejsca: <input type="text" name="placeName" class="m-2" required value="${event.placeName}"/></span><br>
+            <span class="font-weight-bold">Dodatkowa nazwa miejsca: <input type="text" name="placeSubname" class="m-2" value="${event.placeSubname}"/></span><br>
             <span class="font-weight-bold">Kategoria: <input type="text" name="category" class="m-2" required value="${event.categoryName}"/></span><br>
             <span class="font-weight-bold">Adres strony internetowej: <input type="url" name="url" class="m-2" value="${event.website}"/></span><br>
             <span class="font-weight-bold">Data rozpoczęcia: <input type="datetime-local" name="startDate" class="m-2" required value="${event.startDateLocal}"/></span><br>

@@ -42,7 +42,7 @@ public class CategoryDao {
     public Optional<Category> findByName(String name) {
         Query query = entityManager.createNamedQuery("Category.findByName");
         query.setParameter("name", name);
-        return Optional.ofNullable((Category) query.getSingleResult());
+        return Optional.ofNullable((Category) query.getResultList().get(0));
     }
 
     public Category create(String categoryName) {
