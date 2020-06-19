@@ -9,16 +9,10 @@ import java.time.LocalDateTime;
                 name = "TicketStat.findAll",
                 query = "SELECT t FROM TicketStat t"
         ),
-        /*@NamedQuery(
-                name = "TicketStat.findFull",
-                query = "SELECT  new com.infoshareacademy.domain.stat.TicketCount(t.event.name, t.ticketType, count(t)) FROM TicketStat t " +
-                        "WHERE (t.ticketType='full') GROUP BY t.event.name, t.ticketType "
-        ),
         @NamedQuery(
-                name = "TicketStat.findRedu",
-                query = "SELECT  new com.infoshareacademy.domain.stat.TicketCount(t.event.name, t.ticketType, count(t)) FROM TicketStat t " +
-                        "WHERE (t.ticketType='redu') GROUP BY t.event.name, t.ticketType "
-        )*/
+                name = "TicketStat.findByEventId",
+                query = "SELECT t FROM TicketStat t WHERE t.event = :event"
+        )
 })
 @Entity
 @Table(name = "ticket_stat")
@@ -27,14 +21,14 @@ public class TicketStat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "event_id", unique = true)
     private Event event;
 
-    @Column(name = "full_count", nullable = false)
+    @Column(name = "full_count")
     private Long fullCount;
 
-    @Column(name = "redu_count", nullable = false)
+    @Column(name = "redu_count")
     private Long reduCount;
 
 
