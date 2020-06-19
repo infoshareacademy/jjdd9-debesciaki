@@ -1,7 +1,7 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.entity.TicketStat;
-import com.infoshareacademy.domain.entity.ViewStat;
+import com.infoshareacademy.domain.stat.TicketCount;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,8 +19,13 @@ public class TicketStatDao {
         entityManager.persist(ticketStat);
     }
 
-    public List<ViewStat> findAll() {
-        Query query = entityManager.createNamedQuery("TicketStat.findAll");
+    public List<TicketCount> findFull() {
+        Query query = entityManager.createNamedQuery("TicketStat.findFull");
+        return query.getResultList();
+    }
+
+    public List<TicketCount> findRedu() {
+        Query query = entityManager.createNamedQuery("TicketStat.findRedu");
         return query.getResultList();
     }
 }

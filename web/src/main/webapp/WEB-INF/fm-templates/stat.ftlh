@@ -183,6 +183,9 @@
         <button class="tablinks" onclick="openTab(event, 'Organizatorzy period')">
             Organizatorzy, popularność okresowa
         </button>
+        <button class="tablinks" onclick="openTab(event, 'Ticket ratio')">
+            Stosunek sprzedanych biletów
+        </button>
     </div>
 
     <div id="Wydarzenia global" class="tabcontent">
@@ -198,18 +201,26 @@
     </div>
 
     <div id="Wydarzenia period" class="tabcontent">
-        <tr>
-            <th>
-                <input type="date" id="date1" value="2020-06-01">
-                <input type="time" id="time1" value="00:00:00">
-                <br/>
-                <input type="date" id="date2" value="2022-06-01">
-                <input type="time" id="time2" value="23:59:59">
-            </th>
-            <th>
-                <button class="btn btn-dark" onclick="load1()">Załaduj</button>
-            </th>
-        </tr>
+        <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white"
+               cellspacing="0">
+            <thead>
+            <tr class="bg-dark text-white">
+                <th class="th-sm text-center" width="40%">
+                    Od:
+                    <input type="date" id="date1" value="2020-06-01">
+                    <input type="time" id="time1" value="00:00:00">
+                </th>
+                <th class="th-sm text-center" width="40%">
+                    Do:
+                    <input type="date" id="date2" value="2022-06-01">
+                    <input type="time" id="time2" value="23:59:59">
+                </th>
+                <th class="th-sm text-center" width="20%">
+                    <button class="btn btn-dark" onclick="load1()">Załaduj</button>
+                </th>
+            </tr>
+            </thead>
+        </table>
         <div class="container">
             <canvas id="myBarChart3" width="100" height="55"></canvas>
         </div>
@@ -218,9 +229,11 @@
     <div id="Organizatorzy period" class="tabcontent">
         <tr>
             <th>
+                <p>Od:</p>
                 <input type="date" id="date3" value="2020-06-01">
                 <input type="time" id="time3" value="00:00:00">
                 <br/>
+                <p>Do:</p>
                 <input type="date" id="date4" value="2022-06-01">
                 <input type="time" id="time4" value="23:59:59">
             </th>
@@ -233,6 +246,12 @@
         </div>
     </div>
 
+    <div id="Ticket ratio" class="tabcontent">
+        <div class="container">
+            <canvas id="myBarChart5" width="100" height="40"></canvas>
+        </div>
+    </div>
+
     <script src="/node_modules/chart.js/dist/Chart.bundle.js"></script>
     <script type="text/javascript" src="eventJsonToArrayOfNames.js"></script>
     <script type="text/javascript" src="formatLabel.js"></script>
@@ -241,6 +260,8 @@
         document.getElementById("showFirst").click();
 
         chartHandler2();
+
+        chartHandler5();
 
         function chartHandler() {
             let res;
@@ -522,6 +543,80 @@
                 };
 
                 let ctx = document.getElementById("myBarChart4");
+                let myBarChart = new Chart(ctx, {
+                    type: 'horizontalBar',
+                    data: MeSeData,
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    min: 0
+                                }
+                            }],
+                            yAxes: [{
+                                stacked: true
+                            }]
+                        },
+                        layout: {
+                            padding: {
+                                left: 50,
+                                right: 0,
+                                top: 0,
+                                bottom: 0
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function chartHandler5() {
+            let res;
+            let labels;
+            let values;
+            let colorsBarBodyRepo = [];
+            let colorsBarHoverRepo = [];
+            let colorsBarHoverBorderRepo = [];
+
+            $.ajax({
+                    url: "/api/ticket-stat",
+                    type: "GET",
+                    success: function (result) {
+                        res = eventJsonToArrayOfNames(result);
+                        console.log(res);
+                        func();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                        window.alert('Błąd w trakcie usuwaniaładowania danych do wykresu');
+                    }
+                }
+            );
+
+            function func() {
+                for (let i = 0; i < res.length; i++) {
+                    colorsBarBodyRepo.push("rgba(255, 0, 0, 0.4)");
+                    colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
+                    colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
+                }
+                labels = res.map(a => formatLabel(a.eventName, 50));
+                values = res.map(a => [a.ratio, 5]);
+
+                let MeSeData = {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Stosunek biletów ulgowych do normalnych",
+                            data: values,
+                            backgroundColor: colorsBarBodyRepo,
+                            hoverBackgroundColor: colorsBarHoverRepo,
+                            hoverBorderColor: colorsBarHoverBorderRepo,
+                            barPercentage: 0.75,
+                            hoverBorderWidth: 2
+                        }]
+                };
+
+                let ctx = document.getElementById("myBarChart5");
                 let myBarChart = new Chart(ctx, {
                     type: 'horizontalBar',
                     data: MeSeData,
