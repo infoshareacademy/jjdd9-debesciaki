@@ -19,13 +19,8 @@ public class TicketStatDao {
         entityManager.persist(ticketStat);
     }
 
-    public List<TicketCount> findFull() {
-        Query query = entityManager.createNamedQuery("TicketStat.findFull");
-        return query.getResultList();
-    }
-
-    public List<TicketCount> findRedu() {
-        Query query = entityManager.createNamedQuery("TicketStat.findRedu");
+    public List<TicketStat> findAll() {
+        Query query = entityManager.createNamedQuery("TicketStat.findAll");
         return query.getResultList();
     }
 }

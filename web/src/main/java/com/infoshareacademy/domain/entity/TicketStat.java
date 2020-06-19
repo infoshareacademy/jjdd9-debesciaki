@@ -6,6 +6,10 @@ import java.time.LocalDateTime;
 
 @NamedQueries({
         @NamedQuery(
+                name = "TicketStat.findAll",
+                query = "SELECT t FROM TicketStat t"
+        ),
+        /*@NamedQuery(
                 name = "TicketStat.findFull",
                 query = "SELECT  new com.infoshareacademy.domain.stat.TicketCount(t.event.name, t.ticketType, count(t)) FROM TicketStat t " +
                         "WHERE (t.ticketType='full') GROUP BY t.event.name, t.ticketType "
@@ -14,7 +18,7 @@ import java.time.LocalDateTime;
                 name = "TicketStat.findRedu",
                 query = "SELECT  new com.infoshareacademy.domain.stat.TicketCount(t.event.name, t.ticketType, count(t)) FROM TicketStat t " +
                         "WHERE (t.ticketType='redu') GROUP BY t.event.name, t.ticketType "
-        )
+        )*/
 })
 @Entity
 @Table(name = "ticket_stat")
@@ -23,25 +27,16 @@ public class TicketStat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")
     private Event event;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(name = "full_count", nullable = false)
+    private Long fullCount;
 
-    @Column(name = "ticket_type")
-    private String ticketType;
+    @Column(name = "redu_count", nullable = false)
+    private Long reduCount;
 
-
-    public String getTicketType() {
-        return ticketType;
-    }
-
-    public void setTicketType(String ticketType) {
-        this.ticketType = ticketType;
-    }
 
     public Long getId() {
         return id;
@@ -59,11 +54,19 @@ public class TicketStat {
         this.event = event;
     }
 
-    public User getUser() {
-        return user;
+    public Long getFullCount() {
+        return fullCount;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setFullCount(Long fullCount) {
+        this.fullCount = fullCount;
+    }
+
+    public Long getReduCount() {
+        return reduCount;
+    }
+
+    public void setReduCount(Long reduCount) {
+        this.reduCount = reduCount;
     }
 }

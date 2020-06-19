@@ -21,7 +21,7 @@ public class TicketStatController {
     @GET
     public Response provideTicketRatio() {
         return Response.status(Response.Status.OK)
-                .entity(ticketStatService.provideTicketRatioStat())
+                .entity(ticketStatService.findAll())
                 .build();
     }
 }

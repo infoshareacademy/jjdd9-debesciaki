@@ -216,7 +216,7 @@
                     <input type="time" id="time2" value="23:59:59">
                 </th>
                 <th class="th-sm text-center" width="20%">
-                    <button class="btn btn-dark" onclick="load1()">Załaduj</button>
+                    <button class="btn btn-light" onclick="load1()">Załaduj</button>
                 </th>
             </tr>
             </thead>
@@ -238,7 +238,7 @@
                 <input type="time" id="time4" value="23:59:59">
             </th>
             <th>
-                <button class="btn btn-dark" onclick="load2()">Załaduj</button>
+                <button class="btn btn-light" onclick="load2()">Załaduj</button>
             </th>
         </tr>
         <div class="container">
@@ -248,7 +248,7 @@
 
     <div id="Ticket ratio" class="tabcontent">
         <div class="container">
-            <canvas id="myBarChart5" width="100" height="40"></canvas>
+            <canvas id="myBarChart5" width="100" height="55"></canvas>
         </div>
     </div>
 
@@ -326,10 +326,10 @@
                         },
                         layout: {
                             padding: {
-                                left: 50,
+                                left: 0,
                                 right: 0,
-                                top: 0,
-                                bottom: 0
+                                top: 50,
+                                bottom: 50
                             }
                         }
                     }
@@ -400,10 +400,10 @@
                         },
                         layout: {
                             padding: {
-                                left: 50,
+                                left: 0,
                                 right: 0,
-                                top: 0,
-                                bottom: 0
+                                top: 50,
+                                bottom: 50
                             }
                         }
                     }
@@ -480,10 +480,10 @@
                         },
                         layout: {
                             padding: {
-                                left: 50,
+                                left: 0,
                                 right: 0,
-                                top: 0,
-                                bottom: 0
+                                top: 50,
+                                bottom: 50
                             }
                         }
                     }
@@ -559,10 +559,10 @@
                         },
                         layout: {
                             padding: {
-                                left: 50,
+                                left: 0,
                                 right: 0,
-                                top: 0,
-                                bottom: 0
+                                top: 50,
+                                bottom: 50
                             }
                         }
                     }
@@ -572,11 +572,6 @@
 
         function chartHandler5() {
             let res;
-            let labels;
-            let values;
-            let colorsBarBodyRepo = [];
-            let colorsBarHoverRepo = [];
-            let colorsBarHoverBorderRepo = [];
 
             $.ajax({
                     url: "/api/ticket-stat",
@@ -594,52 +589,91 @@
             );
 
             function func() {
-                for (let i = 0; i < res.length; i++) {
-                    colorsBarBodyRepo.push("rgba(255, 0, 0, 0.4)");
-                    colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
-                    colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
-                }
-                labels = res.map(a => formatLabel(a.eventName, 50));
-                values = res.map(a => [a.ratio, 5]);
 
-                let MeSeData = {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Stosunek biletów ulgowych do normalnych",
-                            data: values,
-                            backgroundColor: colorsBarBodyRepo,
-                            hoverBackgroundColor: colorsBarHoverRepo,
-                            hoverBorderColor: colorsBarHoverBorderRepo,
-                            barPercentage: 0.75,
-                            hoverBorderWidth: 2
-                        }]
+                var numberWithCommas = function(x) {
+                    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 };
 
-                let ctx = document.getElementById("myBarChart5");
-                let myBarChart = new Chart(ctx, {
+                var dataPack1 = res.map(a => a.redu);
+                console.log(dataPack1);
+                var dataPack2 = res.map(a => a.full);
+                console.log(dataPack2);
+                var dates = res.map(a => formatLabel(a.eventName, 50));
+                console.log(dates);
+
+                var bar_ctx = document.getElementById('myBarChart5');
+
+                var bar_chart = new Chart(bar_ctx, {
                     type: 'horizontalBar',
-                    data: MeSeData,
+                    data: {
+                        labels: dates,
+                        datasets: [
+                            {
+                                label: 'Ulgowe',
+                                data: dataPack1,
+                                backgroundColor: "#512DA8",
+                                hoverBackgroundColor: "#7E57C2",
+                                barPercentage: 0.75,
+                                hoverBorderWidth: 0
+                            },
+                            {
+                                label: 'Normalne',
+                                data: dataPack2,
+                                backgroundColor: "#FFA000",
+                                hoverBackgroundColor: "#FFCA28",
+                                barPercentage: 0.75,
+                                hoverBorderWidth: 0
+                            },
+                        ]
+                    },
                     options: {
+                        animation: {
+                            duration: 10,
+                        },
+                       /* tooltips: {
+                            mode: 'label',
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+                                    return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+                                }
+                            }
+                        },*/
                         scales: {
                             xAxes: [{
-                                ticks: {
-                                    min: 0
-                                }
+                                stacked: true,
+                                gridLines: { display: true },
                             }],
                             yAxes: [{
-                                stacked: true
-                            }]
+                                stacked: true,
+                              /*  ticks: {
+                                    callback: function(value) { return numberWithCommas(value); },
+                                },*/
+                            }],
                         },
+                        legend: {display: true},
                         layout: {
                             padding: {
-                                left: 50,
+                                left: 0,
                                 right: 0,
-                                top: 0,
-                                bottom: 0
+                                top: 50,
+                                bottom: 50
                             }
                         }
-                    }
+                    },
+                   /* plugins: [{
+                        beforeInit: function (chart) {
+                            chart.data.labels.forEach(function (value, index, array) {
+                                var a = [];
+                                a.push(value.slice(0, 5));
+                                var i = 1;
+                                while(value.length > (i * 5)){
+                                    a.push(value.slice(i * 5, (i + 1) * 5));
+                                    i++;
+                                }
+                                array[index] = a;
+                            })
+                        }
+                    }]*/
                 });
             }
         }

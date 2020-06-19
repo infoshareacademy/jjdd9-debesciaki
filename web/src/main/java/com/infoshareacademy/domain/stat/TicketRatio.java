@@ -2,14 +2,16 @@ package com.infoshareacademy.domain.stat;
 
 public class TicketRatio {
     private String eventName;
-    private Double ratio;
+    private Long redu;
+    private Long full;
 
     public TicketRatio() {
     }
 
-    public TicketRatio(String eventName, Double ratio) {
+    public TicketRatio(String eventName, Long redu, Long full) {
         this.eventName = eventName;
-        this.ratio = ratio;
+        this.redu = redu;
+        this.full = full;
     }
 
     public String getEventName() {
@@ -20,11 +22,19 @@ public class TicketRatio {
         this.eventName = eventName;
     }
 
-    public Double getRatio() {
-        return ratio;
+    public Long getRedu() {
+        return redu;
     }
 
-    public void setRatio(Double ratio) {
-        this.ratio = ratio;
+    public void setRedu(Long redu) {
+        this.redu = redu;
+    }
+
+    public Long getFull() {
+        return full;
+    }
+
+    public void setFull(Long full) {
+        this.full = full;
     }
 }
