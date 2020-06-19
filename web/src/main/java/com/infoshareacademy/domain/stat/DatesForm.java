@@ -1,6 +1,4 @@
-package com.infoshareacademy.domain.view.stat.chart;
-
-import javax.ws.rs.PathParam;
+package com.infoshareacademy.domain.stat;
 
 public class DatesForm {
     private String date1;

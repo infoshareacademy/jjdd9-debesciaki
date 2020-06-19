@@ -1,4 +1,4 @@
-package com.infoshareacademy.domain.view.stat.chart;
+package com.infoshareacademy.domain.stat;
 
 public class ClicksPerEvent {
     private String eventName;

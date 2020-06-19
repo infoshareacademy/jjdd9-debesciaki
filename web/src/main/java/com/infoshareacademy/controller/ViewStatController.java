@@ -1,9 +1,9 @@
 package com.infoshareacademy.controller;
 
-import com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent;
-import com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer;
-import com.infoshareacademy.domain.view.stat.chart.DatesForm;
-import com.infoshareacademy.service.ViewStatService;
+import com.infoshareacademy.domain.stat.ClicksPerEvent;
+import com.infoshareacademy.domain.stat.ClicksPerOrganizer;
+import com.infoshareacademy.domain.stat.DatesForm;
+import com.infoshareacademy.service.stat.ViewStatService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -20,13 +20,6 @@ public class ViewStatController {
 
     @Inject
     private ViewStatService viewStatService;
-
-    @GET
-    public Response provideAll() {
-        return Response.status(Response.Status.OK)
-                .entity(viewStatService.provideAllViewStatsNonAggregated())
-                .build();
-    }
 
     @GET
     @Path("/global")

@@ -1,4 +1,4 @@
-package com.infoshareacademy.domain.view.stat.chart;
+package com.infoshareacademy.domain.stat;
 
 public class ClicksPerOrganizer {
     private String organizerName;

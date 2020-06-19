@@ -1,8 +1,8 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.entity.ViewStat;
-import com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent;
-import com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer;
+import com.infoshareacademy.domain.stat.ClicksPerEvent;
+import com.infoshareacademy.domain.stat.ClicksPerOrganizer;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

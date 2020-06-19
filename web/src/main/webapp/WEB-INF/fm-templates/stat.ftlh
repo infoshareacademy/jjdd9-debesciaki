@@ -171,7 +171,7 @@
 <div class="jumbotron">
 
     <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'Wydarzenia global')">
+        <button id="showFirst" class="tablinks" onclick="openTab(event, 'Wydarzenia global')">
             Wydarzenia globalna popularność
         </button>
         <button class="tablinks" onclick="openTab(event, 'Organizatorzy global')">
@@ -238,6 +238,7 @@
     <script type="text/javascript" src="formatLabel.js"></script>
     <script>
         chartHandler();
+        document.getElementById("showFirst").click();
 
         chartHandler2();
 
@@ -266,9 +267,9 @@
 
             function func() {
                 for (let i = 0; i < res.length; i++) {
-                    colorsBarBodyRepo.push("rgba(255, 0, 255, 0.4)");
-                    colorsBarHoverRepo.push("rgba(255, 100, 0, 0.7)");
-                    colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
+                    colorsBarBodyRepo.push("rgba(255, 0, 0, 0.4)");
+                    colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
+                    colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
                 }
                 labels = res.map(a => formatLabel(a.eventName, 50));
                 values = res.map(a => a.count);
@@ -340,9 +341,9 @@
 
             function func() {
                 for (let i = 0; i < res.length; i++) {
-                    colorsBarBodyRepo.push("rgba(255, 0, 255, 0.4)");
-                    colorsBarHoverRepo.push("rgba(255, 255, 0, 0.7)");
-                    colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
+                    colorsBarBodyRepo.push("rgba(255, 0, 0, 0.4)");
+                    colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
+                    colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
                 }
                 labels = res.map(a => formatLabel(a.organizerName, 50));
                 values = res.map(a => a.count);
@@ -420,9 +421,9 @@
 
             function func() {
                 for (let i = 0; i < res.length; i++) {
-                    colorsBarBodyRepo.push("rgba(255, 0, 255, 0.4)");
-                    colorsBarHoverRepo.push("rgba(255, 255, 0, 0.7)");
-                    colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
+                    colorsBarBodyRepo.push("rgba(255, 0, 0, 0.4)");
+                    colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
+                    colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
                 }
                 labels = res.map(a => formatLabel(a.eventName, 50));// ;
                 values = res.map(a => a.count);
@@ -499,9 +500,9 @@
 
             function func() {
                 for (let i = 0; i < res.length; i++) {
-                    colorsBarBodyRepo.push("rgba(255, 0, 255, 0.4)");
-                    colorsBarHoverRepo.push("rgba(255, 255, 0, 0.7)");
-                    colorsBarHoverBorderRepo.push("rgba(0, 255, 100, 1)");
+                    colorsBarBodyRepo.push("rgba(255, 0, 0, 0.4)");
+                    colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
+                    colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
                 }
                 labels = res.map(a => formatLabel(a.organizerName, 50));
                 values = res.map(a => a.count);
