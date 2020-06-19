@@ -201,21 +201,21 @@
     </div>
 
     <div id="Wydarzenia period" class="tabcontent">
-        <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white"
+        <table  class="table table-striped table-bordered table-hover table-sm bg-white"
                cellspacing="0">
             <thead>
             <tr class="bg-dark text-white">
-                <th class="th-sm text-center" width="40%">
+                <th class="th-sm text-left">
                     Od:
                     <input type="date" id="date1" value="2020-06-01">
                     <input type="time" id="time1" value="00:00:00">
                 </th>
-                <th class="th-sm text-center" width="40%">
+                <th class="th-sm text-left">
                     Do:
                     <input type="date" id="date2" value="2022-06-01">
                     <input type="time" id="time2" value="23:59:59">
                 </th>
-                <th class="th-sm text-center" width="20%">
+                <th class="th-sm text-right">
                     <button class="btn btn-light" onclick="load1()">Załaduj</button>
                 </th>
             </tr>
@@ -227,19 +227,25 @@
     </div>
 
     <div id="Organizatorzy period" class="tabcontent">
-        <tr>
-            <th>
-                <p>Od:</p>
-                <input type="date" id="date3" value="2020-06-01">
-                <input type="time" id="time3" value="00:00:00">
-                <br/>
-                <p>Do:</p>
-                <input type="date" id="date4" value="2022-06-01">
-                <input type="time" id="time4" value="23:59:59">
-            </th>
-            <th>
-                <button class="btn btn-light" onclick="load2()">Załaduj</button>
-            </th>
+        <table  class="table table-striped table-bordered table-hover table-sm bg-white"
+               cellspacing="0">
+            <thead>
+            <tr class="bg-dark text-white">
+                <th class="th-sm text-left">
+                    Od:
+                    <input type="date" id="date3" value="2020-06-01">
+                    <input type="time" id="time3" value="00:00:00">
+                </th>
+                <th class="th-sm text-left">
+                    Do:
+                    <input type="date" id="date4" value="2022-06-01">
+                    <input type="time" id="time4" value="23:59:59">
+                </th>
+                <th class="th-sm text-right">
+                    <button class="btn btn-light" onclick="load2()">Załaduj</button>
+                </th>
+            </thead>
+        </table>
         </tr>
         <div class="container">
             <canvas id="myBarChart4" width="100" height="40"></canvas>
@@ -590,7 +596,7 @@
 
             function func() {
 
-                var numberWithCommas = function(x) {
+                var numberWithCommas = function (x) {
                     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 };
 
@@ -630,24 +636,24 @@
                         animation: {
                             duration: 10,
                         },
-                       /* tooltips: {
-                            mode: 'label',
-                            callbacks: {
-                                label: function(tooltipItem, data) {
-                                    return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
-                                }
-                            }
-                        },*/
+                        /* tooltips: {
+                             mode: 'label',
+                             callbacks: {
+                                 label: function(tooltipItem, data) {
+                                     return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+                                 }
+                             }
+                         },*/
                         scales: {
                             xAxes: [{
                                 stacked: true,
-                                gridLines: { display: true },
+                                gridLines: {display: true},
                             }],
                             yAxes: [{
                                 stacked: true,
-                              /*  ticks: {
-                                    callback: function(value) { return numberWithCommas(value); },
-                                },*/
+                                /*  ticks: {
+                                      callback: function(value) { return numberWithCommas(value); },
+                                  },*/
                             }],
                         },
                         legend: {display: true},
@@ -660,20 +666,20 @@
                             }
                         }
                     },
-                   /* plugins: [{
-                        beforeInit: function (chart) {
-                            chart.data.labels.forEach(function (value, index, array) {
-                                var a = [];
-                                a.push(value.slice(0, 5));
-                                var i = 1;
-                                while(value.length > (i * 5)){
-                                    a.push(value.slice(i * 5, (i + 1) * 5));
-                                    i++;
-                                }
-                                array[index] = a;
-                            })
-                        }
-                    }]*/
+                    /* plugins: [{
+                         beforeInit: function (chart) {
+                             chart.data.labels.forEach(function (value, index, array) {
+                                 var a = [];
+                                 a.push(value.slice(0, 5));
+                                 var i = 1;
+                                 while(value.length > (i * 5)){
+                                     a.push(value.slice(i * 5, (i + 1) * 5));
+                                     i++;
+                                 }
+                                 array[index] = a;
+                             })
+                         }
+                     }]*/
                 });
             }
         }
