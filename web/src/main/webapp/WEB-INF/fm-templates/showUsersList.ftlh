@@ -21,7 +21,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/show-organizers?page=1">Organizatorzy</a>
                 </li>
-                <#include "loginLogout.ftlh">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Panel administratora<span class="sr-only">(current)</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/upload-rest">Załaduj bazę</a>
+                        <a class="dropdown-item" href="/users-list">Lista użytkowników</a>
+                        <a class="dropdown-item" href="/add-event">Dodaj wydarzenie</a>
+                        <a class="dropdown-item" href="#">Statystyki</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logoutGoogle">Wyloguj się</a>
+                </li>
             </ul>
         </div>
     </div>
