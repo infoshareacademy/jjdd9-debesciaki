@@ -82,10 +82,17 @@
                                                                            class="m-2" required min="1"
                                                                            step="1" value="${event.numberOfTickets}"/></span><br>
             <div id="ifTickets" style="display: none;">
+                <#if event.maxTicketPrice??>
                 <span class="font-weight-bold">Cena biletu normalnego: <input type="number" name="normalTicket"
                                                                               class="m-2" min="1" step="1" value="${event.maxTicketPrice}"/></span><br>
                 <span class="font-weight-bold">Cena biletu ulgowego: <input type="number" name="reducedTicket"
                                                                             class="m-2" min="1" step="1" value="${event.minTicketPrice}"/></span><br>
+                <#else>
+                <span class="font-weight-bold">Cena biletu normalnego: <input type="number" name="normalTicket"
+                                                                              class="m-2" min="1" step="1"/></span><br>
+                <span class="font-weight-bold">Cena biletu ulgowego: <input type="number" name="reducedTicket"
+                                                                            class="m-2" min="1" step="1"/></span><br>
+                </#if>
             </div>
             <span class="font-weight-bold">Opis: <input type="text" name="descLong" class="m-2"
                                                         value="${event.descLong}"/></span><br>

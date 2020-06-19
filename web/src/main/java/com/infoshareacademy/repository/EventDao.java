@@ -196,5 +196,6 @@ public class EventDao {
 
     public void save(Event event) {
         entityManager.persist(event);
+        event.setApiId(event.getId());
     }
 }
