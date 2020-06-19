@@ -48,8 +48,16 @@
             <input hidden name="apiId" value="${event.apiId}">
             <span class="font-weight-bold">Nazwa wydarzenia: <input type="text" name="name" class="m-2" required
                                                                     value="${event.name}"/></span><br>
-            <span class="font-weight-bold">Organizator: <input type="text" name="organizer" class="m-2" required
-                                                               value="${event.organizerName}"/></span><br>
+            <span class="font-weight-bold">Organizator:
+                <select class="m-2" name="organizersDesignation" id="organizersDesignation">
+                    <#list organizers as organizer>
+                        <option value="${organizer.designation}" <#if event.organizerName == organizer.designation>selected = "selected" </#if>> ${organizer.designation}</option>
+                    </#list>
+                </select>
+                <br><h6><a data-toggle="modal" href="#myModal" class="text-primary font-italic">Dodaj organizatora</a></h6></span><br>
+
+
+
             <span class="font-weight-bold">Główna nazwa miejsca: <input type="text" name="placeName" class="m-2"
                                                                         required value="${event.placeName}"/></span><br>
             <span class="font-weight-bold">Dodatkowa nazwa miejsca: <input type="text" name="placeSubname" class="m-2"

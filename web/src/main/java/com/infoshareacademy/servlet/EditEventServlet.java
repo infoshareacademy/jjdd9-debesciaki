@@ -3,6 +3,7 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.service.OrganizerViewService;
 import com.infoshareacademy.service.event.EventViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -31,6 +32,9 @@ public class EditEventServlet extends HttpServlet {
     @EJB
     EventViewService eventViewService;
 
+    @EJB
+    OrganizerViewService organizerViewService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Template template = templateProvider.getTemplate(getServletContext(), "editEventForm.ftlh");
@@ -41,6 +45,7 @@ public class EditEventServlet extends HttpServlet {
         dataModel.put("previous", previous);
         dataModel.put("email", contextHolder.getEmail());
         dataModel.put("role", contextHolder.getRole());
+        dataModel.put("organizers", organizerViewService.prepareOrganizersToShow());
 
         Long eventIdToShow = Long.parseLong(req.getParameter("event"));
         EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
@@ -72,8 +77,9 @@ public class EditEventServlet extends HttpServlet {
 
         EventView changedEvent = new EventView();
         changedEvent.setId(Long.valueOf(req.getParameter("id")));
+        changedEvent.setApiId(Long.valueOf(req.getParameter("apiId").replaceAll(",","")));
         changedEvent.setName(req.getParameter("name"));
-        changedEvent.setOrganizerName(req.getParameter("organizer"));
+        changedEvent.setOrganizerName(req.getParameter("organizersDesignation"));
         changedEvent.setCategoryName(req.getParameter("category"));
         changedEvent.setPlaceName(req.getParameter("placeName"));
         changedEvent.setPlaceSubname(req.getParameter("placeSubname"));

@@ -269,6 +269,7 @@ public class EventViewService {
         place.setSubname(eventView.getPlaceSubname());
 
         event.setId(eventView.getId());
+        event.setApiId(eventView.getApiId());
         event.setActive(1);
         event.setName(eventView.getName());
         event.setOrganizer(organizer);
