@@ -179,8 +179,6 @@ public class EventViewService {
             eventView.setTicket("bilety");
         } else if (event.getTicket().getType().equals("free")) {
             eventView.setTicket("wstęp wolny");
-        } else {
-            eventView.setTicket("brak informacji");
         }
 
         if (eventView.getTicket() == "bilety") {
@@ -188,6 +186,7 @@ public class EventViewService {
             eventView.setMaxTicketPrice(event.getTicket().getEndTicket());
         }
 
+        eventView.setNumberOfTickets(event.getTicket().getNumberOfTickets());
         eventView.setWebsite(Optional.ofNullable(event.getUrls().getWww()).isPresent() ? event.getUrls().getWww() : "Brak strony internetowej");
         eventView.setFacebook(Optional.ofNullable(event.getUrls().getFb()).isPresent() ? event.getUrls().getFb() : "Brak profilu na facebooku");
         eventView.setFileName((Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && event.getAttachments().get(0).getFileName().contains("http")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");

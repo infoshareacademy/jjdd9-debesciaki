@@ -18,7 +18,7 @@ public class Ticket {
     @Column(name = "end_ticket")
     private Integer endTicket;
 
-    @Column(name = "number_of_places")
+    @Column(name = "number_of_tickets")
     private Integer numberOfTickets;
 
     @OneToOne(mappedBy = "ticket")
