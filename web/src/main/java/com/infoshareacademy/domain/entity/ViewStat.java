@@ -11,24 +11,24 @@ import java.time.LocalDateTime;
         ),
         @NamedQuery(
                 name = "ViewStat.globalClicksPerEvent",
-                query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent(v.event.name, COUNT(v)) " +
+                query = "SELECT new com.infoshareacademy.domain.stat.ClicksPerEvent(v.event.name, COUNT(v)) " +
                         "FROM ViewStat v GROUP BY v.event.name"
         ),
         @NamedQuery(
                 name = "ViewStat.periodClicksPerEvent",
-                query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerEvent(v.event.name, COUNT(v)) " +
+                query = "SELECT new com.infoshareacademy.domain.stat.ClicksPerEvent(v.event.name, COUNT(v)) " +
                         "FROM ViewStat v WHERE (v.viewDate BETWEEN :date1 AND :date2) GROUP BY v.event.name"
         ),
         @NamedQuery(
                 name = "ViewStat.globalClicksPerOrganizer",
-                query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer(v.event.organizer.designation, COUNT(v)) " +
+                query = "SELECT new com.infoshareacademy.domain.stat.ClicksPerOrganizer(v.event.organizer.designation, COUNT(v)) " +
                         "FROM ViewStat v " +
                         "GROUP BY v.event.organizer.designation " +
                         "ORDER BY COUNT(v) DESC"
         ),
         @NamedQuery(
                 name = "ViewStat.periodClicksPerOrganizer",
-                query = "SELECT new com.infoshareacademy.domain.view.stat.chart.ClicksPerOrganizer(v.event.organizer.designation, COUNT(v)) " +
+                query = "SELECT new com.infoshareacademy.domain.stat.ClicksPerOrganizer(v.event.organizer.designation, COUNT(v)) " +
                         "FROM ViewStat v WHERE (v.viewDate BETWEEN :date1 AND :date2) " +
                         "GROUP BY v.event.organizer.designation " +
                         "ORDER BY COUNT(v) DESC"
