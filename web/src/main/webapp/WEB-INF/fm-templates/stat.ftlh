@@ -139,6 +139,13 @@
             padding: 6px 12px;
             border: 1px solid #ccc;
             border-top: none;
+            min-height: 600px;
+        }
+
+        .row-padding{
+            padding: 10px;
+            border: 1px solid #ffc107;
+            width: 80%;
         }
     </style>
 </head>
@@ -201,51 +208,46 @@
     </div>
 
     <div id="Wydarzenia period" class="tabcontent">
-        <table  class="table table-striped table-bordered table-hover table-sm bg-white"
-               cellspacing="0">
-            <thead>
-            <tr class="bg-dark text-white">
-                <th class="th-sm text-left">
+        <div class="container-fluid bg-dark text-white row-padding">
+            <div class="row">
+                <div class="col-sm-5 col-lg-5">
                     Od:
                     <input type="date" id="date1" value="2020-06-01">
                     <input type="time" id="time1" value="00:00:00">
-                </th>
-                <th class="th-sm text-left">
+                </div>
+                <div class="col-sm-5 col-lg-5">
                     Do:
                     <input type="date" id="date2" value="2022-06-01">
                     <input type="time" id="time2" value="23:59:59">
-                </th>
-                <th class="th-sm text-right">
+                </div>
+                <div class="col-sm-2 col-lg-2">
                     <button class="btn btn-light" onclick="load1()">Załaduj</button>
-                </th>
-            </tr>
-            </thead>
-        </table>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <canvas id="myBarChart3" width="100" height="55"></canvas>
         </div>
     </div>
 
     <div id="Organizatorzy period" class="tabcontent">
-        <table  class="table table-striped table-bordered table-hover table-sm bg-white"
-               cellspacing="0">
-            <thead>
-            <tr class="bg-dark text-white">
-                <th class="th-sm text-left">
+        <div class="container-fluid bg-dark text-white row-padding">
+            <div class="row">
+                <div class="col-sm-5 col-lg-5">
                     Od:
                     <input type="date" id="date3" value="2020-06-01">
                     <input type="time" id="time3" value="00:00:00">
-                </th>
-                <th class="th-sm text-left">
+                </div>
+                <div class="col-sm-5 col-lg-5">
                     Do:
                     <input type="date" id="date4" value="2022-06-01">
                     <input type="time" id="time4" value="23:59:59">
-                </th>
-                <th class="th-sm text-right">
+                </div>
+                <div class="col-sm-2 col-lg-2">
                     <button class="btn btn-light" onclick="load2()">Załaduj</button>
-                </th>
-            </thead>
-        </table>
+                </div>
+            </div>
+        </div>
         </tr>
         <div class="container">
             <canvas id="myBarChart4" width="100" height="40"></canvas>
