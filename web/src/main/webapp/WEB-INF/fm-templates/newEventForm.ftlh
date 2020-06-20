@@ -29,7 +29,7 @@
 <div class="container">
     <div class="jumbotron">
         <h1 class="display-4">Formularz dodawania nowego wydarzenia</h1><br>
-        <form method="post" action="/add-event">
+        <form method="post" action="/add-event" enctype="multipart/form-data">
             <span class="font-weight-bold">Nazwa wydarzenia: <input type="text" name="name" class="m-2" required/></span><br>
             <span class="font-weight-bold">Organizator:
                 <select class="m-2" name="organizersDesignation" id="organizersDesignation">
@@ -56,6 +56,7 @@
                 <span class="font-weight-bold">Cena biletu ulgowego: <input type="number" name="reducedTicket" class="m-2" min="1" step="1"/></span><br>
             </div>
             <span class="font-weight-bold">Opis: <input type="text" name="descLong" class="m-2"/></span><br>
+            <span class="font-weight-bold">Zdjęcie: <input type="file" name="image"/></span><br>
             <button type="submit" class="btn btn-primary btn-lg">Zapisz</button>
         </form>
     </div>

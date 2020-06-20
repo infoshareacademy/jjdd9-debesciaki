@@ -3,6 +3,8 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.service.FileUploadBean;
+
 import com.infoshareacademy.service.OrganizerViewService;
 import com.infoshareacademy.service.event.EventViewService;
 import freemarker.template.Template;
@@ -13,15 +15,18 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+@MultipartConfig
 @WebServlet("/add-event")
 public class NewEventServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(NewEventServlet.class.getName());
@@ -34,6 +39,9 @@ public class NewEventServlet extends HttpServlet {
 
     @EJB
     OrganizerViewService organizerViewService;
+
+    @Inject
+    private FileUploadBean fileUploadBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -89,6 +97,10 @@ public class NewEventServlet extends HttpServlet {
         }
 
         newEvent.setDescLong(req.getParameter("descLong"));
+
+        Part image = req.getPart("image");
+        newEvent.setFileName("/images/" + fileUploadBean.uploadFile(image).getName());
+
 
         eventViewService.newEvent(newEvent);
         resp.setContentType("text/html; charset=UTF-8");

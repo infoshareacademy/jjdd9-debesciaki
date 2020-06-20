@@ -194,8 +194,9 @@ public class EventDao {
         }
     }
 
-    public void save(Event event) {
+    public Event save(Event event) {
         entityManager.persist(event);
         event.setApiId(event.getId());
+        return event;
     }
 }

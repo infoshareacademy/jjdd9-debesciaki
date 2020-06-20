@@ -34,6 +34,9 @@ public class EventViewService {
     TicketDao ticketDao;
 
     @Inject
+    AttachmentDao attachmentDao;
+
+    @Inject
     private UserService userService;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
@@ -189,13 +192,15 @@ public class EventViewService {
         eventView.setNumberOfTickets(event.getTicket().getNumberOfTickets());
         eventView.setWebsite(Optional.ofNullable(event.getUrls().getWww()).isPresent() ? event.getUrls().getWww() : "Brak strony internetowej");
         eventView.setFacebook(Optional.ofNullable(event.getUrls().getFb()).isPresent() ? event.getUrls().getFb() : "Brak profilu na facebooku");
-        eventView.setFileName((Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && event.getAttachments().get(0).getFileName().contains("http")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
+        eventView.setFileName(Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && (event.getAttachments().get(0).getFileName().contains("http") || event.getAttachments().get(0).getFileName().contains("tmp")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
 
         return eventView;
     }
 
     public void newEvent(EventView eventView) {
         Event event = new Event();
+        List<Attachment> attachmentList = List.of(attachmentDao.save(eventView.getFileName()));
+
         event.setName(eventView.getName());
         event.setActive(1);
         event.setCategory(categoryDao.create(eventView.getCategoryName()));
@@ -204,13 +209,15 @@ public class EventViewService {
         event.setUrls(urlsDao.save(eventView.getWebsite()));
         event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setAttachments(attachmentList);
         if (eventView.getTicket().equals("free")) {
             event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getNumberOfTickets()));
         } else {
             event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getMinTicketPrice(), eventView.getMaxTicketPrice(), eventView.getNumberOfTickets()));
         }
         event.setDescLong(eventView.getDescLong());
-        eventDao.save(event);
+        Event eventAfterSave = eventDao.save(event);
+        attachmentList.get(0).setId(eventAfterSave.getId());
     }
 
     public List<EventView> listEvents(Integer firstResult, String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {
