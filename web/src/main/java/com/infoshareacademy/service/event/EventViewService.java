@@ -215,10 +215,17 @@ public class EventViewService {
 
     public void newEvent(EventView eventView, AddressView addressView, PlaceView placeView) {
         Event event = new Event();
+        Address address = addressViewService.mapper(addressView);
+        Place place = placeViewService.mapper(placeView);
+        place.setAddress(address);
+        Place placeAfterSave = placeDao.create(place);
+        placeAfterSave.setApiId(placeAfterSave.getId());
+        placeDao.update(placeAfterSave);
+
         event.setName(eventView.getName());
         event.setActive(1);
         event.setCategory(categoryDao.create(eventView.getCategoryName()));
-        event.setPlace(placeDao.create(placeViewService.mapper(placeView), addressViewService.mapper(addressView)));
+        event.setPlace(placeAfterSave);
         event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
         if(!eventView.getWebsite().isEmpty()) {
             event.setUrls(urlsDao.save(eventView.getWebsite()));

@@ -53,8 +53,8 @@
             <nobr>Miasto: <input type="text" name="city" id="city" class="m-2"/> Kod pocztowy: <input type="text" name="zipCode" id="zipCode" class="m-2" onblur="validateZipCode(this)" title="Format xx-xxx" maxlength="6" /></nobr></span><br>
             <span class="font-weight-bold">Kategoria: <input type="text" name="category" class="m-2" required/></span><br>
             <span class="font-weight-bold">Adres strony internetowej: <input type="url" name="url" class="m-2"/></span><br>
-            <span class="font-weight-bold">Data rozpoczęcia: <input type="datetime-local" name="startDate" class="m-2" required/></span><br>
-            <span class="font-weight-bold">Data zakończenia: <input type="datetime-local" name="endDate" class="m-2" required/></span><br>
+            <span class="font-weight-bold">Data rozpoczęcia: <input type="date" name="startDate" class="m-2" required/><input type="time" name="startTime" class="m-2" required/></span><br>
+            <span class="font-weight-bold">Data zakończenia: <input type="date" name="endDate" class="m-2" required/><input type="time" name="endTime" class="m-2" required/></span></span><br>
             <nobr><span class="font-weight-bold">Typ biletów:
                 <select class="m-2" onchange="freePay(this)" name="typeOfTicket">
                     <option value="free" name="free">bezpłatne</option>
@@ -83,7 +83,7 @@
         }
     }
     function validateZipCode(code) {
-        if (!code.value.match(/^dd-ddd$/)) {
+        if (!code.value.match(/^\d{2}-\d{3}$/)) {
             code.value="";
             alert("Wprowadzono błędny kod pocztowy");
         }

@@ -89,8 +89,8 @@ public class NewEventServlet extends HttpServlet {
         newEvent.setOrganizerName(req.getParameter("organizersDesignation"));
         newEvent.setCategoryName(req.getParameter("category"));
         newEvent.setWebsite(req.getParameter("url"));
-        newEvent.setStartDate(req.getParameter("startDate"));
-        newEvent.setEndDate(req.getParameter("endDate"));
+        newEvent.setStartDate(req.getParameter("startDate").concat("T").concat(req.getParameter("startTime")));
+        newEvent.setEndDate(req.getParameter("endDate").concat("T").concat(req.getParameter("endTime")));
         newEvent.setTicket(req.getParameter("typeOfTicket"));
         newEvent.setNumberOfTickets(Integer.valueOf(req.getParameter("numberOfTickets")));
         if(newEvent.getTicket().equals("tickets")) {

@@ -59,11 +59,13 @@ public class PlaceDao {
         return place;
     }
 
-    public Place create(Place place, Long addressId) {
-        Place placeToSave = place;
-        placeToSave.setAddress(addressDao.findById(addressId).get());
-        entityManager.persist(placeToSave);
-        return placeToSave;
+    public Place create(Place place) {
+        entityManager.persist(place);
+        return place;
+    }
+
+    public void update(Place place) {
+        entityManager.merge(place);
     }
 
 }

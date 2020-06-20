@@ -13,12 +13,13 @@ public class AddressViewService {
     @Inject
     AddressDao addressDao;
 
-    public Long mapper(AddressView addressView) {
+    public Address mapper(AddressView addressView) {
         Address address = new Address();
         address.setCity(addressView.getCity());
         address.setStreet(addressView.getStreet());
         address.setZipcode(addressView.getZipCode());
-        return addressDao.save(address);
+        address.setId(addressDao.save(address));
+        return address;
     }
 
 }

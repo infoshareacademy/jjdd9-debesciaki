@@ -1,5 +1,6 @@
 package com.infoshareacademy.service;
 
+import com.infoshareacademy.domain.entity.Address;
 import com.infoshareacademy.domain.entity.Place;
 import com.infoshareacademy.domain.view.PlaceView;
 import com.infoshareacademy.repository.PlaceDao;
