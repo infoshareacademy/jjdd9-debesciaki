@@ -1,10 +1,17 @@
+Ulgowy <input type="checkbox" id ="isRedu" value="Ulgowy" aria-label="Ulgowy" name="Ulgowy"><br/>
 <button class="btn btn-success" onclick="sendReservationRequest(${event.id}, '${email}')">
 Zarezerwuj
 </button>
 
 <script>
     function sendReservationRequest(eventId, mail){
-        addressForRequest ="/api/request-reservation/"+mail+"/"+eventId;
+        redu = document.getElementById("isRedu").checked;
+        if (redu==true){
+            addressForRequest ="/api/request-reservation/"+mail+"/r/"+eventId;
+        }else{
+            addressForRequest ="/api/request-reservation/"+mail+"/f/"+eventId;
+        }
+
         console.log(addressForRequest)
         $.ajax({
             url: addressForRequest,

@@ -15,10 +15,18 @@ public class ReservationController {
     private ReservationService reservationService;
 
     @GET
-    @Path("/{userMail}/{eventId}")
-    public Response requestReservation(@PathParam("userMail") String mail, @PathParam("eventId") Long eventId) {
+    @Path("/{userMail}/f/{eventId}")
+    public Response requestReservationFull(@PathParam("userMail") String mail, @PathParam("eventId") Long eventId) {
         return Response.status(Response.Status.OK)
-                .entity(reservationService.requestReservation(eventId, mail))
+                .entity(reservationService.requestReservation(eventId, mail, true))
+                .build();
+    }
+
+    @GET
+    @Path("/{userMail}/r/{eventId}")
+    public Response requestReservationRedu(@PathParam("userMail") String mail, @PathParam("eventId") Long eventId) {
+        return Response.status(Response.Status.OK)
+                .entity(reservationService.requestReservation(eventId, mail,false))
                 .build();
     }
 

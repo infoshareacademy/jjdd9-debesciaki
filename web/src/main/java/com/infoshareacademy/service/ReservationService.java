@@ -35,7 +35,7 @@ public class ReservationService {
     private MailService mailService;
 
 
-    public String requestReservation(Long eventId, String mail) {
+    public String requestReservation(Long eventId, String mail, Boolean isFull) {
 
         Optional<Event> eventOptional = eventDao.findById(eventId);
         Optional<User> userOptional = userDao.findByEmail(mail);
@@ -44,10 +44,22 @@ public class ReservationService {
             Reservation reservation = new Reservation();
 
             Event event = eventOptional.get();
+            Optional<Long> ticketAmount = Optional.ofNullable(event.getTicketAmount());
+            if (ticketAmount.isPresent()) {
+                if (ticketAmount.get() > 0) {
+                    event.setTicketAmount(ticketAmount.get() - 1L);
+                    eventDao.update(event);
+                } else {
+                    return "Brak biletów na wydarzenie";
+                }
+            } else {
+                return "Brak biletów na wydarzenie";
+            }
 
             reservation.setEvent(event);
+            reservation.setFull(isFull);
             reservation.setUser(userOptional.get());
-            reservation.setExpirationDate(LocalDateTime.now().plusMinutes(15L));
+            reservation.setExpirationDate(LocalDateTime.now().plusMinutes(3L));
             reservation.setConfirmed(Boolean.FALSE);
 
             String token = RandomStringUtils.randomAlphabetic(10);
@@ -55,7 +67,7 @@ public class ReservationService {
 
             reservationDao.save(reservation);
 
-            mailService.sendEmail(new ReservationTokenMail(event.getName(),"http://localhost:8080/api/request-reservation/consume/" +token), mail);
+            mailService.sendEmail(new ReservationTokenMail(event.getName(), "http://localhost:8080/api/request-reservation/consume/" + token), mail);
             return "Udało się wysłać zapytanie o rezerwację!";
         } else {
             STDLOG.error("Failed at finding event that is supposed to be reserved, probabble wrong ID passed or problem with finding user in database");
@@ -69,10 +81,8 @@ public class ReservationService {
             Reservation reservation = optionalReservation.get();
 
             if (LocalDateTime.now().isAfter(reservation.getExpirationDate())) {
-                reservationDao.delete(reservation);
-                return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
+               return deleteReservation(reservation);
             }
-
             reservation.setConfirmed(Boolean.TRUE);
             reservationDao.update(reservation);
 
@@ -80,5 +90,16 @@ public class ReservationService {
         } else {
             return "Link potwierdzający jest niepoprawny";
         }
+    }
+
+    public String deleteReservation(Reservation reservation){
+        Optional<Event> eventOptional = eventDao.findById(reservation.getId());
+        Event event = eventOptional.get();
+
+        event.setTicketAmount(event.getTicketAmount() + 1L);
+        eventDao.update(event);
+        reservationDao.delete(reservation);
+
+        return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
     }
 }

@@ -24,7 +24,7 @@
                 </td>
             </tr>
         </table>
-        <#if event.ticket == "bilety">
+        <#if event.ticket == "bilety" && (role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN")>
             <br/>
             <#include "reservationButton.ftlh">
         </#if>

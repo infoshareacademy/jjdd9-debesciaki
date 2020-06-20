@@ -20,6 +20,10 @@ public class Reservation {
 
     private Boolean confirmed;
 
+    @Column(name = "is_full")
+    private Boolean isFull;
+
+    @Column(name = "expiration_date")
     private LocalDateTime expirationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -77,5 +81,13 @@ public class Reservation {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Boolean getFull() {
+        return isFull;
+    }
+
+    public void setFull(Boolean full) {
+        isFull = full;
     }
 }
