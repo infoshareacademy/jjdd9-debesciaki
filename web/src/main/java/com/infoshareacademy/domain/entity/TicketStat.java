@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
         ),
         @NamedQuery(
                 name = "TicketStat.findByEventId",
-                query = "SELECT t FROM TicketStat t WHERE t.event = :event"
+                query = "SELECT t FROM TicketStat t WHERE t.event.id = :eventId"
         )
 })
 @Entity
@@ -21,7 +21,7 @@ public class TicketStat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id", unique = true)
     private Event event;
 
