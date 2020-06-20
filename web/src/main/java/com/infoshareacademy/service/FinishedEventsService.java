@@ -2,6 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
+import com.infoshareacademy.mail.MailService;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.service.favourite.FavouriteRestService;
 
@@ -32,7 +33,7 @@ public class FinishedEventsService {
             for (User u : users) {
                 favouriteRestService.removeFavourite(u.getMail(), e.getId());
             }
-            mailService.sendMailOnFinished(e);
+            mailService.sendMailsOnFinished(e);
             STDLOG.info("Mails sent to all users.");
         }
     }
