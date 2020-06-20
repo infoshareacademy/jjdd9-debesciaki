@@ -22,7 +22,7 @@ public class EventFinishedMail implements MailCore {
 
     @Override
     public String buildContent() {
-        return String.format(EMAIL_BODY, var[1]);
+        return String.format(EMAIL_BODY, var[0]);
     }
 }
 

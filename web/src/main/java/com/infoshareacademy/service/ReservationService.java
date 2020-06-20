@@ -3,8 +3,8 @@ package com.infoshareacademy.service;
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.Reservation;
 import com.infoshareacademy.domain.entity.User;
-import com.infoshareacademy.mail.EventFinishedMail;
 import com.infoshareacademy.mail.MailService;
+import com.infoshareacademy.mail.ReservationTokenMail;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.repository.ReservationDao;
 import com.infoshareacademy.repository.UserDao;
@@ -35,7 +35,7 @@ public class ReservationService {
     private MailService mailService;
 
 
-    public void requestReservation(Long eventId, String mail) {
+    public String requestReservation(Long eventId, String mail) {
 
         Optional<Event> eventOptional = eventDao.findById(eventId);
         Optional<User> userOptional = userDao.findByEmail(mail);
@@ -43,7 +43,9 @@ public class ReservationService {
         if (eventOptional.isPresent() && userOptional.isPresent()) {
             Reservation reservation = new Reservation();
 
-            reservation.setEvent(eventOptional.get());
+            Event event = eventOptional.get();
+
+            reservation.setEvent(event);
             reservation.setUser(userOptional.get());
             reservation.setExpirationDate(LocalDateTime.now().plusMinutes(15L));
             reservation.setConfirmed(Boolean.FALSE);
@@ -52,18 +54,21 @@ public class ReservationService {
             reservation.setToken(token);
 
             reservationDao.save(reservation);
-            mailService.sendEmail(new EventFinishedMail(token, token), mail);
+
+            mailService.sendEmail(new ReservationTokenMail(event.getName(),"http://localhost:8080/api/request-reservation/consume/" +token), mail);
+            return "Udało się wysłać zapytanie o rezerwację!";
         } else {
             STDLOG.error("Failed at finding event that is supposed to be reserved, probabble wrong ID passed or problem with finding user in database");
+            return "Błąd przy wysyłaniu zapytania o rezerwację!";
         }
     }
 
-    public String consumeToken(String token){
+    public String consumeToken(String token) {
         Optional<Reservation> optionalReservation = reservationDao.findByToken(token);
-        if (optionalReservation.isPresent()){
+        if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
 
-            if (LocalDateTime.now().isAfter(reservation.getExpirationDate())){
+            if (LocalDateTime.now().isAfter(reservation.getExpirationDate())) {
                 reservationDao.delete(reservation);
                 return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
             }
@@ -72,7 +77,7 @@ public class ReservationService {
             reservationDao.update(reservation);
 
             return "Dokonano potwierdzenia rezerwacji";
-        }else{
+        } else {
             return "Link potwierdzający jest niepoprawny";
         }
     }
