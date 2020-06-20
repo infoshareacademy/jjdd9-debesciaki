@@ -173,9 +173,13 @@ public class EventDao {
         return query.getResultList();
     }
 
-    public void persistEntityList(List<Event> list) throws IOException {
+    public void persistEntityList(List<Event> list) {
         for (Event o : list) {
             entityManager.persist(o);
         }
+    }
+
+    public void update(Event event) {
+        entityManager.merge(event);
     }
 }
