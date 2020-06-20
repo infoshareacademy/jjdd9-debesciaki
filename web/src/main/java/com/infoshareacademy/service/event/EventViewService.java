@@ -215,7 +215,9 @@ public class EventViewService {
 
     public void newEvent(EventView eventView, AddressView addressView, PlaceView placeView) {
         Event event = new Event();
+
         Address address = addressViewService.mapper(addressView);
+
         Place place = placeViewService.mapper(placeView);
         place.setAddress(address);
         Place placeAfterSave = placeDao.create(place);
@@ -238,6 +240,7 @@ public class EventViewService {
             event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getMinTicketPrice(), eventView.getMaxTicketPrice(), eventView.getNumberOfTickets()));
         }
         event.setDescLong(eventView.getDescLong());
+        eventDao.save(event);
     }
 
     public List<EventView> listEvents(Integer firstResult, String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {
