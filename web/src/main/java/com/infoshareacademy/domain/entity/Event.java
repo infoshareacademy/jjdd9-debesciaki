@@ -95,6 +95,9 @@ public class Event {
     @JoinColumn(name = "ticket_id", unique = true)
     private Ticket ticket;
 
+    @OneToOne(mappedBy = "event")
+    private TicketStat ticketStat;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "urls_id", unique = true)
     private Urls urls;
@@ -224,5 +227,13 @@ public class Event {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public TicketStat getTicketStat() {
+        return ticketStat;
+    }
+
+    public void setTicketStat(TicketStat ticketStat) {
+        this.ticketStat = ticketStat;
     }
 }

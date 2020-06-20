@@ -3,6 +3,7 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.service.stat.ViewStatService;
 import com.infoshareacademy.service.event.EventViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -28,6 +29,9 @@ public class ShowSingleEventServlet extends HttpServlet {
     @Inject
     private TemplateProvider templateProvider;
 
+    @Inject
+    private ViewStatService viewStatService;
+
     @EJB
     private EventViewService eventViewService;
 
@@ -41,6 +45,8 @@ public class ShowSingleEventServlet extends HttpServlet {
         Long eventIdToShow = Long.parseLong(req.getParameter("event"));
         EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
         String previous = req.getHeader("referer");
+
+        viewStatService.persistSingleView(contextHolder.getEmail(), eventIdToShow);
 
         dataModel.put("email", contextHolder.getEmail());
         dataModel.put("event", event);

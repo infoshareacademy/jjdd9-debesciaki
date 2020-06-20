@@ -3,6 +3,7 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.util.StringToLocalDateTime;
 import com.infoshareacademy.service.event.EventViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -154,7 +155,7 @@ public class ShowEventsServlet extends HttpServlet {
         if (startDateStrOpt.isPresent() && !startDateStrOpt.isEmpty()) {
             startDateStr = startDateStrOpt.get();
             String conRdyStart = startDateStr.concat(" 00:00:00");
-            start = stringToDate(conRdyStart);
+            start = StringToLocalDateTime.process(conRdyStart);
         } else {
             startDateStr = (LocalDateTime.now().getYear() - 1) + "-01-01";
             start = LocalDateTime.now().minusYears(1L);
@@ -166,7 +167,7 @@ public class ShowEventsServlet extends HttpServlet {
         if (endDateStrOpt.isPresent() && !endDateStrOpt.isEmpty()) {
             endDateStr = endDateStrOpt.get();
             String conRdyEnd = endDateStr.concat(" 23:59:59");
-            end = stringToDate(conRdyEnd);
+            end = StringToLocalDateTime.process(conRdyEnd);
         } else {
             endDateStr = (LocalDateTime.now().getYear() + 2) + "-12-30";
             end = LocalDateTime.now().plusYears(2L);
@@ -248,10 +249,6 @@ public class ShowEventsServlet extends HttpServlet {
         }
     }
 
-    private LocalDateTime stringToDate(String in) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return LocalDateTime.parse(in, formatter);
-    }
 
     private void noResultsFound(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
