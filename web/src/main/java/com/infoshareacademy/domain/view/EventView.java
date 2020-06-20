@@ -17,6 +17,9 @@ public class EventView {
     private String organizerName;
     private String placeName;
     private String placeSubname;
+    private String placeCity;
+    private String placeZipcode;
+    private String placeStreet;
     private String ticket;
     private Integer numberOfTickets;
     private Integer minTicketPrice;
@@ -191,5 +194,29 @@ public class EventView {
 
     public void setEndDateLocal(LocalDateTime endDateLocal) {
         this.endDateLocal = endDateLocal;
+    }
+
+    public String getPlaceCity() {
+        return placeCity;
+    }
+
+    public void setPlaceCity(String placeCity) {
+        this.placeCity = placeCity;
+    }
+
+    public String getPlaceZipcode() {
+        return placeZipcode;
+    }
+
+    public void setPlaceZipcode(String placeZipcode) {
+        this.placeZipcode = placeZipcode;
+    }
+
+    public String getPlaceStreet() {
+        return placeStreet;
+    }
+
+    public void setPlaceStreet(String placeStreet) {
+        this.placeStreet = placeStreet;
     }
 }

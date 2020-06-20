@@ -2,6 +2,16 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(
+                name = "Address.findById",
+                query = "SELECT a FROM Address a WHERE a.id=:id"
+        ),
+        @NamedQuery(
+                name = "Address.findByStreetAndZipAndCity",
+                query = "SELECT a FROM Address a WHERE a.city=:city AND a.street=:street AND a.zipcode=:zip"
+        )
+})
 @Entity
 @Table(name = "address")
 public class Address {

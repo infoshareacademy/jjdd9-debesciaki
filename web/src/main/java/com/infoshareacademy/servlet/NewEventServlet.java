@@ -2,6 +2,8 @@ package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
+import com.infoshareacademy.domain.view.AddressView;
+import com.infoshareacademy.domain.view.PlaceView;
 import com.infoshareacademy.freemarker.TemplateProvider;
 import com.infoshareacademy.service.FileUploadBean;
 
@@ -20,7 +22,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -81,28 +82,33 @@ public class NewEventServlet extends HttpServlet {
         dataModel.put("role", contextHolder.getRole());
 
         EventView newEvent = new EventView();
+        AddressView addressView = new AddressView();
+        PlaceView placeView = new PlaceView();
+
         newEvent.setName(req.getParameter("name"));
         newEvent.setOrganizerName(req.getParameter("organizersDesignation"));
         newEvent.setCategoryName(req.getParameter("category"));
-        newEvent.setPlaceName(req.getParameter("place"));
         newEvent.setWebsite(req.getParameter("url"));
         newEvent.setStartDate(req.getParameter("startDate"));
         newEvent.setEndDate(req.getParameter("endDate"));
         newEvent.setTicket(req.getParameter("typeOfTicket"));
         newEvent.setNumberOfTickets(Integer.valueOf(req.getParameter("numberOfTickets")));
-
         if(newEvent.getTicket().equals("tickets")) {
             newEvent.setMinTicketPrice(Integer.valueOf(req.getParameter("reducedTicket")));
             newEvent.setMaxTicketPrice(Integer.valueOf(req.getParameter("normalTicket")));
         }
-
         newEvent.setDescLong(req.getParameter("descLong"));
+      /*  Part image = req.getPart("image");
+        newEvent.setFileName("/images/" + fileUploadBean.uploadFile(image).getName()); */
 
-        Part image = req.getPart("image");
-        newEvent.setFileName("/images/" + fileUploadBean.uploadFile(image).getName());
+        addressView.setCity(req.getParameter("city"));
+        addressView.setStreet(req.getParameter("street"));
+        addressView.setZipCode(req.getParameter("zipCode"));
 
+        placeView.setName(req.getParameter("placeName"));
+        placeView.setSubname(req.getParameter("placeSubname"));
 
-        eventViewService.newEvent(newEvent);
+        eventViewService.newEvent(newEvent, addressView, placeView);
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.sendRedirect("show-events?action=showAll&page=1");

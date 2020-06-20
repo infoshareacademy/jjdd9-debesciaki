@@ -1,9 +1,11 @@
 package com.infoshareacademy.repository;
 
+import com.infoshareacademy.domain.entity.Address;
 import com.infoshareacademy.domain.entity.Category;
 import com.infoshareacademy.domain.entity.Place;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,6 +17,9 @@ import java.util.Optional;
 public class PlaceDao {
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Inject
+    AddressDao addressDao;
 
     public Optional<Place> findByApiId(long id) {
         Query query = entityManager.createNamedQuery("Place.findByApiId");
@@ -35,6 +40,10 @@ public class PlaceDao {
 
     }
 
+    public List<Place> allPlacesList() {
+        Query query = entityManager.createNamedQuery("Place.findAll");
+        return query.getResultList();
+    }
 
     public void persistEntityList(List<Place> list) {
         for (Place p : list) {
@@ -48,6 +57,13 @@ public class PlaceDao {
         place.setSubname(subname);
         entityManager.persist(place);
         return place;
+    }
+
+    public Place create(Place place, Long addressId) {
+        Place placeToSave = place;
+        placeToSave.setAddress(addressDao.findById(addressId).get());
+        entityManager.persist(placeToSave);
+        return placeToSave;
     }
 
 }

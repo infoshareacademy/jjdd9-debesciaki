@@ -4,6 +4,7 @@ import jdk.jfr.Name;
 
 import javax.persistence.*;
 import java.util.List;
+
 @NamedQueries({
         @NamedQuery(
                 name = "Place.findByApiId",
@@ -12,6 +13,14 @@ import java.util.List;
         @NamedQuery(
                 name = "Place.findByNameAndSubname",
                 query = "SELECT p FROM Place p WHERE p.name=:name AND p.subname=:subname"
+        ),
+        @NamedQuery(
+                name = "Place.findAll",
+                query = "SELECT p FROM Place p"
+        ),
+        @NamedQuery(
+                name = "Place.findDistinctNames",
+                query = "SELECT DISTINCT p.name FROM Place p"
         )
 })
 @Entity

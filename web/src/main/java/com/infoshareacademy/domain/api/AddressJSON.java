@@ -1,11 +1,20 @@
 package com.infoshareacademy.domain.api;
 
 public class AddressJSON {
+    private Long id;
     private String street;
     private String zipcode;
     private String city;
     private double lat;
     private double lng;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getStreet() {
         return street;

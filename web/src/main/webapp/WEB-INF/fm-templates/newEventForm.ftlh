@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="pl-PL">
 <#include "headSection.ftlh">
+<style>
+    #city {
+        max-width: 50%;
+    }
+    #zipCode {
+        max-width: 10%;
+    }
+</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
@@ -39,7 +47,10 @@
                 </select>
                 <br><h6><a data-toggle="modal" href="#myModal" class="text-primary font-italic">Dodaj organizatora</a></h6>
             </span><br>
-            <span class="font-weight-bold">Miejsce: <input type="text" name="place" class="m-2" required/></span><br>
+            <span class="font-weight-bold">Główna nazwa miejsca: <input type="text" name="placeName" class="m-2" required/></span><br>
+            <span class="font-weight-bold">Dodatkowa nazwa miejsca: <input type="text" name="placeSubname" class="m-2"/></span><br>
+            <span class="font-weight-bold">Adres: <input type="text" name="street" class="m-2"/>
+            <nobr>Miasto: <input type="text" name="city" id="city" class="m-2"/> Kod pocztowy: <input type="text" name="zipCode" id="zipCode" class="m-2" onblur="validateZipCode(this)" title="Format xx-xxx" maxlength="6" /></nobr></span><br>
             <span class="font-weight-bold">Kategoria: <input type="text" name="category" class="m-2" required/></span><br>
             <span class="font-weight-bold">Adres strony internetowej: <input type="url" name="url" class="m-2"/></span><br>
             <span class="font-weight-bold">Data rozpoczęcia: <input type="datetime-local" name="startDate" class="m-2" required/></span><br>
@@ -56,7 +67,7 @@
                 <span class="font-weight-bold">Cena biletu ulgowego: <input type="number" name="reducedTicket" class="m-2" min="1" step="1"/></span><br>
             </div>
             <span class="font-weight-bold">Opis: <input type="text" name="descLong" class="m-2"/></span><br>
-            <span class="font-weight-bold">Zdjęcie: <input type="file" name="image"/></span><br>
+           <!-- <span class="font-weight-bold">Zdjęcie: <input type="file" name="image"/></span><br> -->
             <button type="submit" class="btn btn-primary btn-lg">Zapisz</button>
         </form>
     </div>
@@ -69,6 +80,12 @@
             document.getElementById("ifTickets").style.display = "block";
         } else {
             document.getElementById("ifTickets").style.display = "none";
+        }
+    }
+    function validateZipCode(code) {
+        if (!code.value.match(/^dd-ddd$/)) {
+            code.value="";
+            alert("Wprowadzono błędny kod pocztowy");
         }
     }
 </script>

@@ -30,7 +30,7 @@ public class OrganizerViewService {
             organizersList.add(mapper(organizer));
         }
 
-        Comparator<OrganizerJSON> compareByDesignation = (OrganizerJSON o1, OrganizerJSON o2) -> o1.getDesignation().compareTo(o2.getDesignation());
+        Comparator<OrganizerJSON> compareByDesignation = Comparator.comparing(OrganizerJSON::getDesignation);
         Collections.sort(organizersList, compareByDesignation);
 
         return organizersList;

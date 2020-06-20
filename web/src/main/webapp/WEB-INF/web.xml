@@ -12,11 +12,11 @@
     <data-source>
         <name>java:ds/eventsDS</name>
         <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-        <!--  <url>jdbc:mysql://0.0.0.0:3306/eventsdb?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>-->
-        <url>jdbc:mysql://mysql/eventsdb?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>
-        <user>root</user>
-        <password>root</password>
-    </data-source>
+       <url>jdbc:mysql://0.0.0.0:3306/eventsdb?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>
+        <!--  <url>jdbc:mysql://mysql/eventsdb?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Warsaw</url>-->
+       <user>root</user>
+       <password>root</password>
+   </data-source>
 
 
 </web-app>
