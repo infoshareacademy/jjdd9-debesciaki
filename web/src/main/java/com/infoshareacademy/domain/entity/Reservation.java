@@ -2,7 +2,12 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+@NamedQueries({
+        @NamedQuery(
+                name = "Reservation.findByToken",
+                query = "SELECT r FROM Reservation r WHERE r.token = :token"
+        ),
+})
 @Entity
 @Table(name = "reservation")
 public class Reservation {

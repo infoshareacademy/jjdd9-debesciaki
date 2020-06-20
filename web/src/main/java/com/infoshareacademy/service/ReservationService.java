@@ -57,4 +57,23 @@ public class ReservationService {
             STDLOG.error("Failed at finding event that is supposed to be reserved, probabble wrong ID passed or problem with finding user in database");
         }
     }
+
+    public String consumeToken(String token){
+        Optional<Reservation> optionalReservation = reservationDao.findByToken(token);
+        if (optionalReservation.isPresent()){
+            Reservation reservation = optionalReservation.get();
+
+            if (LocalDateTime.now().isAfter(reservation.getExpirationDate())){
+                reservationDao.delete(reservation);
+                return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
+            }
+
+            reservation.setConfirmed(Boolean.TRUE);
+            reservationDao.update(reservation);
+
+            return "Dokonano potwierdzenia rezerwacji";
+        }else{
+            return "Link potwierdzający jest niepoprawny";
+        }
+    }
 }

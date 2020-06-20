@@ -1,39 +1,49 @@
 package com.infoshareacademy.repository;
 
-import com.infoshareacademy.domain.entity.Category;
 import com.infoshareacademy.domain.entity.Reservation;
+import com.infoshareacademy.domain.entity.TicketStat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @Stateless
 public class ReservationDao {
+    private static final Logger STDLOG = LoggerFactory.getLogger(ReservationDao.class.getName());
+
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void save(Reservation reservation){
+    public void save(Reservation reservation) {
         entityManager.persist(reservation);
+        STDLOG.info("Success in persisting reservation token: {}", reservation.getToken());
     }
 
-    public Optional<Category> findById(long id) {
-        try {
-            return Optional.ofNullable(entityManager.find(Category.class, id));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public void update(Reservation reservation) {
+        entityManager.persist(reservation);
+        STDLOG.info("Success in updating reservation token: {}", reservation.getToken());
     }
 
-    public Optional<Category> findByApiId(long id) {
-        Query query = entityManager.createNamedQuery("Category.findByApiId");
-        query.setParameter("apiID", id);
-        try {
-            return Optional.ofNullable((Category) query.getSingleResult());
-        } catch (Exception e) {
+    public void delete(Reservation reservation) {
+        entityManager.remove(reservation);
+        STDLOG.info("Success in deleting reservation token: {} \n Probable cause : expired link", reservation.getToken());
+    }
+
+    public Optional<Reservation> findByToken(String token) {
+        Query query = entityManager.createNamedQuery("Reservation.findByToken");
+        query.setParameter("token", token);
+
+        List result = query.getResultList();
+        if (!result.isEmpty()) {
+            STDLOG.info("Success in searching for reservation by token");
+            return Optional.ofNullable((Reservation) result.get(0));
+        } else {
+            STDLOG.error("Problems during searching for reservation by token");
             return Optional.empty();
         }
     }
