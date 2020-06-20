@@ -1,16 +1,12 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.EventViewService;
-import com.infoshareacademy.service.stat.ViewStatService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,35 +18,25 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet("show-one-event")
-public class ShowSingleEventServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+@WebServlet("/stat")
+public class StatPageServlet extends HttpServlet {
+    private static final Logger STDLOG = LoggerFactory.getLogger(StatPageServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;
 
-    @Inject
-    private ViewStatService viewStatService;
-
-    @EJB
-    private EventViewService eventViewService;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "singleEventPage.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "stat.ftlh");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
-        dataModel.put("role", contextHolder.getRole());
-
-        Long eventIdToShow = Long.parseLong(req.getParameter("event"));
-        EventView event = eventViewService.prepareSingleEvent(eventIdToShow);
         String previous = req.getHeader("referer");
-
-        viewStatService.persistSingleView(contextHolder.getEmail(), eventIdToShow);
+        dataModel.put("previous", previous);
 
         dataModel.put("email", contextHolder.getEmail());
-        dataModel.put("event", event);
-        dataModel.put("previous", previous);
+        dataModel.put("role", contextHolder.getRole());
+
+        req.setCharacterEncoding("UTF-8");
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
@@ -61,5 +47,6 @@ public class ShowSingleEventServlet extends HttpServlet {
         } catch (TemplateException e) {
             STDLOG.error("Template for main page error");
         }
+
     }
 }

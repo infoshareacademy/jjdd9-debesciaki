@@ -23,7 +23,7 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+        //TODO adnotacja mail
     @Column(name = "mail")
     @NotNull
     private String mail;

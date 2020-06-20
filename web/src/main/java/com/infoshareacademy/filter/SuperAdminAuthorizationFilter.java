@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @WebFilter(
         filterName = "SuperAdminAuthorizationFilter",
-        urlPatterns = {"/upload-rest", "/upload-pla", "/upload-org", "/upload-cat", "/upload-eve"}
+        urlPatterns = {"/upload-rest", "/upload-pla", "/upload-org", "/upload-cat", "/upload-eve" , "/stat"}
 )
 public class SuperAdminAuthorizationFilter implements Filter {
     @Override
