@@ -6,5 +6,4 @@ app/target
 *.iml
 web/.idea
 app/.idea
-node_modules
 web/src/main/resources/settings.properties
