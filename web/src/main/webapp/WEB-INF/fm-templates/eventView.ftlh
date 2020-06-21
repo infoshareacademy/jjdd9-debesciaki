@@ -21,13 +21,13 @@
                     <#if event.facebook != "Brak profilu na facebooku"><span class="font-weight-bold"><br>Facebook: </span><a href="${event.facebook}">${event.facebook}</a></#if>
                     <span class="font-weight-bold text-center"><br>Opis wydarznia: </span><br>
                     <p>${event.descLong?no_esc}</p>
+                    <#if event.ticket == "bilety" && (role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN")>
+                        <br/>
+                        <#include "reservationButton.ftlh">
+                    </#if>
                 </td>
             </tr>
         </table>
-        <#if event.ticket == "bilety" && (role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN")>
-            <br/>
-            <#include "reservationButton.ftlh">
-        </#if>
         <h6 class="text-right"><a href="${previous}" class="text-primary font-italic">Powrót do listy wydarzeń</a></h6>
     </div>
 </div>

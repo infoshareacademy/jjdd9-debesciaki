@@ -6,11 +6,11 @@
                    cellspacing="0">
                 <thead>
                 <tr class="bg-dark text-white">
-                    <th class="th-sm text-center" width="25%">Nazwa</th>
-                    <th class="th-sm text-center" width="25%">Organizator</th>
+                    <th class="th-sm text-center" width="30%">Nazwa</th>
+                    <th class="th-sm text-center" width="20%">Organizator</th>
                     <th class="th-sm text-center" width="15%">Data rozpoczęcia</th>
                     <th class="th-sm text-center" width="15%">Data zakończenia</th>
-                    <th class="th-sm text-center" width="5%"></th>
+                    <th class="th-sm text-center" width="5%">Usuń rezerwacje</th>
                     <th class="th-sm text-center" width="10%">Typ rezerwacji</th>
                     <th class="th-sm text-center" width="5%">Potwierdzenie</th>
                 </tr>
