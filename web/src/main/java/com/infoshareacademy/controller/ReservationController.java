@@ -37,9 +37,6 @@ public class ReservationController {
 
         java.net.URI location = new java.net.URI("http://debesciaki.jjdd9.is-academy.pl/token?msg="+reservationService.consumeToken(token));
         return Response.temporaryRedirect(location).build();
-        /*return Response.status(Response.Status.OK)
-                .entity(reservationService.consumeToken(token))
-                .build();*/
     }
 
     @DELETE
