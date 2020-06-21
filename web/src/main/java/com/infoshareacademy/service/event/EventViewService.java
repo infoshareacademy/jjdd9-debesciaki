@@ -53,8 +53,6 @@ public class EventViewService {
     private AddressViewService addressViewService;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public List<EventView> prepareFavouriteEvents(int firstResult, String email) {
         List<EventView> eventsList = new ArrayList<>();
@@ -225,24 +223,34 @@ public class EventViewService {
         Event event = new Event();
 
         Address address = addressViewService.mapper(addressView);
-
         Place place = placeViewService.mapper(placeView);
         place.setAddress(address);
-        Place placeAfterSave = placeDao.create(place);
+        placeDao.create(place);
+
+        Urls url = new Urls();
+        url.setWww(eventView.getWebsite());
+        urlsDao.save(url);
+
+        Ticket ticket = new Ticket();
+        ticket.setType(eventView.getTicket());
+        if (eventView.getTicket().equals("free")) {
+            ticket.setNumberOfTickets(eventView.getNumberOfTickets());
+        } else {
+            ticket.setNumberOfTickets(eventView.getNumberOfTickets());
+            ticket.setStartTicket(eventView.getMinTicketPrice());
+            ticket.setEndTicket(eventView.getMaxTicketPrice());
+        }
+        ticketDao.save(ticket);
 
         event.setName(eventView.getName());
         event.setActive(1);
         event.setCategory(categoryDao.create(eventView.getCategoryName()));
-        event.setPlace(placeAfterSave);
+        event.setPlace(place);
         event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
-        event.setUrls(urlsDao.save(eventView.getWebsite()));
+        event.setUrls(url);
         event.setStartDate(LocalDateTime.parse(eventView.getStartDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         event.setEndDate(LocalDateTime.parse(eventView.getEndDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        if (eventView.getTicket().equals("free")) {
-            event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getNumberOfTickets()));
-        } else {
-            event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getMinTicketPrice(), eventView.getMaxTicketPrice(), eventView.getNumberOfTickets()));
-        }
+        event.setTicket(ticket);
         event.setTicketAmount(eventView.getNumberOfTickets().longValue());
         event.setDescLong(eventView.getDescLong());
         eventDao.save(event);
@@ -287,38 +295,6 @@ public class EventViewService {
     public void delete(Long id) {
         Event event = eventDao.findById(id).get();
         eventDao.delete(event);
-    }
-
-    public void update(EventView eventView) {
-        eventDao.update(mapperFromView(eventView));
-    }
-
-    private Event mapperFromView(EventView eventView) {
-        Event event = new Event();
-        event.setId(eventView.getId());
-        event.setApiId(eventView.getApiId());
-        event.setActive(1);
-        event.setName(eventView.getName());
-        if(!eventView.getFileName().equals(null)) {
-            event.setAttachments(List.of(attachmentDao.save(eventView.getFileName())));
-        } else {
-            event.setAttachments(null);
-        }
-        event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
-        event.setCategory(categoryDao.create(eventView.getCategoryName()));
-        event.setPlace(preparePlace(eventView));
-        event.setUrls(urlsDao.save(eventView.getWebsite()));
-        event.setStartDate(LocalDateTime.parse(eventView.getStartDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        event.setEndDate(LocalDateTime.parse(eventView.getEndDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-
-        if(eventView.getTicket().equals("free")) {
-            event.setTicket(ticketDao.save("free", eventView.getNumberOfTickets()));
-        } else {
-            event.setTicket(ticketDao.save("tickets",eventView.getMinTicketPrice(), eventView.getMaxTicketPrice(), eventView.getNumberOfTickets()));
-        }
-
-        event.setDescLong(eventView.getDescLong());
-        return event;
     }
 
     private Place preparePlace(EventView eventView) {

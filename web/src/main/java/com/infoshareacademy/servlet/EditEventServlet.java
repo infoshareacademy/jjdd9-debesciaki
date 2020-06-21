@@ -83,7 +83,7 @@ public class EditEventServlet extends HttpServlet {
         dataModel.put("email", contextHolder.getEmail());
         dataModel.put("role", contextHolder.getRole());
 
-        editEventService.updateEvent(httpReqMapperBean.map(req));
+        //editEventService.updateEvent(httpReqMapperBean.map(req));
 
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
