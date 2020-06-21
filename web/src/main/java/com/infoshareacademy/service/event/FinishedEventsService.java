@@ -4,7 +4,6 @@ import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.mail.MailService;
 import com.infoshareacademy.repository.EventDao;
-import com.infoshareacademy.service.MailService;
 import com.infoshareacademy.service.favourite.FavouriteRestService;
 
 import javax.ejb.Stateless;

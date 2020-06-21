@@ -44,7 +44,7 @@
                     <span class="font-weight-bold"><br>Kategoria: </span>${event.categoryName}
                     <span class="font-weight-bold"><br>Data rozpoczęcia: </span>${event.startDate}
                     <span class="font-weight-bold"><br>Data zakończenia: </span>${event.endDate}
-                    <span class="font-weight-bold"><br>Adres: </span><#if event.placeStreet??>${event.placeStreet}, </#if>${event.placeCity}
+                    <span class="font-weight-bold"><br>Adres: </span><#if event.placeStreet??>${event.placeStreet} </#if><#if event.placeZipcode??>,${event.placeZipcode} </#if><#if event.placeCity??>${event.placeCity}</#if>
                     <#if event.ticket == "wstęp wolny"><span class="font-weight-bold"><br>Wstęp wolny.</span></#if>
                     <span class="font-weight-bold"><br>Liczba dostępnych miejsc: </span>${event.numberOfTickets}
                     <#if event.ticket == "bilety"><span class="font-weight-bold"><br>Cena biletu normalnego: </span> ${event.maxTicketPrice}</#if>
