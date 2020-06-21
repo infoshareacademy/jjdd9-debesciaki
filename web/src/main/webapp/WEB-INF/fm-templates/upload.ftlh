@@ -36,25 +36,6 @@
             <button class="btn btn-dark" type="submit" name="save"  form="api" value="Załaduj">Załaduj</button>
             <br/><br/>
         </form>
-        <h1>Każdy event dostaje 100 dostępnych biletów</h1>
-            <button class="btn btn-success" onclick="addTickets()">Załaduj</button>
-            <br/><br/>
-        <script>
-            function addTickets(){
-                $.ajax({
-                    url: "/api/add-tickets",
-                    type: "GET",
-                    success: function (result) {
-                        console.log(result);
-                        window.alert(result);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                        window.alert("Błąd przy dodawaniu dostępnych biletów");
-                    }
-                })
-            }
-        </script>
         <h1>Załaduj plik z bazą organizatorów</h1>
         <form method="post" id="org" action="/upload-org" enctype="multipart/form-data">
             Plik JSON: <input type="file" name="json"/><br/><br/>
