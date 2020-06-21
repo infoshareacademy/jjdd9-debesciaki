@@ -1,6 +1,6 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.ReqMapDTO;
+import com.infoshareacademy.domain.ReqMapEventDTO;
 import com.infoshareacademy.util.StringToLocalDateTime;
 
 import javax.ejb.Stateless;
@@ -10,39 +10,39 @@ import javax.servlet.http.HttpServletRequest;
 @Stateless
 public class HttpReqMapperBean {
 
-    public ReqMapDTO map(HttpServletRequest req) {
+    public ReqMapEventDTO map(HttpServletRequest req) {
 
-        ReqMapDTO reqMapDTO = new ReqMapDTO();
+        ReqMapEventDTO reqMapEventDTO = new ReqMapEventDTO();
 
-        reqMapDTO.setName(req.getParameter("name"));
-        reqMapDTO.setDescLong(req.getParameter("descLong"));
+        reqMapEventDTO.setName(req.getParameter("name"));
+        reqMapEventDTO.setDescLong(req.getParameter("descLong"));
 
-        reqMapDTO.setStartDate(StringToLocalDateTime.process(req.getParameter("startDate").concat(" ").concat(req.getParameter("startTime")).concat(":00")));
-        reqMapDTO.setEndDate(StringToLocalDateTime.process(req.getParameter("endDate").concat(" ").concat(req.getParameter("endTime")).concat(":00")));
+        reqMapEventDTO.setStartDate(StringToLocalDateTime.process(req.getParameter("startDate").concat(" ").concat(req.getParameter("startTime")).concat(":00")));
+        reqMapEventDTO.setEndDate(StringToLocalDateTime.process(req.getParameter("endDate").concat(" ").concat(req.getParameter("endTime")).concat(":00")));
 
-        reqMapDTO.setUrl(req.getParameter("url"));
+        reqMapEventDTO.setUrl(req.getParameter("url"));
 
-        reqMapDTO.setTypeOfTicket(req.getParameter("typeOfTicket"));
+        reqMapEventDTO.setTypeOfTicket(req.getParameter("typeOfTicket"));
 
         if (req.getParameter("typeOfTicket").equals("tickets")) {
-            reqMapDTO.setReducedTicket(req.getParameter("reducedTicket"));
-            reqMapDTO.setNormalTicket(req.getParameter("normalTicket"));
+            reqMapEventDTO.setReducedTicket(req.getParameter("reducedTicket"));
+            reqMapEventDTO.setNormalTicket(req.getParameter("normalTicket"));
         }
 
-        reqMapDTO.setTicketAmount((long) Integer.valueOf(req.getParameter("numberOfTickets")));
+        reqMapEventDTO.setTicketAmount((long) Integer.valueOf(req.getParameter("numberOfTickets")));
 
-        reqMapDTO.setOrganizerDesignation(req.getParameter("organizersDesignation"));
+        reqMapEventDTO.setOrganizerDesignation(req.getParameter("organizersDesignation"));
 
-        reqMapDTO.setName(req.getParameter("category"));
+        reqMapEventDTO.setName(req.getParameter("category"));
 
-        reqMapDTO.setPlaceName(req.getParameter("placeName"));
-        reqMapDTO.setPlaceSubname(req.getParameter("placeSubname"));
+        reqMapEventDTO.setPlaceName(req.getParameter("placeName"));
+        reqMapEventDTO.setPlaceSubname(req.getParameter("placeSubname"));
 
-        reqMapDTO.setCity(req.getParameter("city"));
-        reqMapDTO.setStreet(req.getParameter("street"));
-        reqMapDTO.setZipCode(req.getParameter("zipCode"));
+        reqMapEventDTO.setCity(req.getParameter("city"));
+        reqMapEventDTO.setStreet(req.getParameter("street"));
+        reqMapEventDTO.setZipCode(req.getParameter("zipCode"));
 
-        return reqMapDTO;
+        return reqMapEventDTO;
     }
 
 }

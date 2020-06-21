@@ -2,6 +2,10 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 
+@NamedQuery(
+        name = "Ticket.findByEventId",
+        query = "SELECT t FROM Ticket t WHERE t.event.id=:eventId"
+)
 @Entity
 @Table(name = "ticket")
 public class Ticket {

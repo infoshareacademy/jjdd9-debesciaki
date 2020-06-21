@@ -1,14 +1,14 @@
 package com.infoshareacademy.service;
 
-import com.infoshareacademy.domain.ReqMapDTO;
+import com.infoshareacademy.domain.ReqMapEventDTO;
 import com.infoshareacademy.domain.entity.*;
 import com.infoshareacademy.repository.EventDao;
+import com.infoshareacademy.repository.OrganizerDao;
+import com.infoshareacademy.repository.TicketDao;
 import com.infoshareacademy.repository.UrlsDao;
-import com.infoshareacademy.util.StringToLocalDateTime;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Stateless
@@ -19,33 +19,43 @@ public class EditEventService {
     @Inject
     UrlsDao urlsDao;
 
-    public void updateEvent(Event event){
+    @Inject
+    TicketDao ticketDao;
+
+
+    public void updateEvent(Event event) {
         eventDao.update(event);
     }
 
-    public Event combineEvent(ReqMapDTO reqMapDTO) {
+    public Event combineEvent(ReqMapEventDTO reqMapEventDTO) {
 
-        Optional<Event> eventOptional = eventDao.findById(reqMapDTO.getId());
+        Optional<Event> eventOptional = eventDao.findById(reqMapEventDTO.getId());
 
         if (eventOptional.isPresent()) {
             Event event = eventOptional.get();
-            event.setName(reqMapDTO.getName());
-            event.setDescLong(reqMapDTO.getDescLong());
+            event.setName(reqMapEventDTO.getName());
+            event.setDescLong(reqMapEventDTO.getDescLong());
 
-            event.setStartDate(reqMapDTO.getStartDate());
-            event.setEndDate(reqMapDTO.getEndDate());
+            event.setStartDate(reqMapEventDTO.getStartDate());
+            event.setEndDate(reqMapEventDTO.getEndDate());
 
-            urlsDao
-            urls.setWww(req.getParameter("url"));
+            Optional<Urls> optionalUrls = urlsDao.findByEventId(reqMapEventDTO.getId());
+            Urls urls = optionalUrls.get();
+            urls.setWww(reqMapEventDTO.getUrl());
+            event.setUrls(urls);
 
-            Ticket ticket = event.getTicket();
-            ticket.setType(req.getParameter("typeOfTicket"));
-            if (req.getParameter("typeOfTicket").equals("tickets")) {
-                ticket.setStartTicket(Integer.valueOf(req.getParameter("reducedTicket")));
-                ticket.setEndTicket(Integer.valueOf(req.getParameter("normalTicket")));
+            Optional<Ticket> optionalTicket = ticketDao.findByEventId(reqMapEventDTO.getId());
+            Ticket ticket = optionalTicket.get();
+
+            ticket.setType(reqMapEventDTO.getTypeOfTicket());
+            if (ticket.getType().equals("tickets")) {
+                ticket.setStartTicket(Integer.valueOf(reqMapEventDTO.getReducedTicket()));
+                ticket.setEndTicket(Integer.valueOf(reqMapEventDTO.getNormalTicket()));
             }
 
-            event.setTicketAmount((long) Integer.valueOf(req.getParameter("numberOfTickets")));
+            event.setTicket(ticket);
+
+            event.setTicketAmount(reqMapEventDTO.getTicketAmount());
 
             Organizer organizer = event.getOrganizer();
             organizer.setDesignation("organizersDesignation");

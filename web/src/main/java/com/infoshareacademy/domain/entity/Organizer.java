@@ -10,6 +10,10 @@ import java.util.List;
                 query = "SELECT o FROM Organizer o"
         ),
         @NamedQuery(
+                name = "Urls.findByEventId",
+                query = "SELECT o FROM Organizer o HAVING :event o.eventList  "
+        ),
+        @NamedQuery(
                 name = "Organizer.findActiveOrderByEventCount",
                 query = "SELECT o FROM Organizer o WHERE (o.eventList.size > 0) ORDER BY o.designation ASC"
         ),
