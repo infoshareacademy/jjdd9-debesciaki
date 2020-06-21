@@ -67,7 +67,7 @@ public class ShowReservationsServlet extends HttpServlet {
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
         dataModel.put("email", email);
-        dataModel.put("name", "favourites");
+        dataModel.put("name", "reservations");
         dataModel.put("action", "");
 
         resp.setContentType("text/html; charset=UTF-8");

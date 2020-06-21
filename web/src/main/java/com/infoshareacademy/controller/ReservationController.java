@@ -42,7 +42,7 @@ public class ReservationController {
     @Path("/{token}")
     public Response deleteReservation(@PathParam("token") String token) {
         return Response.status(Response.Status.OK)
-                .entity(reservationService.deleteReservationFromList(token))
+                .entity(reservationService.deleteReservationManualFromList(token))
                 .build();
     }
 

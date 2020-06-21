@@ -4,6 +4,7 @@ import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.Reservation;
 import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.mail.MailService;
+import com.infoshareacademy.mail.ReservationDeletedMail;
 import com.infoshareacademy.mail.ReservationTokenMail;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.repository.ReservationDao;
@@ -89,7 +90,7 @@ public class ReservationService {
             Reservation reservation = optionalReservation.get();
 
             if (LocalDateTime.now().isAfter(reservation.getExpirationDate())) {
-                delete(reservation);
+                delete(reservation, "Link jest nieaktywny, minął czas na aktywację.");
                 return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
             }
             if (reservation.getConfirmed() == true) {
@@ -104,11 +105,11 @@ public class ReservationService {
         }
     }
 
-    public String deleteReservationFromList(String token) {
+    public String deleteReservationManualFromList(String token) {
         Optional<Reservation> optionalReservation = reservationDao.findByToken(token);
         if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
-            delete(reservation);
+            delete(reservation, "Usunięte z listy przez użytkownika własnoręcznie.");
             STDLOG.info("Reservation deletion end with success");
             return "Usuwanie rezerwacji zakończone powodzeniem.";
         } else {
@@ -118,19 +119,20 @@ public class ReservationService {
     }
 
 
-    public void delete(Reservation reservation) {
+    public void delete(Reservation reservation, String reason) {
         Optional<Event> eventOptional = eventDao.findById(reservation.getId());
         Event event = eventOptional.get();
-
+        String mail = reservation.getUser().getMail();
         event.setTicketAmount(event.getTicketAmount() + 1L);
         eventDao.update(event);
         reservationDao.delete(reservation);
+        mailService.sendEmail(new ReservationDeletedMail(event.getName(), reason), mail);
     }
 
-    public void deleteExpired() {
+    public void deleteExpiredScheduler() {
         List<Reservation> expiredList = reservationDao.findExpired();
         for (Reservation reservation : expiredList) {
-            delete(reservation);
+            delete(reservation, "Minął czas na aktywacje, automatyczne usunięcie wstępnej rezerwacji.");
         }
     }
 }

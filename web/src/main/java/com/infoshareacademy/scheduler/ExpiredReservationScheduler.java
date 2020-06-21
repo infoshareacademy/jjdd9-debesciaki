@@ -19,7 +19,7 @@ public class ExpiredReservationScheduler {
 
     @Schedule(hour = "*", minute = "*", second = "0", info = "Each minute")
     public void checkReservations() {
-        reservationService.deleteExpired();
+        reservationService.deleteExpiredScheduler();
         STDLOG.info("Checking expired reservations routine finished");
     }
 }
