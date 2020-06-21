@@ -13,7 +13,7 @@ public class HttpReqMapperBean {
     public ReqMapEventDTO map(HttpServletRequest req) {
 
         ReqMapEventDTO reqMapEventDTO = new ReqMapEventDTO();
-
+        reqMapEventDTO.setId(Long.valueOf(req.getParameter("id")));
         reqMapEventDTO.setName(req.getParameter("name"));
         reqMapEventDTO.setDescLong(req.getParameter("descLong"));
 
