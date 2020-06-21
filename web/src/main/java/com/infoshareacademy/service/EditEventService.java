@@ -83,18 +83,6 @@ public class EditEventService {
             place.setAddress(address);
             event.setPlace(place);
 
-
-
-
-            address.setCity(req.getParameter("city"));
-            address.setStreet(req.getParameter("street"));
-            address.setZipcode(req.getParameter("zipCode"));
-            place.setAddress(address);
-
-            event.setCategory(category);
-            event.setOrganizer(organizer);
-            event.setPlace(place);
-
             return event;
         }
 

@@ -19,6 +19,7 @@ public class EventDao {
 
     private final static int MAX_RESULTS = 20;
 
+    @Transactional
     public void update(Event event) {
         entityManager.merge(event);
     }
