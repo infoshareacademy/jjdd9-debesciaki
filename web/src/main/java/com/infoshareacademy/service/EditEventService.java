@@ -28,7 +28,8 @@ public class EditEventService {
     @Inject
     PlaceDao placeDao;
 
-    public void updateEvent(Event event) {
+    public void updateEvent(ReqMapEventDTO reqMapEventDTO) {
+        Event event = combineEvent(reqMapEventDTO);
         eventDao.update(event);
     }
 
