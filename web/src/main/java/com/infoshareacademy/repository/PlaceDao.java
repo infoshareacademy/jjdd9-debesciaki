@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 
 @Stateless
 public class PlaceDao {
@@ -38,6 +39,12 @@ public class PlaceDao {
             return (Place) query.getResultList().get(0);
         }
 
+    }
+
+    public Optional<Place> findByEventId(Long id) {
+        Query query = entityManager.createNamedQuery("Place.findByEventId");
+        query.setParameter("eventId", id);
+        return Optional.ofNullable((Place) query.getResultList().get(0));
     }
 
     public List<Place> allPlacesList() {

@@ -25,6 +25,9 @@ public class EditEventService {
     @Inject
     CategoryDao categoryDao;
 
+    @Inject
+    PlaceDao placeDao;
+
     public void updateEvent(Event event) {
         eventDao.update(event);
     }
@@ -69,9 +72,10 @@ public class EditEventService {
             category.setName(reqMapEventDTO.getCategoryName());
             event.setCategory(category);
 
-
-            Category category = event.getCategory();
-            category.setName(req.getParameter("category"));
+            Optional<Place> optionalPlace = placeDao.findByEventId(reqMapEventDTO.getId());
+            Place place = optionalPlace.get();
+            place.setName(reqMapEventDTO.getPlaceName());
+            place.setSubname(reqMapEventDTO.getPlaceSubname());
 
             Place place = event.getPlace();
             place.setName(req.getParameter("placeName"));

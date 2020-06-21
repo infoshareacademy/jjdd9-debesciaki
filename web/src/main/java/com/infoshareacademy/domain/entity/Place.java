@@ -21,6 +21,10 @@ import java.util.List;
         @NamedQuery(
                 name = "Place.findDistinctNames",
                 query = "SELECT DISTINCT p.name FROM Place p"
+        ),
+        @NamedQuery(
+                name = "Place.findByEventId",
+                query = "SELECT p FROM Place p WHERE (SELECT e FROM Event e WHERE e.id=:eventId) MEMBER OF p.eventList"
         )
 })
 @Entity
