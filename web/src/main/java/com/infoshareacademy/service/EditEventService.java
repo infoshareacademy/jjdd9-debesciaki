@@ -74,14 +74,18 @@ public class EditEventService {
 
             Optional<Place> optionalPlace = placeDao.findByEventId(reqMapEventDTO.getId());
             Place place = optionalPlace.get();
+            Address address = place.getAddress();
             place.setName(reqMapEventDTO.getPlaceName());
             place.setSubname(reqMapEventDTO.getPlaceSubname());
+            address.setStreet(reqMapEventDTO.getStreet());
+            address.setCity(reqMapEventDTO.getCity());
+            address.setZipcode(reqMapEventDTO.getZipCode());
+            place.setAddress(address);
+            event.setPlace(place);
 
-            Place place = event.getPlace();
-            place.setName(req.getParameter("placeName"));
-            place.setSubname(req.getParameter("placeSubname"));
 
-            Address address = place.getAddress();
+
+
             address.setCity(req.getParameter("city"));
             address.setStreet(req.getParameter("street"));
             address.setZipcode(req.getParameter("zipCode"));
