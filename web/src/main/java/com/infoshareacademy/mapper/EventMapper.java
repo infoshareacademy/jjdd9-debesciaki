@@ -13,22 +13,18 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Stateless
 public class EventMapper {
     private static final Logger STDLOG = LoggerFactory.getLogger(EventMapper.class.getName());
 
+    private Random random = new Random();
+    private final static int MIN = 10;
+    private final static int MAX = 150;
+
     @Inject
     private AttachmentMapper attachmentMapper;
-
-    @Inject
-    private PlaceMapper placeMapper;
-
-    @Inject
-    private OrganizerMapper organizerMapper;
-
-    @Inject
-    private CategoryMapper categoryMapper;
 
     @Inject
     private TicketMapper ticketMapper;
@@ -44,27 +40,6 @@ public class EventMapper {
 
     @Inject
     private OrganizerDao organizerDao;
-
-    public EventJSON daoToJson(Event event) {
-        EventJSON jsonEvent = new EventJSON();
-        jsonEvent.setId(event.getApiId());
-        jsonEvent.setName(event.getName());
-        jsonEvent.setEndDate(event.getEndDate());
-        jsonEvent.setStartDate(event.getStartDate());
-        jsonEvent.setActive(event.getActive());
-        jsonEvent.setDescLong(event.getDescLong());
-        jsonEvent.setDescShort(event.getDescShort());
-        List<AttachmentJSON> attachments = new ArrayList<>();
-        for (Attachment a : event.getAttachments()) {
-            attachments.add(attachmentMapper.daoToJson(a));
-        }
-        jsonEvent.setAttachments(attachments);
-        jsonEvent.setPlace(placeMapper.daoToJson(event.getPlace()));
-        jsonEvent.setOrganizer(organizerMapper.daoToJson(event.getOrganizer()));
-        jsonEvent.setCategoryId(categoryMapper.daoToJson(event.getCategory()).getId());
-        STDLOG.info("Success in mapping dao to json");
-        return jsonEvent;
-    }
 
     public Event jsonToDao(EventJSON event) {
         Event daoEvent = new Event();
@@ -82,6 +57,8 @@ public class EventMapper {
             attachments.add(attachment);
         }
         daoEvent.setAttachments(attachments);
+
+        daoEvent.setTicketAmount((long) random.nextInt((MAX - MIN) + 1) + MIN);
 
         daoEvent.setTicket(ticketMapper.jsonToDao(event.getTickets()));
 

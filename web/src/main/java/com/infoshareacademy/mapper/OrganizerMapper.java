@@ -11,14 +11,6 @@ import javax.ejb.Stateless;
 public class OrganizerMapper {
     private static final Logger STDLOG = LoggerFactory.getLogger(OrganizerMapper.class.getName());
 
-    public OrganizerJSON daoToJson(Organizer organizer) {
-        OrganizerJSON jsonOrganizer = new OrganizerJSON();
-        jsonOrganizer.setId(organizer.getApiId());
-        jsonOrganizer.setDesignation(organizer.getDesignation());
-        STDLOG.info("Success in mapping dao to json");
-        return jsonOrganizer;
-    }
-
     public Organizer jsonToDao(OrganizerJSON organizer) {
         Organizer daoOrganizer = new Organizer();
         daoOrganizer.setApiId(organizer.getId());

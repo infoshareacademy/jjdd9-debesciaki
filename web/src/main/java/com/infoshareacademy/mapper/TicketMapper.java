@@ -6,10 +6,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
+import java.util.Random;
 
 @Stateless
 public class TicketMapper {
     private static final Logger STDLOG = LoggerFactory.getLogger(TicketMapper.class.getName());
+
+    private Random random = new Random();
+    private final static int MIN_PRICE = 20;
+    private final static int MAX_PRICE = 50;
+
 
     public TicketJSON daoToJson(Ticket ticket) {
         TicketJSON jsonTicket = new TicketJSON();
@@ -22,9 +28,14 @@ public class TicketMapper {
 
     public Ticket jsonToDao(TicketJSON ticket) {
         Ticket daoTicket = new Ticket();
-        daoTicket.setType(ticket.getType());
-        daoTicket.setStartTicket(ticket.getStartTicket());
-        daoTicket.setEndTicket(ticket.getEndTicket());
+
+        if (ticket.getType().equals("free")) {
+            daoTicket.setType("free");
+        } else {
+            daoTicket.setType("tickets");
+            daoTicket.setEndTicket(random.nextInt((MAX_PRICE - MIN_PRICE) + 1) + MIN_PRICE);
+            daoTicket.setStartTicket(daoTicket.getEndTicket() / 2);
+        }
         STDLOG.info("Success in mapping json to dao");
         return daoTicket;
     }
