@@ -24,7 +24,7 @@ import java.util.Map;
 
 @WebServlet("show-one-event")
 public class ShowSingleEventServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
+    private static final Logger STDLOG = LoggerFactory.getLogger(ShowSingleEventServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;

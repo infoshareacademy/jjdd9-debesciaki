@@ -1,7 +1,7 @@
 package com.infoshareacademy.repository;
 
 import com.infoshareacademy.domain.entity.Reservation;
-import com.infoshareacademy.domain.entity.TicketStat;
+import com.infoshareacademy.domain.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,9 +49,15 @@ public class ReservationDao {
         }
     }
 
-    public List<Reservation> findExpired(){
+    public List<Reservation> findExpired() {
         Query query = entityManager.createNamedQuery("Reservation.findExpired");
         query.setParameter("now", LocalDateTime.now());
+        return query.getResultList();
+    }
+
+    public List<Reservation> findByUser(User user) {
+        Query query = entityManager.createNamedQuery("Reservation.findByUser");
+        query.setParameter("user", user);
         return query.getResultList();
     }
 

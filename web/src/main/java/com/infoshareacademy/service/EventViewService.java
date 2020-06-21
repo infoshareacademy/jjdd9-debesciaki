@@ -41,7 +41,6 @@ public class EventViewService {
     }
 
     public Integer getFavouritesCount(String email) {
-        Set<Event> eventsList = new HashSet<>();
         User user = userService.findByEmail(email);
         Set<Event> events = user.getEvents();
         return events.size();

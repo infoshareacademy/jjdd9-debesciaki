@@ -89,8 +89,11 @@ public class ReservationService {
             Reservation reservation = optionalReservation.get();
 
             if (LocalDateTime.now().isAfter(reservation.getExpirationDate())) {
-                deleteReservation(reservation);
+                delete(reservation);
                 return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
+            }
+            if (reservation.getConfirmed() == true) {
+                return "Dana rezerwacja jest już potwierdzona, link nieaktywny";
             }
             reservation.setConfirmed(Boolean.TRUE);
             reservationDao.update(reservation);
@@ -101,7 +104,20 @@ public class ReservationService {
         }
     }
 
-    public void deleteReservation(Reservation reservation) {
+    public String deleteReservationFromList(String token) {
+        Optional<Reservation> optionalReservation = reservationDao.findByToken(token);
+        if (optionalReservation.isPresent()) {
+            Reservation reservation = optionalReservation.get();
+            delete(reservation);
+            return "Usuwanie rezerwacji zakończone powodzeniem.";
+        } else {
+            STDLOG.error("Failed at deleting reservation");
+            return "Usunięcie rezerwacji zakończone niepowodzeniem, nie znaleziono rezerwacji w bazie. Najprawdopodobniej została już usunięta.";
+        }
+    }
+
+
+    public void delete(Reservation reservation) {
         Optional<Event> eventOptional = eventDao.findById(reservation.getId());
         Event event = eventOptional.get();
 
@@ -112,8 +128,8 @@ public class ReservationService {
 
     public void deleteExpired() {
         List<Reservation> expiredList = reservationDao.findExpired();
-        for (Reservation reservation:expiredList){
-            deleteReservation(reservation);
+        for (Reservation reservation : expiredList) {
+            delete(reservation);
         }
     }
 }

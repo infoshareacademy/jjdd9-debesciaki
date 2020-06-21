@@ -1,4 +1,4 @@
-<button id="${event.id}" class="btn btn-danger" onclick="toFav(${event.id}, ${emailFav})" >
+<button id="${event.id}" class="btn btn-danger" onclick="removeFromFavourites(${event.id}, ${emailFav})" >
     <strong>
         -
     </strong>
@@ -6,7 +6,7 @@
 
 
 <script>
-    function toFav(eventID, email) {
+    function removeFromFavourites(eventID, email) {
         id = eventID;
         mail = email;
         console.log(mail);
@@ -19,7 +19,6 @@
                 isFavourite = result;
                 console.log("result is:  " + result);
                 if (isFavourite == true) {
-                    typeOfAction = "DELETE";
                     $.ajax({
                             url: favAddress,
                             type: "DELETE",
@@ -38,7 +37,6 @@
                 if (isFavourite == false) {
                     window.alert('Błąd w trakcie usuwania wydarzenia  z ulubionych');
                 }
-                console.log("Generated type of HTTP communication based on result " + typeOfAction);
             },
             error: function (error) {
                 console.log(error);

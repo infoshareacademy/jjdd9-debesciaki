@@ -11,6 +11,10 @@ import java.time.LocalDateTime;
                 name = "Reservation.findExpired",
                 query = "SELECT r FROM Reservation r WHERE (r.expirationDate < :now AND r.confirmed = FALSE)"
         ),
+        @NamedQuery(
+                name = "Reservation.findByUser",
+                query = "SELECT r FROM Reservation r WHERE r.user = :user "
+        ),
 })
 @Entity
 @Table(name = "reservation")
