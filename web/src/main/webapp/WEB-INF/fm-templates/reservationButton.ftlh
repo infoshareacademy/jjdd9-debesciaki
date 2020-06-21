@@ -21,12 +21,15 @@
 
 <script>
     function sendReservationRequest(eventId, mail) {
-        redu = document.getElementById("isRedu").checked;
-        if (redu == true) {
-            addressForRequest = "/api/request-reservation/" + mail + "/r/" + eventId;
-        } else {
-            addressForRequest = "/api/request-reservation/" + mail + "/f/" + eventId;
+        addressForRequest = "/api/request-reservation/" + mail + "/f/" + eventId;
+
+        if (document.getElementById("isRedu") != null){
+            redu = document.getElementById("isRedu").checked;
+            if (redu == true) {
+                addressForRequest = "/api/request-reservation/" + mail + "/r/" + eventId;
+            }
         }
+
         document.getElementById("messageDuringAction").innerHTML = "Przetwarzanie żądania";
         console.log(addressForRequest)
         $.ajax({
