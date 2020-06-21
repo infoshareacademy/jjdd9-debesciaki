@@ -26,7 +26,7 @@ public class ReservationController {
     @Path("/{userMail}/r/{eventId}")
     public Response requestReservationRedu(@PathParam("userMail") String mail, @PathParam("eventId") Long eventId) {
         return Response.status(Response.Status.OK)
-                .entity(reservationService.requestReservation(eventId, mail,false))
+                .entity(reservationService.requestReservation(eventId, mail, false))
                 .build();
     }
 
@@ -42,7 +42,7 @@ public class ReservationController {
     @Path("/{token}")
     public Response deleteReservation(@PathParam("token") String token) {
         return Response.status(Response.Status.OK)
-                .entity(deleteReservation(token))
+                .entity(reservationService.deleteReservationFromList(token))
                 .build();
     }
 

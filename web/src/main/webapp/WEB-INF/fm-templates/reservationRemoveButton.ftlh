@@ -1,4 +1,4 @@
-<button id="${event.token}" class="btn btn-danger" onclick="deleteFromReseserved(${event.token})">
+<button id="${event.token}" class="btn btn-danger" onclick="deleteFromReseserved('${event.token}')">
     <strong>
         -
     </strong>
@@ -8,7 +8,8 @@
 <script>
     function deleteFromReseserved(token) {
         console.log(token);
-        deleteAddress = '/request-reservation/' + token;
+        deleteAddress = '/api/request-reservation/' + token;
+        console.log(deleteAddress);
         $.ajax({
                 url: deleteAddress,
                 type: "DELETE",

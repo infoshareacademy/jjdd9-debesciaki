@@ -109,6 +109,7 @@ public class ReservationService {
         if (optionalReservation.isPresent()) {
             Reservation reservation = optionalReservation.get();
             delete(reservation);
+            STDLOG.info("Reservation deletion end with success");
             return "Usuwanie rezerwacji zakończone powodzeniem.";
         } else {
             STDLOG.error("Failed at deleting reservation");

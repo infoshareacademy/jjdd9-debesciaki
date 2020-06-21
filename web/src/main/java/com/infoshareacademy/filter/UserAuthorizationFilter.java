@@ -9,7 +9,7 @@ import java.io.IOException;
 
 @WebFilter(
         filterName = "UserAuthorizationFilter",
-        urlPatterns = {"/show-favourites","/api/request-reservation/*"}
+        urlPatterns = {"/show-favourites"}
 )
 public class UserAuthorizationFilter implements Filter {
     @Override
