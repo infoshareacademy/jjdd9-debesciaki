@@ -19,7 +19,7 @@
                     <td class="text-center">${event.organizerName}</td>
                     <td class="text-center">${event.startDate}</td>
                     <td class="text-center">${event.endDate}</td>
-                    <td class="text-center"><nobr><#include "buttons/favouriteButton.ftlh"><#if role == "ADMIN" || role == "SUPER_ADMIN"><#include "buttons/editButton.ftlh">&nbsp;<#include "buttons/deleteButton.ftlh"></#if></nobr></td>
+                    <td class="text-center"><nobr><#if role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN"><#include "buttons/favouriteButton.ftlh"></#if><#if role == "ADMIN" || role == "SUPER_ADMIN"><#include "buttons/editButton.ftlh">&nbsp;<#include "buttons/deleteButton.ftlh"></#if></nobr></td>
                 </tr>
             </#list>
             </tbody>

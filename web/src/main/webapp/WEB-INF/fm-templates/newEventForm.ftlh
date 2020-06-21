@@ -52,7 +52,7 @@
             <span class="font-weight-bold">Adres: <input type="text" name="street" class="m-2"/>
             <nobr>Miasto: <input type="text" name="city" id="city" class="m-2"/> Kod pocztowy: <input type="text" name="zipCode" id="zipCode" class="m-2" onblur="validateZipCode(this)" title="Format xx-xxx" maxlength="6" /></nobr></span><br>
             <span class="font-weight-bold">Kategoria: <input type="text" name="category" class="m-2" required/></span><br>
-            <span class="font-weight-bold">Adres strony internetowej: <input type="url" name="url" class="m-2"/></span><br>
+            <span class="font-weight-bold">Adres strony internetowej: <input type="url" name="url" class="m-2" onblur="checkURL(this)"/></span><br>
             <span class="font-weight-bold">Data rozpoczęcia: <input type="date" name="startDate" class="m-2" required/><input type="time" name="startTime" class="m-2" required/></span><br>
             <span class="font-weight-bold">Data zakończenia: <input type="date" name="endDate" class="m-2" required/><input type="time" name="endTime" class="m-2" required/></span></span><br>
             <nobr><span class="font-weight-bold">Typ biletów:
@@ -87,6 +87,14 @@
             code.value="";
             alert("Wprowadzono błędny kod pocztowy");
         }
+    }
+    function checkURL (abc) {
+        var string = abc.value;
+        if (!~string.indexOf("http")) {
+            string = "http://" + string;
+        }
+        abc.value = string;
+        return abc
     }
 </script>
 </body>
