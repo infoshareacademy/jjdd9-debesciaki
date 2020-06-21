@@ -11,6 +11,7 @@ import com.infoshareacademy.repository.ReservationDao;
 import com.infoshareacademy.repository.UserDao;
 import com.infoshareacademy.service.stat.TicketStatService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,17 +92,17 @@ public class ReservationService {
 
             if (LocalDateTime.now().isAfter(reservation.getExpirationDate())) {
                 delete(reservation, "Link jest nieaktywny, minął czas na aktywację.");
-                return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
+                return "Link%20jest%20przeterminowany,%20możesz%20spróbować%20dokonać%20rezerwacji%20ponownie%20:)";
             }
             if (reservation.getConfirmed() == true) {
-                return "Dana rezerwacja jest już potwierdzona, link nieaktywny";
+                return "Dana%20rezerwacja%20jest%20już%20potwierdzona,%20link%20nieaktywny";
             }
             reservation.setConfirmed(Boolean.TRUE);
             reservationDao.update(reservation);
 
-            return "Dokonano potwierdzenia rezerwacji";
+            return "Dokonano%20potwierdzenia%20rezerwacji";
         } else {
-            return "Link potwierdzający jest niepoprawny";
+            return "Link%20potwierdzający%20jest%20niepoprawny";
         }
     }
 

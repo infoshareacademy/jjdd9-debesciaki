@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.net.URISyntaxException;
 
 @Path("/request-reservation")
 @Produces(MediaType.TEXT_PLAIN)
@@ -32,10 +33,13 @@ public class ReservationController {
 
     @GET
     @Path("/consume/{token}")
-    public Response useToken(@PathParam("token") String token) {
-        return Response.status(Response.Status.OK)
+    public Response useToken(@PathParam("token") String token) throws URISyntaxException {
+
+        java.net.URI location = new java.net.URI("http://debesciaki.jjdd9.is-academy.pl/token?msg="+reservationService.consumeToken(token));
+        return Response.temporaryRedirect(location).build();
+        /*return Response.status(Response.Status.OK)
                 .entity(reservationService.consumeToken(token))
-                .build();
+                .build();*/
     }
 
     @DELETE
