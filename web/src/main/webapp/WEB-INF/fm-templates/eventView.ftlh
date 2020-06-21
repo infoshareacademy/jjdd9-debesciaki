@@ -25,7 +25,7 @@
                         href="${event.facebook}">${event.facebook}</a></#if>
                     <span class="font-weight-bold text-center"><br>Opis wydarznia: </span><br>
                     <p>${event.descLong?no_esc}</p>
-                    <#if event.ticket == "bilety"  && (role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN")>
+                    <#if (event.ticket == "bilety" || event.ticket == "wstęp wolny") && (role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN")>
                         <br/>
                         <#include "reservationButton.ftlh">
                     </#if>
