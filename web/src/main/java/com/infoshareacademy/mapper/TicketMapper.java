@@ -13,8 +13,6 @@ public class TicketMapper {
     private static final Logger STDLOG = LoggerFactory.getLogger(TicketMapper.class.getName());
 
     private Random random = new Random();
-    private final static int MIN = 10;
-    private final static int MAX = 150;
     private final static int MIN_PRICE = 20;
     private final static int MAX_PRICE = 50;
 
@@ -33,18 +31,12 @@ public class TicketMapper {
 
         if (ticket.getType().equals("free")) {
             daoTicket.setType("free");
-            generateNumberOfTickets(daoTicket);
         } else {
             daoTicket.setType("tickets");
-            generateNumberOfTickets(daoTicket);
             daoTicket.setEndTicket(random.nextInt((MAX_PRICE - MIN_PRICE) + 1) + MIN_PRICE);
-            daoTicket.setStartTicket(daoTicket.getEndTicket()/2);
+            daoTicket.setStartTicket(daoTicket.getEndTicket() / 2);
         }
         STDLOG.info("Success in mapping json to dao");
         return daoTicket;
-    }
-
-    private void generateNumberOfTickets(Ticket daoTicket) {
-        daoTicket.setNumberOfTickets(random.nextInt((MAX - MIN) + 1) + MIN);
     }
 }

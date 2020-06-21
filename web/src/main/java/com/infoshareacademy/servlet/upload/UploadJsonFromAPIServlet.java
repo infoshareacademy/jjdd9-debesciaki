@@ -56,6 +56,6 @@ public class UploadJsonFromAPIServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         clientUploadService.upload();
-        resp.sendRedirect("/upload-rest");
+        resp.sendRedirect("/");
     }
 }

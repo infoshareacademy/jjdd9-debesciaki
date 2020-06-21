@@ -15,17 +15,6 @@ public class CategoryMapper {
     @Inject
     private RootCategoryMapper rootCategoryMapper;
 
-    public CategoryJSON daoToJson(Category category) {
-        CategoryJSON jsonCategory = new CategoryJSON();
-        jsonCategory.setId(category.getApiId());
-        jsonCategory.setName(category.getName());
-        if (category.getId() >= 100) {
-            jsonCategory.setRootCategory(rootCategoryMapper.daoToJson(category));
-        }
-        STDLOG.info("Success in mapping dao to json");
-        return jsonCategory;
-    }
-
     public Category jsonToDao(CategoryJSON category) {
         Category daoCategory = new Category();
         daoCategory.setApiId(category.getId());

@@ -15,16 +15,6 @@ public class PlaceMapper {
     @Inject
     private AddressMapper addressMapper;
 
-    public PlaceJSON daoToJson(Place place) {
-        PlaceJSON jsonPlace = new PlaceJSON();
-        jsonPlace.setId(place.getApiId());
-        jsonPlace.setAddress(addressMapper.daoToJson(place.getAddress()));
-        jsonPlace.setName(place.getName());
-        jsonPlace.setSubname(place.getSubname());
-        STDLOG.info("Success in mapping dao to json");
-        return jsonPlace;
-    }
-
     public Place jsonToDao(PlaceJSON place) {
         Place daoPlace = new Place();
         daoPlace.setApiId(place.getId());

@@ -2,7 +2,9 @@
     <thead class="thead-dark">
     <tr>
         <th class="th-sm text-center" scope="col" width="25%">
-            Ulgowy <input type="checkbox" id="isRedu" value="Ulgowy" aria-label="Ulgowy" name="Ulgowy">
+            <#if event.ticket == "bilety">
+                Ulgowy <input type="checkbox" id="isRedu" value="Ulgowy" aria-label="Ulgowy" name="Ulgowy">
+            </#if>
         </th>
         <th class="th-sm text-center" scope="col" width="25%">
             <button class="btn btn-success" onclick="sendReservationRequest(${event.id}, '${email}')">

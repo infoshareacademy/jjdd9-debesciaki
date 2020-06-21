@@ -1,6 +1,6 @@
 <div class="container">
     <div class="jumbotron ">
-        <h3 class="display-4 text-center">Rezerwacje</h3>
+        <h3 class="display-4 text-center">Lista ulubionych</h3>
         <#if (events?size > 0) >
             <table id="dtBasicExample" class="table table-striped table-bordered table-hover table-sm bg-white"
                    cellspacing="0">
