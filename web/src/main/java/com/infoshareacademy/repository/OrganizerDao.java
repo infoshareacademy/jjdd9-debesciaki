@@ -23,9 +23,9 @@ public class OrganizerDao {
     }
 
     public Optional<Organizer> findByEventId(Long eventId) {
-        Query query = entityManager.createNamedQuery("Urls.findByEventId");
+        Query query = entityManager.createNamedQuery("Organizer.findByEventId");
         query.setParameter("eventId", eventId);
-        return Optional.ofNullable((Organizer) query.getSingleResult());
+        return Optional.ofNullable((Organizer) query.getResultList().get(0));
     }
 
     public Optional<Organizer> findByDesignation(String name) {

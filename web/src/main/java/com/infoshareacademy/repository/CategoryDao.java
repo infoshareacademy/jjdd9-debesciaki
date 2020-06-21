@@ -29,6 +29,12 @@ public class CategoryDao {
         }
     }
 
+    public Optional<Category> findByEventId(Long id) {
+        Query query = entityManager.createNamedQuery("Category.findByEventId");
+        query.setParameter("eventId", id);
+        return Optional.ofNullable((Category) query.getResultList().get(0));
+    }
+
     public Optional<Category> findByApiId(long id) {
         Query query = entityManager.createNamedQuery("Category.findByApiId");
         query.setParameter("apiID", id);

@@ -2,10 +2,7 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.ReqMapEventDTO;
 import com.infoshareacademy.domain.entity.*;
-import com.infoshareacademy.repository.EventDao;
-import com.infoshareacademy.repository.OrganizerDao;
-import com.infoshareacademy.repository.TicketDao;
-import com.infoshareacademy.repository.UrlsDao;
+import com.infoshareacademy.repository.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -22,6 +19,11 @@ public class EditEventService {
     @Inject
     TicketDao ticketDao;
 
+    @Inject
+    OrganizerDao organizerDao;
+
+    @Inject
+    CategoryDao categoryDao;
 
     public void updateEvent(Event event) {
         eventDao.update(event);
@@ -57,8 +59,15 @@ public class EditEventService {
 
             event.setTicketAmount(reqMapEventDTO.getTicketAmount());
 
-            Organizer organizer = event.getOrganizer();
-            organizer.setDesignation("organizersDesignation");
+            Optional<Organizer> optionalOrganizer = organizerDao.findByEventId(reqMapEventDTO.getId());
+            Organizer organizer = optionalOrganizer.get();
+            organizer.setDesignation(reqMapEventDTO.getOrganizerDesignation());
+            event.setOrganizer(organizer);
+
+            Optional<Category> optionalCategory = categoryDao.findByEventId(reqMapEventDTO.getId());
+            Category category = optionalCategory.get();
+            category.setName(reqMapEventDTO.getCategoryName());
+            event.setCategory(category);
 
 
             Category category = event.getCategory();

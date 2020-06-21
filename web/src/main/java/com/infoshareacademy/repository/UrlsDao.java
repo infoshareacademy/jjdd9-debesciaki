@@ -24,6 +24,6 @@ public class UrlsDao {
     public Optional<Urls> findByEventId(Long eventId) {
         Query query = entityManager.createNamedQuery("Urls.findByEventId");
         query.setParameter("eventId", eventId);
-        return Optional.ofNullable((Urls) query.getSingleResult());
+        return Optional.ofNullable((Urls) query.getResultList().get(0));
     }
 }
