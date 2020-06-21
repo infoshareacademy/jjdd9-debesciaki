@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
                 name = "Reservation.findByToken",
                 query = "SELECT r FROM Reservation r WHERE r.token = :token"
         ),
+        @NamedQuery(
+                name = "Reservation.findExpired",
+                query = "SELECT r FROM Reservation r WHERE (r.expirationDate < :now AND r.confirmed = FALSE)"
+        ),
 })
 @Entity
 @Table(name = "reservation")

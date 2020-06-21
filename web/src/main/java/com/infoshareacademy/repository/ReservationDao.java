@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,4 +48,11 @@ public class ReservationDao {
             return Optional.empty();
         }
     }
+
+    public List<Reservation> findExpired(){
+        Query query = entityManager.createNamedQuery("Reservation.findExpired");
+        query.setParameter("now", LocalDateTime.now());
+        return query.getResultList();
+    }
+
 }

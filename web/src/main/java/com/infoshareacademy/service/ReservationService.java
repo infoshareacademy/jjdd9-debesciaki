@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Stateless
@@ -60,7 +61,7 @@ public class ReservationService {
                 return "Brak biletów na wydarzenie";
             }
 
-            ticketStatService.updateSingleTicketStat(eventId,isFull);
+            ticketStatService.updateSingleTicketStat(eventId, isFull);
 
 
             reservation.setEvent(event);
@@ -88,7 +89,8 @@ public class ReservationService {
             Reservation reservation = optionalReservation.get();
 
             if (LocalDateTime.now().isAfter(reservation.getExpirationDate())) {
-               return deleteReservation(reservation);
+                deleteReservation(reservation);
+                return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
             }
             reservation.setConfirmed(Boolean.TRUE);
             reservationDao.update(reservation);
@@ -99,14 +101,19 @@ public class ReservationService {
         }
     }
 
-    public String deleteReservation(Reservation reservation){
+    public void deleteReservation(Reservation reservation) {
         Optional<Event> eventOptional = eventDao.findById(reservation.getId());
         Event event = eventOptional.get();
 
         event.setTicketAmount(event.getTicketAmount() + 1L);
         eventDao.update(event);
         reservationDao.delete(reservation);
+    }
 
-        return "Link jest przeterminowany, możesz spróbować dokonać rezerwacji ponownie :)";
+    public void deleteExpired() {
+        List<Reservation> expiredList = reservationDao.findExpired();
+        for (Reservation reservation:expiredList){
+            deleteReservation(reservation);
+        }
     }
 }
