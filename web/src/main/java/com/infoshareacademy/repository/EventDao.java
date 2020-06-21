@@ -162,7 +162,6 @@ public class EventDao {
         return query.getResultList().size();
     }
 
-    @Transactional
     public Optional<Event> findById(long id) {
         try {
             return Optional.ofNullable(entityManager.find(Event.class, id));

@@ -101,8 +101,6 @@
         }
 
 
-
-
         .container button#closeSignup {
             background: transparent;
             border: none;

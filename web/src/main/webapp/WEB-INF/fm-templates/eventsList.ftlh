@@ -17,8 +17,8 @@
                 <tr>
                     <td class="text-primary font-weight-bold"><a href="/show-one-event?event=${event.id}">${event.name}</a></td>
                     <td class="text-center">${event.organizerName}</td>
-                    <td class="text-center">${event.startDate}</td>
-                    <td class="text-center">${event.endDate}</td>
+                    <td class="text-center">${event.startDateAll}</td>
+                    <td class="text-center">${event.endDateAll}</td>
                     <#if role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN"><td class="text-center"><nobr><#include "buttons/favouriteButton.ftlh"><#if role == "ADMIN" || role == "SUPER_ADMIN"><#include "buttons/editButton.ftlh">&nbsp;<#include "buttons/deleteButton.ftlh"></#if></nobr></td></#if>
                 </tr>
             </#list>

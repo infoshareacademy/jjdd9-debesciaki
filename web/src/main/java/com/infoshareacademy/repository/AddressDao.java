@@ -20,13 +20,13 @@ public class AddressDao {
         return Optional.ofNullable((Address) query.getResultList().get(0));
     }
 
-    public Long save(Address address) {
+    public Address save(Address address) {
         entityManager.persist(address);
         Query query = entityManager.createNamedQuery("Address.findByStreetAndZipAndCity");
         query.setParameter("city", address.getCity());
         query.setParameter("zip", address.getZipcode());
         query.setParameter("street", address.getStreet());
         Address address1 = (Address) query.getResultList().get(0);
-        return address1.getId();
+        return address1;
     }
 }

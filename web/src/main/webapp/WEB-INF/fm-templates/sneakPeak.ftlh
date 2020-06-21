@@ -4,14 +4,20 @@
         <table>
             <tr>
                 <th class="th-sm text-left" width="99%">
-                    <p id="sneak-peak-text"></p>
-                    <p id="sneak-date"></p>
+                    <p style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';font-size:16px;font-style:italic;"
+                       id="sneak-peak-text"></p>
                 </th>
                 <th class="th-sm justify-content-around" width="1%">
                     <button type="button" class="btn btn-dark" id="closeSignup" style="text-decoration-color: red">
                         &#10060;
                     </button>
                 </th>
+            </tr>
+            <tr>
+                <td>
+                    <p style="font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';font-size:16px;font-style:italic;"
+                       id="sneak-date"></p></td>
+                <td></td>
             </tr>
         </table>
     </div>
@@ -22,7 +28,7 @@
         closeSignup.addEventListener('click', () => signupContainer.style.display = 'none');
         closeSignup.addEventListener('click', () => sessionStorage.setItem('exclude', true));
         exclusion = sessionStorage.getItem('exclude');
-        if (exclusion=="true") {
+        if (exclusion == "true") {
             signupContainer.style.display = 'none';
         } else {
             address = "/api/sneak-peak/" + "${email}";

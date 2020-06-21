@@ -40,7 +40,7 @@
         <form method="post" action="/add-event" enctype="multipart/form-data">
             <span class="font-weight-bold">Nazwa wydarzenia: <input type="text" name="name" class="m-2" required/></span><br>
             <span class="font-weight-bold">Organizator:
-                <select class="m-2" name="organizersDesignation" id="organizersDesignation">
+                <select class="m-2" name="organizersDesignation" id="organizersDesignation" required>
                     <#list organizers as organizer>
                         <option value="${organizer.designation}">${organizer.designation}</option>
                     </#list>
@@ -49,8 +49,8 @@
             </span><br>
             <span class="font-weight-bold">Główna nazwa miejsca: <input type="text" name="placeName" class="m-2" required/></span><br>
             <span class="font-weight-bold">Dodatkowa nazwa miejsca: <input type="text" name="placeSubname" class="m-2"/></span><br>
-            <span class="font-weight-bold">Adres: <input type="text" name="street" class="m-2"/>
-            <nobr>Miasto: <input type="text" name="city" id="city" class="m-2"/> Kod pocztowy: <input type="text" name="zipCode" id="zipCode" class="m-2" onblur="validateZipCode(this)" title="Format xx-xxx" maxlength="6" /></nobr></span><br>
+            <span class="font-weight-bold">Adres: <input type="text" name="street" class="m-2" required/>
+            <nobr>Miasto: <input type="text" name="city" id="city" class="m-2" required/> Kod pocztowy: <input type="text" name="zipCode" id="zipCode" class="m-2" onblur="validateZipCode(this)" title="Format xx-xxx" maxlength="6" /></nobr></span><br>
             <span class="font-weight-bold">Kategoria: <input type="text" name="category" class="m-2" required/></span><br>
             <span class="font-weight-bold">Adres strony internetowej: <input type="url" name="url" class="m-2" onblur="checkURL(this)"/></span><br>
             <span class="font-weight-bold">Data rozpoczęcia: <input type="date" name="startDate" class="m-2" required/><input type="time" name="startTime" class="m-2" required/></span><br>

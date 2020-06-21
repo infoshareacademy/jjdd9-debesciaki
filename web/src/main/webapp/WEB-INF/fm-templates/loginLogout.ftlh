@@ -5,6 +5,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/show-favourites?page=1">Lista ulubionych</a>
+            <a class="dropdown-item" href="/show-reservations?page=1">Rezerwacje</a>
         </div>
     </li>
     <li class="nav-item">
@@ -17,6 +18,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/show-favourites?page=1">Lista ulubionych</a>
+            <a class="dropdown-item" href="/show-reservations?page=1">Rezerwacje</a>
         </div>
     </li>
     <li class="nav-item dropdown">

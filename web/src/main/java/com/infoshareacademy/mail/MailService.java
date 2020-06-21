@@ -17,54 +17,12 @@ import java.util.Set;
 @Stateless
 public class MailService {
     private static final Logger STDLOG = LoggerFactory.getLogger(MailService.class.getName());
-    private final String USERNAME = "debesciaki.mailing@gmail.com";
-    private final String PASSWORD = "Debesciaki1!";
-
-    public void sendMailOnDeletion(Event event) {
-        Properties prop = new Properties();
-        prop.put("mail.smtp.host", "smtp.gmail.com");
-        prop.put("mail.smtp.port", "587");
-        prop.put("mail.smtp.auth", "true");
-        prop.put("mail.smtp.starttls.enable", "true"); //TLS
-
-        Set<User> users = event.getUsers();
-
-        Session session = Session.getInstance(prop,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(USERNAME, PASSWORD);
-                    }
-                });
-        for (User u : users) {
-            try {
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress("debesciaki.mailing@gmail.com"));
-                message.setRecipients(
-                        Message.RecipientType.TO,
-                        InternetAddress.parse(u.getMail())
-                );
-                message.setSubject("Usunięto wydarzenie \"" + event.getName() + "\"");
-                message.setText("Drogi użytkowniku,"
-                        + "\n\n Team debeściaki chciałby Cię poinformować o usunięciu/odwołaniu wydarzenia, które znajdowało się wśród Twoich ulubionych: \n\"" + event.getName() + "\"" +
-                        "\n\nZ wyrazami szacunku," +
-                        "\nTeam Debeściaki");
-
-                Transport.send(message);
-
-                STDLOG.info("Success in sending email to {} ", u.getMail());
-
-            } catch (MessagingException e) {
-                STDLOG.info("Fail in sending email to {} \n error message:   ", u.getMail(), e.getMessage());
-            }
-        }
-        STDLOG.info("Succes in sending emails to all of the addressed");
-    }
 
     public void sendMailsOnFinished(Event event) {
         Set<User> users = event.getUsers();
 
         for (User u : users) {
-            sendEmail(new EventFinishedMail(event.getName(), event.getName()), u.getMail());
+            sendEmail(new EventFinishedMail(event.getName()), u.getMail());
         }
 
         STDLOG.info("Succes in sending emails to all of the addressed");

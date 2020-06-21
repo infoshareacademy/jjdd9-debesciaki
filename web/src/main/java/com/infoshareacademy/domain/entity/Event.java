@@ -79,6 +79,9 @@ public class Event {
     @Column(name = "desc_short")
     private String descShort;
 
+    @Column(name = "ticket_amount")
+    private Long ticketAmount;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "organizer_id")
     private Organizer organizer;
@@ -235,5 +238,13 @@ public class Event {
 
     public void setTicketStat(TicketStat ticketStat) {
         this.ticketStat = ticketStat;
+    }
+
+    public Long getTicketAmount() {
+        return ticketAmount;
+    }
+
+    public void setTicketAmount(Long ticketAmount) {
+        this.ticketAmount = ticketAmount;
     }
 }

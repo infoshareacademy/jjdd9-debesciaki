@@ -1,9 +1,9 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.view.EventView;
+import com.infoshareacademy.domain.view.EventReservationView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.event.EventViewService;
+import com.infoshareacademy.service.ReservationViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -11,58 +11,60 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
-@WebServlet("/show-favourites")
-public class ShowFavouritesServlet extends HttpServlet {
-    private static final Logger STDLOG = LoggerFactory.getLogger(ShowFavouritesServlet.class.getName());
+@WebServlet("/show-reservations")
+public class ShowReservationsServlet extends HttpServlet {
+    private static final Logger STDLOG = LoggerFactory.getLogger(LoginServlet.class.getName());
 
     @Inject
     private TemplateProvider templateProvider;
 
     @EJB
-    private EventViewService eventViewService;
+    private ReservationViewService reservationViewService;
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        Template template = templateProvider.getTemplate(getServletContext(), "showFavourites.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "showReserved.ftlh");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
 
 
-        String emailFav;
+        String email;
         String emailQuery;
         Optional<String> emailOpt = Optional.ofNullable(contextHolder.getEmail());
         if (emailOpt.isPresent() && !emailOpt.isEmpty()) {
-            emailFav = "\"" + emailOpt.get() + "\"";
+            email = "\"" + emailOpt.get() + "\"";
             emailQuery = emailOpt.get();
         } else {
-            emailFav = "\"placeholder\"";
+            email = "\"placeholder\"";
             emailQuery = "placeholder";
         }
 
         Integer actPage = Integer.parseInt(req.getParameter("page"));
-        Integer listSize = eventViewService.getFavouritesCount(emailQuery);
+        Integer listSize = reservationViewService.getReservationCount(emailQuery);
         Integer numberOfPages = (listSize % 20 != 0) ? listSize / 20 + 1 : listSize / 20;
 
-        List<EventView> listEvents = eventViewService.prepareFavouriteEvents((actPage - 1) * 20, emailQuery);
+        List<EventReservationView> listEvents = reservationViewService.prepareReservedList((actPage - 1) * 20, emailQuery);
 
         dataModel.put("role", contextHolder.getRole());
         dataModel.put("events", listEvents);
         dataModel.put("actPage", actPage);
         dataModel.put("numberOfPages", numberOfPages);
         dataModel.put("numberOfEvents", listSize);
-        dataModel.put("emailFav", emailFav);
-        dataModel.put("name", "favourites");
+        dataModel.put("email", email);
+        dataModel.put("name", "reservations");
         dataModel.put("action", "");
 
         resp.setContentType("text/html; charset=UTF-8");
@@ -75,4 +77,5 @@ public class ShowFavouritesServlet extends HttpServlet {
             STDLOG.error("Template for Show All Events page error");
         }
     }
+
 }

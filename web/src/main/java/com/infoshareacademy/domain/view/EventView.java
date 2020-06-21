@@ -1,14 +1,21 @@
 package com.infoshareacademy.domain.view;
 
+import javax.ejb.Local;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class EventView {
     private Long id;
     private Long apiId;
     private String name;
-    private String startDate;
+    private String startDateAll;
+    private LocalDate startDate;
+    private LocalTime startTime;
     private LocalDateTime startDateLocal;
-    private String endDate;
+    private String endDateAll;
+    private LocalDate endDate;
+    private LocalTime endTime;
     private LocalDateTime endDateLocal;
     private String descShort;
     private String descLong;
@@ -52,20 +59,20 @@ public class EventView {
         this.name = name;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getStartDateAll() {
+        return startDateAll;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setStartDateAll(String startDateAll) {
+        this.startDateAll = startDateAll;
     }
 
-    public String getEndDate() {
-        return endDate;
+    public String getEndDateAll() {
+        return endDateAll;
     }
 
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
+    public void setEndDateAll(String endDateAll) {
+        this.endDateAll = endDateAll;
     }
 
     public String getDescShort() {
@@ -218,5 +225,37 @@ public class EventView {
 
     public void setPlaceStreet(String placeStreet) {
         this.placeStreet = placeStreet;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
     }
 }

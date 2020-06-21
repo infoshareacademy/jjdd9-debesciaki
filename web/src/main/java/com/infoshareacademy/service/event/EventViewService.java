@@ -29,6 +29,9 @@ public class EventViewService {
     CategoryDao categoryDao;
 
     @Inject
+    AddressDao addressDao;
+
+    @Inject
     PlaceDao placeDao;
 
     @Inject
@@ -50,6 +53,8 @@ public class EventViewService {
     private AddressViewService addressViewService;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     public List<EventView> prepareFavouriteEvents(int firstResult, String email) {
         List<EventView> eventsList = new ArrayList<>();
@@ -69,7 +74,6 @@ public class EventViewService {
     }
 
     public Integer getFavouritesCount(String email) {
-        Set<Event> eventsList = new HashSet<>();
         User user = userService.findByEmail(email);
         Set<Event> events = user.getEvents();
         return events.size();
@@ -173,9 +177,13 @@ public class EventViewService {
         eventView.setId(event.getId());
         eventView.setApiId(event.getApiId());
         eventView.setName(event.getName());
-        eventView.setStartDate(event.getStartDate().format(formatter));
+        eventView.setStartDateAll(event.getStartDate().format(formatter));
+        eventView.setStartDate(event.getStartDate().toLocalDate());
+        eventView.setStartTime(event.getStartDate().toLocalTime());
         eventView.setStartDateLocal(event.getStartDate());
-        eventView.setEndDate(event.getEndDate().format(formatter));
+        eventView.setEndDateAll(event.getEndDate().format(formatter));
+        eventView.setEndDate(event.getEndDate().toLocalDate());
+        eventView.setEndTime(event.getEndDate().toLocalTime());
         eventView.setEndDateLocal(event.getEndDate());
         eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji");
         eventView.setDescLong(Optional.ofNullable(event.getDescLong()).isPresent() ? event.getDescLong() : "Brak informacji o wydarzeniu");
@@ -230,8 +238,8 @@ public class EventViewService {
         event.setPlace(placeAfterSave);
         event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
         event.setUrls(urlsDao.save(eventView.getWebsite()));
-        event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setStartDate(LocalDateTime.parse(eventView.getStartDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setEndDate(LocalDateTime.parse(eventView.getEndDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         if (eventView.getTicket().equals("free")) {
             event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getNumberOfTickets()));
         } else {
@@ -288,24 +296,21 @@ public class EventViewService {
 
     private Event mapperFromView(EventView eventView) {
         Event event = new Event();
-        Organizer organizer = organizerDao.findByDesignation(eventView.getOrganizerName()).get();
-        Category category = categoryDao.findByName(eventView.getCategoryName()).get();
-        Place place = placeDao.findByNameAndSubname(eventView.getPlaceName(), eventView.getPlaceSubname());
-        Urls url = urlsDao.save(eventView.getWebsite());
-
-        place.setName(eventView.getPlaceName());
-        place.setSubname(eventView.getPlaceSubname());
-
         event.setId(eventView.getId());
         event.setApiId(eventView.getApiId());
         event.setActive(1);
         event.setName(eventView.getName());
-        event.setOrganizer(organizer);
-        event.setCategory(category);
-        event.setPlace(place);
-        event.setUrls(url);
-        event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-        event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        if(!eventView.getFileName().equals(null)) {
+            event.setAttachments(List.of(attachmentDao.save(eventView.getFileName())));
+        } else {
+            event.setAttachments(null);
+        }
+        event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
+        event.setCategory(categoryDao.create(eventView.getCategoryName()));
+        event.setPlace(preparePlace(eventView));
+        event.setUrls(urlsDao.save(eventView.getWebsite()));
+        event.setStartDate(LocalDateTime.parse(eventView.getStartDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setEndDate(LocalDateTime.parse(eventView.getEndDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
 
         if(eventView.getTicket().equals("free")) {
             event.setTicket(ticketDao.save("free", eventView.getNumberOfTickets()));
@@ -315,6 +320,19 @@ public class EventViewService {
 
         event.setDescLong(eventView.getDescLong());
         return event;
+    }
+
+    private Place preparePlace(EventView eventView) {
+        Place place = new Place();
+        Address address = new Address();
+        place.setName(eventView.getPlaceName());
+        place.setSubname(eventView.getPlaceSubname());
+        address.setStreet(eventView.getPlaceStreet());
+        address.setCity(eventView.getPlaceCity());
+        address.setZipcode(eventView.getPlaceZipcode());
+        place.setAddress(addressDao.save(address));
+        placeDao.update(place);
+        return place;
     }
 
 

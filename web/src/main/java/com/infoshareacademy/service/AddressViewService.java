@@ -18,7 +18,7 @@ public class AddressViewService {
         address.setCity(addressView.getCity());
         address.setStreet(addressView.getStreet());
         address.setZipcode(addressView.getZipCode());
-        address.setId(addressDao.save(address));
+        address.setId(addressDao.save(address).getId());
         return address;
     }
 

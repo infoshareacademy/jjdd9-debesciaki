@@ -2,9 +2,7 @@ package com.infoshareacademy.service.favourite;
 
 import com.infoshareacademy.domain.entity.Attachment;
 import com.infoshareacademy.domain.entity.Event;
-import com.infoshareacademy.repository.AttachmentDao;
-import com.infoshareacademy.repository.EventDao;
-import com.infoshareacademy.repository.ViewStatDao;
+import com.infoshareacademy.repository.*;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,6 +19,9 @@ public class EventRestService {
 
     @Inject
     AttachmentDao attachmentDao;
+
+    @Inject
+    FavouritesDao favouritesDao;
 
     public Response deleteEvent(Long eventId) {
         Event event = eventDao.findById(eventId).get();

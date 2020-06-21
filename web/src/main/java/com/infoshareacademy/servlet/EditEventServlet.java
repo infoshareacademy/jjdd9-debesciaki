@@ -78,6 +78,8 @@ public class EditEventServlet extends HttpServlet {
         EventView changedEvent = new EventView();
         changedEvent.setId(Long.valueOf(req.getParameter("id")));
         changedEvent.setApiId(Long.valueOf(req.getParameter("apiId").replaceAll(",","")));
+        changedEvent.setFileName(req.getParameter("eventAttachment"));
+
         changedEvent.setName(req.getParameter("name"));
         changedEvent.setOrganizerName(req.getParameter("organizersDesignation"));
         changedEvent.setCategoryName(req.getParameter("category"));
@@ -86,9 +88,12 @@ public class EditEventServlet extends HttpServlet {
         if (changedEvent.getPlaceSubname().equals("brak")) {
             changedEvent.setPlaceSubname(null);
         }
+        changedEvent.setPlaceCity(req.getParameter("city"));
+        changedEvent.setPlaceStreet(req.getParameter("street"));
+        changedEvent.setPlaceZipcode(req.getParameter("zipCode"));
         changedEvent.setWebsite(req.getParameter("url"));
-        changedEvent.setStartDate(req.getParameter("startDate"));
-        changedEvent.setEndDate(req.getParameter("endDate"));
+        changedEvent.setStartDateAll(req.getParameter("startDate").concat("T").concat(req.getParameter("startTime")));
+        changedEvent.setEndDateAll(req.getParameter("endDate").concat("T").concat(req.getParameter("endTime")));
         changedEvent.setTicket(req.getParameter("typeOfTicket"));
         changedEvent.setNumberOfTickets(Integer.valueOf(req.getParameter("numberOfTickets")));
 

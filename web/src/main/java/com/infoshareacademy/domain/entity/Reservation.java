@@ -2,7 +2,20 @@ package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-
+@NamedQueries({
+        @NamedQuery(
+                name = "Reservation.findByToken",
+                query = "SELECT r FROM Reservation r WHERE r.token = :token"
+        ),
+        @NamedQuery(
+                name = "Reservation.findExpired",
+                query = "SELECT r FROM Reservation r WHERE (r.expirationDate < :now AND r.confirmed = FALSE)"
+        ),
+        @NamedQuery(
+                name = "Reservation.findByUser",
+                query = "SELECT r FROM Reservation r WHERE r.user = :user "
+        ),
+})
 @Entity
 @Table(name = "reservation")
 public class Reservation {
@@ -15,9 +28,11 @@ public class Reservation {
 
     private Boolean confirmed;
 
-    private LocalDateTime startDate;
+    @Column(name = "price_is_full")
+    private Boolean isFull;
 
-    private LocalDateTime endDate;
+    @Column(name = "expiration_date")
+    private LocalDateTime expirationDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -35,20 +50,13 @@ public class Reservation {
         this.id = id;
     }
 
-    public LocalDateTime getStartDate() {
-        return startDate;
+
+    public LocalDateTime getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
+    public void setExpirationDate(LocalDateTime endDate) {
+        this.expirationDate = endDate;
     }
 
     public User getUser() {
@@ -81,5 +89,13 @@ public class Reservation {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public Boolean getFull() {
+        return isFull;
+    }
+
+    public void setFull(Boolean full) {
+        isFull = full;
     }
 }
