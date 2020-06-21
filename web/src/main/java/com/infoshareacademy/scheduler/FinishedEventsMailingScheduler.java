@@ -20,6 +20,6 @@ public class FinishedEventsMailingScheduler {
     @Schedule(hour = "*", minute = "*", second = "0", info = "Each minute")
     public void checkEvents() {
         finishedEventsService.finishedManager();
-        STDLOG.info("Checking routine finished");
+        STDLOG.info("Checking finished events routine finished");
     }
 }

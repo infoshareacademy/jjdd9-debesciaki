@@ -197,13 +197,13 @@
 
     <div id="Wydarzenia global" class="tabcontent">
         <div class="container">
-            <canvas id="myBarChart" width="100" height="55"></canvas>
+            <canvas id="myBarChart" width="800" height="440"></canvas>
         </div>
     </div>
 
     <div id="Organizatorzy global" class="tabcontent">
         <div class="container">
-            <canvas id="myBarChart2" width="100" height="40"></canvas>
+            <canvas id="myBarChart2" width="800" height="320"></canvas>
         </div>
     </div>
 
@@ -226,7 +226,7 @@
             </div>
         </div>
         <div class="container">
-            <canvas id="myBarChart3" width="100" height="55"></canvas>
+            <canvas id="myBarChart3" width="800" height="440"></canvas>
         </div>
     </div>
 
@@ -250,13 +250,13 @@
         </div>
         </tr>
         <div class="container">
-            <canvas id="myBarChart4" width="100" height="40"></canvas>
+            <canvas id="myBarChart4" width="800" height="320"></canvas>
         </div>
     </div>
 
     <div id="Ticket ratio" class="tabcontent">
         <div class="container">
-            <canvas id="myBarChart5" width="100" height="55"></canvas>
+            <canvas id="myBarChart5" width="800" height="440"></canvas>
         </div>
     </div>
 
