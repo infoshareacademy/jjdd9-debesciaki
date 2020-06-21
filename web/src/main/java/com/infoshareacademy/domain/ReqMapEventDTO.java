@@ -1,13 +1,6 @@
 package com.infoshareacademy.domain;
 
-import com.infoshareacademy.domain.entity.*;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class ReqMapEventDTO {
     private Long id;

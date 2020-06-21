@@ -14,6 +14,8 @@ public class HttpReqMapperBean {
 
         ReqMapEventDTO reqMapEventDTO = new ReqMapEventDTO();
 
+        reqMapEventDTO.setId(Long.parseLong(req.getParameter("id")));
+
         reqMapEventDTO.setName(req.getParameter("name"));
         reqMapEventDTO.setDescLong(req.getParameter("descLong"));
 
@@ -33,7 +35,7 @@ public class HttpReqMapperBean {
 
         reqMapEventDTO.setOrganizerDesignation(req.getParameter("organizersDesignation"));
 
-        reqMapEventDTO.setName(req.getParameter("category"));
+        reqMapEventDTO.setCategoryName(req.getParameter("category"));
 
         reqMapEventDTO.setPlaceName(req.getParameter("placeName"));
         reqMapEventDTO.setPlaceSubname(req.getParameter("placeSubname"));
