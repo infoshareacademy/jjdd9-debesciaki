@@ -3,8 +3,10 @@ package com.infoshareacademy.servlet;
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
+import com.infoshareacademy.service.EditEventService;
 import com.infoshareacademy.service.OrganizerViewService;
 import com.infoshareacademy.service.event.EventViewService;
+import com.infoshareacademy.service.HttpReqMapperBean;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -27,13 +29,19 @@ public class EditEventServlet extends HttpServlet {
     private static final Logger STDLOG = LoggerFactory.getLogger(EditEventServlet.class.getName());
 
     @Inject
-    TemplateProvider templateProvider;
+    private TemplateProvider templateProvider;
+
+    @Inject
+    private EditEventService editEventService;
 
     @EJB
-    EventViewService eventViewService;
+    private EventViewService eventViewService;
 
     @EJB
-    OrganizerViewService organizerViewService;
+    private OrganizerViewService organizerViewService;
+
+    @Inject
+    private HttpReqMapperBean httpReqMapperBean;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -75,36 +83,8 @@ public class EditEventServlet extends HttpServlet {
         dataModel.put("email", contextHolder.getEmail());
         dataModel.put("role", contextHolder.getRole());
 
-        EventView changedEvent = new EventView();
-        changedEvent.setId(Long.valueOf(req.getParameter("id")));
-        changedEvent.setApiId(Long.valueOf(req.getParameter("apiId").replaceAll(",","")));
-        changedEvent.setFileName(req.getParameter("eventAttachment"));
+        editEventService.updateEvent(httpReqMapperBean.map(req));
 
-        changedEvent.setName(req.getParameter("name"));
-        changedEvent.setOrganizerName(req.getParameter("organizersDesignation"));
-        changedEvent.setCategoryName(req.getParameter("category"));
-        changedEvent.setPlaceName(req.getParameter("placeName"));
-        changedEvent.setPlaceSubname(req.getParameter("placeSubname"));
-        if (changedEvent.getPlaceSubname().equals("brak")) {
-            changedEvent.setPlaceSubname(null);
-        }
-        changedEvent.setPlaceCity(req.getParameter("city"));
-        changedEvent.setPlaceStreet(req.getParameter("street"));
-        changedEvent.setPlaceZipcode(req.getParameter("zipCode"));
-        changedEvent.setWebsite(req.getParameter("url"));
-        changedEvent.setStartDateAll(req.getParameter("startDate").concat("T").concat(req.getParameter("startTime")));
-        changedEvent.setEndDateAll(req.getParameter("endDate").concat("T").concat(req.getParameter("endTime")));
-        changedEvent.setTicket(req.getParameter("typeOfTicket"));
-        changedEvent.setNumberOfTickets(Integer.valueOf(req.getParameter("numberOfTickets")));
-
-        if(changedEvent.getTicket().equals("tickets")) {
-            changedEvent.setMinTicketPrice(Integer.valueOf(req.getParameter("reducedTicket")));
-            changedEvent.setMaxTicketPrice(Integer.valueOf(req.getParameter("normalTicket")));
-        }
-
-        changedEvent.setDescLong(req.getParameter("descLong"));
-
-        eventViewService.update(changedEvent);
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.sendRedirect("/show-events?action=showAll&page=1");
