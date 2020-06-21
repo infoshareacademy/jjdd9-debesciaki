@@ -8,6 +8,7 @@ import com.infoshareacademy.mail.ReservationTokenMail;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.repository.ReservationDao;
 import com.infoshareacademy.repository.UserDao;
+import com.infoshareacademy.service.stat.TicketStatService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,9 @@ public class ReservationService {
 
     @Inject
     private ReservationDao reservationDao;
+
+    @Inject
+    TicketStatService ticketStatService;
 
     @Inject
     private EventDao eventDao;
@@ -55,6 +59,9 @@ public class ReservationService {
             } else {
                 return "Brak biletów na wydarzenie";
             }
+
+            ticketStatService.updateSingleTicketStat(eventId,isFull);
+
 
             reservation.setEvent(event);
             reservation.setFull(isFull);

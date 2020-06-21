@@ -20,7 +20,7 @@ public class Reservation {
 
     private Boolean confirmed;
 
-    @Column(name = "is_full")
+    @Column(name = "price_is_full")
     private Boolean isFull;
 
     @Column(name = "expiration_date")
