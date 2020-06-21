@@ -213,7 +213,7 @@ public class EventViewService {
             eventView.setMaxTicketPrice(event.getTicket().getEndTicket());
         }
 
-        eventView.setNumberOfTickets(event.getTicket().getNumberOfTickets());
+        eventView.setNumberOfTickets(event.getTicketAmount().intValue());
         eventView.setWebsite(Optional.ofNullable(event.getUrls().getWww()).isPresent() ? event.getUrls().getWww() : "Brak strony internetowej");
         eventView.setFacebook(Optional.ofNullable(event.getUrls().getFb()).isPresent() ? event.getUrls().getFb() : "Brak profilu na facebooku");
         eventView.setFileName(Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && (event.getAttachments().get(0).getFileName().contains("http") || event.getAttachments().get(0).getFileName().contains("tmp")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
@@ -229,8 +229,6 @@ public class EventViewService {
         Place place = placeViewService.mapper(placeView);
         place.setAddress(address);
         Place placeAfterSave = placeDao.create(place);
-        placeAfterSave.setApiId(placeAfterSave.getId());
-        placeDao.update(placeAfterSave);
 
         event.setName(eventView.getName());
         event.setActive(1);
@@ -245,6 +243,7 @@ public class EventViewService {
         } else {
             event.setTicket(ticketDao.save(eventView.getTicket(), eventView.getMinTicketPrice(), eventView.getMaxTicketPrice(), eventView.getNumberOfTickets()));
         }
+        event.setTicketAmount(eventView.getNumberOfTickets().longValue());
         event.setDescLong(eventView.getDescLong());
         eventDao.save(event);
     }
