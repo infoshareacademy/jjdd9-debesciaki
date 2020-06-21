@@ -229,9 +229,7 @@ public class EventViewService {
         event.setCategory(categoryDao.create(eventView.getCategoryName()));
         event.setPlace(placeAfterSave);
         event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
-        if(!eventView.getWebsite().isEmpty()) {
-            event.setUrls(urlsDao.save(eventView.getWebsite()));
-        }
+        event.setUrls(urlsDao.save(eventView.getWebsite()));
         event.setStartDate(LocalDateTime.parse(eventView.getStartDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         event.setEndDate(LocalDateTime.parse(eventView.getEndDate().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
         if (eventView.getTicket().equals("free")) {
