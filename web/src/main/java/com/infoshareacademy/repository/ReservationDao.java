@@ -61,4 +61,10 @@ public class ReservationDao {
         return query.getResultList();
     }
 
+    public List<Reservation> findByEventId(Long eventId) {
+        Query query = entityManager.createNamedQuery("Reservation.findByEventId");
+        query.setParameter("eventId", eventId);
+        return query.getResultList();
+    }
+
 }

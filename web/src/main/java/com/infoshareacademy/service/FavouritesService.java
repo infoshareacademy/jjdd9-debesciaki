@@ -18,13 +18,13 @@ public class FavouritesService {
     private final String reason = "Wydarzenie odwołano.";
 
     @Inject
-    EventDao eventDao;
+    private EventDao eventDao;
 
     @Inject
-    UserDao userDao;
+    private UserDao userDao;
 
     @Inject
-    MailService mailService;
+    private MailService mailService;
 
     public void deleteEventFromFavouritesUsersLists(Long eventId) {
         Optional<Event> eventOptional = eventDao.findById(eventId);

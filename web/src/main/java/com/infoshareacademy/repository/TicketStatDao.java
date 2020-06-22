@@ -30,6 +30,11 @@ public class TicketStatDao {
         STDLOG.info("Ticket stat have been updated id: {}", ticketStat.getId());
     }
 
+    public void delete(TicketStat ticketStat) {
+        entityManager.remove(ticketStat);
+        STDLOG.info("Ticket stat have been deleted id: {}", ticketStat.getId());
+    }
+
     public List<TicketStat> findAll() {
         Query query = entityManager.createNamedQuery("TicketStat.findAll");
         return query.getResultList();
@@ -38,6 +43,19 @@ public class TicketStatDao {
     public Optional<TicketStat> findById(Event event) {
         Query query = entityManager.createNamedQuery("TicketStat.findByEventId");
         query.setParameter("eventId", event.getId());
+        List result = query.getResultList();
+        if (!result.isEmpty()) {
+            STDLOG.info("Success in searching for ticket stat");
+            return Optional.ofNullable((TicketStat) result.get(0));
+        } else {
+            STDLOG.error("Problems during searching for ticket stat");
+            return Optional.empty();
+        }
+    }
+
+    public Optional<TicketStat> findById(Long eventID) {
+        Query query = entityManager.createNamedQuery("TicketStat.findByEventId");
+        query.setParameter("eventId", eventID);
         List result = query.getResultList();
         if (!result.isEmpty()) {
             STDLOG.info("Success in searching for ticket stat");

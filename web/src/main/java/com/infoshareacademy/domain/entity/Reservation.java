@@ -15,6 +15,10 @@ import java.time.LocalDateTime;
                 name = "Reservation.findByUser",
                 query = "SELECT r FROM Reservation r WHERE r.user = :user "
         ),
+        @NamedQuery(
+                name = "Reservation.findByEventId",
+                query = "SELECT r FROM Reservation r WHERE r.event.id = :eventId "
+        ),
 })
 @Entity
 @Table(name = "reservation")

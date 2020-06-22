@@ -1,38 +1,48 @@
 package com.infoshareacademy.service.favourite;
 
-import com.infoshareacademy.domain.entity.Attachment;
-import com.infoshareacademy.domain.entity.Event;
-import com.infoshareacademy.domain.entity.ViewStat;
-import com.infoshareacademy.repository.AttachmentDao;
-import com.infoshareacademy.repository.EventDao;
-import com.infoshareacademy.repository.ViewStatDao;
+import com.infoshareacademy.domain.entity.*;
+import com.infoshareacademy.repository.*;
 import com.infoshareacademy.service.FavouritesService;
+import com.infoshareacademy.service.ReservationService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 @Stateless
 public class EventRestService {
+    private final String reason = "Wydarzenie odwołano.";
 
     @Inject
-    EventDao eventDao;
+    private EventDao eventDao;
 
     @Inject
-    ViewStatDao viewStatDao;
+    private ViewStatDao viewStatDao;
 
     @Inject
-    AttachmentDao attachmentDao;
+    private TicketStatDao ticketStatDao;
 
     @Inject
-    FavouritesService favouritesService;
+    private AttachmentDao attachmentDao;
+
+    @Inject
+    private FavouritesService favouritesService;
+
+    @Inject
+    private ReservationService reservationService;
+
+    @Inject
+    private ReservationDao reservationDao;
 
     public Response deleteEvent(Long eventId) {
         Event event = eventDao.findById(eventId).get();
-        removeAttachments(event.getId());
-        removeViewStats(event.getId());
+        removeAttachments(eventId);
+        removeViewStats(eventId);
+        removeTicketStats(eventId);
         favouritesService.deleteEventFromFavouritesUsersLists(eventId);
+        removeReservationsForEvent(eventId);
         event.setPlace(null);
         event.setOrganizer(null);
         event.setCategory(null);
@@ -42,6 +52,14 @@ public class EventRestService {
         eventDao.delete(event);
         return Response.status(Response.Status.OK).build();
     }
+
+    private void removeReservationsForEvent(Long eventId) {
+        List<Reservation> reservationList = reservationDao.findByEventId(eventId);
+        for (Reservation reservation : reservationList) {
+            reservationService.delete(reservation, reason);
+        }
+    }
+
     private void removeAttachments(Long eventId) {
         List<Attachment> attachments = eventDao.findById(eventId).get().getAttachments();
         for (Attachment a : attachments) {
@@ -59,6 +77,15 @@ public class EventRestService {
                 el.setViewDate(null);
                 viewStatDao.delete(el);
             }
+        }
+    }
+
+    private void removeTicketStats(Long eventId) {
+        Optional<TicketStat> optionalTicketStat = ticketStatDao.findById(eventId);
+        if (optionalTicketStat.isPresent()) {
+            TicketStat ticketStat = optionalTicketStat.get();
+            ticketStat.setEvent(null);
+            ticketStatDao.delete(ticketStat);
         }
     }
 
