@@ -98,8 +98,6 @@ public class NewEventServlet extends HttpServlet {
             newEvent.setMaxTicketPrice(Integer.valueOf(req.getParameter("normalTicket")));
         }
         newEvent.setDescLong(req.getParameter("descLong"));
-      /*  Part image = req.getPart("image");
-        newEvent.setFileName("/images/" + fileUploadBean.uploadFile(image).getName()); */
 
         addressView.setCity(req.getParameter("city"));
         addressView.setStreet(req.getParameter("street"));

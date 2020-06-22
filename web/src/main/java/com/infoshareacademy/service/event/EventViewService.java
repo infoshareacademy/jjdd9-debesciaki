@@ -234,9 +234,9 @@ public class EventViewService {
         Ticket ticket = new Ticket();
         ticket.setType(eventView.getTicket());
         if (eventView.getTicket().equals("free")) {
-            ticket.setNumberOfTickets(eventView.getNumberOfTickets());
+            event.setTicketAmount(eventView.getNumberOfTickets().longValue());
         } else {
-            ticket.setNumberOfTickets(eventView.getNumberOfTickets());
+            event.setTicketAmount(eventView.getNumberOfTickets().longValue());
             ticket.setStartTicket(eventView.getMinTicketPrice());
             ticket.setEndTicket(eventView.getMaxTicketPrice());
         }
