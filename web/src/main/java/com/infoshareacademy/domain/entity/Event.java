@@ -10,34 +10,34 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(
                 name = "Event.findAll",
-                query = "SELECT e FROM Event e"
+                query = "SELECT e FROM Event e ORDER BY e.startDate ASC"
         ),
         @NamedQuery(
                 name = "Event.findByEveOrg",
-                query = "SELECT e FROM Event e WHERE (e.name LIKE :phrase) OR (e.organizer.designation LIKE :phrase)"
+                query = "SELECT e FROM Event e WHERE (e.name LIKE :phrase) OR (e.organizer.designation LIKE :phrase) ORDER BY e.startDate ASC"
         ),
         @NamedQuery(
                 name = "Event.findByEveOrgDate",
                 query = "SELECT e FROM Event e WHERE ((e.name LIKE :phrase) OR(e.organizer.designation LIKE :phrase)) " +
-                        "AND (e.startDate  BETWEEN :start AND :end) AND (e.endDate BETWEEN :start AND :end)"
+                        "AND (e.startDate  BETWEEN :start AND :end) AND (e.endDate BETWEEN :start AND :end) ORDER BY e.startDate ASC"
         ),
         @NamedQuery(
                 name = "Event.findByEve",
-                query = "SELECT e FROM Event e WHERE e.name LIKE :phrase"
+                query = "SELECT e FROM Event e WHERE e.name LIKE :phrase ORDER BY e.startDate ASC"
         ),
         @NamedQuery(
                 name = "Event.findByEveDate",
                 query = "SELECT e FROM Event e WHERE (e.name LIKE :phrase) AND (e.startDate  BETWEEN :start AND :end) " +
-                        "AND (e.endDate BETWEEN :start AND :end)"
+                        "AND (e.endDate BETWEEN :start AND :end) ORDER BY e.startDate ASC"
         ),
         @NamedQuery(
                 name = "Event.findByOrg",
-                query = "SELECT e FROM Event e WHERE e.organizer.designation LIKE :phrase"
+                query = "SELECT e FROM Event e WHERE e.organizer.designation LIKE :phrase ORDER BY e.startDate ASC"
         ),
         @NamedQuery(
                 name = "Event.findByOrgDate",
                 query = "SELECT e FROM Event e WHERE (e.organizer.designation LIKE :phrase) " +
-                        "AND (e.startDate  BETWEEN :start AND :end) AND (e.endDate BETWEEN :start AND :end)"
+                        "AND (e.startDate  BETWEEN :start AND :end) AND (e.endDate BETWEEN :start AND :end) ORDER BY e.startDate ASC"
         ),
         @NamedQuery(
                 name = "Event.findByApiId",

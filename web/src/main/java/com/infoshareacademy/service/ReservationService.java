@@ -121,7 +121,7 @@ public class ReservationService {
 
 
     public void delete(Reservation reservation, String reason) {
-        Optional<Event> eventOptional = eventDao.findById(reservation.getId());
+        Optional<Event> eventOptional = eventDao.findById(reservation.getEvent().getId());
         Event event = eventOptional.get();
         String mail = reservation.getUser().getMail();
         event.setTicketAmount(event.getTicketAmount() + 1L);

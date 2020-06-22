@@ -1,10 +1,14 @@
-package com.infoshareacademy.service;
+package com.infoshareacademy.service.event;
 
 import com.infoshareacademy.comparator.EventViewComparators;
-import com.infoshareacademy.domain.entity.Event;
-import com.infoshareacademy.domain.entity.User;
+import com.infoshareacademy.domain.entity.*;
+import com.infoshareacademy.domain.view.AddressView;
 import com.infoshareacademy.domain.view.EventView;
-import com.infoshareacademy.repository.EventDao;
+import com.infoshareacademy.domain.view.PlaceView;
+import com.infoshareacademy.repository.*;
+import com.infoshareacademy.service.AddressViewService;
+import com.infoshareacademy.service.PlaceViewService;
+import com.infoshareacademy.service.user.UserService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -19,7 +23,34 @@ public class EventViewService {
     private EventDao eventDao;
 
     @Inject
+    OrganizerDao organizerDao;
+
+    @Inject
+    CategoryDao categoryDao;
+
+    @Inject
+    AddressDao addressDao;
+
+    @Inject
+    PlaceDao placeDao;
+
+    @Inject
+    UrlsDao urlsDao;
+
+    @Inject
+    TicketDao ticketDao;
+
+    @Inject
+    AttachmentDao attachmentDao;
+
+    @Inject
     private UserService userService;
+
+    @Inject
+    private PlaceViewService placeViewService;
+
+    @Inject
+    private AddressViewService addressViewService;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
@@ -142,15 +173,28 @@ public class EventViewService {
     public EventView mapper(Event event) {
         EventView eventView = new EventView();
         eventView.setId(event.getId());
+        eventView.setApiId(event.getApiId());
         eventView.setName(event.getName());
-        eventView.setStartDate(event.getStartDate().format(formatter));
-        eventView.setEndDate(event.getEndDate().format(formatter));
+        eventView.setStartDateAll(event.getStartDate().format(formatter));
+        eventView.setStartDate(event.getStartDate().toLocalDate());
+        eventView.setStartTime(event.getStartDate().toLocalTime());
+        eventView.setStartDateLocal(event.getStartDate());
+        eventView.setEndDateAll(event.getEndDate().format(formatter));
+        eventView.setEndDate(event.getEndDate().toLocalDate());
+        eventView.setEndTime(event.getEndDate().toLocalTime());
+        eventView.setEndDateLocal(event.getEndDate());
         eventView.setDescShort(Optional.ofNullable(event.getDescShort()).isPresent() ? event.getDescShort() : "Brak informacji");
         eventView.setDescLong(Optional.ofNullable(event.getDescLong()).isPresent() ? event.getDescLong() : "Brak informacji o wydarzeniu");
         eventView.setCategoryName(event.getCategory().getName().isEmpty() ? null : event.getCategory().getName());
         eventView.setOrganizerName((Optional.ofNullable(event.getOrganizer().getDesignation()).isPresent()) ? event.getOrganizer().getDesignation() : "Brak informacji");
         eventView.setPlaceName(Optional.ofNullable(event.getPlace().getName()).isPresent() ? event.getPlace().getName() : "Brak informacji");
         eventView.setPlaceSubname(Optional.ofNullable(event.getPlace().getSubname()).isPresent() ? event.getPlace().getSubname() : "brak");
+
+        if(!eventView.getPlaceName().equals(null)) {
+            eventView.setPlaceCity(event.getPlace().getAddress().getCity());
+            eventView.setPlaceStreet(event.getPlace().getAddress().getStreet());
+            eventView.setPlaceZipcode(event.getPlace().getAddress().getZipcode());
+        }
 
         if (eventView.getPlaceName() == eventView.getPlaceSubname()) {
             eventView.setPlaceSubname("brak");
@@ -160,8 +204,6 @@ public class EventViewService {
             eventView.setTicket("bilety");
         } else if (event.getTicket().getType().equals("free")) {
             eventView.setTicket("wstęp wolny");
-        } else {
-            eventView.setTicket("brak informacji");
         }
 
         if (eventView.getTicket() == "bilety") {
@@ -169,11 +211,49 @@ public class EventViewService {
             eventView.setMaxTicketPrice(event.getTicket().getEndTicket());
         }
 
+        eventView.setNumberOfTickets(event.getTicketAmount().intValue());
         eventView.setWebsite(Optional.ofNullable(event.getUrls().getWww()).isPresent() ? event.getUrls().getWww() : "Brak strony internetowej");
         eventView.setFacebook(Optional.ofNullable(event.getUrls().getFb()).isPresent() ? event.getUrls().getFb() : "Brak profilu na facebooku");
-        eventView.setFileName((Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && event.getAttachments().get(0).getFileName().contains("http")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
+        eventView.setFileName(Optional.ofNullable(event.getAttachments()).isPresent() && event.getAttachments().size() > 0 && (event.getAttachments().get(0).getFileName().contains("http") || event.getAttachments().get(0).getFileName().contains("tmp")) ? event.getAttachments().get(0).getFileName() : "https://mikado.pl/upload/brak.png");
 
         return eventView;
+    }
+
+    public void newEvent(EventView eventView, AddressView addressView, PlaceView placeView) {
+        Event event = new Event();
+
+        Address address = addressViewService.mapper(addressView);
+        Place place = placeViewService.mapper(placeView);
+        place.setAddress(address);
+        placeDao.create(place);
+
+        Urls url = new Urls();
+        url.setWww(eventView.getWebsite());
+        urlsDao.save(url);
+
+        Ticket ticket = new Ticket();
+        ticket.setType(eventView.getTicket());
+        if (eventView.getTicket().equals("free")) {
+            event.setTicketAmount(eventView.getNumberOfTickets().longValue());
+        } else {
+            event.setTicketAmount(eventView.getNumberOfTickets().longValue());
+            ticket.setStartTicket(eventView.getMinTicketPrice());
+            ticket.setEndTicket(eventView.getMaxTicketPrice());
+        }
+        ticketDao.save(ticket);
+
+        event.setName(eventView.getName());
+        event.setActive(1);
+        event.setCategory(categoryDao.create(eventView.getCategoryName()));
+        event.setPlace(place);
+        event.setOrganizer(organizerDao.findByDesignation(eventView.getOrganizerName()).get());
+        event.setUrls(url);
+        event.setStartDate(LocalDateTime.parse(eventView.getStartDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setEndDate(LocalDateTime.parse(eventView.getEndDateAll().concat(":00"), DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        event.setTicket(ticket);
+        event.setTicketAmount(eventView.getNumberOfTickets().longValue());
+        event.setDescLong(eventView.getDescLong());
+        eventDao.save(event);
     }
 
     public List<EventView> listEvents(Integer firstResult, String cleanPhrase, int eve, int org, int date, LocalDateTime start, LocalDateTime end) {
@@ -211,4 +291,24 @@ public class EventViewService {
             return 0;
         }
     }
+
+    public void delete(Long id) {
+        Event event = eventDao.findById(id).get();
+        eventDao.delete(event);
+    }
+
+    private Place preparePlace(EventView eventView) {
+        Place place = new Place();
+        Address address = new Address();
+        place.setName(eventView.getPlaceName());
+        place.setSubname(eventView.getPlaceSubname());
+        address.setStreet(eventView.getPlaceStreet());
+        address.setCity(eventView.getPlaceCity());
+        address.setZipcode(eventView.getPlaceZipcode());
+        place.setAddress(addressDao.save(address));
+        placeDao.update(place);
+        return place;
+    }
+
+
 }

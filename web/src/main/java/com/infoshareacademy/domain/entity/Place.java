@@ -1,11 +1,30 @@
 package com.infoshareacademy.domain.entity;
 
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 import java.util.List;
+
 @NamedQueries({
         @NamedQuery(
                 name = "Place.findByApiId",
                 query = "SELECT p FROM Place p WHERE p.apiId=:apiID"
+        ),
+        @NamedQuery(
+                name = "Place.findByNameAndSubname",
+                query = "SELECT p FROM Place p WHERE p.name=:name AND p.subname=:subname"
+        ),
+        @NamedQuery(
+                name = "Place.findAll",
+                query = "SELECT p FROM Place p"
+        ),
+        @NamedQuery(
+                name = "Place.findDistinctNames",
+                query = "SELECT DISTINCT p.name FROM Place p"
+        ),
+        @NamedQuery(
+                name = "Place.findByEventId",
+                query = "SELECT p FROM Place p WHERE (SELECT e FROM Event e WHERE e.id=:eventId) MEMBER OF p.eventList"
         )
 })
 @Entity

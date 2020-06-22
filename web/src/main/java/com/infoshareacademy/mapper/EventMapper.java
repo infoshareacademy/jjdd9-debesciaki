@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +46,11 @@ public class EventMapper {
         Event daoEvent = new Event();
         daoEvent.setApiId(event.getId());
         daoEvent.setName(event.getName());
-        daoEvent.setEndDate(event.getEndDate());
+        if(event.getEndDate().getSecond() == 59) {
+            daoEvent.setEndDate(event.getEndDate().minus(59, ChronoUnit.SECONDS));
+        } else {
+            daoEvent.setEndDate(event.getEndDate());
+        }
         daoEvent.setStartDate(event.getStartDate());
         daoEvent.setActive(event.getActive());
         daoEvent.setDescLong(event.getDescLong());

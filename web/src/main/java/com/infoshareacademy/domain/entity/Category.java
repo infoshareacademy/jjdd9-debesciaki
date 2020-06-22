@@ -8,7 +8,16 @@ import java.util.List;
         @NamedQuery(
                 name = "Category.findByApiId",
                 query = "SELECT c FROM Category c WHERE c.apiId=:apiID"
-        )})
+        ),
+        @NamedQuery(
+                name = "Category.findByName",
+                query = "SELECT c FROM Category c WHERE c.name=:name"
+        ),
+        @NamedQuery(
+                name = "Category.findByEventId",
+                query = "SELECT c FROM Category c WHERE (SELECT e FROM Event e WHERE e.id=:eventId) MEMBER OF c.eventList"
+        )
+})
 @Entity
 @Table(name = "category")
 public class Category {

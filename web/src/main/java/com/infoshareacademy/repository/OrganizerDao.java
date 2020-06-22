@@ -1,7 +1,7 @@
 package com.infoshareacademy.repository;
 
-import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.Organizer;
+import com.infoshareacademy.domain.entity.Urls;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +20,18 @@ public class OrganizerDao {
         Query query = entityManager.createNamedQuery("Organizer.findByApiId");
         query.setParameter("apiID", id);
         return Optional.ofNullable((Organizer) query.getSingleResult());
+    }
+
+    public Optional<Organizer> findByEventId(Long eventId) {
+        Query query = entityManager.createNamedQuery("Organizer.findByEventId");
+        query.setParameter("eventId", eventId);
+        return Optional.ofNullable((Organizer) query.getResultList().get(0));
+    }
+
+    public Optional<Organizer> findByDesignation(String name) {
+        Query query = entityManager.createNamedQuery("Organizer.findByDesignation");
+        query.setParameter("designation", name);
+        return Optional.ofNullable((Organizer) query.getResultList().get(0));
     }
 
     private final static int MAX_RESULTS = 20;
@@ -55,5 +67,12 @@ public class OrganizerDao {
         for (Organizer o : list) {
             entityManager.persist(o);
         }
+    }
+
+    public Organizer create(String designation) {
+        Organizer organizer = new Organizer();
+        organizer.setDesignation(designation);
+        entityManager.persist(organizer);
+        return organizer;
     }
 }

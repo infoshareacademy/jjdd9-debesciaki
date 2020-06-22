@@ -50,5 +50,9 @@ public class ViewStatDao {
         return query.getResultList();
     }
 
+    public void delete(ViewStat viewStat) {
+        entityManager.remove(viewStat);
+    }
+
 
 }

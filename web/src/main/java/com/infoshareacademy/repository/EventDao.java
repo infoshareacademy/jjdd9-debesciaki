@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +18,20 @@ public class EventDao {
     private EntityManager entityManager;
 
     private final static int MAX_RESULTS = 20;
+
+    @Transactional
+    public void update(Event event) {
+        entityManager.merge(event);
+    }
+
+    @Transactional
+    public void delete(Event event) {
+        entityManager.remove(event);
+    }
+
+    public void create(Event event) {
+        entityManager.persist(event);
+    }
 
     public List<Event> eventListWithLimit(int firstElement) {
         Query query = entityManager.createNamedQuery("Event.findAll");
@@ -173,13 +188,15 @@ public class EventDao {
         return query.getResultList();
     }
 
-    public void persistEntityList(List<Event> list) {
+    public void persistEntityList(List<Event> list) throws IOException {
         for (Event o : list) {
             entityManager.persist(o);
         }
     }
 
-    public void update(Event event) {
-        entityManager.merge(event);
+    public Event save(Event event) {
+        entityManager.persist(event);
+        event.setApiId(event.getId());
+        return event;
     }
 }

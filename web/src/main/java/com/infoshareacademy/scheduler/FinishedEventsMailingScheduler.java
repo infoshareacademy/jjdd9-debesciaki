@@ -1,6 +1,6 @@
 package com.infoshareacademy.scheduler;
 
-import com.infoshareacademy.service.FinishedEventsService;
+import com.infoshareacademy.service.event.FinishedEventsService;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;

@@ -1,7 +1,12 @@
 package com.infoshareacademy.domain.entity;
 
 import javax.persistence.*;
-
+@NamedQueries({
+        @NamedQuery(
+                name = "Urls.findByEventId",
+                query = "SELECT u FROM Urls u WHERE u.event.id=:eventId"
+        )
+})
 @Entity
 @Table(name = "urls")
 public class Urls {

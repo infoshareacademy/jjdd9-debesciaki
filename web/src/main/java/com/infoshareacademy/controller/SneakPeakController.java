@@ -1,6 +1,5 @@
 package com.infoshareacademy.controller;
 
-import com.infoshareacademy.service.EventMapLiveSearch;
 import com.infoshareacademy.service.SneakPeakService;
 
 import javax.inject.Inject;

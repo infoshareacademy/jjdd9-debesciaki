@@ -1,12 +1,9 @@
 package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.entity.Event;
-import com.infoshareacademy.domain.entity.User;
 import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.EventViewService;
-import com.infoshareacademy.service.UserService;
+import com.infoshareacademy.service.event.EventViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -21,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @WebServlet("/show-favourites")

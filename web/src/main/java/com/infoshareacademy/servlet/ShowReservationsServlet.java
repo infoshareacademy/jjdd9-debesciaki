@@ -2,9 +2,7 @@ package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.domain.view.EventReservationView;
-import com.infoshareacademy.domain.view.EventView;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.EventViewService;
 import com.infoshareacademy.service.ReservationViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -13,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

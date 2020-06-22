@@ -15,7 +15,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Strona główna</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="show-events?action=showAll&page=1">Wydarzenia
                     </a>
                 </li>

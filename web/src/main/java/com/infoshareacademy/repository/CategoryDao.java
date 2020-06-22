@@ -29,6 +29,12 @@ public class CategoryDao {
         }
     }
 
+    public Optional<Category> findByEventId(Long id) {
+        Query query = entityManager.createNamedQuery("Category.findByEventId");
+        query.setParameter("eventId", id);
+        return Optional.ofNullable((Category) query.getResultList().get(0));
+    }
+
     public Optional<Category> findByApiId(long id) {
         Query query = entityManager.createNamedQuery("Category.findByApiId");
         query.setParameter("apiID", id);
@@ -37,5 +43,18 @@ public class CategoryDao {
         } catch (Exception e) {
             return Optional.empty();
         }
+    }
+
+    public Optional<Category> findByName(String name) {
+        Query query = entityManager.createNamedQuery("Category.findByName");
+        query.setParameter("name", name);
+        return Optional.ofNullable((Category) query.getResultList().get(0));
+    }
+
+    public Category create(String categoryName) {
+        Category category = new Category();
+        category.setName(categoryName);
+        entityManager.persist(category);
+        return category;
     }
 }

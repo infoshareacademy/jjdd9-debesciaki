@@ -197,13 +197,13 @@
 
     <div id="Wydarzenia global" class="tabcontent">
         <div class="container">
-            <canvas id="myBarChart" width="800" height="440"></canvas>
+            <canvas id="myBarChart" width="1000" height="820"></canvas>
         </div>
     </div>
 
     <div id="Organizatorzy global" class="tabcontent">
         <div class="container">
-            <canvas id="myBarChart2" width="800" height="320"></canvas>
+            <canvas id="myBarChart2" width="1000" height="600"></canvas>
         </div>
     </div>
 
@@ -226,7 +226,7 @@
             </div>
         </div>
         <div class="container">
-            <canvas id="myBarChart3" width="800" height="440"></canvas>
+            <canvas id="myBarChart3" width="1000" height="820"></canvas>
         </div>
     </div>
 
@@ -250,13 +250,13 @@
         </div>
         </tr>
         <div class="container">
-            <canvas id="myBarChart4" width="800" height="320"></canvas>
+            <canvas id="myBarChart4" width="1000" height="600"></canvas>
         </div>
     </div>
 
     <div id="Ticket ratio" class="tabcontent">
         <div class="container">
-            <canvas id="myBarChart5" width="800" height="440"></canvas>
+            <canvas id="myBarChart5" width="1000" height="820"></canvas>
         </div>
     </div>
 
@@ -300,7 +300,7 @@
                     colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
                     colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
                 }
-                labels = res.map(a => formatLabel(a.eventName, 50));
+                labels = res.map(a => a.eventName);
                 values = res.map(a => a.count);
 
                 let MeSeData = {
@@ -454,7 +454,7 @@
                     colorsBarHoverRepo.push("rgba(0, 255, 100, 0.7)");
                     colorsBarHoverBorderRepo.push("rgba(255, 205, 100, 1)");
                 }
-                labels = res.map(a => formatLabel(a.eventName, 50));// ;
+                labels = res.map(a => a.eventName);
                 values = res.map(a => a.count);
 
                 let MeSeData = {
@@ -621,7 +621,7 @@
                                 data: dataPack1,
                                 backgroundColor: "#512DA8",
                                 hoverBackgroundColor: "#7E57C2",
-                                barPercentage: 0.75,
+                                barPercentage: 0.5,
                                 hoverBorderWidth: 0
                             },
                             {

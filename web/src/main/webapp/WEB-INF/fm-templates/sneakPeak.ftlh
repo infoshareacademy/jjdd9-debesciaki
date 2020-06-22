@@ -1,5 +1,6 @@
 <#if role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN" >
-    <div id="signupContainer" class="flex-container">
+    <div id="signupContainer" class="flex-container" style="background-color: #99ccff;   border-style: solid;
+  border-color: #000099;">
         <br>
         <table>
             <tr>
@@ -39,8 +40,8 @@
                     if (result.name == "NONE") {
                         signupContainer.style.display = 'none';
                     } else {
-                        document.getElementById("sneak-peak-text").innerHTML = "Nadchodzące ulubione wydarzenie: " + result.name;
-                        document.getElementById("sneak-date").innerHTML = "Data rozpoczęcia: " + result.startDate + "  Data zakończenia: " + result.endDate;
+                        document.getElementById("sneak-peak-text").innerHTML = "     Nadchodzące ulubione wydarzenie: " + result.name;
+                        document.getElementById("sneak-date").innerHTML = "     Data rozpoczęcia: " + result.startDateAll + "  Data zakończenia: " + result.endDateAll;
                     }
                 },
                 error: function (error) {

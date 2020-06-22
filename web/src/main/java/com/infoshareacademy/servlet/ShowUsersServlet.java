@@ -2,7 +2,8 @@ package com.infoshareacademy.servlet;
 
 import com.infoshareacademy.context.ContextHolder;
 import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.UserViewService;
+import com.infoshareacademy.service.event.EventViewService;
+import com.infoshareacademy.service.user.UserViewService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
@@ -30,9 +31,12 @@ public class ShowUsersServlet extends HttpServlet {
     @EJB
     private UserViewService userViewService;
 
+    @EJB
+    EventViewService eventViewService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "usersList.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "showUsersList.ftlh");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
 
@@ -56,7 +60,7 @@ public class ShowUsersServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Template template = templateProvider.getTemplate(getServletContext(), "usersList.ftlh");
+        Template template = templateProvider.getTemplate(getServletContext(), "showUsersList.ftlh");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Map<String, Object> dataModel = new HashMap<>();
         String roleToChange = req.getParameter("role");
