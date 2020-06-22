@@ -15,13 +15,7 @@ public class EventController {
 
     @DELETE
     @Path("/{eventId}")
-    public Response addEvent(@PathParam("eventId") Long eventId) {
+    public Response deleteEvent(@PathParam("eventId") Long eventId) {
         return eventRestService.deleteEvent(eventId);
-    }
-
-    @PUT
-    @Path("/{eventId}")
-    public Response editEvent(@PathParam("eventId") Long eventId) {
-        return eventRestService.editEvent(eventId);
     }
 }

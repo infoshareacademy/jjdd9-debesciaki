@@ -42,11 +42,6 @@ public class EventRestService {
         eventDao.delete(event);
         return Response.status(Response.Status.OK).build();
     }
-
-    public Response editEvent(Long eventId) {
-        return Response.status(Response.Status.NOT_FOUND).build();
-    }
-
     private void removeAttachments(Long eventId) {
         List<Attachment> attachments = eventDao.findById(eventId).get().getAttachments();
         for (Attachment a : attachments) {
