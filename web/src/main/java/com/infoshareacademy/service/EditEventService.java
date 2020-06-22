@@ -63,7 +63,7 @@ public class EditEventService {
 
             event.setTicketAmount(reqMapEventDTO.getTicketAmount());
 
-            Optional<Organizer> optionalOrganizer = organizerDao.findByEventId(reqMapEventDTO.getId());
+            Optional<Organizer> optionalOrganizer = organizerDao.findByDesignation(reqMapEventDTO.getOrganizerDesignation());
             Organizer organizer = optionalOrganizer.get();
             organizer.setDesignation(reqMapEventDTO.getOrganizerDesignation());
             event.setOrganizer(organizer);
