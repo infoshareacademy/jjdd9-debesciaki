@@ -92,7 +92,7 @@
         </form>
     </div>
 </div>
-
+<#include "newOrganizerModal.ftlh">
 <#include "footerWithScripts.ftlh">
 <script>
     function freePay(that) {
