@@ -29,7 +29,9 @@
     </div>
 </nav>
 <br><br>
+
 <div class="container">
+    <#include "sneakPeak.ftlh">
     <div class="jumbotron ">
         <h1 class="display-5 text-center text-primary">${event.name}</h1>
         <h6><p class="display-6 lead text-center font-italic">${event.organizerName}</p></h6>
@@ -42,17 +44,22 @@
                 <td>
                     <span class="font-weight-bold">Miejsce: </span>${event.placeName}<#if event.placeSubname != "brak">, ${event.placeSubname}</#if>
                     <span class="font-weight-bold"><br>Kategoria: </span>${event.categoryName}
-                    <span class="font-weight-bold"><br>Data rozpoczęcia: </span>${event.startDateAll}
-                    <span class="font-weight-bold"><br>Data zakończenia: </span>${event.endDateAll}
-                    <span class="font-weight-bold"><br>Adres: </span><#if event.placeStreet??>${event.placeStreet} </#if><#if event.placeZipcode??> ${event.placeZipcode} </#if><#if event.placeCity??>${event.placeCity}</#if>
+                    <span class="font-weight-bold"><br>Data rozpoczęcia: </span>${event.startDate}
+                    <span class="font-weight-bold"><br>Data zakończenia: </span>${event.endDate}
                     <#if event.ticket == "wstęp wolny"><span class="font-weight-bold"><br>Wstęp wolny.</span></#if>
-                    <span class="font-weight-bold"><br>Liczba dostępnych miejsc: </span>${event.numberOfTickets}
-                    <#if event.ticket == "bilety"><span class="font-weight-bold"><br>Cena biletu normalnego: </span> ${event.maxTicketPrice}</#if>
-                    <#if event.ticket == "bilety"><span class="font-weight-bold"><br>Cena biletu ulgowego: </span> ${event.minTicketPrice}</#if>
-                    <#if event.website != "Brak strony internetowej"><span class="font-weight-bold"><br>Strona internetowa: </span><a href="${event.website}">${event.website}</a></#if>
-                    <#if event.facebook != "Brak profilu na facebooku"><span class="font-weight-bold"><br>Facebook: </span><a href="${event.facebook}">${event.facebook}</a></#if>
+                    <#if event.ticket == "bilety"><span class="font-weight-bold"><br>Ceny biletów: </span> ${event.minTicketPrice!'brak informacji'} - ${event.maxTicketPrice!'brak informacji'}</#if>
+                    <span class="font-weight-bold"><br>Ilość dostępnych biletów: </span>${event.numberOfTickets}
+                    <#if event.website != "Brak strony internetowej"><span class="font-weight-bold"><br>Strona internetowa: </span>
+                        <a href="${event.website}">${event.website}</a></#if>
+                    <#if event.facebook != "Brak profilu na facebooku"><span
+                            class="font-weight-bold"><br>Facebook: </span><a
+                        href="${event.facebook}">${event.facebook}</a></#if>
                     <span class="font-weight-bold text-center"><br>Opis wydarznia: </span><br>
                     <p>${event.descLong?no_esc}</p>
+                    <#if (event.ticket == "bilety" || event.ticket == "wstęp wolny") && (role == "USER" || role == "ADMIN" || role == "SUPER_ADMIN")>
+                        <br/>
+                        <#include "reservationButton.ftlh">
+                    </#if>
                 </td>
             </tr>
         </table>
