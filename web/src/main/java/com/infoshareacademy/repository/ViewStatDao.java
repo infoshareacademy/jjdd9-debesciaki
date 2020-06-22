@@ -50,16 +50,8 @@ public class ViewStatDao {
         return query.getResultList();
     }
 
-    public void delete(Long eventId) {
-        List<ViewStat> viewStats = findAll();
-        for (ViewStat el : viewStats) {
-            if (el.getEvent().getId().equals(eventId)) {
-                el.setEvent(null);
-                el.setUser(null);
-                el.setViewDate(null);
-                entityManager.remove(el);
-            }
-        }
+    public void delete(ViewStat viewStat) {
+        entityManager.remove(viewStat);
     }
 
 

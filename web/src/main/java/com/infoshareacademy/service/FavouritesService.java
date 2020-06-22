@@ -2,6 +2,9 @@ package com.infoshareacademy.service;
 
 import com.infoshareacademy.domain.entity.Event;
 import com.infoshareacademy.domain.entity.User;
+import com.infoshareacademy.mail.FavouriteDeletedMail;
+import com.infoshareacademy.mail.MailService;
+import com.infoshareacademy.mail.ReservationDeletedMail;
 import com.infoshareacademy.repository.EventDao;
 import com.infoshareacademy.repository.UserDao;
 
@@ -12,6 +15,7 @@ import java.util.Set;
 
 @Stateless
 public class FavouritesService {
+    private final String reason = "Wydarzenie odwołano.";
 
     @Inject
     EventDao eventDao;
@@ -19,7 +23,10 @@ public class FavouritesService {
     @Inject
     UserDao userDao;
 
-    public void delete(Long eventId) {
+    @Inject
+    MailService mailService;
+
+    public void deleteEventFromFavouritesUsersLists(Long eventId) {
         Optional<Event> eventOptional = eventDao.findById(eventId);
         if(eventOptional.isPresent()){
             Event event = eventOptional.get();
@@ -27,6 +34,7 @@ public class FavouritesService {
                 Set<Event> events = user.getEvents();
                 events.remove(event);
                 user.setEvents(events);
+                mailService.sendEmail(new FavouriteDeletedMail(event.getName(),reason),user.getMail());
                 userDao.update(user);
             }
         }
