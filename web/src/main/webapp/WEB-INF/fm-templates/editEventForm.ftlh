@@ -72,18 +72,10 @@
             <span class="font-weight-bold">Data rozpoczęcia: <input type="date" name="startDate" class="m-2" required value="${event.startDate}"/><input type="time" name="startTime" class="m-2" required value="${event.startTime}"/></span><br>
             <span class="font-weight-bold">Data zakończenia: <input type="date" name="endDate" class="m-2" required value="${event.endDate}"/><input type="time" name="endTime" class="m-2" required value="${event.endTime}"/></span><br>
             <nobr><span class="font-weight-bold">Typ biletów:
-            <#if event.ticket == "bilety">
-                <select class="m-2" onchange="freePay(this)" name="typeOfTicket">
-                    <option value="${event.ticket}" name="choose">Wybierz</option>
-                    <option value="tickets" name="tickets">płatne</option>
-                    <option value="free" name="free">bezpłatne</option>
-                </select></span></nobr>
-            <#else>
                 <select class="m-2" onchange="freePay(this)" name="typeOfTicket" id="selectOption">
                     <option value="free" name="free">bezpłatne</option>
                     <option value="tickets" name="tickets">płatne</option>
                 </select></span></nobr>
-            </#if>
             <br>
             <span class="font-weight-bold">Ilość dostępnych miejsc: <input type="number" name="numberOfTickets" class="m-2" required min="1" step="1" value="${event.numberOfTickets}"/></span><br>
             <div id="ifTickets" style="display: none;">
@@ -100,7 +92,7 @@
         </form>
     </div>
 </div>
-
+<#include "newOrganizerModal.ftlh">
 <#include "footerWithScripts.ftlh">
 <script>
     function freePay(that) {
