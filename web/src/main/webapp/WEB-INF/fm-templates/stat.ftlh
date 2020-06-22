@@ -629,7 +629,7 @@
                                 data: dataPack2,
                                 backgroundColor: "#FFA000",
                                 hoverBackgroundColor: "#FFCA28",
-                                barPercentage: 0.75,
+                                barPercentage: 0.5,
                                 hoverBorderWidth: 0
                             },
                         ]
@@ -638,14 +638,6 @@
                         animation: {
                             duration: 10,
                         },
-                        /* tooltips: {
-                             mode: 'label',
-                             callbacks: {
-                                 label: function(tooltipItem, data) {
-                                     return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
-                                 }
-                             }
-                         },*/
                         scales: {
                             xAxes: [{
                                 stacked: true,
@@ -653,9 +645,6 @@
                             }],
                             yAxes: [{
                                 stacked: true,
-                                /*  ticks: {
-                                      callback: function(value) { return numberWithCommas(value); },
-                                  },*/
                             }],
                         },
                         legend: {display: true},
@@ -668,20 +657,6 @@
                             }
                         }
                     },
-                    /* plugins: [{
-                         beforeInit: function (chart) {
-                             chart.data.labels.forEach(function (value, index, array) {
-                                 var a = [];
-                                 a.push(value.slice(0, 5));
-                                 var i = 1;
-                                 while(value.length > (i * 5)){
-                                     a.push(value.slice(i * 5, (i + 1) * 5));
-                                     i++;
-                                 }
-                                 array[index] = a;
-                             })
-                         }
-                     }]*/
                 });
             }
         }
