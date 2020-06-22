@@ -35,7 +35,7 @@ public class ReservationController {
     @Path("/consume/{token}")
     public Response useToken(@PathParam("token") String token) throws URISyntaxException {
 
-        java.net.URI location = new java.net.URI("localhost:8080/token?msg="+reservationService.consumeToken(token));
+        java.net.URI location = new java.net.URI("http://debesciaki.jjdd9.is-academy.pl/token?msg="+reservationService.consumeToken(token));
         return Response.temporaryRedirect(location).build();
     }
 

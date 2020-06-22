@@ -77,7 +77,7 @@ public class ReservationService {
 
             reservationDao.save(reservation);
 
-            mailService.sendEmail(new ReservationTokenMail(event.getName(), "localhost:8080/api/request-reservation/consume/" + token), mail);
+            mailService.sendEmail(new ReservationTokenMail(event.getName(), "http://debesciaki.jjdd9.is-academy.pl/api/request-reservation/consume/" + token), mail);
             return "Udało się wysłać zapytanie o rezerwację!";
         } else {
             STDLOG.error("Failed at finding event that is supposed to be reserved, probabble wrong ID passed or problem with finding user in database");
@@ -121,7 +121,7 @@ public class ReservationService {
 
 
     public void delete(Reservation reservation, String reason) {
-        Optional<Event> eventOptional = eventDao.findById(reservation.getId());
+        Optional<Event> eventOptional = eventDao.findById(reservation.getEvent().getId());
         Event event = eventOptional.get();
         String mail = reservation.getUser().getMail();
         event.setTicketAmount(event.getTicketAmount() + 1L);

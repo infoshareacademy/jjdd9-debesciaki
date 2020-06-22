@@ -10,6 +10,8 @@ Dane dotyczące wydarzeń przechowywane są w bazie na silniku MySQL przy wykorz
 Wybranym ORM do projektu jest Hibernate, aplikacja deployowana jest na serwerze Wildfly.
 Aplikacja została stworzona w technologii Java EE.
 
+[Link](http://debesciaki.jjdd9.is-academy.pl/)
+
 #### Funkcjonalności aplikacji webowej
 
 * Przeglądanie wydarzeń
